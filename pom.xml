@@ -39,6 +39,57 @@
 			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
+
+		<!--
+		========================================================================================== -->
+		<!-- ●以下為 Web App 預備使用● -->
+
+		<!-- Servlet 4.0.1 -->                                <!-- spring-boot 已內建 Servlet
+		4.0.1 依賴，但預設未下載 -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<!-- <version>4.0.1</version> -->
+			<scope>provided</scope> <!-- ※provided只提供編譯，jar檔不匯出 -->
+		</dependency>
+
+		<!-- JSTL -->                                         <!-- spring-boot 未內建依賴 -->
+		<dependency>
+			<groupId>org.apache.taglibs</groupId>
+			<artifactId>taglibs-standard-impl</artifactId>
+			<version>1.2.5</version>
+		</dependency>
+
+		<!-- JSTL -->                                         <!-- spring-boot 未內建依賴 -->
+		<dependency>
+			<groupId>org.apache.taglibs</groupId>
+			<artifactId>taglibs-standard-spec</artifactId>
+			<version>1.2.5</version>
+		</dependency>
+
+		<!-- websocket -->                                    <!-- spring-boot
+		已內建依賴，但預設未下載 -->
+		<dependency>
+			<groupId>javax.websocket</groupId>
+			<artifactId>javax.websocket-api</artifactId>
+			<!-- <version>1.1</version> -->
+			<scope>provided</scope> <!-- ※provided只提供編譯，jar檔不匯出 -->
+		</dependency>
+
+		<!-- javax.json -->                                   <!-- spring-boot 未內建依賴 -->
+		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.json</artifactId>
+			<version>1.1.4</version>
+		</dependency>
+
+		<!-- com.sun.mail -->                                 <!-- spring-boot 未內建依賴 -->
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
