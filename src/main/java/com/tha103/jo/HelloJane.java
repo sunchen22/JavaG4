@@ -6,8 +6,9 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import com.tha103.modal.dao.GroupOrderDAO;
-import com.tha103.modal.dao.GroupOrderDAOHibernateImpl;
+import com.tha103.model.dao.GroupOrderDAO;
+import com.tha103.model.dao.GroupOrderDAOHibernateImpl;
+
 import entity.GroupOrder;
 import entity.UserOrderDetail;
 import entity.UserOrderDetailVary;
