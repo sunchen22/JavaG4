@@ -25,18 +25,18 @@ public class Favorite {
 	@JoinColumn(name = "userID", referencedColumnName = "userID")
 	private UserInfo userInfo;
 	
-//	@ManyToOne
-//	@JoinColumn(name = "dinerID", referencedColumnName = "dinerID")
-//	private DinerInfo dinerInfo;
+	@ManyToOne
+	@JoinColumn(name = "dinerID", referencedColumnName = "dinerID")
+	private DinerInfo dinerInfo;
 	
 	@Column(name="favoriteTime")
 	private Timestamp favoriteTime;
 	
-	public Favorite(Integer favoriteID, UserInfo userInfo, /*DinerInfo dinerInfo ,*/ Timestamp favoriteTime) {
+	public Favorite(Integer favoriteID, UserInfo userInfo, DinerInfo dinerInfo , Timestamp favoriteTime) {
 		super();
 		this.favoriteID = favoriteID;
 		this.userInfo = userInfo;
-//		this.dinerInfo = dinerInfo;
+		this.dinerInfo = dinerInfo;
 		this.favoriteTime = favoriteTime;
 	}
 
@@ -56,13 +56,13 @@ public class Favorite {
 		this.userInfo = userInfo;
 	}
 
-//	public DinerInfo getDinerInfo() {
-//		return dinerInfo;
-//	}
-//
-//	public void setDinerInfo(DinerInfo dinerInfo) {
-//		this.dinerInfo = dinerInfo;
-//	}
+	public DinerInfo getDinerInfo() {
+		return dinerInfo;
+	}
+
+	public void setDinerInfo(DinerInfo dinerInfo) {
+		this.dinerInfo = dinerInfo;
+	}
 
 	public Timestamp getFavoriteTime() {
 		return favoriteTime;

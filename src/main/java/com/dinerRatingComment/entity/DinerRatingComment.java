@@ -21,9 +21,9 @@ public class DinerRatingComment {
 	@Column(name="favoriteID", updatable = false)
 	private Integer commentID;
 	
-//	@ManyToOne
-//	@JoinColumn(name = "dinerID", referencedColumnName = "dinerID")
-//	private DinerInfo dinerInfo;
+	@ManyToOne
+	@JoinColumn(name = "dinerID", referencedColumnName = "dinerID")
+	private DinerInfo dinerInfo;
 	
 	@ManyToOne
 	@JoinColumn(name = "userID", referencedColumnName = "userID")
@@ -52,13 +52,13 @@ public class DinerRatingComment {
 		this.commentID = commentID;
 	}
 
-//	public DinerInfo getDinerInfo() {
-//		return dinerInfo;
-//	}
-//
-//	public void setDinerInfo(DinerInfo dinerInfo) {
-//		this.dinerInfo = dinerInfo;
-//	}
+	public DinerInfo getDinerInfo() {
+		return dinerInfo;
+	}
+
+	public void setDinerInfo(DinerInfo dinerInfo) {
+		this.dinerInfo = dinerInfo;
+	}
 
 	public UserInfo getUserInfo() {
 		return userInfo;

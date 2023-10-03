@@ -30,9 +30,9 @@ public class UserInfo {
 	@Column(name="userNickName")
 	private String userNickName;
 
-//	@ManyToOne
-//	@JoinColumn(name = "buildingID", referencedColumnName = "buildingID")
-//	private BuildingInfo buildingInfo;
+	@ManyToOne
+	@JoinColumn(name = "buildingID", referencedColumnName = "buildingID")
+	private BuildingInfo buildingInfo;
 	
 	@Column(name="buildingID")
 	private Integer buildingID;
@@ -86,12 +86,12 @@ public class UserInfo {
 		this.userNickName = userNickName;
 	}
 	
-//	public BuildingInfo getBuildingInfo() {
-//		return buildingInfo;
-//	}
-//	public void setBuildingInfo(BuildingInfo buildingInfo) {
-//		this.buildingInfo = buildingInfo;
-//	}
+	public BuildingInfo getBuildingInfo() {
+		return buildingInfo;
+	}
+	public void setBuildingInfo(BuildingInfo buildingInfo) {
+		this.buildingInfo = buildingInfo;
+	}
 	public Integer getBuildingID() {
 		return buildingID;
 	}
