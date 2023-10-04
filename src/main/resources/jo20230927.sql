@@ -19,6 +19,7 @@
 -- Table structure for table `advertisement`
 --
 
+
 DROP TABLE IF EXISTS `advertisement`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -28,12 +29,21 @@ CREATE TABLE `advertisement` (
   `advertisementBlob` longblob,
   `advertisementUpTime` datetime DEFAULT NULL,
   `advertisementDownTime` datetime DEFAULT NULL,
-  `advertisementDuringTime` datetime DEFAULT NULL,
-  `advertisementStatus` varchar(3) DEFAULT NULL,
+  `advertisementDuringTime` int DEFAULT NULL,
+  `advertisementStatus` varchar(20) DEFAULT 'Submitted',
   PRIMARY KEY (`advertisementID`),
   KEY `dinerID` (`dinerID`),
   CONSTRAINT `advertisement_ibfk_1` FOREIGN KEY (`dinerID`) REFERENCES `dinerinfo` (`dinerID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+DELIMITER //
+CREATE TRIGGER calculate_days
+BEFORE INSERT ON advertisement FOR EACH ROW
+BEGIN
+  SET NEW.advertisementDuringTime = DATEDIFF(NEW.advertisementDownTime, NEW.advertisementUpTime);
+END;
+//
+DELIMITER ;
+
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +52,7 @@ CREATE TABLE `advertisement` (
 
 LOCK TABLES `advertisement` WRITE;
 /*!40000 ALTER TABLE `advertisement` DISABLE KEYS */;
-INSERT INTO `advertisement` VALUES (1,1,NULL,'2023-09-09 00:00:00','2023-10-09 00:00:00',NULL,NULL),(2,2,NULL,'2023-09-09 00:00:00','2023-10-09 00:00:00',NULL,NULL),(3,3,NULL,'2023-09-09 00:00:00','2023-10-09 00:00:00',NULL,NULL),(4,4,NULL,'2023-09-09 00:00:00','2023-10-09 00:00:00',NULL,NULL),(5,5,NULL,'2023-09-09 00:00:00','2023-10-09 00:00:00',NULL,NULL);
+INSERT INTO `advertisement` VALUES (1,1,NULL,'2023-09-09 00:00:00','2023-10-09 00:00:00','',NULL),(2,2,NULL,'2023-09-09 00:00:00','2023-10-09 00:00:00','',NULL),(3,3,NULL,'2023-09-09 00:00:00','2023-10-09 00:00:00','',NULL),(4,4,NULL,'2023-09-09 00:00:00','2023-10-09 00:00:00','',NULL),(5,5,NULL,'2023-09-09 00:00:00','2023-10-09 00:00:00','',NULL);
 /*!40000 ALTER TABLE `advertisement` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -149,9 +159,9 @@ CREATE TABLE `consumerform` (
   `consumerFormType` varchar(10) NOT NULL,
   `consumerFormMail` varchar(50) NOT NULL,
   `consumerFormPhone` varchar(10) NOT NULL,
-  `consumerFormContent` text NOT NULL,
+  `consumerFormContent` longtext NOT NULL,
   `consumerFormReplyStatus` varchar(10) NOT NULL,
-  `consumerFormReplyContent` text,
+  `consumerFormReplyContent` longtext,
   `consumerFormReplyTime` datetime DEFAULT NULL,
   `empID` int DEFAULT NULL,
   PRIMARY KEY (`consumerFormID`),
@@ -184,9 +194,9 @@ CREATE TABLE `dinerform` (
   `dinerID` int NOT NULL,
   `dinerFormTime` datetime NOT NULL,
   `dinerFormType` varchar(10) NOT NULL,
-  `dinerFormContent` text NOT NULL,
+  `dinerFormContent` longtext NOT NULL,
   `dinerFormReplyStatus` varchar(10) NOT NULL,
-  `dinerFormReplyContent` text,
+  `dinerFormReplyContent` longtext,
   `dinerFormReplyTime` datetime DEFAULT NULL,
   `empID` int DEFAULT NULL,
   PRIMARY KEY (`dinerFormID`),
@@ -228,7 +238,7 @@ CREATE TABLE `dinerinfo` (
   `dinerAccount` varchar(16) NOT NULL,
   `dinerAccountName` varchar(30) NOT NULL,
   `dinerType` varchar(1) NOT NULL,
-  `dinerOpenHoursID` int DEFAULT NULL,
+  `dinerStatus` varchar(15) DEFAULT 'Submitted',
   `dinerOrderThreshold` int DEFAULT NULL,
   `dinerBlob` longblob,
   PRIMARY KEY (`dinerID`),
@@ -244,7 +254,7 @@ CREATE TABLE `dinerinfo` (
 
 LOCK TABLES `dinerinfo` WRITE;
 /*!40000 ALTER TABLE `dinerinfo` DISABLE KEYS */;
-INSERT INTO `dinerinfo` VALUES (1,'John\'s Cafe','P@ssw0rd1','2023-09-12 16:18:14','12345678','John Smith','0912345678','johnscafe1478@gmail.com','台北市羅斯福路三段124巷7樓','001','1234567890123456','王大明','M',1,100,NULL),(2,'Mia\'s Pizzeria','PizzaL0ver','2023-09-12 16:18:14','23456789','Mia Johnson','0923456789','mia555@gmail.com','台北市中山區南京西路12巷13弄9號','808','2345678901234567','周旺財','D',2,150,NULL),(3,'Tony\'s Sushi','Sushi123','2023-09-12 16:18:14','34567890','Tony Kim','0934567890','tony123@gmail.com','台北市大同區南京西路18巷6弄8之1號','003','3456789012345678','楊家將','X',3,200,NULL),(4,'Lucy\'s Diner','D1n3rTime','2023-09-12 16:18:14','45678901','Lucy Davis','0945678901','lucy222@gmail.com','103台北市中山區南京西路18巷6弄8號','812','4567890123456789','吳優','M',4,250,NULL),(5,'David\'s Deli','Del1cious','2023-09-12 16:18:14','56789012','David Lee','0956789012','david3@gmail.com','103台北市大同區南京西路64巷9弄19號','100','5678901234567890','應該是','D',5,300,NULL);
+INSERT INTO `dinerinfo` VALUES (1,'John\'s Cafe','P@ssw0rd1','2023-09-12 16:18:14','12345678','John Smith','0912345678','johnscafe1478@gmail.com','台北市羅斯福路三段124巷7樓','001','1234567890123456','王大明','M','Submitted',100,NULL),(2,'Mia\'s Pizzeria','PizzaL0ver','2023-09-12 16:18:14','23456789','Mia Johnson','0923456789','mia555@gmail.com','台北市中山區南京西路12巷13弄9號','808','2345678901234567','周旺財','D','Submitted',150,NULL),(3,'Tony\'s Sushi','Sushi123','2023-09-12 16:18:14','34567890','Tony Kim','0934567890','tony123@gmail.com','台北市大同區南京西路18巷6弄8之1號','003','3456789012345678','楊家將','X','Submitted',200,NULL),(4,'Lucy\'s Diner','D1n3rTime','2023-09-12 16:18:14','45678901','Lucy Davis','0945678901','lucy222@gmail.com','103台北市中山區南京西路18巷6弄8號','812','4567890123456789','吳優','M','Submitted',250,NULL),(5,'David\'s Deli','Del1cious','2023-09-12 16:18:14','56789012','David Lee','0956789012','david3@gmail.com','103台北市大同區南京西路64巷9弄19號','100','5678901234567890','應該是','D','Submitted',300,NULL);
 /*!40000 ALTER TABLE `dinerinfo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -481,7 +491,7 @@ DROP TABLE IF EXISTS `userfaq`;
 CREATE TABLE `userfaq` (
   `userFAQID` int NOT NULL AUTO_INCREMENT,
   `userFAQTitle` varchar(50) NOT NULL,
-  `userFAQContent` text NOT NULL,
+  `userFAQContent` longtext NOT NULL,
   `userFAQReleaseTime` datetime NOT NULL,
   `userFAQReviseTime` datetime DEFAULT NULL,
   `empID` int NOT NULL,
@@ -679,6 +689,7 @@ CREATE TABLE `webempadmin` (
   `empArriveDate` date NOT NULL,
   `empAdminAuthorization` varchar(100) NOT NULL,
   `empBlob` LONGBLOB,
+  `empDeactivate` tinyint(1) NOT NULL default '0',
   PRIMARY KEY (`empID`),
   UNIQUE KEY `empName` (`empName`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -690,7 +701,7 @@ CREATE TABLE `webempadmin` (
 
 LOCK TABLES `webempadmin` WRITE;
 /*!40000 ALTER TABLE `webempadmin` DISABLE KEYS */;
-INSERT INTO `webempadmin` VALUES (1,'John Doe','pw0101','2023-09-08','Admin', NULL),(2,'Jane Smith','pw0202','2023-09-07','Admin', NULL),(3,'Bob Johnson','pw0303','2023-09-06','manager', NULL),(4,'Alice Brown','pw0404','2023-09-05','manager', NULL),(5,'Eva Wilson','pw0505','2023-09-04','Admin', NULL);
+INSERT INTO `webempadmin` VALUES (1,'John Doe','pw0101','2023-09-08','Admin', NULL, 0),(2,'Jane Smith','pw0202','2023-09-07','Admin', NULL, 0),(3,'Bob Johnson','pw0303','2023-09-06','manager', NULL, 0),(4,'Alice Brown','pw0404','2023-09-05','manager', NULL, 0),(5,'Eva Wilson','pw0505','2023-09-04','Admin', NULL, 1);
 /*!40000 ALTER TABLE `webempadmin` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

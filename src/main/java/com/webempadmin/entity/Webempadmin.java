@@ -1,4 +1,4 @@
-package entity;
+package com.webempadmin.entity;
 
 import java.util.Date;
 
@@ -32,12 +32,14 @@ public class Webempadmin {
 	@Column(name = "empBlob" , columnDefinition = "longblob")
 	private byte[] empBlob;
 	
+	@Column(name = "empDeactivate")
+	private boolean empDeactivate;
 
 	public Webempadmin() {
 		super();
 	}
 
-	public Webempadmin(Integer empID, String empName, String empPassword, Date empArriveDate, String empAdminAuthorization, byte[] empBlob) {
+	public Webempadmin(Integer empID, String empName, String empPassword, Date empArriveDate, String empAdminAuthorization, byte[] empBlob, boolean empDeactivate) {
 		super();
 		this.empID = empID;
 		this.empName = empName;
@@ -45,6 +47,7 @@ public class Webempadmin {
 		this.empArriveDate = empArriveDate;
 		this.empAdminAuthorization = empAdminAuthorization;
 		this.empBlob = empBlob;
+		this.empDeactivate = empDeactivate;
 		
 	}
 
@@ -85,4 +88,16 @@ public class Webempadmin {
 		this.empBlob = empBlob;
 	}
 
+	public boolean getEmpDeactivate() {
+		return empDeactivate;
+	}
+
+	public void setEmpDeactivate(boolean empDeactivate) {
+		this.empDeactivate = empDeactivate;
+	}
+	
+	@Override
+	public String toString() {
+		return "Webempadmin [empID=" + empID + ", empName=" + empName + ", empPassword=" + empPassword + ", empArriveDate=" + empArriveDate + ",empAdminAuthorization =" +empAdminAuthorization+"]";
+	}
 }
