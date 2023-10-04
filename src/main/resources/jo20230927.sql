@@ -407,6 +407,7 @@ CREATE TABLE `product` (
   `productBlob2` longblob,
   `productBlob3` longblob,
   `productRemark` varchar(500) DEFAULT NULL,
+  `productStatus` varchar(5) NOT NULL DEFAULT '上架中',
   PRIMARY KEY (`productID`),
   UNIQUE KEY `unique_productName` (`dinerID`,`productName`),
   KEY `productTypeID` (`productTypeID`),
@@ -421,7 +422,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1,1,'滷肉飯',70,1,100,'2023-09-12 16:18:20',_binary 'productBlob1','','','滷肉飯商家新增說明'),(2,2,'陽春麵',60,2,110,'2023-09-12 16:18:20',_binary 'productBlob1','','','陽春麵商家新增說明'),(3,3,'雞腿飯',100,1,120,'2023-09-12 16:18:20',_binary 'productBlob1','','','雞腿飯商家新增說明'),(4,4,'珍珠奶茶',60,3,130,'2023-09-12 16:18:20',_binary 'productBlob1','','','珍珠奶茶商家新增說明'),(5,5,'綠茶',40,3,140,'2023-09-12 16:18:20',_binary 'productBlob1','','','綠茶商家新增說明');
+INSERT INTO `product` VALUES (1,1,'滷肉飯',70,1,100,'2023-09-12 16:18:20',_binary 'productBlob1','','','滷肉飯商家新增說明','上架中'),(2,2,'陽春麵',60,2,110,'2023-09-12 16:18:20',_binary 'productBlob1','','','陽春麵商家新增說明','上架中'),(3,3,'雞腿飯',100,1,120,'2023-09-12 16:18:20',_binary 'productBlob1','','','雞腿飯商家新增說明','上架中'),(4,4,'珍珠奶茶',60,3,130,'2023-09-12 16:18:20',_binary 'productBlob1','','','珍珠奶茶商家新增說明','上架中'),(5,5,'綠茶',40,3,140,'2023-09-12 16:18:20',_binary 'productBlob1','','','綠茶商家新增說明','上架中');
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
