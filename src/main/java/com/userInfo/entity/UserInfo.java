@@ -34,8 +34,8 @@ public class UserInfo {
 	@JoinColumn(name = "buildingID", referencedColumnName = "buildingID")
 	private BuildingInfo buildingInfo;
 	
-	@Column(name="buildingID")
-	private Integer buildingID;
+//	@Column(name="buildingID")
+//	private Integer buildingID;
 
 	@Column(name="userBirthday")
 	private Date userBirthday;
@@ -92,12 +92,12 @@ public class UserInfo {
 	public void setBuildingInfo(BuildingInfo buildingInfo) {
 		this.buildingInfo = buildingInfo;
 	}
-	public Integer getBuildingID() {
-		return buildingID;
-	}
-	public void setBuildingID(Integer buildingID) {
-		this.buildingID = buildingID;
-	}
+//	public Integer getBuildingID() {
+//		return buildingID;
+//	}
+//	public void setBuildingID(Integer buildingID) {
+//		this.buildingID = buildingID;
+//	}
 	public Date getUserBirthday() {
 		return userBirthday;
 	}
@@ -111,11 +111,12 @@ public class UserInfo {
 		this.userBlob = userBlob;
 	}
 	
+	
 	@Override
 	public String toString() {
 		return "UserInfo [userID=" + userID + ", userAccount=" + userAccount + ", userPassword=" + userPassword
 				+ ", userPhone=" + userPhone + ", userName=" + userName + ", userRegisterTime=" + userRegisterTime
-				+ ", userNickName=" + userNickName + ", buildingID=" + buildingID + ", userBirthday=" + userBirthday
+				+ ", userNickName=" + userNickName + /* ", buildingID=" + buildingID + */ ", userBirthday=" + userBirthday
 				+ "]";
 	}
 	
