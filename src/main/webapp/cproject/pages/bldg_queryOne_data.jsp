@@ -3,7 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.*"%>
 <%@ page import="com.buildinginfo.dao.*"%>
-<%@ page import="com.buildinginfo.entity.BuildingInfo.*"%>
+<%@ page import="com.buildinginfo.entity.BuildingInfo"%>
 
 
 <head>
