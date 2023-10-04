@@ -6,7 +6,7 @@
 	<session-factory>
 		<property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
 		<property name="hibernate.connection.password">5acv4lqw</property>
-		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/JDBCSample?serverTimezone=Asia/Taipei</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/jo?serverTimezone=Asia/Taipei</property>
 		<property name="hibernate.connection.username">root</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 
@@ -17,9 +17,9 @@
 
 		<mapping class="entity.UserInfo" />
 		<mapping class="entity.DinerInfo" />
-		<mapping class="entity.Product" />
-		<mapping class="entity.ProductType" />
-		<mapping class="entity.ProductVary " />
+		<mapping class="com.product.entity.Product" />
+		<mapping class="com.producttype.entity.ProductType" />
+		<mapping class="com.productvary.entity.ProductVary " />
 		<mapping class="entity.GroupOrder " />
 		<mapping class="entity.UserOrderDetail " />
 		<mapping class="entity.UserOrderDetailVary" />
@@ -35,7 +35,7 @@
 		<mapping class="entity.OnlineChat" />
 		<mapping class="entity.Favorite" />
 		<mapping class="entity.businessHours" />
-		<mapping class="entity.VaryType" />
+		<mapping class="com.varytype.entity.VaryType" />
 		<mapping class="entity.DinerNews" />
 		
 	</session-factory>
