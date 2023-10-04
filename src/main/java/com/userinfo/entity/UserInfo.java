@@ -1,8 +1,10 @@
-package com.userInfo.entity;
+package com.userinfo.entity;
 import java.sql.Date;
 import java.sql.Timestamp;
 
 import javax.persistence.*;
+
+import com.buildinginfo.entity.BuildingInfo;
 
 @Entity
 @Table

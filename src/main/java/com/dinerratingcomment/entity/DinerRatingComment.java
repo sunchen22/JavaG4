@@ -1,4 +1,4 @@
-package com.dinerRatingComment.entity;
+package com.dinerratingcomment.entity;
 
 import java.sql.Timestamp;
 
@@ -9,7 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.userInfo.entity.UserInfo;
+import com.dinerinfo.entity.DinerInfo;
+import com.userinfo.entity.UserInfo;
 
 public class DinerRatingComment {
 

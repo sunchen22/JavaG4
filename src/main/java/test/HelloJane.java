@@ -10,7 +10,7 @@ import com.grouporder.dao.GroupOrderDAO;
 import com.grouporder.dao.GroupOrderDAOHibernateImpl;
 import com.userorderdetail.entity.UserOrderDetail;
 import com.userorderdetailvary.entity.UserOrderDetailVary;
-import com.util.HibernateUtil;
+import util.HibernateUtil;
 
 import com.grouporder.entity.GroupOrder;
 

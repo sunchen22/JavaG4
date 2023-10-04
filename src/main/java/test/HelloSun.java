@@ -2,7 +2,7 @@ package test;
 
 import org.hibernate.Session;
 
-import com.util.HibernateUtil;
+import util.HibernateUtil;
 import com.webempadmin.entity.Webempadmin;
 
 

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import com.util.HibernateUtil;
+import util.HibernateUtil;
 
 import com.grouporder.entity.GroupOrder;
 
