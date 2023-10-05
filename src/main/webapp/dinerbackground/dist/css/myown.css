@@ -1,0 +1,6 @@
+th {
+    &:hover {
+        color: red;
+        cursor: pointer;
+    }
+}

@@ -1,0 +1,88 @@
+
+  /* 整個頁籤及內容最外層區塊 */
+  div.tab_container{
+    
+  }
+  
+  /* 頁籤區塊 */
+  div.tab_container div.tab_list_block{
+    padding-left: 20px;
+    position: relative;
+    z-index: 2;
+  }
+  
+  /* 頁籤列表 */
+  div.tab_container div.tab_list_block ul.tab_list{
+    list-style: none;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+  }
+  div.tab_container div.tab_list_block ul.tab_list > li{
+    display: inline-block;
+  }
+  div.tab_container div.tab_list_block ul.tab_list > li > a{
+    text-decoration: none;
+    display: inline-block;
+    border-top: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    
+  /*   border-bottom: 1px solid black; */
+    padding: 2px 20px;
+    border-radius: 5px 5px 0 0;
+    cursor: pointer;
+    color: #ccc;
+  }
+  
+  /* 畫出底部黑線 */
+  
+  div.tab_container div.tab_list_block ul.tab_list > li > a.-on{
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+    border-bottom: 1px solid white;
+    color: black;
+  }
+  
+  /* 頁籤內容區塊 */
+  div.tab_container div.tab_contents{
+    border: 1px solid black;
+    position: relative;
+    top: -1px;
+    
+    z-index: 1;
+  }
+  div.tab_container div.tab_contents div.tab{
+    padding: 10px;
+    display: none;
+  }
+  div.tab_container div.tab_contents div.tab.-on{
+    display: block;
+  }
+
+
+/*input標籤沒有調整*/
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
+button.print{
+  float: right; 
+  font-weight:bold
+  
+}
+
+div.dataTables_paginate{
+  float: right; 
+}
