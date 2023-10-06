@@ -35,9 +35,6 @@ public class UserInfo {
 	@ManyToOne
 	@JoinColumn(name = "buildingID", referencedColumnName = "buildingID")
 	private BuildingInfo buildingInfo;
-	
-//	@Column(name="buildingID")
-//	private Integer buildingID;
 
 	@Column(name="userBirthday")
 	private Date userBirthday;
@@ -94,12 +91,7 @@ public class UserInfo {
 	public void setBuildingInfo(BuildingInfo buildingInfo) {
 		this.buildingInfo = buildingInfo;
 	}
-//	public Integer getBuildingID() {
-//		return buildingID;
-//	}
-//	public void setBuildingID(Integer buildingID) {
-//		this.buildingID = buildingID;
-//	}
+
 	public Date getUserBirthday() {
 		return userBirthday;
 	}
