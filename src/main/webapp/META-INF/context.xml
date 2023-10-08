@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<Context>
+
+<!-- 	<Resource  -->
+<!-- 		name="jdbc/TestDB"  -->
+<!-- 		type="javax.sql.DataSource" -->
+<!-- 		driverClassName="com.mysql.cj.jdbc.Driver" -->
+<!-- 		maxActive="8"  -->
+<!-- 		maxIdle="4" -->
+<!-- 		maxWait="5000" /> -->
+<!-- 		url="jdbc:mysql://localhost:3306/jo?serverTimezone=Asia/Taipei" -->
+<!-- 		username="root"  -->
+<!-- 		password="5acv4lqw" -->
+		
+<!-- 	<Resource  -->
+<!-- 		name="jdbc/David"  -->
+<!-- 		type="javax.sql.DataSource" -->
+<!-- 		driverClassName="com.mysql.cj.jdbc.Driver" -->
+<!-- 		auth="Container" -->
+<!-- 		maxIdle="10"  -->
+<!-- 		maxTotal="20" -->
+<!-- 		maxWaitMillis="-1"  -->
+<!-- 		url="jdbc:mysql://localhost:3306/jdbcsample?serverTimezone=Asia/Taipei" -->
+<!-- 		username="root" /> -->
+<!-- 		password="5acv4lqw" -->
+
+</Context>
