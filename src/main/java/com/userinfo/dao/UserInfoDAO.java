@@ -1,139 +1,72 @@
 package com.userinfo.dao;
 
-import java.io.FileInputStream;
-import java.io.*;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
-import com.buildinginfo.entity.BuildingInfo;
 import com.userinfo.entity.UserInfo;
 
-import util.HibernateUtil;
+
+
 
 public class UserInfoDAO implements UserInfoDAO_Interface {
+	private SessionFactory factory;
+	
+	public UserInfoDAO(SessionFactory factory) {
+		this.factory = factory;
+	}
+	
+	private Session getSession() {
+		return factory.getCurrentSession();
+	}
 
 	@Override
 	public int insert(UserInfo userInfo) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-			Integer insertID = (Integer) session.save(userInfo);
-			session.getTransaction().commit();
-			return insertID;
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		}
-		return -1;
+		System.out.println("開始insert");
+		return (Integer) getSession().save(userInfo);
 	}
 
 	@Override
-	public int update(UserInfo userInfo) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	public UserInfo update(UserInfo userInfo) {
 		try {
-			session.beginTransaction();
-			session.update(userInfo);
-			session.getTransaction().commit();
-			return 1;
+			getSession().update(userInfo);
+			return userInfo;
 		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
+			return null;
 		}
-		return -1;
 	}
 
 	@Override
-	public int delete(Integer userInfono) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-			UserInfo userInfo = session.get(UserInfo.class, userInfono);
-			if (userInfo != null) {
-				session.delete(userInfo);
-			}
-			session.getTransaction().commit();
+	public int delete(Integer userID) {
+		UserInfo userInfo = getSession().get(UserInfo.class, userID);
+		if (userInfo != null) {
+			getSession().delete(userInfo);
+			// 回傳給 service，1代表刪除成功
 			return 1;
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
+		} else {
+			// 回傳給 service，-1代表刪除失敗
+			return -1;
 		}
-		return -1;
 	}
 
 	@Override
 	public UserInfo findByPrimaryKey(Integer userID) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-			UserInfo userInfo = session.get(UserInfo.class, userID);
-			session.getTransaction().commit();
-			return userInfo;
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		}
-		return null;
+		return getSession().get(UserInfo.class, userID);
 	}
 
 	@Override
 	public List<UserInfo> getAll() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-			List<UserInfo> list = session.createQuery("from UserInfo", UserInfo.class).list();
-			session.getTransaction().commit();
-			return list;
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		}
-		return null;
+		return getSession().createQuery("from UserInfo", UserInfo.class).list();
 	}
 	
-	public static void main(String[] args) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-			
-			//關聯BuildinInfo
-            BuildingInfo buildingInfo = session.get(BuildingInfo.class, 1); 
-            if (buildingInfo == null) {
-                buildingInfo = new BuildingInfo();
-                session.save(buildingInfo);
-            }
-            
-            
-			
-            UserInfo userInfo = new UserInfo();
-			userInfo.setUserAccount("TestAccount1");
-			userInfo.setUserPassword("testPassword");
-			userInfo.setUserPhone("0934567890");
-			userInfo.setUserName("TestName");
-			userInfo.setUserRegisterTime(new java.sql.Timestamp(System.currentTimeMillis()));
-			userInfo.setUserNickName("TestNick");
-			userInfo.setBuildingInfo(buildingInfo);
-			userInfo.setUserBirthday(java.sql.Date.valueOf("2005-01-01"));
-			try {
-			    InputStream is = new FileInputStream("C:/Pictures/natalie_portman_1.jpg");
-			    byte[] userBlobData = is.readAllBytes();
-			    userInfo.setUserBlob(userBlobData);
-			} catch(IOException e) {
-			    e.printStackTrace();
-			}
-			
-			session.save(userInfo);
-			
-			session.getTransaction().commit();
-			
-		} catch (Exception e) {
-			session.getTransaction().rollback();
-			e.printStackTrace();
-		} finally {
-			HibernateUtil.shutdown();
-		}
-		
-		
+	
+	public UserInfo findByUserAccount(String userAccount) {
+	    return getSession()
+	            .createQuery("from UserInfo where useraccount = :userAccount", UserInfo.class)
+	            .setParameter("userAccount", userAccount)
+	            .uniqueResult();
 	}
 
+	
 }

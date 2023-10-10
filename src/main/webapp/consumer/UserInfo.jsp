@@ -2,7 +2,8 @@
 <%@ include file="components/head.jsp" %> 
 <%-- Import CSS for this page below (if any) --%>
 <link href="./css/style.css" rel="stylesheet">
-  
+<%@ page import="com.userinfo.entity.*"%>
+
 
 
 <title>樓頂揪樓咖-消費者個人資訊</title>  <%-- Remember to edit the page title --%>
@@ -48,34 +49,39 @@
             <div class="row mb-3">
               <label for="userName" class="col-form-label col-md-3">姓名：</label>
               <div class="col-md-9">
-                <input type="text" class="form-control" id="userName" maxlength="20" value="劉德華">
+              	<input type="hidden" name="userID" value="${loginUserInfo.userID}">
+                <input type="text" class="form-control" id="userName" maxlength="20" 
+                value="${loginUserInfo.userName}" name="userName">
               </div>
             </div>
             <div class="row mb-3">
               <label for="nickName" class="col-form-label col-md-3">暱稱：</label>
               <div class="col-md-9">
-                <input type="text" class="form-control" id="nickName" value="老劉" maxlength="20">
+                <input type="text" class="form-control" id="nickName" name="userNickName"
+                value="${loginUserInfo.userNickName}" maxlength="20">
               </div>
             </div>
             <div class="row mb-3">
               <label for="userphone" class="col-form-label col-md-3">手機號碼：</label>
               <div class="col-md-9">
-                <input type="text" class="form-control" id="userphone" value="0912345678" maxlength="10">
+                <input type="text" class="form-control" name="userPhone"
+                id="userphone" value="${loginUserInfo.userPhone}" maxlength="10">
               </div>
             </div>
             <div class="row mb-3">
               <label for="building" class="col-form-label col-md-3">常用大樓：</label>
               <div class="col-md-9">
-                <input type="text" class="form-control" id="building" value="緯育大樓" maxlength="10">
+                <input type="text" class="form-control" id="building" value="${loginUserInfo.buildingInfo.buildingName}" maxlength="10">
               </div>
             </div>
             <div class="row mb-3">
               <label for="userBirthday" class="col-form-label col-md-3">生日：</label>
               <div class="col-md-9">
-                <input type="text" class="form-control" id="userBirthday" value="2003/03/03" disabled>
+                <input type="text" class="form-control" id="userBirthday" value="${loginUserInfo.userBirthday}" disabled>
               </div>
             </div>
             <div class="d-grid">
+            <input type="hidden" name="action" value="update">
               <button type="submit" class="btn btn-primary">確認修改</button>
             </div>
           </form>

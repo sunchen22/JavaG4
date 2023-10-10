@@ -10,16 +10,16 @@
 	<jsp:include page="./components/nav.jsp"></jsp:include>  <%-- The navigation bar --%>
 	
 	<%-- Page content start --%>
-	<section class="container ">
+	<section class="container mt-3 mb-5">
     <div class="card mx-auto col-4 ">
       <div class="card-header text-center">
         <p class="h1"><b>登入</b></p>
       </div>
       <div class="card-body">
         <p>進入後開始點餐吧！</p>
-        <form action="#" method="post">
+        <form action="user.do" method="post">
           <div class="input-group mb-3">
-            <input type="email" class="form-control" placeholder="請輸入帳號Email">
+            <input type="email" class="form-control" placeholder="請輸入帳號Email" name="userAccount">
             <div class="input-group-append">
               <div class="input-group-text h-100">
                 <span class="fas fa-envelope"></span>
@@ -27,7 +27,7 @@
             </div>
           </div>
           <div class="input-group mb-3">
-            <input type="password" class="form-control" placeholder="請輸入登入密碼">
+            <input type="password" class="form-control" placeholder="請輸入登入密碼" name="userPassword">
 
             <div class="input-group-append">
               <div class="input-group-text h-100">
@@ -46,17 +46,27 @@
             </div>
 
             <div class="col-4">
+            	<input type="hidden" name="action" value="login">
               <button type="submit" class="btn btn-primary btn-block">登入</button>
             </div>
 
           </div>
+          <%-- 錯誤表列 --%>
+			<c:if test="${not empty errorMsgs}">
+				<font style="color: red">請重新輸入</font>
+				<ul>
+					<c:forEach var="message" items="${errorMsgs}">
+						<li style="color: red">${message}</li>
+					</c:forEach>
+				</ul>
+			</c:if>
         </form>
 
         <p class="mb-1">
-          <a href="ForgetPwd.html">忘記密碼</a>
+          <a href="${pageContext.request.contextPath}/consumer/ForgetPwd.jsp">忘記密碼</a>
         </p>
         <p class="mb-0">
-          <a href="registration.html" class="registration_link">我要註冊</a>
+          <a href="${pageContext.request.contextPath}/consumer/Registration.jsp" class="registration_link">我要註冊</a>
         </p>
       </div>
 

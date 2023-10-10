@@ -1,14 +1,19 @@
 package com.userinfo.entity;
+import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Set;
 
 import javax.persistence.*;
 
 import com.buildinginfo.entity.BuildingInfo;
+import com.favorite.entity.Favorite;
+
+
 
 @Entity
-@Table
-public class UserInfo {
+@Table(name="userinfo")
+public class UserInfo implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="userID", updatable = false)
@@ -66,9 +71,15 @@ public class UserInfo {
 	public void setUserPhone(String userPhone) {
 		this.userPhone = userPhone;
 	}
+	
 	public String getUserName() {
 		return userName;
 	}
+	
+	@OneToMany(mappedBy = "userInfo", cascade = CascadeType.ALL)
+	@OrderBy("favoriteTime")
+	private Set<Favorite> favoriteSet;
+	
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
