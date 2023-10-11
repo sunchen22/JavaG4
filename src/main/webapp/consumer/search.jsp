@@ -3,7 +3,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.grouporder.dao.GroupOrderDAO"%>
 <%@ page import="com.grouporder.dao.GroupOrderDAOHibernateImpl"%>
-<%@ page import="com.grouporder.dao.GroupOrderJDBCDAO"%>
 <%@ page import="java.util.*"%>
 <%@ page import="java.util.List"%>
 <%@ page import="com.grouporder.entity.GroupOrder"%>
@@ -161,7 +160,7 @@
 							<!-- Count and sort end -->
 
 							<!-- Cards start -->
-							<div class="mt-3">
+							<div class="mt-3" id="group_order_results">
 								<!-- Card start -->
 
 								<c:forEach var="groupOrderVO" items="${list}">
