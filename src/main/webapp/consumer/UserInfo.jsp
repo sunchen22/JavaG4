@@ -3,6 +3,7 @@
 <%-- Import CSS for this page below (if any) --%>
 <link href="./css/style.css" rel="stylesheet">
 <%@ page import="com.userinfo.entity.*"%>
+<%@ page import="java.util.Base64" %>
 
 
 
@@ -46,6 +47,13 @@
       <div class="tab-content col-9" id="v-pills-tabContent">
         <div class="tab-pane fade show active" id="v-pills-info" role="tabpanel" aria-labelledby="v-pills-info-tab">
           <form>
+            <div class="row mb-3">
+              <label for="userAccount" class="col-form-label col-md-3">帳號：</label>
+              <div class="col-md-9">
+                <input type="text" class="form-control" id="userAccount" maxlength="20" 
+                value="${loginUserInfo.userAccount}" name="userAccount">
+              </div>
+            </div>
             <div class="row mb-3">
               <label for="userName" class="col-form-label col-md-3">姓名：</label>
               <div class="col-md-9">
