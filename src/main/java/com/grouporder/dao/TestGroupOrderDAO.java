@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.grouporder.entity.GroupOrder;
 
+
 public class TestGroupOrderDAO {
 	public static void main(String[] args) throws Exception {
 		GroupOrderDAO dao = new GroupOrderDAOHibernateImpl();
@@ -46,16 +47,21 @@ public class TestGroupOrderDAO {
 //		System.out.println("---------------------");
 
 //		//查詢多筆
-		List<GroupOrder> list = dao.getAll();
-		for (GroupOrder groupOrder : list) {
-			System.out.print(groupOrder.getGroupOrderID() + ",");
-			System.out.print(groupOrder.getDinerID() + ",");
-			System.out.print(groupOrder.getBuildingID() + ",");
-			System.out.print(groupOrder.getOrderStatus() + ",");
-			System.out.print(groupOrder.getGroupOrderCreateTime() + ",");
-			System.out.print(groupOrder.getGroupOrderSubmitTime() + ",");
-			System.out.println(groupOrder.getHolderID());
-			System.out.println();
-		}
+//		List<GroupOrder> list = dao.getAll();
+//		for (GroupOrder groupOrder : list) {
+//			System.out.print(groupOrder.getGroupOrderID() + ",");
+//			System.out.print(groupOrder.getDinerID() + ",");
+//			System.out.print(groupOrder.getBuildingID() + ",");
+//			System.out.print(groupOrder.getOrderStatus() + ",");
+//			System.out.print(groupOrder.getGroupOrderCreateTime() + ",");
+//			System.out.print(groupOrder.getGroupOrderSubmitTime() + ",");
+//			System.out.println(groupOrder.getHolderID());
+//			System.out.println();
+//		}
+
+		// 查詢join
+		List<Object[]> results = dao.getAllJoin(2);
+		System.out.println(results);
+		
 	}
 }
