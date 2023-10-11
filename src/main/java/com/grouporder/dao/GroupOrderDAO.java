@@ -10,4 +10,6 @@ public interface GroupOrderDAO {
 	int delete(Integer groupOrderID);
 	GroupOrder findByPK(Integer groupOrderID);
 	List<GroupOrder> getAll();
+	List<Object[]> getAllJoin(int currentPage);
+	List<Object[]> getOneJoin(int groupOrderID);
 }

@@ -1,7 +1,7 @@
 package com.product.entity;
 
 import java.sql.Blob;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,7 +35,7 @@ public class Product {
 	private Integer productDailyStock;
 
 	@Column(name = "productReleaseTime", insertable = false)
-	private Date productReleaseTime;
+	private Timestamp productReleaseTime;
 
 	@Column(name = "productBlob1")
 	private Blob productBlob1;
@@ -54,7 +54,7 @@ public class Product {
 	}
 
 	public Product(Integer productID, Integer dinerID, String productName, Integer productPrice, Integer productTypeID,
-			Integer productDailyStock, Date productReleaseTime, Blob productBlob1, Blob productBlob2, Blob productBlob3,
+			Integer productDailyStock, Timestamp productReleaseTime, Blob productBlob1, Blob productBlob2, Blob productBlob3,
 			String productRemark) {
 		super();
 		this.productID = productID;
@@ -118,11 +118,11 @@ public class Product {
 		this.productDailyStock = productDailyStock;
 	}
 
-	public Date getProductReleaseTime() {
+	public Timestamp getProductReleaseTime() {
 		return productReleaseTime;
 	}
 
-	public void setProductReleaseTime(Date productReleaseTime) {
+	public void setProductReleaseTime(Timestamp productReleaseTime) {
 		this.productReleaseTime = productReleaseTime;
 	}
 

@@ -9,7 +9,10 @@
 	<artifactId>jo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/sunchen22/JavaG4.git
 	<name>jo</name>
 	<!-- FIXME change it to the project's website -->
 	<url>http://www.example.com</url>
@@ -68,8 +71,19 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+<<<<<<< HEAD
 		<!-- ============================== -->
 
+=======
+				<!-- Gson added by Jane -->
+		<dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		    <version>2.10.1</version>
+		</dependency>
+<!-- ============================== -->		
+		
+>>>>>>> branch 'master' of https://github.com/sunchen22/JavaG4.git
 	</dependencies>
 
 	<build>
@@ -115,6 +129,7 @@
 					<artifactId>maven-project-info-reports-plugin</artifactId>
 					<version>3.0.0</version>
 				</plugin>
+<<<<<<< HEAD
 
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -122,6 +137,13 @@
 					<version>3.3.1</version>
 				</plugin>
 
+=======
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>3.3.1</version>
+				</plugin>
+>>>>>>> branch 'master' of https://github.com/sunchen22/JavaG4.git
 			</plugins>
 		</pluginManagement>
 	</build>
