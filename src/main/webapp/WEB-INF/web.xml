@@ -9,12 +9,12 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  <servlet>
-    <servlet-name>BuildingInfoServlet</servlet-name>
+	<servlet>
+    <servlet-name>BuildingInfo</servlet-name>
     <servlet-class>com.buildinginfo.controller.BuildingInfoServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>BuildingInfoServlet</servlet-name>
-    <url-pattern>/pages/bis.do</url-pattern>
+    <servlet-name>BuildingInfo</servlet-name>
+    <url-pattern>/cproject/pages/bis.do</url-pattern>
   </servlet-mapping>
 </web-app>
