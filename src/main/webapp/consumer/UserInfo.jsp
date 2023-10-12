@@ -1,4 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%-- <% 
+                       // 從 session內取出 (key) account的值
+     if (session.getAttribute("loginUserInfo") == null) {                                             // 如為 null, 代表此user未登入過 , 才做以下工作
+       session.setAttribute("location", request.getRequestURI());       //*工作1 : 同時記下目前位置 , 以便於login.html登入成功後 , 能夠直接導至此網頁(須配合LoginHandler.java)
+       response.sendRedirect(request.getContextPath()+"/jo/consumer/Login.jsp");   //*工作2 : 請該user去登入網頁(login.html) , 進行登入
+       return;
+     }
+%> --%>
 <%@ include file="components/head.jsp" %> 
 <%-- Import CSS for this page below (if any) --%>
 <link href="./css/style.css" rel="stylesheet">

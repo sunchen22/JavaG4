@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
+
 <%@ include file="components/head.jsp" %> 
 <%-- Import CSS for this page below (if any) --%>
 

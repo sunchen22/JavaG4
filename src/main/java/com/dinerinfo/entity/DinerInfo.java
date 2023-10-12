@@ -7,11 +7,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="DinerInfo")
 public class DinerInfo {
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="dinerID", updatable = false)
 	private Integer dinerID;
@@ -40,10 +42,10 @@ public class DinerInfo {
 	@Column(name="dinerAddress")
 	private String dinerAddress;
 	
-	@Column(name="")
+	@Column(name="dinerBank")
 	private String dinerBank;
 	
-	@Column(name="dinerBank")
+	@Column(name="dinerAccount")
 	private String dinerAccount;
 	
 	@Column(name="dinerAccountName")
