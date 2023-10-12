@@ -1,5 +1,7 @@
 package com.grouporder.service;
 
-public class GroupOrderService {
-
+public interface GroupOrderService {
+	public String getAllJoinGroupOrder(int currentpage);
+	
+	public byte[] getGroupOrderDinerImage(int groupOrderID);
 }

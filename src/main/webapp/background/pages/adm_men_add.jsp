@@ -4,7 +4,7 @@
 
 <%
 //見com.emp.controller.EmpServlet.java第238行存入req的empVO物件 (此為輸入格式有錯誤時的empVO物件)
-WebempadminVO empVO = (WebempadminVO) request.getAttribute("empVO");
+WebempadminVO empVO = (WebempadminVO)request.getAttribute("empVO");
 %>
 
 <html lang="en">
@@ -338,7 +338,8 @@ WebempadminVO empVO = (WebempadminVO) request.getAttribute("empVO");
 							<!-- /.card-header -->
 
 							<form METHOD="post"
-								ACTION="<%=request.getContextPath()%>/pages/emp.do"
+<%-- 								ACTION="<%=request.getContextPath()%>/pages/emp.do" --%>
+								ACTION="emp.do"
 								NAME="form_admadd"
 								ENCTYPE="multipart/form-data">
 								<div class="card-body" style="padding-bottom: 5px;">
@@ -362,12 +363,12 @@ WebempadminVO empVO = (WebempadminVO) request.getAttribute("empVO");
 									%>
 									<div class="form-group">
 										<label>密碼 </label> <input type="password"
-											class="form-control " name="empEmpPassword" id="password"
-											value="<%if (empVO == null) {
-	passwordValue = "請輸入密碼";
-} else {
-	passwordValue = empVO.getEmpPassword();
-}%>"
+											class="form-control " name="empPassword" id="password"
+											value="<% if (empVO == null) {
+														passwordValue = "請輸入密碼";
+													} else {
+														passwordValue = empVO.getEmpPassword();
+													}%>"
 											placeholder="請輸入密碼">
 									</div>
 
@@ -380,7 +381,7 @@ WebempadminVO empVO = (WebempadminVO) request.getAttribute("empVO");
 
 									<div class="form-group">
 										<label>員工大頭照 </label> <br> 
-										<input type="file" id="p_file">
+										<input type="file" id="p_file" name="empBlob">
 										<div id="preview">
 											<span class="text">預覽圖</span>
 										</div>
@@ -397,12 +398,10 @@ WebempadminVO empVO = (WebempadminVO) request.getAttribute("empVO");
 %>
 									<div class="form-group">
 										<label>到職時間 </label>
-										<div class="input-group date" id="reservationdate"
-											data-target-input="nearest">
+										<div class="input-group date" id="reservationdate" data-target-input="nearest">
 											<input type="text" class="form-control datetimepicker-input"
 												data-target="#reservationdate" name="empArriveDate" />
-											<div class="input-group-append"
-												data-target="#reservationdate" data-toggle="datetimepicker">
+											<div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
 												<div class="input-group-text">
 													<i class="fa fa-calendar"></i>
 												</div>
@@ -411,9 +410,8 @@ WebempadminVO empVO = (WebempadminVO) request.getAttribute("empVO");
 									</div>
 									
 									<div class="form-group">
-										<label for="exampleSelectBorder">權限等級</label> <select
-											class="custom-select form-control-border"
-											id="exampleSelectBorder">
+										<label for="exampleSelectBorder">權限等級</label> 
+										<select class="custom-select form-control-border" name="empAdminAuthorization">
 											<option value="staff" ${(empVO.empAdminAuthorization == 'staff') ? 'selected' : ''}>職員</option>
        									 	<option value="manager" ${(empVO.empAdminAuthorization == 'manager') ? 'selected' : ''}>經理</option>
 										</select>
@@ -421,12 +419,13 @@ WebempadminVO empVO = (WebempadminVO) request.getAttribute("empVO");
 
 								</div>
 								<!-- /.card-body -->
-								<div class="card-footer"
-									style="text-align: center; padding-top: 5px; background: transparent">
-									<input type="submit" id="submitbtn" name="action" value="確定"
-										class="btn btn-warning">
+								<div class="card-footer" style="text-align: center; padding-top: 5px; background: transparent">
+									
+										<input type="hidden" name="action" value="insert">
+										<input type="submit" id="submitbtn" name="action" value="確定" class="btn btn-warning">
+									
 									<button type="submit" class="btn btn-warning">取消</button>
-
+									
 								</div>
 							</form>
 						</div>
@@ -708,18 +707,18 @@ WebempadminVO empVO = (WebempadminVO) request.getAttribute("empVO");
 			var reader = new FileReader(); // 用來讀取檔案
 			reader.readAsDataURL(file); // 讀取檔案
 			reader.addEventListener("load",function() {
-// 								console.log(reader.result);
+// 			console.log(reader.result);
 								
-// 								let img_node = document.createElement("img"); // <img>
-// 								img_node.setAttribute("src", reader.result); // <img src="base64">
-// 								img_node.setAttribute("class", "preview_img"); // <img src="base64" class="preview_img">
-// 								preview_el.innerHTML = '';
-// 								preview_el.append(img_node);
+// 			let img_node = document.createElement("img"); // <img>
+// 			img_node.setAttribute("src", reader.result); // <img src="base64">
+// 			img_node.setAttribute("class", "preview_img"); // <img src="base64" class="preview_img">
+// 			preview_el.innerHTML = '';
+// 			preview_el.append(img_node);
 								
 
-								let img_str = '<img src="' + reader.result + '" class="preview_img">';
-								preview_el.innerHTML = img_str;
-							});
+			let img_str = '<img src="' + reader.result + '" class="preview_img">';
+			preview_el.innerHTML = img_str;
+			});
 		};
 
 		p_file_el.addEventListener("change", function(e) {

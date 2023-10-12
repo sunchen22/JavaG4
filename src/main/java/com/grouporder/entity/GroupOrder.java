@@ -5,8 +5,15 @@ import java.util.Arrays;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
+import com.buildinginfo.entity.BuildingInfo;
+import com.dinerinfo.entity.DinerInfo;
+import com.userinfo.entity.UserInfo;
+
 import javax.persistence.Column;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
@@ -16,47 +23,59 @@ public class GroupOrder {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "groupOrderID", updatable = false)
-	private	Integer	groupOrderID;
-	
-	@Column(name = "dinerID")
-	private	Integer	dinerID;
-	
-	@Column(name = "buildingID")
-	private	Integer	buildingID;
-	
+	private Integer groupOrderID;
+
+//	@Column(name = "dinerID")
+//	private	Integer	dinerID;
+
+	@ManyToOne
+	@JoinColumn(name = "dinerID")
+	private DinerInfo dinerInfo;
+
+//	@Column(name = "buildingID")
+//	private	Integer	buildingID;
+
+	@ManyToOne
+	@JoinColumn(name = "buildingID")
+	private BuildingInfo buildingInfo;
+
 	@Column(name = "orderStatus")
-	private	String orderStatus;
-	
+	private String orderStatus;
+
 	@Column(name = "groupOrderCreateTime")
-	private	Timestamp groupOrderCreateTime;
-	
+	private Timestamp groupOrderCreateTime;
+
 	@Column(name = "groupOrderSubmitTime")
-	private	Timestamp groupOrderSubmitTime;
-	
-	@Column(name = "holderID")
-	private	Integer	holderID;
-	
+	private Timestamp groupOrderSubmitTime;
+
+//	@Column(name = "holderID")
+//	private	Integer	holderID;
+
+	@ManyToOne
+	@JoinColumn(name = "holderID")
+	private UserInfo userInfo;
+
 	@Column(name = "groupTotalPrice")
-	private	Integer	groupTotalPrice;
-	
-	@Column(name = "deliveredBlob" , columnDefinition = "longblob")
-	private	byte[] deliveredBlob;
+	private Integer groupTotalPrice;
+
+	@Column(name = "deliveredBlob", columnDefinition = "longblob")
+	private byte[] deliveredBlob;
 
 	public GroupOrder() {
 		super();
 	}
 
-	public GroupOrder(Integer groupOrderID, Integer dinerID, Integer buildingID, String orderStatus,
-			Timestamp groupOrderCreateTime, Timestamp groupOrderSubmitTime, Integer holderID, Integer groupTotalPrice,
+	public GroupOrder(Integer groupOrderID, DinerInfo dinerInfo, BuildingInfo buildingInfo, String orderStatus,
+			Timestamp groupOrderCreateTime, Timestamp groupOrderSubmitTime, UserInfo userInfo, Integer groupTotalPrice,
 			byte[] deliveredBlob) {
 		super();
 		this.groupOrderID = groupOrderID;
-		this.dinerID = dinerID;
-		this.buildingID = buildingID;
+		this.dinerInfo = dinerInfo;
+		this.buildingInfo = buildingInfo;
 		this.orderStatus = orderStatus;
 		this.groupOrderCreateTime = groupOrderCreateTime;
 		this.groupOrderSubmitTime = groupOrderSubmitTime;
-		this.holderID = holderID;
+		this.userInfo = userInfo;
 		this.groupTotalPrice = groupTotalPrice;
 		this.deliveredBlob = deliveredBlob;
 	}
@@ -69,20 +88,20 @@ public class GroupOrder {
 		this.groupOrderID = groupOrderID;
 	}
 
-	public Integer getDinerID() {
-		return dinerID;
+	public DinerInfo getDinerInfo() {
+		return dinerInfo;
 	}
 
-	public void setDinerID(Integer dinerID) {
-		this.dinerID = dinerID;
+	public void setDinerInfo(DinerInfo dinerInfo) {
+		this.dinerInfo = dinerInfo;
 	}
 
-	public Integer getBuildingID() {
-		return buildingID;
+	public BuildingInfo getBuildingInfo() {
+		return buildingInfo;
 	}
 
-	public void setBuildingID(Integer buildingID) {
-		this.buildingID = buildingID;
+	public void setBuildingInfo(BuildingInfo buildingInfo) {
+		this.buildingInfo = buildingInfo;
 	}
 
 	public String getOrderStatus() {
@@ -109,12 +128,12 @@ public class GroupOrder {
 		this.groupOrderSubmitTime = groupOrderSubmitTime;
 	}
 
-	public Integer getHolderID() {
-		return holderID;
+	public UserInfo getUserInfo() {
+		return userInfo;
 	}
 
-	public void setHolderID(Integer holderID) {
-		this.holderID = holderID;
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
 	}
 
 	public Integer getGroupTotalPrice() {
@@ -135,10 +154,10 @@ public class GroupOrder {
 
 	@Override
 	public String toString() {
-		return "GroupOrder [groupOrderID=" + groupOrderID + ", dinerID=" + dinerID + ", buildingID=" + buildingID
-				+ ", orderStatus=" + orderStatus + ", groupOrderCreateTime=" + groupOrderCreateTime
-				+ ", groupOrderSubmitTime=" + groupOrderSubmitTime + ", holderID=" + holderID + ", groupTotalPrice="
+		return "GroupOrder [groupOrderID=" + groupOrderID + ", dinerInfo=" + dinerInfo + ", buildingInfo="
+				+ buildingInfo + ", orderStatus=" + orderStatus + ", groupOrderCreateTime=" + groupOrderCreateTime
+				+ ", groupOrderSubmitTime=" + groupOrderSubmitTime + ", userInfo=" + userInfo + ", groupTotalPrice="
 				+ groupTotalPrice + ", deliveredBlob=" + Arrays.toString(deliveredBlob) + "]";
 	}
-		
+
 }

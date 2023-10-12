@@ -2,8 +2,13 @@ package com.userorderdetailvary.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
+import com.userorderdetail.entity.UserOrderDetail;
+
 import javax.persistence.Column;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
@@ -15,9 +20,14 @@ public class UserOrderDetailVary {
 	@Column(name = "userOrderDetailVaryID", updatable = false)
 	private	Integer	userOrderDetailVaryID;
 	
-	@Column(name = "userOrderItemID")
-	private	Integer	userOrderItemID;
+	// @Column(name = "userOrderItemID")
+	// private Integer userOrderItemID;
 
+	// 改為Hibernate Association
+	@ManyToOne
+	@JoinColumn(name = "userOrderItemID", referencedColumnName = "userOrderItemID")
+	private UserOrderDetail userOrderDetail;
+	
 	@Column(name = "productVaryID1")
 	private	Integer	productVaryID1;
 
@@ -34,19 +44,17 @@ public class UserOrderDetailVary {
 		super();
 	}
 
-	public UserOrderDetailVary(Integer userOrderDetailVaryID, Integer userOrderItemID, Integer productVaryID1,
+	public UserOrderDetailVary(Integer userOrderDetailVaryID, UserOrderDetail userOrderDetail, Integer productVaryID1,
 			Integer productVaryID2, Integer productVaryID3, Integer productVaryID4) {
 		super();
 		this.userOrderDetailVaryID = userOrderDetailVaryID;
-		this.userOrderItemID = userOrderItemID;
+		this.userOrderDetail = userOrderDetail;
 		this.productVaryID1 = productVaryID1;
 		this.productVaryID2 = productVaryID2;
 		this.productVaryID3 = productVaryID3;
 		this.productVaryID4 = productVaryID4;
 	}
 
-	
-	
 	public Integer getUserOrderDetailVaryID() {
 		return userOrderDetailVaryID;
 	}
@@ -55,12 +63,12 @@ public class UserOrderDetailVary {
 		this.userOrderDetailVaryID = userOrderDetailVaryID;
 	}
 
-	public Integer getUserOrderItemID() {
-		return userOrderItemID;
+	public UserOrderDetail getUserOrderDetail() {
+		return userOrderDetail;
 	}
 
-	public void setUserOrderItemID(Integer userOrderItemID) {
-		this.userOrderItemID = userOrderItemID;
+	public void setUserOrderDetail(UserOrderDetail userOrderDetail) {
+		this.userOrderDetail = userOrderDetail;
 	}
 
 	public Integer getProductVaryID1() {
@@ -97,8 +105,8 @@ public class UserOrderDetailVary {
 
 	@Override
 	public String toString() {
-		return "UserOrderDetailVary [userOrderDetailVaryID=" + userOrderDetailVaryID + ", userOrderItemID="
-				+ userOrderItemID + ", productVaryID1=" + productVaryID1 + ", productVaryID2=" + productVaryID2
+		return "UserOrderDetailVary [userOrderDetailVaryID=" + userOrderDetailVaryID + ", userOrderDetail="
+				+ userOrderDetail + ", productVaryID1=" + productVaryID1 + ", productVaryID2=" + productVaryID2
 				+ ", productVaryID3=" + productVaryID3 + ", productVaryID4=" + productVaryID4 + "]";
 	}
 	
