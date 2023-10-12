@@ -1,48 +1,68 @@
-package com.dinerRatingComment.entity;
+package com.dinerratingcomment.entity;
 
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-import com.userInfo.entity.UserInfo;
+import com.dinerinfo.entity.DinerInfo;
 
+@Entity
+@Table(name="DinerRatingComment")
 public class DinerRatingComment {
+
+	@Id
+	@GeneratedValue(strategy =  GenerationType.IDENTITY)
+	@Column(name = "commentID")
+	private Integer commentID;
+	
+//	@ManyToOne
+//	@JoinColumn(name= "dinerID" , referencedColumnName = "dinerID")
+	@Column(name = "dinerID")
+	private Integer dinerID;
+//	private DinerInfo dinerinfo;
+	
+	@Column(name = "userID")
+	private Integer userID;
+	
+	@Column(name = "dinerRating")
+	private Integer dinerRating;
+	
+	@Column(name = "userCommentContent")
+	private String userCommentContent ;
+	
+	@Column(name = "userCommentTime")
+	private Timestamp userCommentTime;
+	
+	@Column(name = "dinerReplyContent")
+	private String  dinerReplyContent;
+	
+	@Column(name = "dinerReplyTime")
+	private Timestamp dinerReplyTime;
 
 	public DinerRatingComment() {
 		super();
+		 
 	}
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="favoriteID", updatable = false)
-	private Integer commentID;
-	
-	@ManyToOne
-	@JoinColumn(name = "dinerID", referencedColumnName = "dinerID")
-	private DinerInfo dinerInfo;
-	
-	@ManyToOne
-	@JoinColumn(name = "userID", referencedColumnName = "userID")
-	private UserInfo userInfo;
-	
-	@Column(name="dinerRating")
-	private Integer dinerRating;
-	
-	@Column(name="userCommentContent")
-	private String userCommentContent;
-	
-	@Column(name="userCommentTime")
-	private Timestamp userCommentTime;
-	
-	@Column(name="dinerReplyContent")
-	private String dinerReplyContent;
-	
-	@Column(name="dinerReplyTime")
-	private Timestamp dinerReplyTime;
+
+	public DinerRatingComment(Integer commentID, Integer dinerID, Integer userID, Integer dinerRating,
+			String userCommentContent, Timestamp userCommentTime, String dinerReplyContent, Timestamp dinerReplyTime) {
+		super();
+		this.commentID = commentID;
+		this.dinerID = dinerID;
+		this.userID = userID;
+		this.dinerRating = dinerRating;
+		this.userCommentContent = userCommentContent;
+		this.userCommentTime = userCommentTime;
+		this.dinerReplyContent = dinerReplyContent;
+		this.dinerReplyTime = dinerReplyTime;
+	}
 
 	public Integer getCommentID() {
 		return commentID;
@@ -52,20 +72,20 @@ public class DinerRatingComment {
 		this.commentID = commentID;
 	}
 
-	public DinerInfo getDinerInfo() {
-		return dinerInfo;
+	public Integer getDinerID() {
+		return dinerID;
 	}
 
-	public void setDinerInfo(DinerInfo dinerInfo) {
-		this.dinerInfo = dinerInfo;
+	public void setDinerID(Integer dinerID) {
+		this.dinerID = dinerID;
 	}
 
-	public UserInfo getUserInfo() {
-		return userInfo;
+	public Integer getUserID() {
+		return userID;
 	}
 
-	public void setUserInfo(UserInfo userInfo) {
-		this.userInfo = userInfo;
+	public void setUserID(Integer userID) {
+		this.userID = userID;
 	}
 
 	public Integer getDinerRating() {
@@ -107,5 +127,13 @@ public class DinerRatingComment {
 	public void setDinerReplyTime(Timestamp dinerReplyTime) {
 		this.dinerReplyTime = dinerReplyTime;
 	}
+
+	
+
+	
+
+	
+	
+	
 
 }

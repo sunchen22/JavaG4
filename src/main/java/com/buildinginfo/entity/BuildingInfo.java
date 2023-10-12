@@ -74,12 +74,12 @@ public class BuildingInfo implements Serializable{
 	
 
 
-	public Integer getBuildingState() {
+	public Integer getbuildingState() {
 		return buildingState;
 	}
 
 
-	public void setBuildingState(Integer buildingState) {
+	public void setbuildingState(Integer buildingState) {
 		this.buildingState = buildingState;
 	}
 

@@ -12,21 +12,23 @@ public class TestHibernateBuildingInfoDAO {
 		BuildingInfo bif = new BuildingInfo();
 //		bif.setBuildingName("FF大樓");
 //		bif.setBuildingAddress("台北市松山區6號");
+//		bif.setbuildingState(1);
 //		dao.add(bif);
 		
 		
 		//修改
-//		bif.setBuildingID(13);
-//		bif.setBuildingName("KK大樓");
-//		bif.setBuildingAddress("台北市松山區8號");
+//		bif.setBuildingID(2);
+//		bif.setBuildingName("BB大樓");
+//		bif.setBuildingAddress("台北市松山區號");
+//		bif.setbuildingState(1);
 //		dao.update(bif);
 		//刪除
 //		dao.down(4);
 		
 		//查詢
-		bif = dao.findByPK(4);
-		System.out.print(bif.getBuildingName()+" , ");
-		System.out.println(bif.getBuildingAddress());
+//		bif = dao.findByPK(5);
+//		System.out.print(bif.getBuildingName()+" , ");
+//		System.out.println(bif.getBuildingAddress());
 		
 		
 		//查詢多筆
@@ -35,6 +37,7 @@ public class TestHibernateBuildingInfoDAO {
 //			System.out.print(bifo.getBuildingID()+ ",");
 //			System.out.print(bifo.getBuildingName()+ ",");
 //			System.out.println(bifo.getBuildingAddress());
+			
 //		}
 	}
 }

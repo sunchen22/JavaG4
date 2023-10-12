@@ -1,5 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="utf-8"%>
-<html lang="en">
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.*"%>
+<%@ page import="com.product.dao.*"%>
+<%@ page import="com.product.entity.*"%>
+<%@ page import="com.dinerinfo.dao.*"%>
+<%@ page import="com.dinerinfo.entity.*"%>
+<html>
 
 <head>
     <meta charset="utf-8">
@@ -329,6 +335,19 @@
                                 <!-- <div class="col-md-3"> -->
 
                                 <!-- </div> -->
+                                
+                                
+                                <%
+                                DinerInfo dif = (DinerInfo)request.getAttribute("dif");
+                                
+                                ProductDAOImplC pdic = new ProductDAOImplC();
+                    			List<Product> list = pdic.getAll(dif.getDinerID());
+                    			pageContext.setAttribute("list",list);
+                                
+                                
+                                
+                                
+                                %>
 
 
 
@@ -347,20 +366,20 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td><span class="text-muted">1</span></td>
-                                                <td><a href="invoice.html" class="text-inherit">54321</a></td>
+                                                <td><span class="text-muted"><%= dif.getDinerID() %></span></td>
+                                                <td><a href="invoice.html" class="text-inherit"><%= dif.getDinerTaxID() %></a></td>
                                                 <td>
-                                                    吉野家烤肉飯
+                                                    <%= dif.getDinerName() %>
                                                 </td>
                                                 <td>
-                                                    88880000
+                                                    <%= dif.getDinerPhone() %>
                                                 </td>
                                                 <td>
-                                                    xxxxxxxxxxxxxx
+                                                    <%= dif.getDinerEmail() %>
                                                 </td>
 
                                                 <td>
-                                                    xxxxxxxxxxxxxxXXXXXXXXXXXX
+                                                    <%= dif.getDinerAddress() %>
                                                 </td>
 
                                             </tr>
@@ -389,22 +408,35 @@
                                 <tr>
                                     <th class="w-1">商家編號</th>
                                     <th>商品名稱</th>
+                                    <th>金額</th>
                                     <th>圖片</th>
 
 
                                 </tr>
                             </thead>
+                            
                             <tbody>
+                            <c:forEach var="product" items="${list}">
                                 <tr>
-                                    <td><span class="text-muted">1</span></td>
-                                    <td><a href="invoice.html" class="text-inherit">54321</a></td>
+                                    <td><span class="text-muted">${product.productID}</span></td>
+                                    <td><a href="invoice.html" class="text-inherit"></a>${product.productName}</td>
                                     <td>
-                                        圖片
+                                       ${product.productPrice} 
                                     </td>
-
+									<td>
+										
+									<form action = "psimg.do" style="width: 15px ; height: 15px">
+		                            <input type="hidden" name="productID"  value="${product.productID}">    
+					      		    <input type="hidden" name="action">
+		                            <button class ="btn btn-warning" style = "font-weight :bold">查詢</button>
+									
+									</td>
+									
+									
+									
+									
                                     <td>
-
-                                        <!-- Example single danger button -->
+                                        
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-warning dropdown-toggle"
                                                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -419,34 +451,11 @@
 
                                     </td>
 
-                                    <tr>
-                                        <td><span class="text-muted">1</span></td>
-                                        <td><a href="invoice.html" class="text-inherit">54321</a></td>
-                                        <td>
-                                            圖片
-                                        </td>
-    
-                                        <td>
-    
-                                            <!-- Example single danger button -->
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-warning dropdown-toggle"
-                                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                                    上架中
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <li><a class="dropdown-item" href="#">上架</a></li>
-                                                    <li><a id = "down" class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">下架</a></li>
-                                                    
-                                                </ul>
-                                            </div>
-    
-                                        </td>
-
+                                    
 
 
                                 </tr>
-                                
+                                </c:forEach>
 
 
                             </tbody>

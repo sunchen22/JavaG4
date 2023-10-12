@@ -5,7 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 
 import com.userorderdetailvary.entity.UserOrderDetailVary;
-import com.util.HibernateUtil;
+import util.HibernateUtil;
 
 public class UserOrderDetailVaryDAOHibernateImpl implements UserOrderDetailVaryDAO{
 

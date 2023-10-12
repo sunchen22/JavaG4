@@ -35,27 +35,27 @@ public class TestGroupOrderDAO {
 //		dao.delete(31);
 //
 //		// 查詢單筆
-//		GroupOrder groupOrder3 = dao.findByPK(2);
-//		System.out.print(groupOrder3.getGroupOrderID() + ",");
-//		System.out.print(groupOrder3.getDinerID() + ",");
-//		System.out.print(groupOrder3.getBuildingID() + ",");
-//		System.out.print(groupOrder3.getOrderStatus() + ",");
-//		System.out.print(groupOrder3.getGroupOrderCreateTime() + ",");
-//		System.out.print(groupOrder3.getGroupOrderSubmitTime() + ",");
-//		System.out.println(groupOrder3.getHolderID());
-//		System.out.println("---------------------");
+		GroupOrder groupOrder3 = dao.findByPK(2);
+		System.out.print(groupOrder3.getGroupOrderID() + ",");
+		System.out.print(groupOrder3.getDinerID() + ",");
+		System.out.print(groupOrder3.getBuildingID() + ",");
+		System.out.print(groupOrder3.getOrderStatus() + ",");
+		System.out.print(groupOrder3.getGroupOrderCreateTime() + ",");
+		System.out.print(groupOrder3.getGroupOrderSubmitTime() + ",");
+		System.out.println(groupOrder3.getHolderID());
+		System.out.println("---------------------");
 
 //		//查詢多筆
-		List<GroupOrder> list = dao.getAll();
-		for (GroupOrder groupOrder : list) {
-			System.out.print(groupOrder.getGroupOrderID() + ",");
-			System.out.print(groupOrder.getDinerID() + ",");
-			System.out.print(groupOrder.getBuildingID() + ",");
-			System.out.print(groupOrder.getOrderStatus() + ",");
-			System.out.print(groupOrder.getGroupOrderCreateTime() + ",");
-			System.out.print(groupOrder.getGroupOrderSubmitTime() + ",");
-			System.out.println(groupOrder.getHolderID());
-			System.out.println();
-		}
+//		List<GroupOrder> list = dao.getAll();
+//		for (GroupOrder groupOrder : list) {
+//			System.out.print(groupOrder.getGroupOrderID() + ",");
+//			System.out.print(groupOrder.getDinerID() + ",");
+//			System.out.print(groupOrder.getBuildingID() + ",");
+//			System.out.print(groupOrder.getOrderStatus() + ",");
+//			System.out.print(groupOrder.getGroupOrderCreateTime() + ",");
+//			System.out.print(groupOrder.getGroupOrderSubmitTime() + ",");
+//			System.out.println(groupOrder.getHolderID());
+//			System.out.println();
+//		}
 	}
 }
