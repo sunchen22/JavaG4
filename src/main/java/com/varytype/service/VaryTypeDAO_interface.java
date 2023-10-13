@@ -8,8 +8,6 @@ public interface VaryTypeDAO_interface {
 
 	public void insert(VaryType varyType);
 
-	public void update(VaryType varyType);
-
 	public void delete(Integer varyTypeID);
 
 	public VaryType findByPrimaryKey(Integer varyTypeID);

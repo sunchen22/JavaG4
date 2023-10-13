@@ -22,17 +22,16 @@ public class VaryTypeDAO implements VaryTypeDAO_interface {
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/jo");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
 	}
 
 	private static final String INSERT_STMT = "INSERT INTO varytype (varyType) VALUES (?)";
-	private static final String GET_ALL_STMT = "SELECT varyType FROM varytype order by varyTypeID";
-	private static final String GET_ONE_STMT = "SELECT varyType FROM varytype where varyTypeID = ?";
+	private static final String GET_ALL_STMT = "SELECT varyTypeID,varyType FROM varytype order by varyTypeID";
+	private static final String GET_ONE_STMT = "SELECT varyTypeID,varyType FROM varytype where varyTypeID = ?";
 	private static final String DELETE = "DELETE FROM varytype where varyTypeID = ?";
-	private static final String UPDATE = "UPDATE varytype set varyType=?";
 
 	@Override
 	public void insert(VaryType varyType) {
@@ -50,44 +49,6 @@ public class VaryTypeDAO implements VaryTypeDAO_interface {
 			pstmt.executeUpdate();
 
 			// Handle any SQL errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-
-	}
-
-	@Override
-	public void update(VaryType varyType) {
-
-		Connection con = null;
-		PreparedStatement pstmt = null;
-
-		try {
-
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(UPDATE);
-
-			pstmt.setString(1, varyType.getVaryType());
-
-			pstmt.executeUpdate();
-
-			// Handle any driver errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -169,6 +130,7 @@ public class VaryTypeDAO implements VaryTypeDAO_interface {
 				// empVo 也稱為 Domain objects
 				varyType = new VaryType();
 				varyType.setVaryTypeID(rs.getInt("varyTypeID"));
+				varyType.setVaryType(rs.getString("varyType"));
 
 			}
 
@@ -204,7 +166,7 @@ public class VaryTypeDAO implements VaryTypeDAO_interface {
 
 	@Override
 	public List<VaryType> getAll() {
-		List<VaryType> list = new ArrayList<VaryType>();
+		List<VaryType> VTlist = new ArrayList<VaryType>();
 		VaryType varyType = null;
 
 		Connection con = null;
@@ -221,8 +183,8 @@ public class VaryTypeDAO implements VaryTypeDAO_interface {
 				// empVO 也稱為 Domain objects
 				varyType = new VaryType();
 				varyType.setVaryTypeID(rs.getInt("varyTypeID"));
-
-				list.add(varyType); // Store the row in the list
+				varyType.setVaryType(rs.getString("varyType"));
+				VTlist.add(varyType); // Store the row in the list
 			}
 
 			// Handle any driver errors
@@ -252,7 +214,7 @@ public class VaryTypeDAO implements VaryTypeDAO_interface {
 				}
 			}
 		}
-		return list;
+		return VTlist;
 	}
 
 }

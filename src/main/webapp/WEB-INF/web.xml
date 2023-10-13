@@ -14,13 +14,65 @@
 	</welcome-file-list>
 
 
+
 	<servlet>
 		<servlet-name>VaryTypeServlet</servlet-name>
 		<servlet-class>com.varytype.controller.VaryTypeServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>VaryTypeServlet</servlet-name>
-		<url-pattern>/shelve/varytype.do</url-pattern>
+		<url-pattern>/dinerbackground/pages/Team/shelve/varytype.do</url-pattern>
 	</servlet-mapping>
+
+
+
+
+	<servlet>
+		<servlet-name>ProductServlet</servlet-name>
+		<servlet-class>com.product.controller.ProductServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ProductServlet</servlet-name>
+		<url-pattern>/p_list/product.do</url-pattern>
+	</servlet-mapping>
+
+
+
+
+
+
+
+
+
+
+
+	<servlet>
+		<servlet-name>ProductTypeServlet</servlet-name>
+		<servlet-class>com.product.controller.ProductType</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ProductTypeServlet</servlet-name>
+		<url-pattern>/productType.do</url-pattern>
+	</servlet-mapping>
+
+
+
+<!-- 	<listener> -->
+<!-- 		<listener-class>idv.david.listener.InitializerListener</listener-class> -->
+<!-- 	</listener> -->
+	
+<!-- 	<filter> -->
+<!--         <filter-name>SessionInViewFilter</filter-name> -->
+<!--         <filter-class>idv.david.filter.OpenSessionInViewFilter</filter-class> -->
+<!--     </filter> -->
+<!--     <filter-mapping> -->
+<!--         <filter-name>SessionInViewFilter</filter-name> -->
+<!--         <url-pattern>/*</url-pattern> -->
+<!--     </filter-mapping> -->
+
+
+
 
 </web-app>

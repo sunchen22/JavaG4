@@ -49,5 +49,7 @@ public class VaryType {
 	public String toString() {
 		return "VaryType [varyTypeID=" + varyTypeID + ", varyType=" + varyType + "]";
 	}
+	
+
 
 }

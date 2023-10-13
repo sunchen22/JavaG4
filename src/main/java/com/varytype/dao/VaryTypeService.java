@@ -5,10 +5,8 @@ import java.util.List;
 import com.varytype.entity.VaryType;
 import com.varytype.service.VaryTypeDAO_interface;
 
-
-
 public class VaryTypeService {
-	
+
 	private VaryTypeDAO_interface dao;
 
 	public VaryTypeService() {
@@ -28,32 +26,17 @@ public class VaryTypeService {
 	}
 
 	// 預留給 Struts 2 或 Spring MVC 用
-	public void addEmp(VaryType varyType) {
+	public void addVaryType(VaryType varyType) {
 		dao.insert(varyType);
 	}
 
-	public VaryType updatevaryType(Integer varyTypeID, String varyType) {
-
-		VaryType VT = new VaryType();
-
-		VT.setVaryTypeID(varyTypeID);
-		VT.setVaryType(varyType);
-;
-		dao.update(VT);
-
-		return dao.findByPrimaryKey(varyTypeID);
-	}
-
 	// 預留給 Struts 2 用的
-	public void updateEmp(VaryType VT) {
-		dao.update(VT);
-	}
 
-	public void deleteEmp(Integer varyTypeID) {
+	public void deleteVaryType(Integer varyTypeID) {
 		dao.delete(varyTypeID);
 	}
 
-	public VaryType getOneEmp(Integer varyTypeID) {
+	public VaryType getOneVaryType(Integer varyTypeID) {
 		return dao.findByPrimaryKey(varyTypeID);
 	}
 

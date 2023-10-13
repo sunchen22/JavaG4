@@ -1,3 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.varytype.dao.*"%>
+<%@ page import="com.varytype.entity.*"%>
+<%
+    VaryTypeService VTSvc = new VaryTypeService();
+    List <VaryType> VTList= VTSvc.getAll();
+    pageContext.setAttribute("list",VTList);
+%>
 <!DOCTYPE html>
 <html lang="zh-Hant">
 
@@ -419,42 +429,47 @@
                           <div class="row mt-4">                            
                             <nav class="w-100">
                               
-                              客製選項分類:<input type="text" class="addtype" placeholder="辣度" >
-                              <button  class="task_addtype">新增分類</button>
-                              <br><br>
+
+                             <FORM METHOD="post" ACTION="varytype.do" name="form1">
+								<table>
+										
+									<tr>
+										<td>客製選項分類:</td>
+										<td><input type="TEXT" name="varyType" value="${param.varyType}" placeholder="辣度"/></td> 
+										<td>${errorMsgs.varyType}
+										    <input type="hidden" name="action" value="insert">
+									        <input type="submit" value="新增分類"> 
+										</td>
+									</tr>
+								
+								
+								</table>
+							
+							</FORM>
+
+
+
+
+                              
+                              
+                              
+                              
+                              
+                              
+                              
 
                               <!-- ==============頁籤標頭===================== -->
                               <div class="nav nav-tabs" id="product-tab" role="tablist">
-        
-                                <a class="nav-item nav-link active" id="product-revenue-tab" data-toggle="tab"
-                                  href="#product-revenue" role="tab" aria-controls="product-revenue" aria-selected="true">
-                                  商品 銷售額
-                                </a>
-        
-                                <a class="nav-item nav-link" id="product-volume-tab" data-toggle="tab" href="#product-volume"
-                                  role="tab" aria-controls="product-volume" aria-selected="false">
-                                  商品 銷售量
-                                </a>
-        
-                                <a class="nav-item nav-link" id="productType-revenue-tab" data-toggle="tab"
-                                  href="#productType-revenue" role="tab" aria-controls="productType-revenue"
-                                  aria-selected="false">
-                                  商品種類 銷售額
-                                </a>
-        
-                                <a class="nav-item nav-link" id="productType-volume-tab" data-toggle="tab"
-                                  href="#productType-volume" role="tab" aria-controls="productType-volume"
-                                  aria-selected="false">
-                                  商品種類 銷售量
-                                </a>
-        
-                                <a class="nav-item nav-link" id="ord-tab" data-toggle="tab"
-                                href="#ord" role="tab" aria-controls="ord"
-                                aria-selected="false">
-                                商品種類 銷售量
-                                </a>
-        
-        
+                              
+                            <c:forEach var="varyTypeVO" items="${list}">
+
+							  <a class="nav-item nav-link " id="product-revenue-tab" data-toggle="tab"
+                                  href="#product-${varyTypeVO.varyTypeID}" role="tab" aria-controls="product-revenue" aria-selected="true">
+                                  ${varyTypeVO.varyType}
+                               </a>
+							</c:forEach>
+                              
+
                               </div>
                             </nav>
         
@@ -466,20 +481,28 @@
                         <!-- Tab panes -->
                         <div class="tab-content">
                           <div class="tab-content p-3" id="nav-tabContent">
-                            <!-- 標籤 ======商品 銷售額==== 內容 -->
-                            <div class="tab-pane fade show active" id="product-revenue" role="tabpanel"
-                              aria-labelledby="product-revenue-tab">
+ 
         
-                              <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                <div class="card-body table-responsive p-0" style="height: 300px;">
-                                  <table class="table table-head-fixed text-nowrap">
-                                    <!-- 表格標題 -->
-                                    
-                                    <button type="button" class="task_delete">刪除分類</button>
-                  
+                            <!-- 標籤 ======商品 銷售量==== 內容 -->
+                            
+                         <c:forEach var="varyTypeVO" items="${list}">  
+                            <div class="tab-pane fade" id="product-${varyTypeVO.varyTypeID}" role="tabpanel" aria-labelledby="product-volume-tab">
+                              <div class="card-body table-responsive p-0" style="height: 300px;">
+                                    <td>
+									  <FORM METHOD="post" ACTION="varytype.do" style="margin-bottom: 0px;">
+									     <input type="submit" value="刪除${varyTypeVO.varyType}分類">
+									     <input type="hidden" name="varyTypeID" value="${varyTypeVO.varyTypeID}">
+									     <input type="hidden" name="action" value="delete"></FORM>
+									</td>
+
+	        
+                                <table class="table table-head-fixed text-nowrap">
+                               
+
                                     <article class="task_container">
+                                      
                                       <button type="button" class="btn_empty">清空</button>
-                                      <h1 class="title1">辣度</h1>
+                                      <h1 class="title1">${varyTypeVO.varyType}</h1>
                                 
                                      
                                         <input type="text" class="task_name" placeholder="大辣" >
@@ -495,60 +518,21 @@
                                         </ul>
                                       </div>
                                     </article>
-        
-                                  </table>
-                                </div>
-                              </div>
-                            </div>
-        
-                            <!-- 標籤 ======商品 銷售量==== 內容 -->
-                            <div class="tab-pane fade" id="product-volume" role="tabpanel" aria-labelledby="product-volume-tab">
-                              <div class="card-body table-responsive p-0" style="height: 300px;">
-                                <table class="table table-head-fixed text-nowrap">
-                                  <!-- 表格標題 -->
-                                  2
-                                </table>
-                              </div>
-                            </div>
-        
-                            <!-- 標籤 ======商品種類 銷售額==== 內容 -->
-                            <div class="tab-pane fade" id="productType-revenue" role="tabpanel"
-                              aria-labelledby="productType-revenue-tab">
-                              <div class="card-body table-responsive p-0" style="height: 300px;">
-                                <table class="table table-head-fixed text-nowrap">
-                                  <!-- 表格標題 -->
-                                  3
-        
-                                 
-                                </table>
-                              </div>
-                            </div>
-        
-                            <!-- 標籤 ======商品種類 銷售量==== 內容 -->
-                            <div class="tab-pane fade" id="productType-volume" role="tabpanel"
-                              aria-labelledby="productType-volume-tab">
-                              <div class="card-body table-responsive p-0" style="height: 300px;">
-                                <table class="table table-head-fixed text-nowrap">
-                                  <!-- 表格標題 -->
-                                  4
-                                  
+                                   
+                                   
+                                   
+                                   
                                 </table>
                               </div>
                             </div>
                           
+       					</c:forEach>
+                         
+                          
         
-                            <!-- 標籤 ======商品種類 銷售額==== 內容 -->
-                            <div class="tab-pane fade" id="ord" role="tabpanel"
-                              aria-labelledby="ord">
-                              <div class="card-body table-responsive p-0" style="height: 300px;">
-                                <table class="table table-head-fixed text-nowrap">
-                                  <!-- 表格標題 -->
-                                  5
-        
-                                 
-                                </table>
-                              </div>
-                            </div>    
+
+                              </div>  
+                             </div>  
                           </div>                  
                           <!-- /.card-body -->
                         </div>
