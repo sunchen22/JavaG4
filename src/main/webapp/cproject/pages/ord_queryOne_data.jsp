@@ -1,10 +1,9 @@
-<%@page import="com.dinerratingcomment.entity.DinerRatingComment"%>
+<%@page import="com.grouporder.entity.GroupOrder"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="utf-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.*"%>
-<%@ page import="com.dinerratingcomment.dao.*"%>
-<%@ page import="com.dinerinfo.dao.*"%>
-<%@ page import="com.dinerinfo.entity.*"%>
+<%@ page import="com.grouporder.dao.*"%>
+<%@ page import="com.dinerinfo.entity.DinerInfo"%>
 <html>
 
 <head>
@@ -329,7 +328,7 @@
 
                 <!-- <div class="col-md-3"> -->
                 
-                <form method="get" action = "gos.do"  style="padding:10px;">
+                <form method="post" action = "gos.do"  style="padding:10px;">
                 
                 <c:if test="${not empty errorMsgs}">
 				<font style="color:red">請修正以下錯誤:</font>
@@ -376,14 +375,8 @@
         <!-- /.row -->
         
         	<%
-// 				GroupOrderDAOHibernateImpl godhi = new GroupOrderDAOHibernateImpl();
-//         		List<GroupOrder> list = godhi.getAll(); 
-//          		pageContext.setAttribute("list", list);
-
-				DinerInfoDAOImplC didi = new DinerInfoDAOImplC();
-				List<DinerInfo> list = didi.getAll();
-				pageContext.setAttribute("list", list);
-         		
+        	GroupOrder gor = (GroupOrder) request.getAttribute("gor");
+         	DinerInfo dif =	(DinerInfo)request.getAttribute("dif");
  			%>
         
         
@@ -394,31 +387,31 @@
                     <thead>
                     
                       <tr>
-                        <th class="w-1">商家編號</th>
+                        <th class="w-1">訂單編號</th>
+                        <th>商家帳號</th>
                         <th>商家名稱</th>
-                        
                         
                       
                         
                       </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="dinerinfo" items="${list}">
+                    
                       <tr>
-                        <td><span class="text-muted">${dinerinfo.dinerID}</span></td>
-                        <td><a href="invoice.html" class="text-inherit">${dinerinfo.dinerName}</a></td>
-                        
+                        <td><span class="text-muted"><%=gor.getGroupOrderID() %></span></td>
+                        <td><a href="invoice.html" class="text-inherit"><%=gor.getDinerID() %></a></td>
+                        <td><%=dif.getDinerName()%></td>
                         
                         <td>
                           <form action = "gos.do" style="width: 15px ; height: 15px">
-                          <input type="hidden" name="dinerID"  value="${dinerinfo.dinerID}">    
+                          <input type="hidden" name="groupID"  value="<%=gor.getDinerID() %>">    
 			      		  <input type="hidden" name="action" value="go_for_data">
                           <button class ="btn btn-warning" style = "font-weight :bold">查詢</button>
                           </form>
                         </td>                                                                                              
                         
                         </tr> 
-                    </c:forEach>
+                    
                     </tbody>
                   </table>
                 </div>

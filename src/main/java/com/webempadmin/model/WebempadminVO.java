@@ -1,24 +1,77 @@
 package com.webempadmin.model;
-import java.io.InputStream;
 import java.sql.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.dinernews.entity.DinerNews;
+
+@Entity
+@Table(name = "Webempadmin")
 public class WebempadminVO implements java.io.Serializable{
+	
+	@Id
+	@Column(name = "empID")
 	private Integer empID;
+	
+	@OneToMany(mappedBy = "webempadminvo" , cascade = CascadeType.ALL)
+	private Set<DinerNews> webempadminvo;
+
+	
 	private String empName;
 	private String empPassword;
 	private Date empArriveDate;
 	private String empAdminAuthorization;
+	@Column(name = "empBlob", columnDefinition = "longblob")
 	private byte[] empBlob;
+	
+//	public Integer getEmpID() {
+//		return empID;
+//	}
+//	public void setEmpID(Integer empID) {
+//		this.empID = empID;
+//	}
+	
+	
+	
+	
+	
+	public String getEmpName() {
+		return empName;
+	}
+	
 	
 	public Integer getEmpID() {
 		return empID;
 	}
+
+
 	public void setEmpID(Integer empID) {
 		this.empID = empID;
 	}
-	public String getEmpName() {
-		return empName;
+
+
+	
+
+
+	
+
+
+	public Set<DinerNews> getWebempadminvo() {
+		return webempadminvo;
 	}
+
+
+	public void setWebempadminvo(Set<DinerNews> webempadminvo) {
+		this.webempadminvo = webempadminvo;
+	}
+
+
 	public void setEmpName(String empName) {
 		this.empName = empName;
 	}

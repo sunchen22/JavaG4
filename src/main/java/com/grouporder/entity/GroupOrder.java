@@ -29,7 +29,7 @@ public class GroupOrder {
 //	private	Integer	dinerID;
 
 	@ManyToOne
-	@JoinColumn(name = "dinerID")
+	@JoinColumn(name = "dinerID" ,updatable = false)
 	private DinerInfo dinerInfo;
 
 //	@Column(name = "buildingID")

@@ -3,7 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.*"%>
 <%@ page import="com.buildinginfo.dao.*"%>
-
+<html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,11 +13,11 @@
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/cproject/plugins/fontawesome-free/css/all.min.css">
   <!-- IonIcons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="../dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/cproject/dist/css/adminlte.min.css">
 
 
 </head>
@@ -51,7 +51,7 @@
       <ul class="navbar-nav ml-auto">
 
         <li class="nav-item">
-          <a class="nav-link" href="../index.jsp" role="button">
+          <a class="nav-link" href="<%=request.getContextPath()%>/index.jsp" role="button">
             <i class="fas fa-home"></i>
           </a>
         </li>
@@ -70,8 +70,8 @@
     <!-- 有修改顏色 原本sidebar-dark-primary -->
     <aside class="main-sidebar sidebar-light-warning elevation-4">
       <!-- Brand Logo -->
-      <a href="../index.jsp" class="brand-link">
-        <img src="../dist/img/Logo.png" alt="樓頂揪樓咖 Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <a href="<%=request.getContextPath()%>/index.jsp" class="brand-link">
+        <img src="<%=request.getContextPath()%>/cproject/dist/img/Logo.png" alt="樓頂揪樓咖 Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-normal">後台管理平台</span>
       </a>
 
@@ -80,7 +80,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
-            <img src="../dist/img/emp01.png" class="img-circle elevation-2" alt="emp01">
+            <img src="<%=request.getContextPath()%>/cproject/dist/img/emp01.png" class="img-circle elevation-2" alt="emp01">
           </div>
           <div class="info">
             <a href="#" class="d-block">小丸子</a>
@@ -171,44 +171,44 @@
               <ul class="nav nav-treeview">
                 <!-- <li class="nav-header">商家列表查詢</li> -->
                 <li class="nav-item">
-                  <a href="./mer_list.jsp" class="nav-link">
+                  <a href="<%=request.getContextPath()%>/cproject/pages/mer_list.jsp" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>商家列表查詢</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="./mer_application.jsp" class="nav-link">
+                  <a href="<%=request.getContextPath()%>/cproject/pages/mer_application.jsp" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>商家申請審核</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="./mer_details.jsp" class="nav-link">
+                  <a href="<%=request.getContextPath()%>/cproject/pages/mer_details.jsp" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>商家資料異動</p>
                   </a>
                 </li>
                 
                 <li class="nav-item">
-                  <a href="./mer_product.jsp" class="nav-link">
+                  <a href="<%=request.getContextPath()%>/cproject/pages/mer_product.jsp" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>商品審核</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="./mer_payment.jsp" class="nav-link">
+                  <a href="<%=request.getContextPath()%>/cproject/pages/mer_payment.jsp" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>金流報表</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="./mer_ad.jsp" class="nav-link">
+                  <a href="<%=request.getContextPath()%>/cproject/pages/mer_ad.jsp" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>商家廣告審核</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="./mer_news.jsp" class="nav-link">
+                  <a href="<%=request.getContextPath()%>/cproject/pages/mer_news.jsp" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>給商家最新消息</p>
                   </a>
@@ -226,13 +226,13 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="./bldg_query.jsp" class="nav-link active">
+                  <a href="<%=request.getContextPath()%>/cproject/pages/bldg_query.jsp" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>大樓資料查詢</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="./bldg_create.jsp" class="nav-link">
+                  <a href="<%=request.getContextPath()%>/cproject/pages/bldg_create.jsp" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>建立新大樓</p>
                   </a>
@@ -248,13 +248,13 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="./ord_query.jsp" class="nav-link">
+                  <a href="<%=request.getContextPath()%>/cproject/pages/ord_query.jsp" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>訂單查詢</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="./ord_review.jsp" class="nav-link">
+                  <a href="<%=request.getContextPath()%>/cproject/pages/ord_review.jsp" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>評論管理</p>
                   </a>
@@ -329,7 +329,7 @@
 				
 				
                 <!-- <div class="col-md-3"> -->
-                <form method ="post" action="bis.do" style="padding:10px;">
+                <form method ="post" action="<%=request.getContextPath()%>/cproject/pages/bis.do" style="padding:10px;">
 					
                 <!--錯誤表列 -->
 				<c:if test="${not empty errorMsgs}">
@@ -404,12 +404,10 @@ pageContext.setAttribute("list", list);
               <tr>
                 <td><span class="text-muted">${buildingInfo.buildingID}</span></td>
                 <td><a href="invoice.html" class="text-inherit">${buildingInfo.buildingName}</a></td>
-                <td>
-                  ${buildingInfo.buildingAddress}
-                </td>
+                <td>${buildingInfo.buildingAddress}</td>
                 
-                <td>
                 
+                <td>             
                 <form METHOD="get" ACTION="bis.do"  style="width: 0px ; height: 0px">
                   <input type="hidden" name="buildingID"  value="${buildingInfo.buildingID}">    
 			      <input type="hidden" name="action" value="go_for_update">
@@ -418,20 +416,13 @@ pageContext.setAttribute("list", list);
 				  </td>
                   
                   <td>
-                  <form METHOD="get" ACTION="bis.do" style="width: 15px ; height: 15px">
-                  
+                  <form METHOD="get" ACTION="bis.do" style="width: 15px ; height: 15px">             
                   <input type="hidden" name="buildingID"  value="${buildingInfo.buildingID}">    
 			      <input type="hidden" name="action" value="delete">
 			      <button type="submit" value ="送出" class ="btn btn-warning" style = "font-weight :bold " data-bs-toggle="modal" data-bs-target="#exampleModal">刪除</button>
                   </form>
                   </td>
-                  
-                  
-				  
-               
-                              
-                              
-                </td>
+                                  				                                                                                          
                                                                            
                 </tr> 
             </c:forEach>
@@ -499,31 +490,28 @@ pageContext.setAttribute("list", list);
       <!-- REQUIRED SCRIPTS -->
     
       <!-- jQuery -->
-      <script src="../plugins/jquery/jquery.min.js"></script>
+      <script src="<%=request.getContextPath()%>/cproject/plugins/jquery/jquery.min.js"></script>
       <!-- Bootstrap -->
-      <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <script src="<%=request.getContextPath()%>/cproject/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
     crossorigin="anonymous"></script>
       <!-- AdminLTE -->
-      <script src="../dist/js/adminlte.js"></script>
+      <script src="<%=request.getContextPath()%>/cproject/dist/js/adminlte.js"></script>
       <!-- OPTIONAL SCRIPTS -->
-      <script src="../plugins/chart.js/Chart.min.js"></script>
+      <script src="<%=request.getContextPath()%>/cproject/plugins/chart.js/Chart.min.js"></script>
       <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-      <script src="../dist/js/pages/dashboard3.js"></script>
+      <script src="<%=request.getContextPath()%>/cproject/pages/dist/js/pages/dashboard3.js"></script>
       <!-- AdminLTE App -->
       <!-- <script src="../dist/js/adminlte.min.js"></script> -->
     
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
       <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
-      <script src="./assets/js/require.min.js"></script>
+      
       <script>
-        $("#edit").on("click",function(){
-
-        });
-
+        
         
   </script>
 

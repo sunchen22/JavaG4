@@ -1,16 +1,16 @@
 package com.buildinginfo.controller;
 
 import java.io.IOException;
+
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import com.buildinginfo.dao.BuildingInfoDAO;
 import com.buildinginfo.dao.BuildingInfoDAOHibernateImpl;
 import com.buildinginfo.entity.BuildingInfo;
@@ -32,8 +32,9 @@ public class BuildingInfoServlet extends HttpServlet {
 			String str1 = req.getParameter("bdgaddr");
 																//(str == null || (str.trim()).length() == 0)
 			if((str.equals("")|| (str.trim()).length() == 0) && (str1.equals("")|| (str1.trim()).length() == 0)){ // && (str1 == null || (str1.trim()).length() == 0)
-
-				RequestDispatcher failureView = req.getRequestDispatcher("/pages/bldg_queryAll_data.jsp");
+				
+				RequestDispatcher failureView = req.getRequestDispatcher("/cproject/pages/bldg_queryAll_data.jsp");
+				
 				failureView.forward(req, res);
 				
 			}
@@ -44,6 +45,7 @@ public class BuildingInfoServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			if (!(str.equals("") || (str.trim()).length() == 0) || !(str1.equals("") || (str1.trim()).length() == 0)) {
+				
 				Integer buildingID = null;
 //				String buildingName = "";
 				try {
@@ -54,11 +56,11 @@ public class BuildingInfoServlet extends HttpServlet {
 				}
 
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/pages/bldg_query.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/cproject/pages/bldg_query.jsp");
 					failureView.forward(req, res);
 					return;// 程式中斷
 				}
-
+				
 				BuildingInfoDAOHibernateImpl bdhi = new BuildingInfoDAOHibernateImpl();
 				BuildingInfo bif = bdhi.findByPK(buildingID);
 				System.out.println(bif);
@@ -70,14 +72,14 @@ public class BuildingInfoServlet extends HttpServlet {
 				}
 
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/pages/bldg_query.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/cproject/pages/bldg_query.jsp");
 					failureView.forward(req, res);
 					return;// 程式中斷
 				}
 
 				req.setAttribute("bif", bif); // 資料庫取出的buildininfo物件,存入req
 //				req.setAttribute("bif1", bif1);
-				String url = "/pages/bldg_queryOne_data.jsp";
+				String url = "/cproject/pages/bldg_queryOne_data.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 
@@ -95,7 +97,7 @@ public class BuildingInfoServlet extends HttpServlet {
 			
 
 			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
-			String url = "/pages/bldg_queryAll_data.jsp";
+			String url = "/cproject/pages/bldg_queryAll_data.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 			successView.forward(req, res);
 

@@ -1,10 +1,4 @@
-<%@page import="com.dinerratingcomment.entity.DinerRatingComment"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="utf-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="java.util.*"%>
-<%@ page import="com.dinerratingcomment.dao.*"%>
-<%@ page import="com.dinerinfo.dao.*"%>
-<%@ page import="com.dinerinfo.entity.*"%>
 <html>
 
 <head>
@@ -24,15 +18,7 @@
 
 
 </head>
-<!--
-`body` tag options:
 
-  Apply one or more of the following classes to to the body tag
-  to get the desired effect
-
-  * sidebar-collapse
-  * sidebar-mini
--->
 
 <body class="hold-transition sidebar-mini">
   <div class="wrapper">
@@ -45,9 +31,9 @@
 
         </li>
 
-        <!-- <li class="nav-item d-none d-sm-inline-block ">
-          <a href="adm_sales.html" class="nav-link">銷售狀況</a>
-        </li> -->
+        <li class="nav-item d-none d-sm-inline-block ">
+          <a href="<%=request.getContextPath()%>/index.jsp" class="nav-link">管理者管理首頁</a>
+        </li>
       </ul>
 
       <!-- Right navbar links -->
@@ -74,7 +60,7 @@
     <aside class="main-sidebar sidebar-light-warning elevation-4">
       <!-- Brand Logo -->
       <a href="<%=request.getContextPath()%>/index.jsp" class="brand-link">
-        <img src="<%=request.getContextPath()%>/cproject/dist/img/Logo.png" alt="樓頂揪樓咖 Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <img src="<%=request.getContextPath()%>/cproject//dist/img/Logo.png" alt="樓頂揪樓咖 Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-normal">後台管理平台</span>
       </a>
 
@@ -89,6 +75,19 @@
             <a href="#" class="d-block">小丸子</a>
           </div>
         </div>
+
+        <!-- SidebarSearch Form -->
+        <!-- 可省略/側邊搜尋bar -->
+        <!-- <div class="form-inline">
+        <div class="input-group" data-widget="sidebar-search">
+          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-sidebar">
+              <i class="fas fa-search fa-fw"></i>
+            </button>
+          </div>
+        </div>
+      </div> -->
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
@@ -108,20 +107,20 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="./adm_sales.html" class="nav-link active">
+                  <a href="./pages/adm_sales.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>銷售狀況</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="./adm_people.html" class="nav-link">
+                  <a href="./pages/adm_people.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>線上會員人數</p>
                   </a>
                 </li>
                 <!-- 側邊欄次標要打開用class="nav-link active" -->
                 <li class="nav-item">
-                  <a href="./adm_men.html" class="nav-link">
+                  <a href="./pages/adm_men.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>管理者帳號管理</p>
                   </a>
@@ -141,19 +140,19 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="./mem_account.html" class="nav-link">
+                  <a href="./pages/mem_account.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>會員帳號查詢</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="./mem_profile.html" class="nav-link">
+                  <a href="./pages/mem_profile.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>會員資料與權限變更</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="./mem_news.html" class="nav-link">
+                  <a href="./pages/mem_news.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>會員最新消息</p>
                   </a>
@@ -161,6 +160,8 @@
 
               </ul>
             </li>
+
+
 
             <li class="nav-item">
               <a href="#" class="nav-link">
@@ -171,9 +172,12 @@
                 </p>
               </a>
 
+              
+
               <ul class="nav nav-treeview">
                 <!-- <li class="nav-header">商家列表查詢</li> -->
                 <li class="nav-item">
+                  
                   <a href="<%=request.getContextPath()%>/cproject/pages/mer_list.jsp" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>商家列表查詢</p>
@@ -191,7 +195,7 @@
                     <p>商家資料異動</p>
                   </a>
                 </li>
-               
+                
                 <li class="nav-item">
                   <a href="<%=request.getContextPath()%>/cproject/pages/mer_product.jsp" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
@@ -203,7 +207,14 @@
                     <i class="far fa-circle nav-icon"></i>
                     <p>金流報表</p>
                   </a>
+                  
                 </li>
+
+              
+
+                
+
+                
                 <li class="nav-item">
                   <a href="<%=request.getContextPath()%>/cproject/pages/mer_ad.jsp" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
@@ -219,6 +230,10 @@
 
               </ul>
             </li>
+
+
+
+
             <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-edit"></i>
@@ -240,9 +255,11 @@
                     <p>建立新大樓</p>
                   </a>
                 </li>
-                </ul>
-            <li class="nav-item menu-open">
-              <a href="#" class="nav-link active">
+               
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-table"></i>
                 <p>
                   訂單管理
@@ -251,7 +268,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="<%=request.getContextPath()%>/cproject/pages/ord_query.jsp" class="nav-link active">
+                  <a href="<%=request.getContextPath()%>/cproject/pages/ord_query.jsp" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>訂單查詢</p>
                   </a>
@@ -277,13 +294,13 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="./FAQ_Page.html" class="nav-link">
+                  <a href="./pages/FAQ_Page.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>FAQ頁面管理</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="./svr_cust.html" class="nav-link">
+                  <a href="./pages/svr_cust.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>訊息管理</p>
                   </a>
@@ -295,183 +312,60 @@
       </div>
       <!-- /.sidebar -->
     </aside>
+    
+    
 
+    <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
-      <section class="content-header">
+      <div class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1> </h1>
+              <!-- <h1 class="m-0">首頁 Content Header 這裡好多字測試字測試字測試字測試字</h1> -->
             </div>
-
-          </div>
+          </div><!-- /.row -->
         </div><!-- /.container-fluid -->
-      </section>
+      </div>
+      <!-- /.content-header -->
 
       <!-- Main content -->
-      <section class="content">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-10">
-              <!-- interactive chart -->
-              <div class="card card-warning card-outline">
-                <div class="card-header">
-                  <h3 class="card-title">
-                    <i class="fa fa-search fa-sm"></i>
-                  </h3>
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    </button>
-                  </div>
-                </div>
-                <div id="interactive" style="height: 10px;"></div>
 
-                <!-- <div class="col-md-3"> -->
-                
-                <form method="get" action = "gos.do"  style="padding:10px;">
-                
-                <c:if test="${not empty errorMsgs}">
-				<font style="color:red">請修正以下錯誤:</font>
-				<ul>
-	   			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color:red">${message}</li>
-				</c:forEach>
-				</ul>
-				</c:if>
-
-                  <span>
-                    <label>訂單編號：</label>
-                    <input type="text" name = "ordnum" class="border border-warning">
-                    <input type="hidden" name="action" value="go_one_data">
-                  </span>
-
-
-                  <span>
-                    <label>商家名稱：</label>
-                    <input type="text" name = "ordname" class="border border-warning">
-                    
-                  </span>
-
-                  <span>
-                    <button type="submit" style="font-weight:bold" class="btn btn-warning">查詢</button>
-                  </span>
-                </form>
-                <!-- </div> -->
-
-
-                <div id="interactive" style="height: 20px;"></div>
-              </div>
-
-
-
-
-              <!-- /.card-body-->
-            </div>
-            <!-- /.card -->
-
-          </div>
-          <!-- /.col -->
-        </div>
-        <!-- /.row -->
-        
-        	<%
-// 				GroupOrderDAOHibernateImpl godhi = new GroupOrderDAOHibernateImpl();
-//         		List<GroupOrder> list = godhi.getAll(); 
-//          		pageContext.setAttribute("list", list);
-
-				DinerInfoDAOImplC didi = new DinerInfoDAOImplC();
-				List<DinerInfo> list = didi.getAll();
-				pageContext.setAttribute("list", list);
-         		
- 			%>
-        
-        
-        
-
-                <div class="table-responsive">
-                  <table class="table card-table table-vcenter text-nowrap">
-                    <thead>
-                    
-                      <tr>
-                        <th class="w-1">商家編號</th>
-                        <th>商家名稱</th>
-                        
-                        
-                      
-                        
-                      </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach var="dinerinfo" items="${list}">
-                      <tr>
-                        <td><span class="text-muted">${dinerinfo.dinerID}</span></td>
-                        <td><a href="invoice.html" class="text-inherit">${dinerinfo.dinerName}</a></td>
-                        
-                        
-                        <td>
-                          <form action = "gos.do" style="width: 15px ; height: 15px">
-                          <input type="hidden" name="dinerID"  value="${dinerinfo.dinerID}">    
-			      		  <input type="hidden" name="action" value="go_for_data">
-                          <button class ="btn btn-warning" style = "font-weight :bold">查詢</button>
-                          </form>
-                        </td>                                                                                              
-                        
-                        </tr> 
-                    </c:forEach>
-                    </tbody>
-                  </table>
-                </div>
-                </section>
-        
-              </div>
-
-
-
+    </div>
+    <!-- /.content-wrapper -->
 
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-warning">
-        <!-- Control sidebar content goes here -->
-      </aside>
-      <!-- /.control-sidebar -->
-    
-      <!-- Main Footer -->
-      <footer class="main-footer">
-        <strong>Copyright &copy; 2023</strong>
-        樓頂揪樓咖團隊 All rights reserved.
-        <div class="float-right d-none d-sm-inline-block">
-          <b>Version</b> 1.1.0
-        </div>
-      </footer>
+      <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+
+    <!-- Main Footer -->
+    <footer class="main-footer">
+      <strong>Copyright &copy; 2023</strong>
+      樓頂揪樓咖團隊 All rights reserved.
+      <div class="float-right d-none d-sm-inline-block">
+        <b>Version</b> 1.1.0
       </div>
-      <!-- ./wrapper -->
-    
-      <!-- REQUIRED SCRIPTS -->
-    
-      <!-- jQuery -->
-      <script src="<%=request.getContextPath()%>/cproject/plugins/jquery/jquery.min.js"></script>
-      <!-- Bootstrap -->
-      <script src="<%=request.getContextPath()%>/cproject/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-      <!-- AdminLTE -->
-      <script src="<%=request.getContextPath()%>/cproject/dist/js/adminlte.js"></script>
-      <!-- OPTIONAL SCRIPTS -->
-      <script src="<%=request.getContextPath()%>/cproject/plugins/chart.js/Chart.min.js"></script>
-      <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-      <script src="<%=request.getContextPath()%>/cproject/dist/js/pages/dashboard3.js"></script>
-      <!-- AdminLTE App -->
-      <!-- <script src="../dist/js/adminlte.min.js"></script> -->
-    
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-      <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
-      
-      <script>
-        
-       
+    </footer>
+  </div>
+  <!-- ./wrapper -->
 
-        
-  </script>
+  <!-- REQUIRED SCRIPTS -->
 
+  <!-- jQuery -->
+  <script src="<%=request.getContextPath()%>/cproject/plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="<%=request.getContextPath()%>/cproject/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- AdminLTE -->
+  <script src="<%=request.getContextPath()%>/cproject/dist/js/adminlte.js"></script>
+
+  <!-- OPTIONAL SCRIPTS -->
+  <script src="<%=request.getContextPath()%>/cproject/plugins/chart.js/Chart.min.js"></script>
+  
+  
+  <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+  <script src="<%=request.getContextPath()%>/cproject/dist/js/pages/dashboard3.js"></script>
 </body>
 
 </html>
