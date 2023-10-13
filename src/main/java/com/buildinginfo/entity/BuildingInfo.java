@@ -32,8 +32,8 @@ public class BuildingInfo implements Serializable{
 	@Column(name = "buildingAddress")
 	private String buildingAddress;
 	
-	@Column(name = "buildingState")
-	private Integer buildingState;
+	@Column(name = "buildingStatus")
+	private Integer buildingStatus;
 	
 	
 	public BuildingInfo() {
@@ -42,12 +42,12 @@ public class BuildingInfo implements Serializable{
 	}
 
 
-	public BuildingInfo(Integer buildingID, String buildingName, String buildingAddress ,Integer buildingState) {
+	public BuildingInfo(Integer buildingID, String buildingName, String buildingAddress ,Integer buildingStatus) {
 		super();
 		this.buildingID = buildingID;
 		this.buildingName = buildingName;
 		this.buildingAddress = buildingAddress;
-		this.buildingState = buildingState;
+		this.buildingStatus = buildingStatus;
 	}
 
 
@@ -83,13 +83,13 @@ public class BuildingInfo implements Serializable{
 	
 
 
-	public Integer getbuildingState() {
-		return buildingState;
+	public Integer getbuildingStatus() {
+		return buildingStatus;
 	}
 
 
-	public void setbuildingState(Integer buildingState) {
-		this.buildingState = buildingState;
+	public void setbuildingState(Integer buildingStatus) {
+		this.buildingStatus = buildingStatus;
 	}
 
 
