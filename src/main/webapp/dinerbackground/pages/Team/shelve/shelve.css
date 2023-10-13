@@ -1,0 +1,113 @@
+input[disabled]{
+  background-color: #000000;
+  cursor: not-allowed;
+}
+#drop_zone{
+  border: 1px dashed #ccc;
+  height: 50px;
+  position: relative;
+}
+#drop_zone span.text{
+  position: absolute;
+  display: inline-block;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  color: rgb(255, 255, 255);
+}
+#drop_zone.-on{
+  border: 1px dashed lightblue;
+  box-shadow: 3px 3px 5px lightblue inset, -3px -3px 5px lightblue inset;
+}
+#preview{
+  border: 1px solid rgb(255, 255, 255);
+  display: inline-block;
+  width: 150px;
+  min-height: 150px;
+  position: relative;
+}
+#preview span.text{
+  position: absolute;
+  display: inline-block;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  color: lightgray;
+}
+#preview img.preview_img{
+  width: 100%;
+}
+
+#preview2{
+  border: 1px solid rgb(255, 255, 255);
+  display: inline-block;
+  width: 150px;
+  min-height: 150px;
+  position: relative;
+}
+#preview2 span.text{
+  position: absolute;
+  display: inline-block;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  color: lightgray;
+}
+#preview2 img.preview_img{
+  width: 100%;
+}
+
+#preview3{
+  border: 1px solid rgb(255, 255, 255);
+  display: inline-block;
+  width: 150px;
+  min-height: 150px;
+  position: relative;
+}
+#preview3 span.text{
+  position: absolute;
+  display: inline-block;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  color: lightgray;
+}
+#preview3 img.preview_img{
+  width: 100%;
+}
+
+button.p_submit{
+  width: 100px;
+  float: right;
+}
+
+button.p_clear{
+  width: 100px;
+  float: right;
+}
+
+button.p_preview{
+  width: 120px;
+  float: right;
+}
+
+.parent {
+  display: flex;
+  /* 水平置中 */
+  justify-content: center;    
+  /* 垂直置中 */
+  align-items: center;     
+  
+  column-gap: 5px;
+ 
+}
+
+input.autocreat{
+  width: 100px;
+ 
+}
+

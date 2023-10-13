@@ -1,5 +1,6 @@
 package com.varytype.entity;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -49,5 +50,7 @@ public class VaryType {
 	public String toString() {
 		return "VaryType [varyTypeID=" + varyTypeID + ", varyType=" + varyType + "]";
 	}
+	
+
 
 }
