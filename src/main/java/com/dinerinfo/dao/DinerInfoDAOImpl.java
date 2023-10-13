@@ -11,7 +11,9 @@ import com.dinerinfo.entity.DinerInfo;
 public class DinerInfoDAOImpl implements DinerInfoDAO{
 	// SessionFactory 為 thread-safe，可宣告為屬性讓請求執行緒們共用
 		private SessionFactory factory;
-
+		
+		
+		
 		public DinerInfoDAOImpl(SessionFactory factory) {
 			this.factory = factory;
 		}

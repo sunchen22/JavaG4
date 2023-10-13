@@ -1,5 +1,11 @@
+<%@page import="com.dinerratingcomment.entity.DinerRatingComment"%>
+<%@page import="com.dinerratingcomment.dao.*"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="utf-8"%>
-<html lang="en">
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.*"%>
+<%@ page import="com.dinerratingcomment.dao.*"%>
+<%@page import="com.dinerinfo.entity.DinerInfo"%>
+<html>
 
 <head>
     <meta charset="utf-8">
@@ -328,6 +334,21 @@
                                 <!-- <div class="col-md-3"> -->
 
                                 <!-- </div> -->
+                                
+                                
+                                
+<%
+DinerInfo dif = (DinerInfo)request.getAttribute("dif");
+dif.getDinerID();
+
+// DinerRatingComment drc = (DinerRatingComment)request.getAttribute("drc");
+
+DinerRatingCommentDAOImplC drcdi = new DinerRatingCommentDAOImplC();
+
+List<DinerRatingComment> list = drcdi.getAll(dif.getDinerID());
+pageContext.setAttribute("list", list);
+
+%>
 
 
 
@@ -346,20 +367,20 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td><span class="text-muted">1</span></td>
-                                                <td><a href="invoice.html" class="text-inherit">54321</a></td>
+                                                <td><span class="text-muted"><%=dif.getDinerID() %></span></td>
+                                                <td><a href="invoice.html" class="text-inherit"><%=dif.getDinerID() %></a></td>
                                                 <td>
-                                                    吉野家烤肉飯
+                                                 <%=dif.getDinerName() %>
                                                 </td>
                                                 <td>
-                                                    88880000
+                                                  <%=dif.getDinerPhone() %>
                                                 </td>
                                                 <td>
-                                                    xxxxxxxxxxxxxx
+                                                   <%=dif.getDinerEmail() %> 
                                                 </td>
 
                                                 <td>
-                                                    xxxxxxxxxxxxxxXXXXXXXXXXXX
+                                                    <%=dif.getDinerAddress() %>
                                                 </td>
 
                                             </tr>
@@ -386,27 +407,30 @@
                         <table class="table card-table table-vcenter text-nowrap">
                             <thead>
                                 <tr>
-                                    <th class="w-1">訂單編號</th>
+                                    <th class="w-1">評論編號</th>
                                     <th>訂單明細</th>
                                     <th>評論者</th>
                                     <th>評論內容</th>
+                                    <th>評論時間</th>
                                     <th>星數</th>
                                     <th>商家回覆內容</th>
                                     <th>商家回覆時間</th>
-                                    <th>時間</th>
+                                    
                                     
                                 </tr>
                             </thead>
                             <tbody>
+                            <c:forEach var ="dinerratingcomment" items="${list}">
                                 <tr>
-                                    <td><span class="text-muted">1</span></td>
-                                    <td>XXXXXXXX</td>
-                                    <td>XXX</td>
-                                    <td>XXXXXXXX</td>
-                                    <td>5</td>
-                                    <td>XXXXXX</td>
-                                    <td>XXXXXX</td>
-                                    <td>XXXXXXX</td>
+                                    <td><span class="text-muted">${dinerratingcomment.commentID}</span></td>
+                                    <td>${dinerratingcomment.commentID}</td>
+                                    <td>${dinerratingcomment.userID}</td>
+                                    <td>${dinerratingcomment.userCommentContent}</td>
+                                    <td>${dinerratingcomment.userCommentTime}</td>
+                                    <td>${dinerratingcomment.dinerRating}</td>
+                                    <td>${dinerratingcomment.dinerReplyContent}</td>
+                                    <td>${dinerratingcomment.dinerReplyTime}</td>
+                                    
                                     <td>
                                         <button type="button" id="stop" class="btn btn-warning" style="font-weight :bold"
                                         data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -414,18 +438,10 @@
                                       </button>
 
                                     </td>
-                                    
-
-                                        
-
-                            
-
-                                    
-
-
+  
 
                                 </tr>
-                                
+                                </c:forEach>
 
 
                             </tbody>
