@@ -151,14 +151,9 @@ public class Product {
 	}
 
 
-
-
-
 	public Timestamp getProductReleaseTime() {
 		return productReleaseTime;
 	}
-
-
 
 
 	public void setProductReleaseTime(Timestamp productReleaseTime) {
@@ -166,9 +161,6 @@ public class Product {
 	}
 
 
-
-
-	public Blob getProductBlob1() {
 
 	public byte[] getProductBlob1() {
 
@@ -178,50 +170,45 @@ public class Product {
 
 
 
-	public void setProductBlob1(Blob productBlob1) {
+
+
 
 	public void setProductBlob1(byte[] productBlob1) {
-
 		this.productBlob1 = productBlob1;
 	}
 
 
 
 
-	public Blob getProductBlob2() {
+
 
 	public byte[] getProductBlob2() {
-
 		return productBlob2;
 	}
 
 
 
 
-	public void setProductBlob2(Blob productBlob2) {
 
 	public void setProductBlob2(byte[] productBlob2) {
-
 		this.productBlob2 = productBlob2;
 	}
 
 
 
 
-	public Blob getProductBlob3() {
+
 
 	public byte[] getProductBlob3() {
-
 		return productBlob3;
 	}
 
 
 
 
-	public void setProductBlob3(Blob productBlob3) {
+
 
 	public void setProductBlob3(byte[] productBlob3) {
-
 		this.productBlob3 = productBlob3;
 	}
 
@@ -260,10 +247,6 @@ public class Product {
 				+ productRemark + ", productStatus=" + productStatus + "]";
 	}
 
-
-
-
-}
 
 }
 

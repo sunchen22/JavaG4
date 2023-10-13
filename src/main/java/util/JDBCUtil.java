@@ -16,5 +16,7 @@ public class JDBCUtil {
 	
 	public static final String USER = "root";
 	
+
 	public static final String PASSWORD = "5acv4lqw";
+
 }

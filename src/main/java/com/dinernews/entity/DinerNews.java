@@ -28,7 +28,7 @@ public class DinerNews {
 //	@Column(name = "empID")
 //	private Integer empID;
 	
-	
+	@ManyToOne
 	@JoinColumn(name = "empID" , referencedColumnName = "empID")
 	private WebempadminVO webempadminvo;
 	
