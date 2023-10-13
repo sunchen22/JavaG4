@@ -108,7 +108,7 @@
 				</div>
 			</form>
 			<div class="mt-3 text-center">
-				<a href="login.html">我已經有帳號了</a>
+				<a href="Login.jsp">我已經有帳號了</a>
 			</div>
 		</div>
 	</div>

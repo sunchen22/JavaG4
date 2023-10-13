@@ -23,8 +23,8 @@ public class BuildingInfo implements Serializable{
 	@Column(name = "buildingID")
 	private Integer buildingID;
 	
-	@OneToMany(mappedBy = "buildinginfo" , cascade = CascadeType.ALL)
-	private Set<UserInfo> buildinginfo;
+	@OneToMany(mappedBy = "buildingInfo" , cascade = CascadeType.ALL)
+	private Set<UserInfo> buildingInfo;
 	
 	@Column(name = "buildingName")
 	private String buildingName;
