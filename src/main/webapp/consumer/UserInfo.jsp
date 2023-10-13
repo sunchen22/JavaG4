@@ -87,7 +87,7 @@
             <div class="row mb-3">
               <label for="building" class="col-form-label col-md-3">常用大樓：</label>
               <div class="col-md-9">
-                <input type="text" class="form-control" id="building" value="${loginUserInfo.buildingInfo.buildingName}" maxlength="10">
+                <input type="text" class="form-control" id="building" value="${loginUserInfo.buildinginfo.buildingName}" maxlength="10">
               </div>
             </div>
             <div class="row mb-3">

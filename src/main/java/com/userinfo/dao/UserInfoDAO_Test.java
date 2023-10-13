@@ -79,7 +79,7 @@ public class UserInfoDAO_Test {
 				System.out.print(userInfo.getUserPhone() + ",");
 				System.out.print(userInfo.getUserName() + ",");
 				System.out.print(userInfo.getUserRegisterTime() + ",");
-				System.out.print(userInfo.getBuildingInfo().getBuildingID());
+				System.out.print(userInfo.getBuildinginfo().getBuildingID());
 				System.out.println();
 			}
 			

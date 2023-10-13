@@ -39,7 +39,7 @@ public class UserInfo implements Serializable{
 
 	@ManyToOne
 	@JoinColumn(name = "buildingID", referencedColumnName = "buildingID")
-	private BuildingInfo buildingInfo;
+	private BuildingInfo buildinginfo;
 //	@Column(name="buildingID")
 //	private Integer buildingID;
 
@@ -98,13 +98,13 @@ public class UserInfo implements Serializable{
 		this.userNickName = userNickName;
 	}
 	
-	public BuildingInfo getBuildingInfo() {
-		return buildingInfo;
+	public BuildingInfo getBuildinginfo() {
+		return buildinginfo;
 	}
-	public void setBuildingInfo(BuildingInfo buildingInfo) {
-		this.buildingInfo = buildingInfo;
+	public void setBuildinginfo(BuildingInfo buildinginfo) {
+		this.buildinginfo = buildinginfo;
 	}
-
+	
 	public Date getUserBirthday() {
 		return userBirthday;
 	}

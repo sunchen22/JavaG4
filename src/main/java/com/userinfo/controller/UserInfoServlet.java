@@ -80,7 +80,7 @@ public class UserInfoServlet extends HttpServlet {
 			userInfo.setUserNickName(userNickName);
 			BuildingInfo buildingInfo = new BuildingInfo();
 			buildingInfo.setBuildingID(buildingID);
-			userInfo.setBuildingInfo(buildingInfo);
+			userInfo.setBuildinginfo(buildingInfo);
 			userInfo.setUserBirthday(userBirthday);
 			try {
 				InputStream is = userBlobPart.getInputStream();
