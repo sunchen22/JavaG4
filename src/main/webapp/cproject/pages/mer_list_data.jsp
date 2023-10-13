@@ -1,5 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="utf-8"%>
-<html lang="en">
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.*"%>
+<%@ page import="com.dinerinfo.dao.*"%>
+<%@ page import="com.dinerinfo.entity.*"%>
+<html>
 
 <head>
   <meta charset="utf-8">
@@ -329,57 +333,76 @@
               <div id="interactive" style="height: 10px;"></div>
 
               <!-- <div class="col-md-3"> -->
+              
+              <%
+				
+
+				DinerInfo dif =  (DinerInfo)request.getAttribute("dif");
+              	
+		
+ 			%>
+              
+              
+              
+              
+              
+              
+              
+              
+              
               <form action="" style="padding:10px;">
+              
+
 
                 <span>
                   <label>品牌名稱：</label>
-                  <input type="text" class="border border-warning" style="width :50%">
+                  <input type="text" value ="<%= dif.getDinerName() %>" class="border border-warning" style="width :50%">
                 </span>
                 <br>
 
                 <span>
                   <label>地址：&ensp;&ensp;&ensp;&ensp;</label>
-                  <input type="text" class="border border-warning" style="width :50%">
+                  <input type="text" value ="<%= dif.getDinerAddress() %>" class="border border-warning" style="width :50%">
                 </span>
                 <br>
                 <span>
                   <label>姓名：&ensp;&ensp;&ensp;&ensp;</label>
-                  <input type="text" class="border border-warning" style="width :50%">
+                  <input type="text" value ="<%= dif.getDinerContact() %>"class="border border-warning" style="width :50%">
                 </span>
                 <br>
                 <span>
                   <label>統編：&ensp;&ensp;&ensp;&ensp;</label>
-                  <input type="text" class="border border-warning" style="width :50%">
+                  <input type="text" value ="<%= dif.getDinerTaxID()%>" class="border border-warning" style="width :50%">
                 </span>
                 <br>
                 <span>
                   <label>e-mail ：&emsp;</label>
-                  <input type="text" class="border border-warning" style="width :50%">
+                  <input type="text" value ="<%= dif.getDinerEmail() %>" class="border border-warning" style="width :50%">
                 </span>
                 <br>
                 <span>
                   <label>密碼：&ensp;&ensp;&ensp;&ensp;</label>
-                  <input type="text" class="border border-warning" style="width :50%">
+                  <input type="text" value ="<%= dif.getDinerPassword() %>" class="border border-warning" style="width :50%">
                 </span>
                 <br>
                 <span>
                   <label>銀行代號：</label>
-                  <input type="text" class="border border-warning" style="width :50%">
+                  <input type="text" value ="<%= dif.getDinerBank() %>" class="border border-warning" style="width :50%">
                 </span>
                 <br>
                 <span>
                   <label>銀行帳號：</label>
-                  <input type="text" class="border border-warning" style="width :50%">
+                  <input type="text" value ="<%= dif.getDinerAccount() %>" class="border border-warning" style="width :50%">
                 </span>
                 <br>
                 <span>
                   <label>戶名：&ensp;&ensp;&ensp;&ensp;</label>
-                  <input type="text" class="border border-warning" style="width :50%">
+                  <input type="text" value ="<%= dif.getDinerAccountName() %>" class="border border-warning" style="width :50%">
                 </span>
                 <br>
                 <span>
                   <label>電話：&ensp;&ensp;&ensp;&ensp;</label>
-                  <input type="text" class="border border-warning" style="width :50%">
+                  <input type="text" value ="<%= dif.getDinerPhone() %>" class="border border-warning" style="width :50%">
                 </span>
                 <br>
                 <br>

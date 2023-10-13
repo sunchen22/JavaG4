@@ -1,15 +1,18 @@
 package com.commentlike.entity;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.dinerratingcomment.entity.DinerRatingComment;
 import com.userinfo.entity.UserInfo;
-
+@Entity
+@Table(name="commentlike")
 public class CommentLike {
 
 	public CommentLike() {

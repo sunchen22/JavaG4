@@ -328,23 +328,23 @@ pageContext.setAttribute("list", list);
 											<td>${empIDVO.empAdminAuthorization}</td>
 											<td>${empIDVO.empArriveDate}</td>
 											<td>
+												<div >
 												<FORM METHOD="post"
 													ACTION="<%=request.getContextPath()%>/background/pages/emp.do"
-													ENCTYPE="multipart/form-data" style="margin-bottom: 0px;">
-													<input type="submit" value="修改"
-														class="btn btn-warning btn-sm"> 
-														<input type="hidden" name="empID" value="${empIDVO.empID}">
-														<input type="hidden" name="action" value="getOne_For_Update">															
+													ENCTYPE="multipart/form-data" style="margin-bottom: 0px;" id="modifybtn">
+													<input type="submit" value="修改" class="btn btn-warning btn-sm" id="modifybtn1"> 
+														<input type="hidden" name="empID" value="${empIDVO.empID}" id="modifybtn2">
+														<input type="hidden" name="action" value="getOne_For_Update" id="modifybtn3">															
 												</FORM>
+												<div>
 											</td>
 											<td>
-												<FORM METHOD="post"
-													ACTION="<%=request.getContextPath()%>/background/pages/emp.do"
-													style="margin-bottom: 0px;">
-													<input type="submit" value="已離職"
-														class="btn btn-danger btn-sm"> <input
-														type="hidden" name="empno" value="${empIDVO.empID}">
-													<input type="hidden" name="action" value="delete">
+<%-- 刪除	 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/background/pages/emp.do" style="margin-bottom: 0px;"> --%>
+												<FORM METHOD="post" style="margin-bottom: 0px;" id="suspendbtn">
+													<input type="submit" value="已離職" class="btn btn-danger btn-sm" > 
+													<input type="hidden" name="empID" value="${empIDVO.empID}" >
+<!-- 刪除	 <input type="hidden" name="action" value="delete"> -->
+
 												</FORM>
 											</td>
 										</tr>
@@ -408,9 +408,18 @@ pageContext.setAttribute("list", list);
 			}
 		}
 	</script>
-
-
-
+	
+<!-- 停權 -->
+	<script>
+   
+    $("#suspendbtn").click(function(){
+    	console.log(123);
+    	$("#modifybtn").attr("disabled",true);
+    	$("#modifybtn2").attr("disabled",true);
+    	$("#modifybtn3").attr("disabled",true);
+    })
+   
+</script>
 
 
 

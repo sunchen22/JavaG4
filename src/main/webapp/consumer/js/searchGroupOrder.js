@@ -2,89 +2,83 @@
  * 
  */
 
-//function search(query){
-//	$.ajax({
-//        url: "https://notes.webmix.cc/ajax/teach/api/list.php",  // 資料請求的網址
-//        type: "GET",                  // GET | POST | PUT | DELETE | PATCH
-//        data: query,   // 將物件資料(不用雙引號) 傳送到指定的 url
-//        dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
-//        beforeSend: function () {     // 在 request 發送之前執行
-//            $("ul.task_list").html('<li style="text-align: center;"><i class="fas fa-spinner fa-spin fa-3x"></i></li>');
-//        },
-//        success: function (data) {    // request 成功取得回應後執行
-//            // console.log(data);
-//            // console.log(data.length);
-//            if (data.length == 0) {
-//                $("ul.task_list").html("")
-//            } else {
-//                let list_html = "";
-//                $.each(data, function (index, item) {
-//                    // console.log(index + " " + item);
-//                    let star_on = ["", "", "", "", ""]
-//                    for (let i = 1; i <= item.star; i++) {
-//                        star_on[i - 1] = "-on";
-//                    }
-//                    list_html += `
-//                            <li data-id="${item.item_id}" data-sort="${item.sort}" data-star="${item.star}">
-//                                <div class="item_flex">
-//                                    <div class="left_block">
-//                                        <div class="btn_flex">
-//                                            <button type="button" class="btn_up">往上</button>
-//                                            <button type="button" class="btn_down">往下</button>
-//                                        </div>
-//                                    </div>
-//                                    <div class="middle_block">
-//                                    <div class="star_block">
-//                                        <span class="star ${star_on[0]}" data-star="1"><i class="fas fa-star"></i></span>
-//                                        <span class="star ${star_on[1]}" data-star="2"><i class="fas fa-star"></i></span>
-//                                        <span class="star ${star_on[2]}" data-star="3"><i class="fas fa-star"></i></span>
-//                                        <span class="star ${star_on[3]}" data-star="4"><i class="fas fa-star"></i></span>
-//                                        <span class="star ${star_on[4]}" data-star="5"><i class="fas fa-star"></i></span>
-//                                    </div>
-//                                        <p class="para">${item.name}</p>
-//                                        <input type="text" class="task_name_update -none" placeholder="更新待辦事項…" value="${item.name}">
-//                                    </div>
-//                                    <div class="right_block">
-//                                        <div class="btn_flex">
-//                                            <button type="button" class="btn_update">更新</button>
-//                                            <button type="button" class="btn_delete">移除</button>
-//                                        </div>
-//                                    </div>
-//                                </div>
-//                            </li>
-//                        `;
-//
-//                    $("ul.task_list").html(list_html);
-//                });
-//            }
-//        },
-//        error: function (xhr) {  // request 發生錯誤的話執行
-//            console.log(xhr);
-//        },
-//        complete: function (xhr) {  // request 完成之後執行(在 success / error 事件之後執行)
-//            console.log(xhr);
-//        }
-//    });
-//}
+function search(requestData) {
+	$.ajax({
+		url: "http://localhost:8081/JavaG4/GroupOrder.do?action=getAll",  // 資料請求的網址
+		type: "POST",                  // GET | POST | PUT | DELETE | PATCH
+		data: JSON.stringify(requestData),   // 將物件資料(不用雙引號) 傳送到指定的 url
+		contentType: "application/json",
+		dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
+		beforeSend: function () {     // 在 request 發送之前執行
+			// 阻止使用者重複發出請求
+		},
+		success: function (data) {    // request 成功取得回應後執行
+			// console.log(data);
+			// console.log(data.length);
+			if (data.length == 0) {
+
+			} else {
+				let list_html = "";
+				$.each(data, function (index, item) {
+					console.log(index + " " + item);
+					list_html += `<div class="card">
+					<div class="row g-0 align-items-center">
+						<div class="col-4 ">
+							<img src="/JavaG4/GroupOrderDinerImage?id=${item.groupOrderID}" class="card-img" alt="...">
+						</div>
+						<div class="col-8">
+							<div class="card-body">
+								<h5 class="card-title">${item.buildingName}</h5>
+								<ul class="list-unstyled card-text">
+									<li>大樓地址：${item.buildingAddress}</li>
+									<li>${item.dinerName}</li>
+									<li class="list-inline-item"><span class="badge fs-6 rounded-pill bg-secondary">
+
+									${item.dinerType == 'M' ? '<i class="fa-solid fa-utensils"></i>' : (item.dinerType=='D' ? '<i class="fa-solid fa-mug-saucer"></i>' : '<i class="fa-solid fa-utensils"></i><i class="fa-solid fa-mug-saucer"></i>')}
+									</span>
+									</li>
+									<li class="list-inline-item"><span class="badge fs-6 rounded-pill bg-secondary"><i class="fa-solid fa-star"></i>${item.dinerRating}</span>
+									</li><li>主揪：${item.userNickName}</li>
+									<li class="list-inline-item">成團條件：${item.dinerOrderThreshold}元 </li>
+									<li class="list-inline-item">成團狀態：${item.orderStatus=='1'? '未達成團條件' : '已達成團條件'}</li>
+									<li>付款截止時間：${item.groupOrderSubmitTime}</li>
+									<div class="d-flex justify-content-end"><a class="btn btn-dark" href="http://localhost:8081/JavaG4/GroupOrder.do?action=getOne&ID=${item.groupOrderID}">加入此大樓揪團</a>
+									</div>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>`
+				});
+				$("#group_order_results").html(list_html);
+			}
+		},
+		error: function (xhr) {  // request 發生錯誤的話執行
+			console.log(xhr);
+		},
+		complete: function (xhr) {  // request 完成之後執行(在 success / error 事件之後執行)
+			console.log(xhr);
+		}
+	});
+}
 
 
-function init() {
-	
+function inputSync() {
 	// Filter synchronization between tabs.
-	$("ul.filter_by input").on("change", function() {
-		console.log($(this));
+	$("ul.filter_by input").on("change", function () {
+		// Get the selected checkbox
 		let className = $(this).attr("class").split(' ')[1];
-		console.log($(this).attr("class"));
-		console.log($(className));
+		// console.log($(className));
+		// Find the other checkbox welements ith the same class.
 		$("." + className).prop("checked", $(this).prop("checked"));
 	});
-	
+
 	// Sorter synchronization between tabs.
-	$("div.order_by select.form-select").change(function() {
+	$("div.order_by select.form-select").change(function () {
 		// Get the selected option value
 		let selectedValue = $(this).val();
 		console.log(selectedValue);
-		// Find other select elements in divs with class "order_by"
+		// Find other select elements in divs with class "order_by."
 		if (selectedValue == "progress" || selectedValue == "deadline") {
 			$(".order_by select.form-select").not(this).val("distance");
 		} else {
@@ -94,30 +88,50 @@ function init() {
 
 }
 
+function getRequestData() {
+	// console.log("keyword: ", $("div.search_bar input.input_keyword").val());
+	// console.log("address: ", $("div.search_bar input.input_address").val());
+	// console.log("tab on: ", $("#nav_searchgrouporder_tab").hasClass("active") ? $("#nav_searchgrouporder_tab").attr("id") : $("#nav_searchdiner_tab").attr("id"));
+
+	// console.log("my building only checked:", $("#g_my_building_only").prop("checked"));
+	// console.log("my building only checked:", $("#d_my_building_only").prop("checked"));
+	// console.log("achived only checked:", $("input.achived_only").prop("checked"));
+	// console.log("has group only checked:", $("input.has_group_only").prop("checked"));
+	// console.log("now open only checked:", $("input.now_open_only").prop("checked"));
+
+	// console.log($("input.type_food").prop("checked"));
+	// console.log($("input.type_drinks").prop("checked"));
+	// console.log($("input.type_mixed").prop("checked"));
+
+	// console.log($("div.order_by select.form-select").val());
+
+	let requestData = {
+		keyword: $("div.search_bar input.input_keyword").val(),
+		address: $("div.search_bar input.input_address").val(),
+		target: $("#nav_searchgrouporder_tab").hasClass("active") ? $("#nav_searchgrouporder_tab").attr("id") : $("#nav_searchdiner_tab").attr("id"),
+		myBuildingOnly: $("#g_my_building_only").prop("checked"),
+		achivedOnly: $("input.achived_only").prop("checked"),
+		hasGroupOnly: $("input.has_group_only").prop("checked"),
+		nowOpenOnly: $("input.now_open_only").prop("checked"),
+		typeFood: $("input.type_food").prop("checked"),
+		typeDrinks: $("input.type_drinks").prop("checked"),
+		typeMixed: $("input.type_mixed").prop("checked"),
+		orderBy: $("div.order_by select.form-select").val()
+	};
+	// console.log(requestData);
+	return requestData;
+}
 
 
-
-$(function() {
-	init();
+$(function () {
+	inputSync();
 
 	// After the page is loaded, before user enters any query conditions.
-	// search();
+	// search(getRequestData());
 
-	$("#btn_search").on("click", function() {
-		console.log("keyword: ", $("div.search_bar input.input_keyword").val());
-		console.log("address: ", $("div.search_bar input.input_address").val());
-		console.log("tab on: ", $("#nav_searchgrouporder_tab").hasClass("active") ? $("#nav_searchgrouporder_tab").text() : $("#nav-searchdiner-tab").text());
-		
-		console.log("my building only checked:", $("#g_my_building_only").prop("checked"));
-		console.log("my building only checked:", $("#d_my_building_only").prop("checked"));
-		console.log("achived only checked:", $("input.achived_only").prop("checked"));
-		console.log("has group only checked:", $("input.has_group_only").prop("checked"));
-		console.log("now open only checked:", $("input.now_open_only").prop("checked"));
+	$("#btn_search").on("click", function () {
 
-		console.log($("#d_type_food").prop("checked"));
-		console.log($("#g_type_food").prop("checked"));
-		$("li.filter_by input")
-
+		search(getRequestData());
 
 	});
 

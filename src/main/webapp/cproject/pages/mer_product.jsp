@@ -1,5 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="utf-8"%>
-<html lang="en">
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.*"%>
+<%@ page import="com.dinerinfo.dao.*"%>
+<%@ page import="com.dinerinfo.entity.*"%>
+<html>
 
 <head>
   <meta charset="utf-8">
@@ -362,16 +366,14 @@
 
 
 
-        <!-- <div class="col-12">
-            <div class="card">
-              <div class="card-header">
-                <div>
-                  <h3 class="card-title" style="align-items:center">管理者帳號</h3>
-                </div>
-                <div style="display: flex;justify-content: right;">
-                  <button class="btn btn-warning "><i class="fa fa-plus"></i>增加管理者</button>
-                </div>
-              </div> -->
+        <%
+				
+
+				DinerInfoDAOImplC didi = new DinerInfoDAOImplC();
+				List<DinerInfo> list = didi.getAll();
+				pageContext.setAttribute("list", list);
+         		
+ 			%>
     
     
     
@@ -382,49 +384,31 @@
                       <th class="w-1">商家編號</th>
                       <th>商家帳號</th>
                       <th>商家名稱</th>
-                      <th>商家電話</th>
-                      <th>狀態</th>
-                  
-                      <th>  </th>
+
                       
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td><span class="text-muted">1</span></td>
-                      <td><a href="invoice.html" class="text-inherit">54321</a></td>
-                      <td>
-                        吉野家烤肉飯
-                      </td>
-                      <td>
-                        88880000
-                      </td>
-                      <td>
-                        上架中
-                      </td>
-                      <td>
-                        <button id = "check" class ="btn btn-warning" style = "font-weight :bold">審核商品</button>
-                      </td>
-                      
-                    <tr>
-                      <td><span class="text-muted">2</span></td>
-                      <td><a href="invoice.html" class="text-inherit">12345</a></td>
-                      <td>
-                        三商巧福
-                      </td>
-                      <td>
-                        00008888
-                      </td>
-                      <td>
-                        上架中
-                      </td>
-                      <td>
-                        <button id = "check" class ="btn btn-warning" style = "font-weight :bold">審核商品</button>
-                      </td>
-                        
-                      
-                      </tr> 
                   
+                  <c:forEach var="dinerinfo" items="${list}">
+                    <tr>
+                      <td><span class="text-muted">${dinerinfo.dinerID}</span></td>
+                      <td><a href="invoice.html" class="text-inherit">${dinerinfo.dinerTaxID}</a></td>
+                      <td>
+                        ${dinerinfo.dinerName}
+                      </td>                      
+                      
+                      <td>
+                        <form action = "pdsc.do" style="width: 15px ; height: 15px">
+                          <input type="hidden" name="dinerID"  value="${dinerinfo.dinerID}">    
+			      		  <input type="hidden" name="action" value="go_for_product_check">
+                          <button class ="btn btn-warning" style = "font-weight :bold">查詢</button>
+                          </form>
+                      </td>
+                      
+               
+                      </tr> 
+                  </c:forEach>
                   </tbody>
                 </table>
               </div>

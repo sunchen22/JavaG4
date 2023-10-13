@@ -22,7 +22,7 @@ public class Product {
 	@Column(name = "dinerID")
 	private Integer dinerID;
 
-	@Column(name = "dinerID")
+	@Column(name = "productName")
 	private String productName;
 
 	@Column(name = "productPrice")
@@ -37,14 +37,14 @@ public class Product {
 	@Column(name = "productReleaseTime", insertable = false)
 	private Timestamp productReleaseTime;
 
-	@Column(name = "productBlob1")
-	private Blob productBlob1;
+	@Column(name = "productBlob1" , columnDefinition = "longblob")
+	private byte[] productBlob1;
 
-	@Column(name = "productBlob2")
-	private Blob productBlob2;
+	@Column(name = "productBlob2" , columnDefinition = "longblob")
+	private byte[] productBlob2;
 
-	@Column(name = "productBlob3")
-	private Blob productBlob3;
+	@Column(name = "productBlob3" , columnDefinition = "longblob")
+	private byte[] productBlob3;
 
 	@Column(name = "productRemark")
 	private String productRemark;
@@ -58,6 +58,26 @@ public class Product {
 		super();
 	}
 
+	public Product(Integer productID, Integer dinerID, String productName, Integer productPrice, Integer productTypeID,
+
+			Integer productDailyStock, Timestamp productReleaseTime, byte[] productBlob1, byte[] productBlob2, byte[] productBlob3,
+
+			
+
+			String productRemark) {
+		super();
+		this.productID = productID;
+		this.dinerID = dinerID;
+		this.productName = productName;
+		this.productPrice = productPrice;
+		this.productTypeID = productTypeID;
+		this.productDailyStock = productDailyStock;
+		this.productReleaseTime = productReleaseTime;
+		this.productBlob1 = productBlob1;
+		this.productBlob2 = productBlob2;
+		this.productBlob3 = productBlob3;
+		this.productRemark = productRemark;
+	}
 
 
 	public Integer getProductID() {
@@ -132,9 +152,12 @@ public class Product {
 
 
 
+
+
 	public Timestamp getProductReleaseTime() {
 		return productReleaseTime;
 	}
+
 
 
 
@@ -144,37 +167,61 @@ public class Product {
 
 
 
+
 	public Blob getProductBlob1() {
+
+	public byte[] getProductBlob1() {
+
 		return productBlob1;
 	}
 
 
 
+
 	public void setProductBlob1(Blob productBlob1) {
+
+	public void setProductBlob1(byte[] productBlob1) {
+
 		this.productBlob1 = productBlob1;
 	}
 
 
 
+
 	public Blob getProductBlob2() {
+
+	public byte[] getProductBlob2() {
+
 		return productBlob2;
 	}
 
 
 
+
 	public void setProductBlob2(Blob productBlob2) {
+
+	public void setProductBlob2(byte[] productBlob2) {
+
 		this.productBlob2 = productBlob2;
 	}
 
 
 
+
 	public Blob getProductBlob3() {
+
+	public byte[] getProductBlob3() {
+
 		return productBlob3;
 	}
 
 
 
+
 	public void setProductBlob3(Blob productBlob3) {
+
+	public void setProductBlob3(byte[] productBlob3) {
+
 		this.productBlob3 = productBlob3;
 	}
 
@@ -215,4 +262,8 @@ public class Product {
 
 
 
+
 }
+
+}
+

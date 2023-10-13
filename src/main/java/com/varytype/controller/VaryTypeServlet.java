@@ -31,11 +31,12 @@ public class VaryTypeServlet extends HttpServlet {
 
 				Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 				req.setAttribute("errorMsgs", errorMsgs);
-				System.out.println("123");
+				
+				
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 				String varyType = req.getParameter("varyType");
 
-				System.out.println("456");
+			
 
 				/*************************** 2.開始新增資料 ***************************************/
 				VaryTypeService varytypeSvc = new VaryTypeService();

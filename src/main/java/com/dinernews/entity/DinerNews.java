@@ -1,16 +1,17 @@
 package com.dinernews.entity;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
+import com.webempadmin.model.WebempadminVO;
 
 @Entity
 @Table(name = "DinerNews")
@@ -23,15 +24,19 @@ public class DinerNews {
 	@Column(name = "dinerNewsContent")
 	private String dinerNewsContent;
 	
-	@Column(name = "empID")
-	private int empID;
+	
+//	@Column(name = "empID")
+//	private Integer empID;
+	
+	
+	@JoinColumn(name = "empID" , referencedColumnName = "empID")
+	private WebempadminVO webempadminvo;
 	
 	
 	@Column(name = "dinerNewsReleaseTime")
 	
 	private Timestamp dinerNewsReleaseTime;
-	
-	
+		
 	
 	private Timestamp dinerNewsReviseTime;
 	
@@ -39,12 +44,12 @@ public class DinerNews {
 		super();
 	}
 
-	public DinerNews(Integer dinerNewsID, String dinerNewsContent, int empID, Timestamp dinerNewsReleaseTime,
-			Timestamp dinerNewsReviseTime) {
+	public DinerNews(Integer dinerNewsID, String dinerNewsContent, WebempadminVO webempadminvo,
+			Timestamp dinerNewsReleaseTime, Timestamp dinerNewsReviseTime) {
 		super();
 		this.dinerNewsID = dinerNewsID;
 		this.dinerNewsContent = dinerNewsContent;
-		this.empID = empID;
+		this.webempadminvo = webempadminvo;
 		this.dinerNewsReleaseTime = dinerNewsReleaseTime;
 		this.dinerNewsReviseTime = dinerNewsReviseTime;
 	}
@@ -65,12 +70,12 @@ public class DinerNews {
 		this.dinerNewsContent = dinerNewsContent;
 	}
 
-	public int getEmpID() {
-		return empID;
+	public WebempadminVO getWebempadminvo() {
+		return webempadminvo;
 	}
 
-	public void setEmpID(int empID) {
-		this.empID = empID;
+	public void setWebempadminvo(WebempadminVO webempadminvo) {
+		this.webempadminvo = webempadminvo;
 	}
 
 	public Timestamp getDinerNewsReleaseTime() {
@@ -89,12 +94,20 @@ public class DinerNews {
 		this.dinerNewsReviseTime = dinerNewsReviseTime;
 	}
 
-	@Override
-	public String toString() {
-		return "DinerNews [dinerNewsID=" + dinerNewsID + ", dinerNewsContent=" + dinerNewsContent + ", empID=" + empID
-				+ ", dinerNewsReleaseTime=" + dinerNewsReleaseTime + ", dinerNewsReviseTime=" + dinerNewsReviseTime
-				+ "]";
-	}
+	
+	
+
+	
+
+	
+
+	
+	
+	
+	
+	
+
+	
 	
 	
 }

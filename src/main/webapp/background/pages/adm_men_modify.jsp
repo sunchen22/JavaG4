@@ -47,7 +47,29 @@
 <link rel="stylesheet"
 	href="../plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
 
+<style>
+#preview {
+	border: 1px solid lightgray;
+	display: inline-block;
+	width: 100px;
+	min-height: 100px;
+	position: relative;
+}
 
+#preview span.text {
+	position: absolute;
+	display: inline-block;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	z-index: -1;
+	color: lightgray;
+}
+
+#preview img.preview_img {
+	width: 100%;
+}
+</style>
 
 
 </head>
@@ -300,6 +322,16 @@
 				<!-- /.container-fluid -->
 			</section>
 
+<%-- 錯誤表列 --%>
+<c:if test="${not empty errorMsgs}">
+	<font style="color:red">請修正以下錯誤:</font>
+	<ul>
+		<c:forEach var="message" items="${errorMsgs}">
+			<li style="color:red">${message}</li>
+		</c:forEach>
+	</ul>
+</c:if>
+
 			<!-- Main content -->
 			<!-- general form elements -->
 			<section class="content">
@@ -314,22 +346,24 @@
 						<FORM METHOD="post" ACTION="emp.do" name="form1" enctype="multipart/form-data">
 							<div class="card-body" style="padding-bottom: 5px;">
 								<div class="form-group">
-									<label>員工編號(員工帳號)：</label> <label class="form-control " readonly="readonly"><%=empVO.getEmpID()%></label>
+									<label>員工編號(員工帳號)：</label>
+									 <label class="form-control " readonly="readonly"><%=empVO.getEmpID()%></label>
 								</div>
 
 								<div class="form-group">
-									<label>員工姓名</label> <input type="text" class="form-control"
-										id="exampleInputBorder" value="<%=empVO.getEmpName()%>">
+									<label>員工姓名</label> 
+									<input type="text" class="form-control" id="exampleInputBorder" name="empName" value="<%=empVO.getEmpName()%>">
 								</div>
-
+						
 								<div class="form-group">
-									<label>密碼 </label> <input type="password" class="form-control"
-										id="exampleInputRounded0" value="<%=empVO.getEmpPassword()%>">
+									<label>密碼 </label> <input type="password" class="form-control" name="empPassword" id="exampleInputRounded0" 
+										value="<%= empVO.getEmpPassword()%>">
 								</div>
 								
 								<div class="form-group">
-										<label>員工大頭照 重新上傳哩</label> <br> 
-										<div style="width: 50px">
+										<label>員工大頭照</label> <br> 
+										<input type="file" name="empBlob" id="p_file">
+										<div id="preview">
 											<img src="<%= request.getContextPath()%>/pages/emp.photo?empID=${empVO.empID}">
 										</div>
 								</div>
@@ -337,13 +371,13 @@
 								<div class="form-group">
 									<label>到職時間</label>
 									<div class="input-group date">
-										<label class="form-control " readonly="readonly"><%=empVO.getEmpArriveDate()%></label>
+										<input class="form-control" name="empArriveDate"  readonly="readonly" value="<%=empVO.getEmpArriveDate()%>">
 									</div>
 								</div>
 
 								<div class="form-group">
 									<label for="exampleSelectBorder">權限等級</label>
-									<select>
+									<select name="empAdminAuthorization">
 									<option value="staff"
 										${(empVO.empAdminAuthorization == 'staff') ? 'selected' : ''}>職員</option>
 									<option value="manager"
@@ -354,12 +388,12 @@
 
 							</div>
 							<!-- /.card-body -->
-							<div class="card-footer"
-								style="text-align: center; padding-top: 5px;">
-								<input type="hidden" name="action" value="update"> <input
-									type="hidden" name="empID" value="<%=empVO.getEmpID()%>">
+							<div class="card-footer" style="text-align: center; padding-top: 5px; display : inline-block ; justify-content:center">
+								<input type="hidden" name="action" value="update"> 
+								<input type="hidden" name="empID" value="<%=empVO.getEmpID()%>">
 								<input type="submit" value="送出修改" class="btn btn-warning">
-								
+							</div>
+							<div style="display : inline-block; justify-content:center">
 								<button type="submit" class="btn btn-warning">取消</button>
 							</div>
 						</FORM>
@@ -604,7 +638,28 @@
 
 
 
+<!-- 員工圖片預覽圖 -->
+	<script>
+	var preview_el = document.getElementById("preview");
+	var p_file_el = document.getElementById("p_file");
 
+		var preview_img = function(file) {
+			var reader = new FileReader(); // 用來讀取檔案
+			reader.readAsDataURL(file); // 讀取檔案
+			reader.addEventListener("load",function() {
+			let img_str = '<img src="' + reader.result + '" class="preview_img">';
+			preview_el.innerHTML = img_str;
+			});
+		};
+
+		p_file_el.addEventListener("change", function(e) {
+			if (this.files.length > 0) {
+				preview_img(this.files[0]);
+			} else {
+				preview_el.innerHTML = 'span class="text">預覽圖</span>';
+			}
+		});
+	</script>
 
 
 
