@@ -86,26 +86,7 @@ public class ProductDAOImpl implements ProductDAO {
 
 		
 //暫時不需要
-		for (Map.Entry<String, String> row : map.entrySet()) {
 
-
-			if ("productName".equals(row.getKey())) {
-				predicates.add(builder.equal(root.get("productName"), row.getValue()));
-			}
-			if ("productName".equals(row.getKey())) {
-				predicates.add(builder.equal(root.get("productName"), row.getValue()));
-			}
-			if ("productName".equals(row.getKey())) {
-				predicates.add(builder.equal(root.get("productName"), row.getValue()));
-			}
-			if ("productName".equals(row.getKey())) {
-				predicates.add(builder.equal(root.get("productName"), row.getValue()));
-			}
-			if ("productName".equals(row.getKey())) {
-				predicates.add(builder.equal(root.get("productName"), row.getValue()));
-			}
-
-		}
 
 		criteria.where(builder.and(predicates.toArray(new Predicate[predicates.size()])));
 		criteria.orderBy(builder.asc(root.get("productID")));
@@ -115,19 +96,21 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	
-	
-	@Override
-	public List<Product> getAll(int currentPage) {
-		int first = (currentPage - 1) * PAGE_MAX_RESULT;
-		return getSession().createQuery("from Product", Product.class)
-				.setFirstResult(first)
-				.setMaxResults(PAGE_MAX_RESULT)
-				.list();
+
+	public long getTotal() {
+		return getSession().createQuery("select count(*) from Product", Long.class).uniqueResult();
 	}
 
 	@Override
-	public long getTotal() {
-		return getSession().createQuery("select count(*) from Product", Long.class).uniqueResult();
+	public List<Product> getAll(Integer dinerID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int down(Integer dinerID) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
