@@ -1,14 +1,16 @@
 package com.grouporder.dao;
 
 import java.util.List;
-import org.hibernate.SessionFactory;
+
 import org.hibernate.Session;
-import org.hibernate.query.Query;
+import org.hibernate.SessionFactory;
+import org.hibernate.query.NativeQuery;
 
-import util.HibernateUtil;
-
-import com.grouporder.entity.GroupOrder;
 import com.dinerinfo.entity.DinerInfo;
+import com.grouporder.entity.GroupOrder;
+import com.product.entity.Product;
+import com.producttype.entity.ProductType;
+
 
 public class GroupOrderDAOHibernateImpl implements GroupOrderDAO {
 	private static final int PAGE_MAX_RESULT = 3;
@@ -172,16 +174,21 @@ public class GroupOrderDAOHibernateImpl implements GroupOrderDAO {
 	public List<Object[]> getOneJoinMenu(int dinerID) {
 		try {
 //			getSession().beginTransaction();
-//			String hql = "SELECT d.dinerID, d.dinerName, p"
-//					+ "FROM Product p"
-//					+ "LEFT JOIN p.dinerInfo d"
-//					+ "WHERE d.dinerID = " + String.valueOf(dinerID);
-//			String hql = "SELECT g"
-//			+ "FROM GroupOrder g";
+			String sql = "SELECT d.dinerID, d.dinerName, p.*, pt.* " +
+		             "FROM DinerInfo AS d " +
+		             "LEFT JOIN Product AS p ON p.dinerID = d.dinerID " +
+		             "LEFT JOIN ProductType AS pt ON p.productTypeID = pt.productTypeID " +
+		             "WHERE d.dinerID = " + String.valueOf(dinerID);
 
-//			List<Object[]> result = getSession().createQuery(hql).list();
+			NativeQuery query = getSession().createNativeQuery(sql)
+		        .addEntity("d", DinerInfo.class)
+		        .addEntity("p", Product.class)
+		        .addEntity("pt", ProductType.class);
+
+		List<Object[]> results = query.list();
 //			getSession().getTransaction().commit();
-//			return result;
+			System.out.println(results);
+			return results;
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -190,5 +197,6 @@ public class GroupOrderDAOHibernateImpl implements GroupOrderDAO {
 
 		return null;
 	}
+	
 
 }

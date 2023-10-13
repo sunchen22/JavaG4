@@ -62,7 +62,6 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 		Map<String, Object> groupOrderData = new HashMap<>();
 		GroupOrder groupOrder = (GroupOrder) result[0]; // Access the entity object
 		groupOrderData.put("groupOrderID", groupOrder.getGroupOrderID());
-		System.out.println("============getOneJoinGroupOrder id: " + groupOrder.getGroupOrderID());
 		groupOrderData.put("orderStatus", groupOrder.getOrderStatus());
 		groupOrderData.put("groupOrderCreateTime", groupOrder.getGroupOrderCreateTime());
 		groupOrderData.put("groupOrderSubmitTime", groupOrder.getGroupOrderSubmitTime());
@@ -79,7 +78,8 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 	    groupOrderData.put("userNickName", (String) result[9]);
 	    groupOrderData.put("dinerRating", (double) result[10]);
 	    
-//	    List<Object[]> menu = dao.getOneJoinMenu(1);
+	    List<Object[]> menu = dao.getOneJoinMenu((Integer) result[1]);
+//	    System.out.println("MENU============" + menu);
 	    
 	    return groupOrderData;
 	}

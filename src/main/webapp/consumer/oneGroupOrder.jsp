@@ -3,7 +3,7 @@
 <%@ page import="java.util.Map"%>
 <%
 Map<String, Object> groupOrderData = (Map<String, Object>) request.getAttribute("groupOrderData");
-System.out.println(groupOrderData);
+
 %>
 <%@ include file="components/head.jsp"%>
 <%-- Import CSS for this page below (if any) --%>
