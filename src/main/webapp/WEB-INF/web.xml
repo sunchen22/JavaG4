@@ -27,8 +27,6 @@
 
 
 
-<<<<<<< HEAD
-=======
 
 	<servlet>
 		<servlet-name>ProductServlet</servlet-name>
@@ -63,8 +61,4 @@
 
 
 
-
-
-
->>>>>>> branch 'nanjian' of https://github.com/sunchen22/JavaG4.git
 </web-app>
