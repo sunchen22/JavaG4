@@ -37,13 +37,45 @@
   <link rel="stylesheet" href="../../../plugins/dropzone/min/dropzone.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../../../dist/css/adminlte.min.css">
+
+
   <style>
+    #imagePreview {
+
+      width: 820px;
+      /* 希望的寬度 */
+      height: 312px;
+      /* 希望的高度 */
+      border: 1px dotted rgb(184, 160, 29);
+      /* 可選擇的邊框，可以看到預覽區域 */
+      overflow: hidden;
+      /* 確保超出該區域的圖片部分被隱藏 */
+    }
+
     #imagePreview img {
-      width: 283px;
-      height: 150px;
+
+      width: 100%;
+      /* 圖片寬度填滿預覽區 */
+      height: 100%;
+      /* 圖片高度填滿預覽區 */
+      object-fit: cover;
+      /* 使圖片保持原始比例並裁剪超出的部分 */
+    }
+
+    /* form-submit */
+    #form-submit {
+      position: absolute;
+      bottom: 0;
+
+    }
+
+    #container-for-button {
+      position: relative;
+      /* 設置為相對定位 */
+      height: 100%;
+      /* 或其他適當的值，以確保容器有足夠的高度 */
     }
   </style>
-
 </head>
 
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -316,15 +348,13 @@
         <div class="card card-solid">
           <div class="card-body">
 
-            <div class="row mt-4">
+            <div>
               <nav class="w-100">
                 <div class="nav nav-tabs" id="product-tab" role="tablist">
                   <a class="nav-item nav-link active" id="Apply-for-Ad-tab" data-toggle="tab" href="#Apply-for-Ad"
                     role="tab" aria-controls="Apply-for-Ad" aria-selected="true">申請廣告上架</a>
                   <a class="nav-item nav-link" id="Ads-Under-Review-tab" data-toggle="tab" href="#Ads-Under-Review"
                     role="tab" aria-controls="Ads-Under-Review" aria-selected="false">審核中廣告</a>
-                  <a class="nav-item nav-link" id="Ads-Currently-Live-tab" data-toggle="tab" href="#Ads-Currently-Live"
-                    role="tab" aria-controls="Ads-Currently-Live" aria-selected="false">上架中廣告</a>
                   <a class="nav-item nav-link" id="Ads-History-tab" data-toggle="tab" href="#Ads-History" role="tab"
                     aria-controls="Ads-History" aria-selected="false">歷史廣告記錄</a>
                 </div>
@@ -332,12 +362,13 @@
               <div class="tab-content p-3" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="Apply-for-Ad" role="tabpanel"
                   aria-labelledby="Apply-for-Ad-tab">
-                  <div class="row">
-                    <div class="col-12">
+
+                  <div class="row" id="container-for-button">
+                    <div class="col mr-4">
                       <div class="form-group">
                         <!-- ==================廣告名稱(卡片抬頭) ============================================-->
                         <label>廣告名稱</label>
-                        <div class="input-group">
+                        <div class="input-group" style="width: 250px;">
                           <div class="input-group-prepend">
                             <span class="input-group-text">
                               <i class="far fa-lightbulb"></i>
@@ -348,7 +379,7 @@
                         <br>
                         <!-- ==================廣告上架區間 ============================================-->
                         <label>廣告上架區間</label>
-                        <div class="input-group">
+                        <div class="input-group" style="width: 250px;">
                           <div class="input-group-prepend">
                             <span class="input-group-text">
                               <i class="far fa-calendar-alt"></i>
@@ -359,59 +390,241 @@
                         <br>
                         <!-- =============廣告天數(自動跳轉) ============================================-->
                         <label>廣告天數</label>
-                        <div class="input-group">
+                        <div class="input-group" style="width: 250px;">
                           <div class="input-group-prepend">
                             <span class="input-group-text">
                               <i class="far fa-clock"></i>
                             </span>
                           </div>
+                          <!-- 天數自動顯示 -->
                           <input type="text" id="advertisementDuringTime" class="form-control float-right" readonly>
                         </div>
                         <br>
 
-                        <!-- ================上傳廣告橫幅 ============================================-->
-                        <label for="ADInputFile">上傳廣告橫幅</label>
-                        <div class="input-group">
-                          <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="ADInputFile">
-                            <label class="custom-file-label" for="ADInputFile">選擇檔案</label>
-                          </div>
-                          <div class="input-group-append">
-                            <span class="input-group-text">上傳</span>
-                          </div>
+                      </div>
+                      <!-- ================上傳廣告橫幅 ============================================-->
+                      <label for="ADInputFile">上傳廣告橫幅</label>
+                      <div class="input-group" style="width: 250px;">
+                        <div class="custom-file">
+                          <input type="file" class="custom-file-input" id="ADInputFile">
+                          <label class="custom-file-label" for="ADInputFile">選擇檔案</label>
                         </div>
-
-                        <!-- ===============預覽圖片 ============================================-->
-                        <br>
-
-                        <div class="col-12">
-
-                          <label for="imagePreview">預覽圖片</label>
-                          <div id="imagePreview"></div>
-
+                        <div class="input-group-append">
+                          <span class="input-group-text">上傳</span>
                         </div>
                       </div>
-                      <button class="btn btn-primary">送出申請</button>
-                      <!-- /.form-group -->
+                    </div>
+
+
+                    <div class="col mr-4">
+
+                      <!-- ===============預覽圖片 ============================================-->
+                      <br>
+
+                      <div>
+
+                        <label for="imagePreview">預覽圖片</label>
+
+                        <div>
+
+                          <div id="imagePreview" class="col-12">
+
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <div class="col">
+                      <button class="btn btn-primary" id="form-submit" data-toggle="modal"
+                        data-target="#confirmationModal" style="width: 100px;">送出申請</button>
+                    </div>
+                    <!-- /.form-group -->
+                    <!-- </div> -->
+                  </div>
+
+                  <!-- ==================================確認送出後的彈出視窗  (頭)  =============================== -->
+                  <!-- Modal -->
+                  <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">確認資料</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          請確認你的資料無誤。
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                          <button type="button" class="btn btn-primary">確認</button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
+                <!-- ==================================確認送出後的彈出視窗  (尾)  =============================== -->
+
+
+
+                <!-- //////////////////////////////////////審核中廣告 (頭)////////////////////////////////// -->
                 <div class="tab-pane fade" id="Ads-Under-Review" role="tabpanel" aria-labelledby="Ads-Under-Review-tab">
-                  審核中廣告
+                  <div class="card">
+                    <div class="card-header">
+                      <h5 class="card-title">申請上架4小時後，不得再做修改</h5>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                      <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th>廣告名稱</th>
+                            <th style="width: 250px;">廣告上架區間</th>
+                            <th>廣告天數</th>
+                            <th>廣告橫幅</th>
+                            <th id="edite-delete-th" style="width: 170px;">修改 / 刪除</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="un-editable-input">一二三木頭人</td>
+                            <td class="un-editable-input date-range">2023-12-01 ~ 2023-12-20</td>
+
+                            <td>20天</td>
+                            <td>圖片</td>
+                            <td>
+                              <button type="button" class="btn btn-primary m-1 edit-input">修改</button>
+                              <button type="button" class="btn btn-primary m-1 delete-row">刪除</button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>一二三木頭人</td>
+                            <td>2023-12-01 ~ 2023-12-20</td>
+                            <td>20天</td>
+                            <td>圖片</td>
+                            <td>
+                              <button type="button" class="btn btn-primary m-1">修改</button>
+                              <button type="button" class="btn btn-primary m-1">刪除</button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>一二三木頭人</td>
+                            <td>2023-12-01 ~ 2023-12-20</td>
+                            <td>20天</td>
+                            <td>圖片</td>
+                            <td>
+                              <button type="button" class="btn btn-primary m-1">修改</button>
+                              <button type="button" class="btn btn-primary m-1">刪除</button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>一二三木頭人</td>
+                            <td>2023-12-01 ~ 2023-12-20</td>
+                            <td>20天</td>
+                            <td>圖片</td>
+                            <td>
+                              <button type="button" class="btn btn-primary m-1">修改</button>
+                              <button type="button" class="btn btn-primary m-1">刪除</button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer clearfix">
+                      <ul class="pagination pagination-sm m-0 float-right">
+                        <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
-                <div class="tab-pane fade" id="Ads-Currently-Live" role="tabpanel"
-                  aria-labelledby="Ads-Currently-Live-tab">
-                  上架中廣告
-                </div>
+                <!-- //////////////////////////////////////審核中廣告 (尾)////////////////////////////////// -->
+
+                <!-- //////////////////////////////////////歷史廣告 (頭)////////////////////////////////// -->
                 <div class="tab-pane fade" id="Ads-History" role="tabpanel" aria-labelledby="Ads-History-tab">
-                  歷史廣告記錄
+                  <div class="card">
+                    <div class="card-header">
+                      <div class="card-tools">
+                        <div class="input-group input-group-sm" style="width: 250px;">
+                          <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                          <div class="input-group-append">
+                            <button type="submit" class="btn btn-default">
+                              <i class="fas fa-search"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                      <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th>廣告名稱</th>
+                            <th>廣告上架區間</th>
+                            <th>廣告天數</th>
+                            <th>廣告橫幅</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>一二三木頭人</td>
+                            <td><span></span>2023-12-01 ~ 2023-12-20</td>
+                            <td>20天</td>
+                            <td>圖片</td>
+
+                          </tr>
+                          <tr>
+                            <td>一二三木頭人</td>
+                            <td>2023-12-01 ~ 2023-12-20</td>
+                            <td>20天</td>
+                            <td>圖片</td>
+
+                          </tr>
+                          <tr>
+                            <td>一二三木頭人</td>
+                            <td>2023-12-01 ~ 2023-12-20</td>
+                            <td>20天</td>
+                            <td>圖片</td>
+
+                          </tr>
+                          <tr>
+                            <td>一二三木頭人</td>
+                            <td>2023-12-01 ~ 2023-12-20</td>
+                            <td>20天</td>
+                            <td>圖片</td>
+
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer clearfix">
+                      <ul class="pagination pagination-sm m-0 float-right">
+                        <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
+                <!-- //////////////////////////////////////歷史廣告 (尾)////////////////////////////////// -->
+
               </div>
             </div>
+            <!-- /.card-body -->
           </div>
-          <!-- /.card-body -->
-        </div>
-        <!-- /.card -->
+          <!-- /.card -->
 
       </section>
       <!-- /.content -->
@@ -529,8 +742,8 @@
 
     </script>
 
-    <!-- 預覽圖片 -->
     <script>
+      // =============== 預覽圖片 ==========
       var imagefile = document.getElementById('ADInputFile');
       imagefile.addEventListener('change', function () {
         var reader = new FileReader();
@@ -541,6 +754,53 @@
         };
         reader.readAsDataURL(imagefile.files[0]);
       });
+
+
+
+      // ==============編輯按鈕控制=============
+
+      $(document).ready(function () {
+        // 當按鈕被點擊時
+        $('.edit-input').on('click', function () {
+          // 檢查是否正在編輯
+          if ($(this).hasClass('submit-edite')) {
+            // 做存儲或確認的操作
+
+            // 將input值更新到td中，並隱藏input
+            $(this).closest('tr').find('.un-editable-input').each(function () {
+              var val = $(this).find('input').val();
+              $(this).text(val);
+              $(this).find('input').remove();
+            });
+
+            // 更改按鈕名稱和class
+            $(this).removeClass('submit-edite');
+            $(this).text('編輯');
+          } else {
+            // 轉換td內容為input，特別是廣告上架區間
+            $(this).closest('tr').find('.un-editable-input').each(function () {
+              var val = $(this).text();
+              $(this).text('');
+              if ($(this).hasClass('date-range')) {
+                $(this).append('<input type="text" class="date-input" value="' + val + '"/>');
+              } else {
+                $(this).append('<input type="text" value="' + val + '"/>');
+              }
+            });
+            // 初始化daterangepicker
+            $('.date-input').daterangepicker();
+
+            // 更改按鈕名稱和class
+            $(this).addClass('submit-edite');
+            $(this).text('確認變更');
+
+            // 設置儲存格表頭的style屬性
+            $('#edite-delete-th').attr('style', 'width:250px;');
+
+          }
+        });
+      });
+
     </script>
 
 
