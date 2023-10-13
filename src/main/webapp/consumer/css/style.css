@@ -1,0 +1,40 @@
+@import url("../vendor/bootstrap-5.3.1-dist/css/bootstrap.min.css");
+@import url("../vendor/fontawesome-free-6.4.2-web/css/all.min.css");
+@import url("../vendor/materialdesign/stepper.css");
+
+/* CUSTOMIZE THE CAROUSEL
+-------------------------------------------------- */
+
+/* Carousel base class */
+.carousel {
+  margin-bottom: 2rem;
+}
+/* Since positioning the image, we need to help out the caption */
+.carousel-caption {
+  bottom: 3rem;
+  z-index: 10;
+}
+
+/* Declare heights because of positioning of img element */
+.carousel-item {
+  height: 24rem;
+}
+
+/* CUSTOMIZE THE NAVBAR-BADGE
+-------------------------------------------------- */
+.navbar-badge {
+  font-size: .6rem;
+  font-weight: 300;
+  padding: 2px 4px;
+  position: relative;
+  right: 10px;
+  top: -10px;
+  background-color: red;
+}
+
+/* CUSTOMIZE THE CARD
+-------------------------------------------------- */
+.card {
+  height:100%;
+}
+
