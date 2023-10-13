@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<<<<<<< HEAD
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
@@ -13,9 +12,22 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
+	
+	
+	
+<- ================28====================->
+	<servlet>
+		<servlet-name>BuildingInfo</servlet-name>
+		<servlet-class>com.buildinginfo.controller.BuildingInfoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BuildingInfo</servlet-name>
+		<url-pattern>/cproject/pages/bis.do</url-pattern>
+	</servlet-mapping>
 
-
-
+<- ================23====================->	
+	
+<- ================15====================->	
 	<servlet>
 		<servlet-name>VaryTypeServlet</servlet-name>
 		<servlet-class>com.varytype.controller.VaryTypeServlet</servlet-class>
@@ -24,9 +36,6 @@
 		<servlet-name>VaryTypeServlet</servlet-name>
 		<url-pattern>/dinerbackground/pages/Team/shelve/varytype.do</url-pattern>
 	</servlet-mapping>
-
-
-
 
 	<servlet>
 		<servlet-name>ProductServlet</servlet-name>
@@ -38,8 +47,6 @@
 		<url-pattern>/p_list/product.do</url-pattern>
 	</servlet-mapping>
 
-
-
 	<servlet>
 		<servlet-name>ProductTypeServlet</servlet-name>
 		<servlet-class>com.product.controller.ProductType</servlet-class>
@@ -49,27 +56,11 @@
 		<servlet-name>ProductTypeServlet</servlet-name>
 		<url-pattern>/productType.do</url-pattern>
 	</servlet-mapping>
-=======
+<- ================10====================->
 
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" version="4.0">
-  <display-name>JavaG4</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>
-	<servlet>
-    <servlet-name>BuildingInfo</servlet-name>
-    <servlet-class>com.buildinginfo.controller.BuildingInfoServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>BuildingInfo</servlet-name>
-    <url-pattern>/cproject/pages/bis.do</url-pattern>
-  </servlet-mapping>
+<- ================2====================->
 
+<- ================1====================->
 	<servlet>
 		<servlet-name>EmpjoServlet</servlet-name>
 		<servlet-class>com.webempadmin.controller.EmpjoServlet</servlet-class>
@@ -87,16 +78,5 @@
 		<servlet-name>EmpPhoto</servlet-name>
 		<url-pattern>/pages/emp.photo</url-pattern>
 	</servlet-mapping>
-
-
-	
-
-	
->>>>>>> refs/heads/master
-
-
-
-
-
 
 </web-app>
