@@ -12,6 +12,10 @@ import com.product.entity.Product;
 import com.producttype.entity.ProductType;
 
 
+
+
+
+
 public class GroupOrderDAOHibernateImpl implements GroupOrderDAO {
 	private static final int PAGE_MAX_RESULT = 3;
 	// One SessionFactory(which is thread-safe) for one DAO
@@ -25,6 +29,7 @@ public class GroupOrderDAOHibernateImpl implements GroupOrderDAO {
 		return factory.getCurrentSession();
 	}
 		
+
 	@Override
 	public int add(GroupOrder groupOrder) {
 		try {
@@ -76,9 +81,16 @@ public class GroupOrderDAOHibernateImpl implements GroupOrderDAO {
 	@Override
 	public GroupOrder findByPK(Integer groupOrderID) {
 		try {
+
+//			session.beginTransaction();
+//
+//			GroupOrder groupOrder = session.get(GroupOrder.class, groupOrderID);
+//			session.getTransaction().commit();
+
 //			getSession().beginTransaction();
 			GroupOrder groupOrder = getSession().get(GroupOrder.class, groupOrderID);
 //			getSession().getTransaction().commit();
+
 			return groupOrder;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -101,6 +113,8 @@ public class GroupOrderDAOHibernateImpl implements GroupOrderDAO {
 
 		return null;
 	}
+	
+	
 
 	@Override
 	public List<GroupOrder> getAll() {

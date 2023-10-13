@@ -1,5 +1,11 @@
+<%@page import="com.dinerratingcomment.entity.DinerRatingComment"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="utf-8"%>
-<html lang="en">
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.*"%>
+<%@ page import="com.dinerratingcomment.dao.*"%>
+<%@ page import="com.dinerinfo.dao.*"%>
+<%@ page import="com.dinerinfo.entity.*"%>
+<html>
 
 <head>
   <meta charset="utf-8">
@@ -328,13 +334,13 @@
 
                   <span>
                     <label>商家帳號(統編)：</label>
-                    <input type="search" placeholder="請輸入商家帳號" class="border border-warning">
+                    <input type="search" class="border border-warning">
                   </span>
 
 
                   <span>
                     <label>商家名稱：</label>
-                    <input type="search" placeholder="請輸入商家名稱" class="border border-warning">
+                    <input type="search" class="border border-warning">
                   </span>
 
                   <span>
@@ -358,48 +364,51 @@
           <!-- /.col -->
         </div>
         <!-- /.row -->
+        
+        
+<%
+
+// DinerRatingCommentDAOImplC drc = new DinerRatingCommentDAOImplC();
+// List<DinerRatingComment> list = drc.getAll(); 
+// pageContext.setAttribute("list", list);
+
+
+DinerInfoDAOImplC didi = new DinerInfoDAOImplC();
+List<DinerInfo> list = didi.getAll();
+pageContext.setAttribute("list", list);
+
+%>
 
                 <div class="table-responsive">
                   <table class="table card-table table-vcenter text-nowrap">
                     <thead>
                       <tr>
-                        <th class="w-1">訂單編號</th>
-                        <th>商家帳號</th>
+                        <th>商家編號</th>
                         <th>商家名稱</th>
-                        <th>評論</th>
-                      
+                        
+                        
+                                               
                         
                       </tr>
-                    </thead>
+                        </thead>
                     <tbody>
+                        
+                        <c:forEach var="dinerinfo" items="${list}">
                       <tr>
-                        <td><span class="text-muted">111</span></td>
-                        <td><a href="invoice.html" class="text-inherit">111</a></td>
-                        <td>
-                          吉野家烤肉飯
-                        </td>
+                        <td><span class="text-muted">${dinerinfo.dinerID}</span></td>
+                        <td><a href="invoice.html" class="text-inherit">${dinerinfo.dinerName}</a></td>                                                
+                        
                         
                         <td>
-                          <button id = "query" class ="btn btn-warning" style = "font-weight :bold">查詢</button>
-                          
-                        </td>
-                        
-                      <tr>
-                        <td><span class="text-muted">222</span></td>
-                        <td><a href="invoice.html" class="text-inherit">222</a></td>
-                        <td>
-                          新馬辣
-                        </td>
-                        <td>
-                          
-                          <button id = "query" class ="btn btn-warning" style = "font-weight :bold">查詢</button>
-        
-                        </td>
-                        
-                          
+                          <form method="post" action = "drcs.do" style="width: 15px ; height: 15px">
+                          <input type="hidden" name="dinerID"  value="${dinerinfo.dinerID}">    
+			      		  <input type="hidden" name="action" value="go_for_review">
+                          <button class ="btn btn-warning" style = "font-weight :bold">查詢</button>
+                          </form>
+                        </td>                                                                                              
                         
                         </tr> 
-                    
+                    </c:forEach>
                     </tbody>
                   </table>
                 </div>
