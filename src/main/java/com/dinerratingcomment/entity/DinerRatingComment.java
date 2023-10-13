@@ -12,18 +12,32 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.dinerinfo.entity.DinerInfo;
+
+
+
 import com.userinfo.entity.UserInfo;
 @Entity
 @Table(name="dinerratingcomment")
+
 public class DinerRatingComment {
 
-	public DinerRatingComment() {
-		super();
-	}
+//	@Id
+//	@GeneratedValue(strategy =  GenerationType.IDENTITY)
+//	@Column(name = "commentID")
+//	private Integer commentID;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="commentID", updatable = false)
 	private Integer commentID;
+	
+//	@ManyToOne
+//	@JoinColumn(name= "dinerID" , referencedColumnName = "dinerID")
+//	@Column(name = "dinerID")
+//	private Integer dinerID;
+//	private DinerInfo dinerinfo;
+	
+	
 	
 	@ManyToOne
 	@JoinColumn(name = "dinerID", referencedColumnName = "dinerID")
@@ -33,20 +47,28 @@ public class DinerRatingComment {
 	@JoinColumn(name = "userID", referencedColumnName = "userID")
 	private UserInfo userInfo;
 	
-	@Column(name="dinerRating")
+//	@Column(name = "userID")
+//	private Integer userID;
+	
+	@Column(name = "dinerRating")
 	private Integer dinerRating;
 	
-	@Column(name="userCommentContent")
-	private String userCommentContent;
+	@Column(name = "userCommentContent")
+	private String userCommentContent ;
 	
-	@Column(name="userCommentTime")
+	@Column(name = "userCommentTime")
 	private Timestamp userCommentTime;
 	
-	@Column(name="dinerReplyContent")
-	private String dinerReplyContent;
+	@Column(name = "dinerReplyContent")
+	private String  dinerReplyContent;
 	
-	@Column(name="dinerReplyTime")
+	@Column(name = "dinerReplyTime")
 	private Timestamp dinerReplyTime;
+
+	public DinerRatingComment() {
+		super();
+		 
+	}
 
 	public Integer getCommentID() {
 		return commentID;
@@ -111,5 +133,22 @@ public class DinerRatingComment {
 	public void setDinerReplyTime(Timestamp dinerReplyTime) {
 		this.dinerReplyTime = dinerReplyTime;
 	}
+
+	@Override
+	public String toString() {
+		return "DinerRatingComment [commentID=" + commentID + ", dinerInfo=" + dinerInfo + ", userInfo=" + userInfo
+				+ ", dinerRating=" + dinerRating + ", userCommentContent=" + userCommentContent + ", userCommentTime="
+				+ userCommentTime + ", dinerReplyContent=" + dinerReplyContent + ", dinerReplyTime=" + dinerReplyTime
+				+ "]";
+	}
+
+
+	
+
+	
+
+	
+	
+	
 
 }

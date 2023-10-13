@@ -1,4 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="utf-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.*"%>
+<%@ page import="com.dinerinfo.dao.*"%>
+<%@ page import="com.dinerinfo.entity.*"%>
 <html>
 
 <head>
@@ -331,13 +335,13 @@
 
                   <span>
                     <label>商家帳號(統編)：</label>
-                    <input type="search" placeholder="請輸入商家帳號" class="border border-warning">
+                    <input type="search"  class="border border-warning">
                   </span>
 
 
                   <span>
                     <label>商家名稱：</label>
-                    <input type="search" placeholder="請輸入商家名稱" class="border border-warning">
+                    <input type="search"  class="border border-warning">
                   </span>
 
                   <span>
@@ -362,20 +366,18 @@
           <!-- /.col -->
         </div>
         <!-- /.row -->
+			<%
+				
+
+				DinerInfoDAOImplC didi = new DinerInfoDAOImplC();
+				List<DinerInfo> list = didi.getAll();
+				pageContext.setAttribute("list", list);
+         		
+ 			%>
 
 
 
-
-        <!-- <div class="col-12">
-            <div class="card">
-              <div class="card-header">
-                <div>
-                  <h3 class="card-title" style="align-items:center">管理者帳號</h3>
-                </div>
-                <div style="display: flex;justify-content: right;">
-                  <button class="btn btn-warning "><i class="fa fa-plus"></i>增加管理者</button>
-                </div>
-              </div> -->
+        
     
     
     
@@ -385,50 +387,35 @@
                     <tr>
                       <th class="w-1">商家編號</th>
                       <th>商家帳號</th>
-                      <th>商家名稱</th>
-                      <th>商家電話</th>
-                      <th>申請狀態</th>
-                  
-                      <th>  </th>
+                      <th>商家名稱</th>                      
+
                       
                     </tr>
                   </thead>
                   <tbody>
+                  <c:forEach var="dinerinfo" items="${list}">
                     <tr>
-                      <td><span class="text-muted">1</span></td>
-                      <td><a href="invoice.html" class="text-inherit">54321</a></td>
+                      <td><span class="text-muted">${dinerinfo.dinerID}</span></td>
+                      <td><a href="invoice.html" class="text-inherit">${dinerinfo.dinerTaxID}</a></td>
                       <td>
-                        吉野家烤肉飯
+                        ${dinerinfo.dinerName}
                       </td>
                       <td>
-                        88880000
-                      </td>
+                        ${dinerinfo.dinerStatus}
+                      </td>                     
                       <td>
-                        已審核
-                      </td>
-                      <td>
-                        <button id = "query" class ="btn btn-warning" style = "font-weight :bold">查詢</button>
+                        <form action = "difs.do" style="width: 15px ; height: 15px">
+                          <input type="hidden" name="dinerID"  value="${dinerinfo.dinerID}">    
+			      		  <input type="hidden" name="action" value="go_for_mer_data">
+                          <button class ="btn btn-warning" style = "font-weight :bold">查詢</button>
+                          </form>
                       </td>
                       
-                    <tr>
-                      <td><span class="text-muted">2</span></td>
-                      <td><a href="invoice.html" class="text-inherit">12345</a></td>
-                      <td>
-                        三商巧福
-                      </td>
-                      <td>
-                        00008888
-                      </td>
-                      <td>
-                        已審核
-                      </td>
-                      <td>
-                        <button id = "query" class ="btn btn-warning" style = "font-weight :bold">查詢</button>
-                      </td>
+                    
                         
                       
                       </tr> 
-                  
+                  </c:forEach>
                   </tbody>
                 </table>
               </div>

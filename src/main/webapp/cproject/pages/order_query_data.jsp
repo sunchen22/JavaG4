@@ -1,4 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="utf-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.grouporder.dao.*"%>
+<%@ page import="com.grouporder.entity.*"%>
+<%@ page import="com.dinerinfo.dao.*"%>
+<%@ page import="com.dinerinfo.entity.*"%>
+<%@ page import="java.util.*"%>
 <html lang="en">
 
 <head>
@@ -329,6 +335,20 @@
                                 <!-- <div class="col-md-3"> -->
 
                                 <!-- </div> -->
+                                
+                                <% 
+                                	DinerInfo dinerinfo = (DinerInfo)request.getAttribute("dif");
+                                
+//                                 	
+                                	
+                                	
+                                	GroupOrderDAOHibernateImplC godhi = new GroupOrderDAOHibernateImplC();
+                                	List<GroupOrder> list = godhi.getAll(dinerinfo.getDinerID());
+                                	
+          							pageContext.setAttribute("list", list);
+          							
+//           							
+                                %>
 
 
 
@@ -348,19 +368,19 @@
                                         <tbody>
                                             <tr>
                                                 <td><span class="text-muted">1</span></td>
-                                                <td><a href="invoice.html" class="text-inherit">54321</a></td>
+                                                <td><a href="invoice.html" class="text-inherit"><%= dinerinfo.getDinerID() %></a></td>
                                                 <td>
-                                                    吉野家烤肉飯
+                                                    <%= dinerinfo.getDinerName() %>
                                                 </td>
                                                 <td>
-                                                    88880000
+                                                   	<%= dinerinfo.getDinerPhone() %>
                                                 </td>
                                                 <td>
-                                                    xxxxxxxxxxxxxx
+                                                    <%= dinerinfo.getDinerEmail() %>
                                                 </td>
 
                                                 <td>
-                                                    xxxxxxxxxxxxxxXXXXXXXXXXXX
+                                                    <%= dinerinfo.getDinerAddress() %>
                                                 </td>
 
                                             </tr>
@@ -388,25 +408,32 @@
                             <thead>
                                 <tr>
                                     <th class="w-1">訂單編號</th>
-                                    <th>訂單明細</th>
+                                    <th>商家編號</th>                                    
+                                    <th>訂單狀態</th>                                    
+                                    <th>送達大樓</th>
                                     <th>訂單金額</th>
-                                    <th>訂單狀態</th>
-                                    <th>取消原因</th>
-                                    <th>送達地址</th>
                                     <th>完成時間</th>
                                     <th>送達圖片</th>
                                 </tr>
                             </thead>
                             <tbody>
+                            <c:forEach var="grouporder" items="${list}">
                                 <tr>
-                                    <td><span class="text-muted">1</span></td>
-                                    <td>XXXXXXXX</td>
-                                    <td>XXX</td>
-                                    <td>XXX</td>
-                                    <td>XXXXXXX</td>
-                                    <td>XXXXXXXXXXXXXXXXX</td>
-                                    <td>XXXXXXXXX</td>
-                                    <td>圖片</td>
+                                    <td><span class="text-muted">${grouporder.groupOrderID}</span></td>
+                                    
+                                    <td>${grouporder.dinerID}</td>
+                                    <td>${grouporder.orderStatus}</td>
+                                    <td>${grouporder.buildingID}</td>
+                                    <td>${grouporder.groupTotalPrice}</td>
+                                    <td>${grouporder.groupOrderSubmitTime}</td>
+                                    
+                                    <td>
+                                    <form action = "gosimg.do" style="width: 15px ; height: 15px">
+		                         	 <input type="hidden" name="groupID"  value="${grouporder.groupOrderID}">    
+					      		  	<input type="hidden" name="action">
+		                          	<button class ="btn btn-warning" style = "font-weight :bold">查詢</button>
+		                          	</form>
+                                    </td>
                                     
 
                                         
@@ -418,7 +445,7 @@
 
 
                                 </tr>
-                                
+                                </c:forEach>
 
 
                             </tbody>

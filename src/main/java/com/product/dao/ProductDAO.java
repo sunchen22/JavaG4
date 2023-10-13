@@ -6,20 +6,12 @@ import java.util.Map;
 import com.product.entity.Product;
 
 public interface ProductDAO {
-
-	int insert(Product entity);
-
-	int update(Product entity);
-	
-	int delete(Integer id);
-	 
-	Product getById(Integer id);
-	
-	List<Product> getAll();
-	
+	List<Product> getAll(Integer dinerID);
+	int down(Integer dinerID);
 	List<Product> getByCompositeQuery(Map<String, String> map);
-	
-	List<Product> getAll(int currentPage);
-	
-	long getTotal();
+	List<Product> getAll();
+	Product getById(Integer id);
+	int delete(Integer id);
+	int update(Product entity);
+	int insert(Product entity);
 }

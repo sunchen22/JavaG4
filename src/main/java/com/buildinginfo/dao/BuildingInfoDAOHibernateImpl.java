@@ -1,13 +1,16 @@
 package com.buildinginfo.dao;
 
+
+
 import java.util.List;
 
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 
 import com.buildinginfo.entity.BuildingInfo;
 
 import util.HibernateUtil;
+
+
 
 public class BuildingInfoDAOHibernateImpl implements BuildingInfoDAO {
 	@Override
@@ -44,13 +47,13 @@ public class BuildingInfoDAOHibernateImpl implements BuildingInfoDAO {
 		return -1;
 	}
 
-	public int down(Integer buildingID) {//更新狀態
+	public int down(Integer buildingID) {//更新狀態(刪除但只是更新狀態)
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
 			BuildingInfo bif = session.get(BuildingInfo.class, buildingID);
 			if (bif != null) {
-				bif.setBuildingState(2);
+				bif.setbuildingState(2);
 			}
 			session.getTransaction().commit();
 			return 1;
@@ -68,7 +71,7 @@ public class BuildingInfoDAOHibernateImpl implements BuildingInfoDAO {
 		session.beginTransaction();
 		BuildingInfo bif = session.get(BuildingInfo.class, buildingID);
 		//狀態為1的才查的到
-		if(bif.getBuildingState() == 1) {
+		if(bif.getbuildingState() == 1) {
 		session.getTransaction().commit();
 		return bif;
 		}																	

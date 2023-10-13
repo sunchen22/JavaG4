@@ -19,7 +19,7 @@ public class TestHibernateDinerNewsDAO {
 		
 		//新增
 		dns.setDinerNewsContent("AAAAAAAAAAAAAAAAA");
-		dns.setEmpID(1);
+		
 		Date d = new Date();
 		java.sql.Timestamp timestamp = new java.sql.Timestamp(d.getTime());
 		dns.setDinerNewsReleaseTime(timestamp);

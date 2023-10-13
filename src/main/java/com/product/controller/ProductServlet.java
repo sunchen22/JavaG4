@@ -37,7 +37,7 @@ public class ProductServlet extends HttpServlet{
 				forwardPath = getCompositeProductsQuery(req, res);
 				break;
 			default:
-				forwardPath = "/p_list.jsp";
+				forwardPath = "/dinerbackground/pages/Team/p_list/p_li/dinerbackground/pages/Team/p_list/p_list.jspst.jsp";
 		}
 		
 		res.setContentType("text/html; charset=UTF-8");
@@ -59,7 +59,7 @@ public class ProductServlet extends HttpServlet{
 		req.setAttribute("productList", productList);
 		req.setAttribute("currentPage", currentPage);
 		
-		return "/dinerbackground/pages/Team/p_list/p_list.jsp";
+		return "/dinerbackground/pages/Team/p_list/p_li/dinerbackground/pages/Team/p_list/p_list.jspst.jsp";
 	}
 	
 	private String getCompositeProductsQuery(HttpServletRequest req, HttpServletResponse res) {
@@ -68,9 +68,9 @@ public class ProductServlet extends HttpServlet{
 			List<Product> productList = productService.getProductsByCompositeQuery(map);
 			req.setAttribute("productList", productList);
 		} else {
-			return "/p_list.jsp";
+			return "/dinerbackground/pages/Team/p_list/p_li/dinerbackground/pages/Team/p_list/p_list.jspst.jsp";
 		}
-		return "/p_list.jsp";
+		return "/dinerbackground/pages/Team/p_list/p_li/dinerbackground/pages/Team/p_list/p_list.jspst.jsp";
 	}
 	
 	

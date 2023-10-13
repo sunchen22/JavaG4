@@ -1,16 +1,25 @@
 package com.dinerinfo.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.dinerinfo.entity.DinerInfo;
+
+
 
 public interface DinerInfoDAO {
 	// 此介面定義對資料庫的相關存取抽象方法
 	int add(DinerInfo dinerInfo);
 	int update(DinerInfo dinerInfo);
-	int delete(Integer dinerInfoID);
-	DinerInfo findByPK(Integer  dinerInfoID);
+	int delete(Integer dinerID);
+	DinerInfo findByPK(Integer  dinerID);
 	List<DinerInfo> getAll();
+	
+	List<DinerInfo> getByCompositeQuery(Map<String, String> map);
+	
+	List<DinerInfo> getAll(int currentPage);
+	
+	long getTotal();
 	
 //  萬用複合查詢(傳入參數型態Map)(回傳 List)
 //  List<DinerInfo> getAll(Map<String, String[]> map); 
