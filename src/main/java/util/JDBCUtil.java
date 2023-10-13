@@ -16,6 +16,12 @@ public class JDBCUtil {
 	
 	public static final String USER = "root";
 	
+<<<<<<< HEAD
 	public static final String PASSWORD = "apple1220";
+=======
+
+	public static final String PASSWORD = "5acv4lqw";
+
+>>>>>>> branch 'nanjian' of https://github.com/sunchen22/JavaG4.git
 }
 
