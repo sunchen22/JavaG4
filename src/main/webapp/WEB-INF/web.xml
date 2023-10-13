@@ -15,7 +15,7 @@
 	
 	
 	
-<- ================28====================->
+<!-- ================28==================== -->
 	<servlet>
 		<servlet-name>BuildingInfo</servlet-name>
 		<servlet-class>com.buildinginfo.controller.BuildingInfoServlet</servlet-class>
@@ -25,9 +25,9 @@
 		<url-pattern>/cproject/pages/bis.do</url-pattern>
 	</servlet-mapping>
 
-<- ================23====================->	
+<!-- ================23====================	 -->
 	
-<- ================15====================->	
+<!-- ================15==================== -->
 	<servlet>
 		<servlet-name>VaryTypeServlet</servlet-name>
 		<servlet-class>com.varytype.controller.VaryTypeServlet</servlet-class>
@@ -56,11 +56,11 @@
 		<servlet-name>ProductTypeServlet</servlet-name>
 		<url-pattern>/productType.do</url-pattern>
 	</servlet-mapping>
-<- ================10====================->
+<!-- ================10==================== -->
 
-<- ================2====================->
+<!-- ================2==================== -->
 
-<- ================1====================->
+<!-- ================1==================== -->
 	<servlet>
 		<servlet-name>EmpjoServlet</servlet-name>
 		<servlet-class>com.webempadmin.controller.EmpjoServlet</servlet-class>
