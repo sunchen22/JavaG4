@@ -8,7 +8,7 @@
 	<groupId>com.tha103</groupId>
 	<artifactId>jo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-
+	<packaging>war</packaging>
 	<name>jo</name>
 	<!-- FIXME change it to the project's website -->
 	<url>http://www.example.com</url>
@@ -67,6 +67,12 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+				<!-- Gson added by Jane -->
+		<dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		    <version>2.10.1</version>
+		</dependency>
 <!-- ============================== -->		
 		
 	</dependencies>
@@ -116,6 +122,11 @@
 				<plugin>
 					<artifactId>maven-project-info-reports-plugin</artifactId>
 					<version>3.0.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>3.3.1</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>

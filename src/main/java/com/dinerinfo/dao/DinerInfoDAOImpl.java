@@ -1,6 +1,7 @@
 package com.dinerinfo.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -59,6 +60,24 @@ public class DinerInfoDAOImpl implements DinerInfoDAO{
 		@Override
 		public List<DinerInfo> getAll() {
 			return getSession().createQuery("from DinerInfo", DinerInfo.class).list();
+		}
+
+		@Override
+		public List<DinerInfo> getByCompositeQuery(Map<String, String> map) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public List<DinerInfo> getAll(int currentPage) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public long getTotal() {
+			// TODO Auto-generated method stub
+			return 0;
 		}
 		
 		
