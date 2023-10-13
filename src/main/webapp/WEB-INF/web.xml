@@ -1,4 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	version="4.0">
+	<display-name>JavaG4</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+
+
+
+	<servlet>
+		<servlet-name>VaryTypeServlet</servlet-name>
+		<servlet-class>com.varytype.controller.VaryTypeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>VaryTypeServlet</servlet-name>
+		<url-pattern>/dinerbackground/pages/Team/shelve/varytype.do</url-pattern>
+	</servlet-mapping>
+
+
+
+
+	<servlet>
+		<servlet-name>ProductServlet</servlet-name>
+		<servlet-class>com.product.controller.ProductServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ProductServlet</servlet-name>
+		<url-pattern>/p_list/product.do</url-pattern>
+	</servlet-mapping>
+
+
+
+	<servlet>
+		<servlet-name>ProductTypeServlet</servlet-name>
+		<servlet-class>com.product.controller.ProductType</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ProductTypeServlet</servlet-name>
+		<url-pattern>/productType.do</url-pattern>
+	</servlet-mapping>
+=======
 
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" version="4.0">
   <display-name>JavaG4</display-name>
@@ -41,6 +92,7 @@
 	
 
 	
+>>>>>>> refs/heads/master
 
 
 
