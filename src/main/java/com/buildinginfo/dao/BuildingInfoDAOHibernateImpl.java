@@ -47,7 +47,7 @@ public class BuildingInfoDAOHibernateImpl implements BuildingInfoDAO {
 		return -1;
 	}
 
-	public int down(Integer buildingID) {//更新狀態(刪除但沒有真的刪除)
+	public int down(Integer buildingID) {//更新狀態(刪除但只是更新狀態)
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();

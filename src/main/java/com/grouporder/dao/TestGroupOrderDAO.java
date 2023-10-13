@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.grouporder.entity.GroupOrder;
 
+
 public class TestGroupOrderDAO {
 	public static void main(String[] args) throws Exception {
 		GroupOrderDAO dao = new GroupOrderDAOHibernateImpl();
@@ -57,5 +58,13 @@ public class TestGroupOrderDAO {
 //			System.out.println(groupOrder.getHolderID());
 //			System.out.println();
 //		}
+
+
+
+		// 查詢join
+		List<Object[]> results = dao.getAllJoin(2);
+		System.out.println(results);
+		
+
 	}
 }

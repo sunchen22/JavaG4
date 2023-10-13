@@ -13,23 +13,42 @@ import javax.persistence.Table;
 
 import com.dinerinfo.entity.DinerInfo;
 
+
+
+import com.userinfo.entity.UserInfo;
 @Entity
-@Table(name="DinerRatingComment")
+@Table(name="dinerratingcomment")
+
 public class DinerRatingComment {
 
+//	@Id
+//	@GeneratedValue(strategy =  GenerationType.IDENTITY)
+//	@Column(name = "commentID")
+//	private Integer commentID;
+	
 	@Id
-	@GeneratedValue(strategy =  GenerationType.IDENTITY)
-	@Column(name = "commentID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="commentID", updatable = false)
 	private Integer commentID;
 	
 //	@ManyToOne
 //	@JoinColumn(name= "dinerID" , referencedColumnName = "dinerID")
-	@Column(name = "dinerID")
-	private Integer dinerID;
+//	@Column(name = "dinerID")
+//	private Integer dinerID;
 //	private DinerInfo dinerinfo;
 	
-	@Column(name = "userID")
-	private Integer userID;
+	
+	
+	@ManyToOne
+	@JoinColumn(name = "dinerID", referencedColumnName = "dinerID")
+	private DinerInfo dinerInfo;
+	
+	@ManyToOne
+	@JoinColumn(name = "userID", referencedColumnName = "userID")
+	private UserInfo userInfo;
+	
+//	@Column(name = "userID")
+//	private Integer userID;
 	
 	@Column(name = "dinerRating")
 	private Integer dinerRating;
@@ -51,19 +70,6 @@ public class DinerRatingComment {
 		 
 	}
 
-	public DinerRatingComment(Integer commentID, Integer dinerID, Integer userID, Integer dinerRating,
-			String userCommentContent, Timestamp userCommentTime, String dinerReplyContent, Timestamp dinerReplyTime) {
-		super();
-		this.commentID = commentID;
-		this.dinerID = dinerID;
-		this.userID = userID;
-		this.dinerRating = dinerRating;
-		this.userCommentContent = userCommentContent;
-		this.userCommentTime = userCommentTime;
-		this.dinerReplyContent = dinerReplyContent;
-		this.dinerReplyTime = dinerReplyTime;
-	}
-
 	public Integer getCommentID() {
 		return commentID;
 	}
@@ -72,20 +78,20 @@ public class DinerRatingComment {
 		this.commentID = commentID;
 	}
 
-	public Integer getDinerID() {
-		return dinerID;
+	public DinerInfo getDinerInfo() {
+		return dinerInfo;
 	}
 
-	public void setDinerID(Integer dinerID) {
-		this.dinerID = dinerID;
+	public void setDinerInfo(DinerInfo dinerInfo) {
+		this.dinerInfo = dinerInfo;
 	}
 
-	public Integer getUserID() {
-		return userID;
+	public UserInfo getUserInfo() {
+		return userInfo;
 	}
 
-	public void setUserID(Integer userID) {
-		this.userID = userID;
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
 	}
 
 	public Integer getDinerRating() {
@@ -127,6 +133,15 @@ public class DinerRatingComment {
 	public void setDinerReplyTime(Timestamp dinerReplyTime) {
 		this.dinerReplyTime = dinerReplyTime;
 	}
+
+	@Override
+	public String toString() {
+		return "DinerRatingComment [commentID=" + commentID + ", dinerInfo=" + dinerInfo + ", userInfo=" + userInfo
+				+ ", dinerRating=" + dinerRating + ", userCommentContent=" + userCommentContent + ", userCommentTime="
+				+ userCommentTime + ", dinerReplyContent=" + dinerReplyContent + ", dinerReplyTime=" + dinerReplyTime
+				+ "]";
+	}
+
 
 	
 

@@ -34,7 +34,7 @@ public class UserInfo {
 
 	@ManyToOne
 	@JoinColumn(name = "buildingID", referencedColumnName = "buildingID")
-	private BuildingInfo buildingInfo;
+	private BuildingInfo buildinginfo;
 	
 //	@Column(name="buildingID")
 //	private Integer buildingID;
@@ -88,11 +88,11 @@ public class UserInfo {
 		this.userNickName = userNickName;
 	}
 	
-	public BuildingInfo getBuildingInfo() {
-		return buildingInfo;
+	public BuildingInfo getBuildinginfo() {
+		return buildinginfo;
 	}
-	public void setBuildingInfo(BuildingInfo buildingInfo) {
-		this.buildingInfo = buildingInfo;
+	public void setBuildingInfo(BuildingInfo buildinginfo) {
+		this.buildinginfo = buildinginfo;
 	}
 //	public Integer getBuildingID() {
 //		return buildingID;

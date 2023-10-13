@@ -54,7 +54,11 @@ public class Product {
 	}
 
 	public Product(Integer productID, Integer dinerID, String productName, Integer productPrice, Integer productTypeID,
+
 			Integer productDailyStock, Timestamp productReleaseTime, byte[] productBlob1, byte[] productBlob2, byte[] productBlob3,
+
+			
+
 			String productRemark) {
 		super();
 		this.productID = productID;
