@@ -7,9 +7,9 @@
        return;
      }
 %> 
-<%@ include file="components/head.jsp" %> 
+<%@ include file="../components/head.jsp" %> 
 <%-- Import CSS for this page below (if any) --%>
-<link href="./css/style.css" rel="stylesheet">
+<link href="../css/style.css" rel="stylesheet">
 <%@ page import="com.userinfo.entity.*"%>
 <%@ page import="java.util.Base64" %>
 
@@ -19,7 +19,7 @@
 </head>
 
 <body>
-	<jsp:include page="./components/nav.jsp"></jsp:include>  <%-- The navigation bar --%>
+	<jsp:include page="../components/nav.jsp"></jsp:include>  <%-- The navigation bar --%>
 	
 	<%-- Page content start --%>
 	<div class="container col-7">
@@ -260,12 +260,12 @@
 	
 	<%-- Page content end --%>
 	
-	<jsp:include page="./components/footer.jsp"></jsp:include>  <%-- The footer --%>	
+	<jsp:include page="../components/footer.jsp"></jsp:include>  <%-- The footer --%>	
 	
 	
 	
 	
-<%@ include file="./components/tail.jsp" %>
+<%@ include file="../components/tail.jsp" %>
 <%-- Import JS for this page below (if any) --%>
 <script src="./vendor/bootstrap-5.3.1-dist/js/bootstrap.bundle.min.js"></script>
 

@@ -115,7 +115,7 @@ public class UserInfoServlet extends HttpServlet {
 			session.setAttribute("loginUserInfo", loginUserInfo);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/consumer/UserInfo.jsp";
+			String url = "/consumer/protected/UserInfo.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
@@ -174,7 +174,7 @@ public class UserInfoServlet extends HttpServlet {
 			session.setAttribute("loginUserInfo", newUserInfo);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/consumer/UserInfo.jsp";
+			String url = "/consumer/protected/UserInfo.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
@@ -225,7 +225,7 @@ public class UserInfoServlet extends HttpServlet {
 			session.setAttribute("loginUserInfo", loginUserInfo);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/consumer/UserInfo.jsp";
+			String url = "/consumer/protected/UserInfo.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
