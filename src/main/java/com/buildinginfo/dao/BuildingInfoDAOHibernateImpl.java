@@ -50,16 +50,16 @@ public class BuildingInfoDAOHibernateImpl implements BuildingInfoDAO {
 	public int down(Integer buildingID) {//更新狀態(刪除但只是更新狀態)
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
-			session.beginTransaction();
+//			session.beginTransaction();
 			BuildingInfo bif = session.get(BuildingInfo.class, buildingID);
 			if (bif != null) {
-				bif.setbuildingState(2);
+				bif.setbuildingStatus(2);
 			}
-			session.getTransaction().commit();
+//			session.getTransaction().commit();
 			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+//			session.getTransaction().rollback();
 		}
 		return -1;
 
@@ -71,7 +71,7 @@ public class BuildingInfoDAOHibernateImpl implements BuildingInfoDAO {
 		session.beginTransaction();
 		BuildingInfo bif = session.get(BuildingInfo.class, buildingID);
 		//狀態為1的才查的到
-		if(bif.getbuildingState() == 1) {
+		if(bif.getbuildingStatus() == 1) {
 		session.getTransaction().commit();
 		return bif;
 		}																	
@@ -104,14 +104,14 @@ public class BuildingInfoDAOHibernateImpl implements BuildingInfoDAO {
 	public List<BuildingInfo> getAll() {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
-		session.beginTransaction();//狀態為1的才查的到
-		List<BuildingInfo> list = session.createQuery("from BuildingInfo where buildingstate = 1", BuildingInfo.class).list();
+//		session.beginTransaction();//狀態為1的才查的到
+		List<BuildingInfo> list = session.createQuery("from BuildingInfo where buildingstatus = 1", BuildingInfo.class).list();
 		
-		session.getTransaction().commit();
+//		session.getTransaction().commit();
 		return list;
 	}catch(Exception e) {
 		e.printStackTrace();
-		session.getTransaction().rollback();
+//		session.getTransaction().rollback();
 		}
 		return null;
 	}

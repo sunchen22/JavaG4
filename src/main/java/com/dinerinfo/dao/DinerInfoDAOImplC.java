@@ -17,9 +17,9 @@ public class DinerInfoDAOImplC implements DinerInfoDAOC{
 		
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
-		session.beginTransaction();
+//		session.beginTransaction();
 		DinerInfo dif = session.get(DinerInfo.class, dinerInfoID);
-		session.getTransaction().commit();
+//		session.getTransaction().commit();
 		
 		
 		
@@ -27,7 +27,7 @@ public class DinerInfoDAOImplC implements DinerInfoDAOC{
 																			
 		}catch(Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+//			session.getTransaction().rollback();
 		}
 		return null;
 	}
@@ -36,16 +36,16 @@ public class DinerInfoDAOImplC implements DinerInfoDAOC{
 		
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
-		session.beginTransaction();
+//		session.beginTransaction();
 		List<DinerInfo> list = session.createQuery("from DinerInfo where dinerstatus = ?0 ", DinerInfo.class)
 				.setParameter(0,"active")
 				.list();
 		
-		session.getTransaction().commit();
+//		session.getTransaction().commit();
 		return list;
 	}catch(Exception e) {
 		e.printStackTrace();
-		session.getTransaction().rollback();
+//		session.getTransaction().rollback();
 		}
 		return null;
 	}
@@ -54,16 +54,16 @@ public List<DinerInfo> getAllSubmitted(){
 		
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
-		session.beginTransaction();
+//		session.beginTransaction();
 		List<DinerInfo> list = session.createQuery("from DinerInfo where dinerstatus = ?0 ", DinerInfo.class)
 				.setParameter(0, "submitted")
 				.list();
 		
-		session.getTransaction().commit();
+//		session.getTransaction().commit();
 		return list;
 	}catch(Exception e) {
 		e.printStackTrace();
-		session.getTransaction().rollback();
+//		session.getTransaction().rollback();
 		}
 		return null;
 	}
