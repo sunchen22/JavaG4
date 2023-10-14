@@ -37,7 +37,7 @@ public class UserInfo implements Serializable{
 	@Column(name="userNickName")
 	private String userNickName;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "buildingID", referencedColumnName = "buildingID")
 	private BuildingInfo buildinginfo;
 //	@Column(name="buildingID")
