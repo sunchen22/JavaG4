@@ -20,7 +20,7 @@ public class BuildingInfo implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy =  GenerationType.IDENTITY)
-	@Column(name = "buildingID")
+	@Column(name = "buildingID" )
 	private Integer buildingID;
 	
 	@OneToMany(mappedBy = "buildinginfo" , cascade = CascadeType.ALL)
@@ -50,42 +50,37 @@ public class BuildingInfo implements Serializable{
 		this.buildingStatus = buildingStatus;
 	}
 
-
 	public Integer getBuildingID() {
 		return buildingID;
 	}
-
 
 	public void setBuildingID(Integer buildingID) {
 		this.buildingID = buildingID;
 	}
 
-
 	public String getBuildingName() {
 		return buildingName;
 	}
-
 
 	public void setBuildingName(String buildingName) {
 		this.buildingName = buildingName;
 	}
 
-
 	public String getBuildingAddress() {
 		return buildingAddress;
 	}
 
-
 	public void setBuildingAddress(String buildingAddress) {
 		this.buildingAddress = buildingAddress;
 	}
-	
-	
+
+
 
 
 	public Integer getbuildingStatus() {
 		return buildingStatus;
 	}
+
 
 
 	public void setbuildingStatus(Integer buildingStatus) {
@@ -96,7 +91,7 @@ public class BuildingInfo implements Serializable{
 	@Override
 	public String toString() {
 		return "BuildingInfo [buildingID=" + buildingID + ", buildingName=" + buildingName + ", buildingAddress="
-				+ buildingAddress + "]";
+				+ buildingAddress + ", buildingStatus=" + buildingStatus + "]";
 	}
 	
 	

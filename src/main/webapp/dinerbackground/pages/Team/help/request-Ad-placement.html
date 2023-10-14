@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>樓頂揪樓咖 商家資料管理</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../../../plugins/fontawesome-free/css/all.min.css">
+  <!-- Ekko Lightbox -->
+  <link rel="stylesheet" href="../../../plugins/ekko-lightbox/ekko-lightbox.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../../dist/css/adminlte.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="../../../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="../../../plugins/daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" href="../../../plugins/bs-stepper/css/bs-stepper.min.css">
+  <!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="../../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Bootstrap Color Picker -->
+  <link rel="stylesheet" href="../../../plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="../../../plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="../../../plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="../../../plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+  <!-- Bootstrap4 Duallistbox -->
+  <link rel="stylesheet" href="../../../plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+  <!-- BS Stepper -->
+  <link rel="stylesheet" href="../../../plugins/bs-stepper/css/bs-stepper.min.css">
+  <!-- dropzonejs -->
+  <link rel="stylesheet" href="../../../plugins/dropzone/min/dropzone.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../../dist/css/adminlte.min.css">
+  <style>
+    #imagePreview img {
+      width: 283px;
+      height: 150px;
+    }
+  </style>
+
+</head>
+
+<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+  <div class="wrapper">
+
+
+
+    <!-- 基本版面 上方懸浮欄 -->
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-dark">
+      <!-- 上方懸浮欄 左方按鈕 -->
+      <!-- Left navbar links -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+          <a href="dashboard-index" class="nav-link">首頁</a>
+        </li>
+
+      </ul>
+
+      <!-- 彈出右側下拉欄 -->
+      <!-- Right navbar links -->
+      <ul class="navbar-nav ml-auto">
+
+
+        <!-- 全螢幕控制鈕 -->
+        <li class="nav-item">
+          <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+            <i class="fas fa-expand-arrows-alt"></i>
+          </a>
+        </li>
+
+      </ul>
+    </nav>
+    <!-- /.navbar -->
+
+    <!-- 主要功能側邊欄(左側) -->
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+
+      <!-- 品牌logo -->
+      <!-- Brand Logo -->
+      <a href="index3.html" class="brand-link">
+        <img src="../../../dist/img/joLOGO.png" alt="joLOGO" class="brand-image img-circle elevation-3"
+          style="opacity: .8">
+        <span class="brand-text font-weight-light">樓頂揪樓咖</span>
+      </a>
+
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <!-- 商家頭像 -->
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          <div class="image">
+            <img src="../../../dist/img/sara lance.png" class="img-circle elevation-2" alt="User Image">
+          </div>
+          <div class="info">
+            <a href="#" class="d-block">Sara Lance</a>
+          </div>
+        </div>
+
+        <!-- SidebarSearch Form -->
+
+        <!-- 功能項目列 -->
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-cogs"></i>
+                <p>
+                  商家資料管理
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <!-- 商家資料管理 子選項 -->
+              <ul class="nav nav-treeview">
+
+                <!-- 公司資料變更 -->
+                <li class="nav-item">
+                  <a href="../dashboard/info-change.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>公司資料變更</p>
+                  </a>
+                </li>
+
+                <!-- 店面設定 -->
+                <li class="nav-item">
+                  <a href="../dashboard/business-set.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>店面設定</p>
+                  </a>
+                </li>
+
+              </ul>
+
+            </li>
+
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-file-upload"></i>
+                <p>
+                  商品上架
+                  <i class="right fas fa-angle-left"></i>
+                  <!-- <span class="badge badge-info right"></span> 這裡可以用來設定右邊顯示的訊息提醒小數字 -->
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="pages/layout/top-nav.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>商品群組設定</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>單獨上架</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="pages/layout/boxed.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>批次上架</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-hammer"></i>
+                <p>
+                  商品管理
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="pages/charts/chartjs.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>商品列表</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="pages/charts/flot.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>單獨商品頁面</p>
+                  </a>
+                </li>
+
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-newspaper"></i>
+                <p>
+                  訂單管理
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="pages/UI/general.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>揪團成功訂單</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="pages/UI/icons.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>已完成訂單</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="pages/UI/buttons.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>已取消訂單</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="pages/UI/sliders.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>訂單查詢</p>
+                  </a>
+                </li>
+              </ul>
+
+            </li>
+            <li class="nav-item menu-open">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-handshake"></i>
+                <p>
+                  幫助中心
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="../help/Guide-to-Adding-Products-list.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>上架教學</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../help/monthly-report.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>每月報表</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../help/sales-data.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>銷售數據</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../help/request-Ad-placement.html" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>申請廣告上架</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../help/comment-reply.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>評論區回覆</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a href="../frontpage/frontpage-index.html" class="nav-link">
+
+                <i class="nav-icon fas fa-sign-out-alt"></i>
+                <p>
+                  登出
+
+                </p>
+              </a>
+
+            </li>
+
+        </nav>
+        <!-- /.sidebar-menu -->
+      </div>
+
+      <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper kanban">
+
+      <!-- ====================表頭====================== -->
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12 col-sm-6">
+              <h1>申請廣告上架</h1>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="content pb-3">
+        <div class="container-fluid h-100">
+          <!-- ====================提出申請====================== -->
+          <div class="card card-row card-secondary">
+            <!-- =======提出申請 表頭==== -->
+            <div class="card-header">
+              <h3 class="card-title">
+                提出申請
+              </h3>
+            </div>
+            <!-- =======提出申請 內容==== -->
+            <div class="card-body">
+              <!-- 卡片1 -->
+              <div class="card card-info card-outline">
+                <!-- 卡片1 表頭 -->
+                <div class="card-header">
+                  <h3 class="card-title">項目1</h3>
+                  <!-- 卡片1右側縮小、刪除鍵 -->
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+                <!-- 卡片1 內容 -->
+                <div class="card-body ">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="form-group">
+                        <!-- ==================廣告名稱(卡片抬頭) ============================================-->
+                        <label>廣告名稱</label>
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <i class="far fa-lightbulb"></i>
+                            </span>
+                          </div>
+                          <input type="text" class="form-control float-right cardName">
+                        </div>
+                        <br>
+                        <!-- ==================廣告上架區間 ============================================-->
+                        <label>廣告上架區間</label>
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <i class="far fa-calendar-alt"></i>
+                            </span>
+                          </div>
+                          <input type="text" class="form-control float-right" id="reservation">
+                        </div>
+                        <br>
+                        <!-- =============廣告天數(自動跳轉) ============================================-->
+                        <label>廣告天數</label>
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <i class="far fa-clock"></i>
+                            </span>
+                          </div>
+                          <input type="text" id="advertisementDuringTime" class="form-control float-right" readonly>
+                        </div>
+                        <br>
+
+                        <!-- ================上傳廣告橫幅 ============================================-->
+                        <label for="ADInputFile">上傳廣告橫幅</label>
+                        <div class="input-group">
+                          <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="ADInputFile">
+                            <label class="custom-file-label" for="ADInputFile">選擇檔案</label>
+                          </div>
+                          <div class="input-group-append">
+                            <span class="input-group-text">上傳</span>
+                          </div>
+                        </div>
+                        <div class=""></div>
+                        <!-- ===============預覽圖片 ============================================-->
+                        <br>
+                        <label for="imagePreview">預覽圖片</label>
+                        <div id="imagePreview"></div>
+                      </div>
+                      <button class="btn btn-primary">送出申請</button>
+                      <!-- /.form-group -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-6">
+
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <!-- /.row -->
+                </div>
+              </div>
+              <!-- 卡片1 結尾-->
+            </div>
+          </div>
+
+          <!-- ====================審核中廣告====================== -->
+          <div class="card card-row card-primary">
+            <div class="card-header">
+              <h3 class="card-title">
+                審核中廣告
+              </h3>
+            </div>
+            <div class="card-body">
+              <div class="card card-info card-outline">
+                <!-- 卡片2 表頭 -->
+                <div class="card-header">
+                  <h3 class="card-title">項目2</h3>
+                  <!-- 卡片2右側縮小鍵 -->
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                </div>
+                <!-- 卡片2 內容 -->
+                <div class="card-body ">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="form-group">
+                        <!-- ==================廣告名稱(卡片抬頭) ============================================-->
+                        <label>廣告名稱</label>
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <i class="far fa-lightbulb"></i>
+                            </span>
+                          </div>
+                          <input type="text" class="form-control float-right cardName" readonly>
+                        </div>
+                        <br>
+                        <!-- ==================廣告上架區間 ============================================-->
+                        <label>廣告上架區間</label>
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <i class="far fa-calendar-alt"></i>
+                            </span>
+                          </div>
+                          <input type="text" class="form-control float-right" id="reservation" readonly>
+                        </div>
+                        <br>
+                        <!-- =============廣告天數(自動跳轉) ============================================-->
+                        <label>廣告天數</label>
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <i class="far fa-clock"></i>
+                            </span>
+                          </div>
+                          <input type="text" id="advertisementDuringTime" class="form-control float-right" readonly>
+                        </div>
+                        <br>
+
+                        <!-- ================廣告橫幅 ============================================-->
+
+                        <label for="ADimg">廣告橫幅</label>
+                        <div id="ADimg">
+                          <img src="../../../dist/img/廣告橫幅01.png">
+                        </div>
+                      </div>
+
+                      <!-- /.form-group -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-6">
+
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <!-- /.row -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ====================上架中廣告====================== -->
+          <div class="card card-row card-default">
+            <div class="card-header bg-info">
+              <h3 class="card-title">
+                上架中廣告
+              </h3>
+            </div>
+            <div class="card-body">
+              <div class="card card-light card-outline">
+                <div class="card-header">
+                  <h5 class="card-title">Update Readme</h5>
+                  <div class="card-tools">
+                    <a href="#" class="btn btn-tool btn-link">#2</a>
+                    <a href="#" class="btn btn-tool">
+                      <i class="fas fa-pen"></i>
+                    </a>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+                    Aenean commodo ligula eget dolor. Aenean massa.
+                    Cum sociis natoque penatibus et magnis dis parturient montes,
+                    nascetur ridiculus mus.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ====================歷史廣告紀錄====================== -->
+          <div class="card card-row card-success">
+            <div class="card-header">
+              <h3 class="card-title">
+                歷史廣告紀錄
+              </h3>
+            </div>
+            <div class="card-body">
+              <div class="card card-primary card-outline">
+                <div class="card-header">
+                  <h5 class="card-title">Create repo</h5>
+                  <div class="card-tools">
+                    <a href="#" class="btn btn-tool btn-link">#1</a>
+                    <a href="#" class="btn btn-tool">
+                      <i class="fas fa-pen"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- REQUIRED SCRIPTS -->
+    <!-- jQuery -->
+    <script src="../../../plugins/jquery/jquery.min.js"></script>
+
+    <!-- InputMask -->
+    <script src="../../../plugins/moment/moment.min.js"></script>
+    <script src="../../../plugins/inputmask/jquery.inputmask.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="../../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- overlayScrollbars -->
+    <script src="../../../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../../../dist/js/adminlte.js"></script>
+
+    <!-- PAGE PLUGINS -->
+    <!-- jQuery Mapael -->
+    <script src="../../../plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
+    <script src="../../../plugins/raphael/raphael.min.js"></script>
+    <script src="../../../plugins/jquery-mapael/jquery.mapael.min.js"></script>
+    <script src="../../../plugins/jquery-mapael/maps/usa_states.min.js"></script>
+    <!-- ChartJS -->
+    <script src="../../../plugins/chart.js/Chart.min.js"></script>
+
+    <!-- AdminLTE for demo purposes -->
+    <script src="../../../dist/js/demo.js"></script>
+
+
+    <!-- Bootstrap -->
+    <script src="../../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Ekko Lightbox -->
+    <script src="../../../plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
+    <!-- overlayScrollbars -->
+    <script src="../../../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../../../dist/js/adminlte.min.js"></script>
+    <!-- Filterizr-->
+    <script src="../../../plugins/filterizr/jquery.filterizr.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="../../../dist/js/demo.js"></script>
+    <!-- date-range-picker -->
+    <script src="../../../plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap color picker -->
+    <script src="../../../plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+
+    <!-- dropzonejs -->
+    <script src="../../../plugins/dropzone/min/dropzone.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="../../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap4 Duallistbox -->
+    <script src="../../../plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="../../../plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- Select2 -->
+    <script src="../../../plugins/select2/js/select2.full.min.js"></script>
+    <!-- Bootstrap Switch -->
+    <script src="../../../plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+    <!-- BS-Stepper -->
+    <script src="../../../plugins/bs-stepper/js/bs-stepper.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="../../../dist/js/demo.js"></script>
+
+
+    <!-- Page specific script -->
+    <script>
+      $(function () {
+        //Initialize Select2 Elements
+        $('.select2').select2()
+
+        //Initialize Select2 Elements
+        $('.select2bs4').select2({
+          theme: 'bootstrap4'
+        })
+
+
+        //Date range picker
+        $('#reservation').daterangepicker()
+
+        //Date range as a button
+        $('#daterange-btn').daterangepicker(
+          {
+            ranges: {
+              'Today': [moment(), moment()],
+              'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+              'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+              'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+              'This Month': [moment().startOf('month'), moment().endOf('month')],
+              'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            },
+            startDate: moment().subtract(29, 'days'),
+            endDate: moment()
+          },
+          function (start, end) {
+            $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+          }
+        )
+
+
+
+
+
+        $("input[data-bootstrap-switch]").each(function () {
+          $(this).bootstrapSwitch('state', $(this).prop('checked'));
+        })
+
+      })
+
+
+
+    </script>
+
+    <!-- 預覽圖片 -->
+    <script>
+      var imagefile = document.getElementById('ADInputFile');
+      imagefile.addEventListener('change', function () {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          var ADimg = new Image();
+          ADimg.src = e.target.result;
+          document.getElementById('imagePreview').appendChild(ADimg);
+        };
+        reader.readAsDataURL(imagefile.files[0]);
+      });
+    </script>
+
+
+</body>
+
+</html>
