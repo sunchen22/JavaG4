@@ -74,11 +74,16 @@ public class BuildingInfo implements Serializable{
 		this.buildingAddress = buildingAddress;
 	}
 
+
+
+
 	public Integer getbuildingStatus() {
 		return buildingStatus;
 	}
 
-	public void setbuildingState(Integer buildingStatus) {
+
+
+	public void setbuildingStatus(Integer buildingStatus) {
 		this.buildingStatus = buildingStatus;
 	}
 
