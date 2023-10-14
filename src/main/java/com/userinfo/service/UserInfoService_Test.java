@@ -19,7 +19,7 @@ public class UserInfoService_Test {
 		userInfo.setUserNickName("TestNick");
 		BuildingInfo buildingInfo = new BuildingInfo();
 		buildingInfo.setBuildingID (1);
-		userInfo.setBuildingInfo(buildingInfo);
+		userInfo.setBuildinginfo(buildingInfo);
 		userInfo.setUserBirthday(java.sql.Date.valueOf("2005-01-01"));
 		try {
 		    InputStream is = new FileInputStream("C:/Pictures/natalie_portman_1.jpg");

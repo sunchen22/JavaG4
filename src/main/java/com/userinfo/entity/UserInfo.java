@@ -12,7 +12,7 @@ import com.favorite.entity.Favorite;
 
 
 @Entity
-@Table(name="userinfo")
+@Table(name="userInfo")
 public class UserInfo implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -101,10 +101,10 @@ public class UserInfo implements Serializable{
 	public BuildingInfo getBuildinginfo() {
 		return buildinginfo;
 	}
-	public void setBuildingInfo(BuildingInfo buildinginfo) {
+	public void setBuildinginfo(BuildingInfo buildinginfo) {
 		this.buildinginfo = buildinginfo;
 	}
-
+	
 	public Date getUserBirthday() {
 		return userBirthday;
 	}
