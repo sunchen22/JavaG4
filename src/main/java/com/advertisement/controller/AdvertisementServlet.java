@@ -17,7 +17,7 @@ import com.advertisement.entity.Advertisement;
 
 
 public class AdvertisementServlet extends HttpServlet {
-	// 一個 servlet 實體對應一個 service 實體 git test
+	// 一個 servlet 實體對應一個 service 實體
 	private AdvertisementService advertisementService;
 
 
