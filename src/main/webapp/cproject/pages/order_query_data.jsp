@@ -421,9 +421,9 @@
                                 <tr>
                                     <td><span class="text-muted">${grouporder.groupOrderID}</span></td>
                                     
-                                    <td>${grouporder.dinerID}</td>
+                                    <td>${grouporder.dinerInfo.dinerID}</td>
                                     <td>${grouporder.orderStatus}</td>
-                                    <td>${grouporder.buildingID}</td>
+                                    <td>${grouporder.buildingInfo.buildingID}</td>
                                     <td>${grouporder.groupTotalPrice}</td>
                                     <td>${grouporder.groupOrderSubmitTime}</td>
                                     

@@ -26,9 +26,9 @@ public class TestHibernateBuildingInfoDAO {
 //		dao.down(4);
 		
 		//查詢
-		bif = dao.findByPK(5);
-		System.out.print(bif.getBuildingName()+" , ");
-		System.out.println(bif.getBuildingAddress());
+//		bif = dao.findByPK(5);
+//		System.out.print(bif.getBuildingName()+" , ");
+//		System.out.println(bif.getBuildingAddress());
 		
 		
 		//查詢多筆
