@@ -69,7 +69,7 @@ public class GroupOrderServletC extends HttpServlet {
 				}
 				
 				
-				GroupOrderDAOHibernateImpl godhi = new GroupOrderDAOHibernateImpl();
+				GroupOrderDAOHibernateImplC godhi = new GroupOrderDAOHibernateImplC();
 				GroupOrder gor = godhi.findByPK(input);
 				
 				DinerInfoDAOImplC didic = new DinerInfoDAOImplC();

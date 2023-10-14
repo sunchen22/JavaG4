@@ -399,12 +399,12 @@
                     
                       <tr>
                         <td><span class="text-muted"><%=gor.getGroupOrderID() %></span></td>
-                        <td><a href="invoice.html" class="text-inherit"><%=gor.getDinerID() %></a></td>
+                        <td><a href="invoice.html" class="text-inherit"><%=gor.getDinerInfo().getDinerID() %></a></td>
                         <td><%=dif.getDinerName()%></td>
                         
                         <td>
                           <form action = "gos.do" style="width: 15px ; height: 15px">
-                          <input type="hidden" name="groupID"  value="<%=gor.getDinerID() %>">    
+                          <input type="hidden" name="groupID"  value="<%=gor.getDinerInfo().getDinerID() %>">    
 			      		  <input type="hidden" name="action" value="go_for_data">
                           <button class ="btn btn-warning" style = "font-weight :bold">查詢</button>
                           </form>

@@ -14,14 +14,14 @@ public class ProductDAOImplC implements ProductDAOC {
 	public int down(Integer dinerID) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
-			session.beginTransaction();
+//			session.beginTransaction();
 			Product pdt = session.get(Product.class, dinerID);
 			
-			session.getTransaction().commit();
+//			session.getTransaction().commit();
 			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+//			session.getTransaction().rollback();
 		}
 		return -1;
 		
@@ -32,16 +32,16 @@ public class ProductDAOImplC implements ProductDAOC {
 	public List<Product> getAll(Integer dinerID){
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
-		session.beginTransaction();//狀態為1的才查的到
+//		session.beginTransaction();//狀態為1的才查的到
 		List<Product> list = session.createQuery("from Product where dinerid = ?0 ", Product.class)
 				.setParameter(0,dinerID)
 				.list();
 		
-		session.getTransaction().commit();
+//		session.getTransaction().commit();
 		return list;
 	}catch(Exception e) {
 		e.printStackTrace();
-		session.getTransaction().rollback();
+//		session.getTransaction().rollback();
 		}
 		return null;
 	}
@@ -50,7 +50,7 @@ public class ProductDAOImplC implements ProductDAOC {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		
 		try {
-			session.beginTransaction();
+//			session.beginTransaction();
 			Product gor = session.get(Product.class,productID);
 			
 			List list = new ArrayList();
@@ -64,13 +64,13 @@ public class ProductDAOImplC implements ProductDAOC {
 //			list.get(1);
 //			list.get(2);
 //			list.get(3);
-			session.getTransaction().commit();
+//			session.getTransaction().commit();
 			
 			return list;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+//			session.getTransaction().rollback();
 		}
 		
 		return null;
