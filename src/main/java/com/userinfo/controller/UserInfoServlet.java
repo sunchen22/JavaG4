@@ -2,18 +2,13 @@ package com.userinfo.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
+import javax.servlet.http.*;
 
 import com.buildinginfo.entity.BuildingInfo;
 import com.userinfo.entity.UserInfo;
@@ -183,7 +178,7 @@ public class UserInfoServlet extends HttpServlet {
 		
 		
 		// ======================================================
-		// ===========================Update=======================
+		// ======================UpdateUserInfo==================
 		// ======================================================
 
 		if (action.equals("update")) { // 來自Login.jsp的請求
@@ -242,6 +237,55 @@ public class UserInfoServlet extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
+		
+				// ======================================================
+				// ======================resetPwd=======================
+				// ======================================================
+
+				if (action.equals("resetPwd")) { // 來自resetPwd的請求
+
+					List<String> errorMsgs = new LinkedList<String>();
+					req.setAttribute("errorMsgs", errorMsgs);
+
+					/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
+					HttpSession session = req.getSession();
+					UserInfo userInfo = (UserInfo) session.getAttribute("loginUserInfo");
+					
+					String oldPwd = req.getParameter("oldPwd");
+					
+					if (!oldPwd.equals(userInfo.getUserPassword())) {
+						errorMsgs.add("原密碼錯誤");
+						return;
+					}
+					String newPwd = req.getParameter("newPwd");
+					String newPwdAgain = req.getParameter("newPwdAgain");
+					if (!newPwd.equals(newPwdAgain)) {
+						errorMsgs.add("新密碼不相同");
+						return;
+					}
+					
+					userInfo.setUserPassword(newPwd);
+					
+					
+					// Send the use back to the form, if there were errors
+					if (!errorMsgs.isEmpty()) {
+						req.setAttribute("userInfo", userInfo); // 含有輸入格式錯誤的empVO物件,也存入req
+						RequestDispatcher failureView = req.getRequestDispatcher("/consumer/Login.jsp");
+						failureView.forward(req, res);
+						return;
+					}
+
+					/*************************** 2.開始更新資料 ***************************************/
+					userInfoService.updateUserInfo(userInfo);
+					
+					session.setAttribute("loginUserInfo", userInfo);
+					req.setAttribute("isUpdate", true);
+
+					/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
+					String url = "/consumer/protected/UserInfo.jsp";
+					RequestDispatcher successView = req.getRequestDispatcher(url);
+					successView.forward(req, res);
+				}
 
 	}
 
