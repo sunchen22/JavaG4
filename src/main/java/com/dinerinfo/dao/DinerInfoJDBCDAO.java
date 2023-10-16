@@ -320,6 +320,14 @@ public class DinerInfoJDBCDAO implements DinerInfoDAO {
 		}
 		return dinerInfo;
 	}
+	
+	
+
+	@Override
+	public DinerInfo findByTaxID(String dinerTaxID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public List<DinerInfo> getAll() {

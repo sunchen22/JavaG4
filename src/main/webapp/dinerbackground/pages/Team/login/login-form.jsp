@@ -4,8 +4,8 @@
 
 <%@ page import="com.dinerinfo.entity.*"%>
 
-<% 
-   DinerInfo dinerInfo = (DinerInfo) request.getAttribute("dinerInfo");
+<%
+DinerInfo dinerInfo = (DinerInfo) request.getAttribute("dinerInfo");
 %>
 
 <html lang="zh-Hant">
@@ -38,13 +38,16 @@
 			<div class="card-body login-card-body">
 				<p class="login-box-msg">歡迎回來~商業夥伴</p>
 
-				<form action="<%=request.getContextPath()%>/diner.do" method="post">
+				<form
+					action="<%=request.getContextPath()%>/dinerbackground/pages/Team/login/dinerInfo.do"
+					method="post">
 
 
 
 					<div class="input-group mb-3">
 						<input type="text" class="form-control" placeholder="請輸入帳號"
-							name="dinerTaxID">
+							name="dinerTaxID"
+							value="<%=(dinerInfo != null) ? dinerInfo.getDinerTaxID() : ""%>">
 						<div class="input-group-append">
 							<div class="input-group-text">
 								<span class="fas fa-user"></span>
@@ -53,7 +56,8 @@
 					</div>
 					<div class="input-group mb-3">
 						<input type="password" class="form-control" placeholder="請輸入密碼"
-							name="dinerPW">
+							name="dinerPassword"
+							value="<%=(dinerInfo != null) ? dinerInfo.getDinerPassword() : ""%>">
 						<div class="input-group-append">
 							<div class="input-group-text">
 								<span class="fas fa-lock"></span>
@@ -76,15 +80,16 @@
 						<!-- /.col -->
 					</div>
 
+					<%-- 錯誤表列 --%>
 					<c:if test="${not empty errorMsgs}">
-						<font style="color: red">請重新輸入</font>
+						<font style="color: red">請修正以下錯誤:</font>
 						<ul>
 							<c:forEach var="message" items="${errorMsgs}">
 								<li style="color: red">${message}</li>
 							</c:forEach>
 						</ul>
 					</c:if>
-					
+
 				</form>
 
 

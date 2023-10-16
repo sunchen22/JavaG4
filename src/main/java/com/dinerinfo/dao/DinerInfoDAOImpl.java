@@ -63,6 +63,14 @@ public class DinerInfoDAOImpl implements DinerInfoDAO{
 		public List<DinerInfo> getAll() {
 			return getSession().createQuery("from DinerInfo", DinerInfo.class).list();
 		}
+		
+		
+
+		@Override
+		public DinerInfo findByTaxID(String dinerTaxID) {
+			// TODO Auto-generated method stub
+			return null;
+		}
 
 		@Override
 		public List<DinerInfo> getByCompositeQuery(Map<String, String> map) {
