@@ -76,22 +76,6 @@ public class DinerInfoDAOHibernateImpl implements DinerInfoDAO{
 	}
 
 	
-	
-//	@Override
-//	public DinerInfo findByTaxID(String dinerTaxID) {
-//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-//		try {
-//			session.beginTransaction();
-//			DinerInfo dinerInfo = session.get(DinerInfo.class, dinerTaxID);
-//			session.getTransaction().commit();
-//			return dinerInfo;   //成功的話，回傳 dinerInfo 物件
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			session.getTransaction().rollback();
-//		}
-//		return null;   //不成功的話，回傳null
-//	}
-	
 	@Override
 	public DinerInfo findByTaxID(String dinerTaxID) {
 	    Session session = HibernateUtil.getSessionFactory().getCurrentSession();
