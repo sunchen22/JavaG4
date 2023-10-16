@@ -201,7 +201,7 @@ public class UserInfoServlet extends HttpServlet {
 			String userPhone = req.getParameter("userPhone");
 			Integer buildingID = Integer.valueOf(req.getParameter("buildingID"));
 			Part userBlobPart = req.getPart("userBlob");
-			//之後要改用option取值
+			
 			
 			userInfo.setUserName(userName);
 			userInfo.setUserNickName(userNickName);
@@ -209,13 +209,17 @@ public class UserInfoServlet extends HttpServlet {
 			BuildingInfo buildingInfo = new BuildingInfo();
 			buildingInfo.setBuildingID(buildingID);
 			userInfo.setBuildinginfo(buildingInfo);
-			try {
-				InputStream is = userBlobPart.getInputStream();
-				;
-				byte[] userBlobData = is.readAllBytes();
-				userInfo.setUserBlob(userBlobData);
-			} catch (IOException e) {
-				e.printStackTrace();
+			
+			//userBlob非null才取
+			if(userBlobPart != null && userBlobPart.getSize() > 0) {
+				try {
+					InputStream is = userBlobPart.getInputStream();
+					;
+					byte[] userBlobData = is.readAllBytes();
+					userInfo.setUserBlob(userBlobData);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 			
 			// Send the use back to the form, if there were errors
@@ -231,7 +235,7 @@ public class UserInfoServlet extends HttpServlet {
 			HttpSession session = req.getSession();
 			UserInfo loginUserInfo = userInfoService.getOneUserID(userID);
 			session.setAttribute("loginUserInfo", loginUserInfo);
-			System.out.println("Update的Session userInfo: " + session.getAttribute("loginUserInfo"));
+			req.setAttribute("isUpdate", true);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			String url = "/consumer/protected/UserInfo.jsp";

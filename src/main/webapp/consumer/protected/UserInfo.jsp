@@ -16,6 +16,13 @@ BuildingInfoDAO buildingInfoDAO = new BuildingInfoDAOHibernateImpl();
 List<BuildingInfo> buildingList = buildingInfoDAO.getAll();
 pageContext.setAttribute("buildingList", buildingList);
 %>
+<!-- 先取出UserInfo userBlob以供顯示圖片使用 -->
+<%
+    UserInfo loginUserInfo = (UserInfo) session.getAttribute("loginUserInfo");
+    byte[] userBlobData = loginUserInfo.getUserBlob();
+    // 將byte[]轉換為Base64編碼的字符串
+    String base64Image = Base64.getEncoder().encodeToString(userBlobData);
+%>
 
 
 <title>樓頂揪樓咖-消費者個人資訊</title>
@@ -55,13 +62,19 @@ pageContext.setAttribute("buildingList", buildingList);
 			<!-- 內容面板 -->
 			<div class="tab-content col-9" id="v-pills-tabContent">
 				<div class="tab-pane fade show active" id="v-pills-info">
+				<!--檢查是否更新成功 -->
+				<%if (request.getAttribute("isUpdate") != null) {%>
+				<div class="alert alert-primary" role="alert">
+				  更新成功！ 
+				</div>
+				<%}%>
 					<form method="post" action="user.do" enctype="multipart/form-data">
 						<div class="row mb-3">
 							<label for="userAccount" class="col-form-label col-md-3">帳號：</label>
 							<div class="col-md-9">
 								<input type="text" class="form-control" id="userAccount"
 									maxlength="20" value="${loginUserInfo.userAccount}"
-									name="userAccount" disabled>
+									name="userAccount" readonly>
 							</div>
 						</div>
 						<div class="row mb-3">
@@ -94,9 +107,9 @@ pageContext.setAttribute("buildingList", buildingList);
 							<div class="col-md-9">
 
 								<select class="form-control" id="buildingID" name="buildingID">
-									<option value="${loginUserInfo.buildinginfo.buildingID}">${loginUserInfo.buildinginfo.buildingName}</option>
+<%-- 									<option value="${loginUserInfo.buildinginfo.buildingID}">${loginUserInfo.buildinginfo.buildingName}</option> --%>
 									<c:forEach var="building" items="${buildingList}">
-										<option value="${building.buildingID}">${building.buildingName}</option>
+										<option value="${building.buildingID}" ${(loginUserInfo.buildinginfo.buildingID == building.buildingID)? 'selected':''} >${building.buildingName}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -105,7 +118,7 @@ pageContext.setAttribute("buildingList", buildingList);
 							<label for="userBirthday" class="col-form-label col-md-3">生日：</label>
 							<div class="col-md-9">
 								<input type="text" class="form-control" id="userBirthday"
-									value="${loginUserInfo.userBirthday}" disabled>
+									value="${loginUserInfo.userBirthday}" readonly>
 							</div>
 						</div>
 						<div class="row mb-3">
@@ -115,7 +128,7 @@ pageContext.setAttribute("buildingList", buildingList);
 									name="userBlob" placeholder="請上傳個人照片"
 									onchange="previewImage(event)"> 
 								<img id="previewBlob"
-									src="" alt="Image preview"
+									src="data:image/jpeg;base64, <%= base64Image %>" alt="Image preview"
 									style="margin-top: 10px; max-width: 200px;">
 							</div>
 						</div>
@@ -133,25 +146,26 @@ pageContext.setAttribute("buildingList", buildingList);
 							<label for="oldPwd" class="col-form-label col-md-4">舊密碼：</label>
 							<div class="col-md-8">
 								<input type="password" class="form-control" id="oldPwd"
-									maxlength="20" placeholder="請輸入舊密碼">
+									maxlength="20" placeholder="請輸入舊密碼" name="oldPwd">
 							</div>
 						</div>
 						<div class="row mb-3">
 							<label for="newPwd" class="col-form-label col-md-4">新密碼：</label>
 							<div class="col-md-8">
 								<input type="password" class="form-control" id="newPwd"
-									maxlength="20" placeholder="請輸入新密碼">
+									maxlength="20" placeholder="請輸入新密碼" name="newPwd">
 							</div>
 						</div>
 						<div class="row mb-3">
 							<label for="pwdAgain" class="col-form-label col-md-4">確認新密碼：</label>
 							<div class="col-md-8">
-								<input type="password" class="form-control" id="pwdAgain"
-									maxlength="20" placeholder="請再次輸入新密碼">
+								<input type="password" class="form-control" id="newPwdAgain"
+									maxlength="20" placeholder="請再次輸入新密碼" name="newPwdAgain">
 							</div>
 						</div>
 
 						<div class="d-grid">
+							<input type="hidden" name="action" value="resetPwd">
 							<button type="submit" class="btn btn-primary">確認修改</button>
 						</div>
 					</form>
