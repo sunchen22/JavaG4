@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.io.Serializable;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 import com.dinerinfo.entity.DinerInfo;
 
@@ -66,13 +67,49 @@ public class DinerInfoDAOHibernateImpl implements DinerInfoDAO{
 			session.beginTransaction();
 			DinerInfo dinerInfo = session.get(DinerInfo.class, dinerID);
 			session.getTransaction().commit();
-			return dinerInfo;   //成功的話，回傳emp物件
+			return dinerInfo;   //成功的話，回傳 dinerInfo 物件
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
 		}
 		return null;   //不成功的話，回傳null
 	}
+
+	
+	
+//	@Override
+//	public DinerInfo findByTaxID(String dinerTaxID) {
+//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//		try {
+//			session.beginTransaction();
+//			DinerInfo dinerInfo = session.get(DinerInfo.class, dinerTaxID);
+//			session.getTransaction().commit();
+//			return dinerInfo;   //成功的話，回傳 dinerInfo 物件
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			session.getTransaction().rollback();
+//		}
+//		return null;   //不成功的話，回傳null
+//	}
+	
+	@Override
+	public DinerInfo findByTaxID(String dinerTaxID) {
+	    Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	    try {
+	        session.beginTransaction();
+	        String hql = "FROM DinerInfo WHERE dinerTaxID  = :dinerTaxID";
+	        Query<DinerInfo> query = session.createQuery(hql, DinerInfo.class);
+	        query.setParameter("dinerTaxID", dinerTaxID);
+	        DinerInfo dinerInfo = query.uniqueResult(); // 因為dinerTaxID應該是唯一的，所以使用uniqueResult()取得單一結果
+	        session.getTransaction().commit();
+	        return dinerInfo;   //成功的話，回傳 dinerInfo 物件
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        session.getTransaction().rollback();
+	    }
+	    return null;   //不成功的話，回傳null
+	}
+
 
 	@Override
 	public List<DinerInfo> getAll() {

@@ -1,10 +1,9 @@
 package test;
 
-import java.sql.Timestamp;
-
 import org.hibernate.Session;
 
-import com.advertisement.entity.Advertisement;
+import com.dinerinfo.dao.DinerInfoDAOHibernateImpl;
+import com.dinerinfo.entity.DinerInfo;
 
 import util.HibernateUtil;
 
@@ -12,7 +11,14 @@ public class HelloApple {
 	public static void main(String[] args) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
-			session.beginTransaction();
+			
+			DinerInfoDAOHibernateImpl dd = new DinerInfoDAOHibernateImpl();
+			DinerInfo di = new DinerInfo();
+			di = dd.findByTaxID("12345678");
+			System.out.println(di.getDinerName());
+			
+			
+//			session.beginTransaction();
 			
 ////			測試DinerInfo
 //			//Timestamp的當前時間設置
@@ -35,6 +41,7 @@ public class HelloApple {
 //			dinerInfo1.setDinerOrderThreshold(2000);
 //			//照片傳入用另外的方式
 //			
+			//查詢DinerInfo
 //			session.save(dinerInfo1);
 			
 			
@@ -62,22 +69,22 @@ public class HelloApple {
 //			測試Advertisement
 //			// 新增
 			
-	        //時間轉換器 String → sql.Timestamp
-	        String UpTimeStr1 = "2023-09-09 00:00:00";
-			Timestamp ut1 = Timestamp.valueOf(UpTimeStr1);
-			String DownTimeStr1 = "2023-10-10 00:00:00";
-			Timestamp dt1 = Timestamp.valueOf(DownTimeStr1);
-			
-			Advertisement advertisement1 = new Advertisement();
-			advertisement1.setDinerID(6);
-			advertisement1.setAdvertisementName("吃到飽");
-			advertisement1.setAdvertisementUpTime(ut1);
-			advertisement1.setAdvertisementDownTime(dt1);
-			//AdvertisementDuringTime在mysql資料庫裡已有天數計算器，這裡不另外新增
-			advertisement1.setAdvertisementStatus("Submitted");
-			session.save(advertisement1);			
-			
-			session.getTransaction().commit();
+//	        //時間轉換器 String → sql.Timestamp
+//	        String UpTimeStr1 = "2023-09-09 00:00:00";
+//			Timestamp ut1 = Timestamp.valueOf(UpTimeStr1);
+//			String DownTimeStr1 = "2023-10-10 00:00:00";
+//			Timestamp dt1 = Timestamp.valueOf(DownTimeStr1);
+//			
+//			Advertisement advertisement1 = new Advertisement();
+//			advertisement1.setDinerID(6);
+//			advertisement1.setAdvertisementName("吃到飽");
+//			advertisement1.setAdvertisementUpTime(ut1);
+//			advertisement1.setAdvertisementDownTime(dt1);
+//			//AdvertisementDuringTime在mysql資料庫裡已有天數計算器，這裡不另外新增
+//			advertisement1.setAdvertisementStatus("Submitted");
+//			session.save(advertisement1);			
+//			
+//			session.getTransaction().commit();
 			
 		} catch (Exception e) {
 			session.getTransaction().rollback();
