@@ -13,6 +13,7 @@ public interface DinerInfoDAO {
 	int update(DinerInfo dinerInfo);
 	int delete(Integer dinerID);
 	DinerInfo findByPK(Integer  dinerID);
+	DinerInfo findByTaxID(String  dinerTaxID);
 	List<DinerInfo> getAll();
 	
 	List<DinerInfo> getByCompositeQuery(Map<String, String> map);

@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ include file="components/head.jsp" %> 
+<%@ include file="../components/head.jsp" %> 
 <%-- Import CSS for this page below (if any) --%>
 <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="./vendor/bootstrap-5.3.1-dist/css/bootstrap.css">
@@ -12,7 +12,7 @@
 </head>
 
 <body>
-	<jsp:include page="./components/nav.jsp"></jsp:include>  <%-- The navigation bar --%>
+	<jsp:include page="../components/nav.jsp"></jsp:include>  <%-- The navigation bar --%>
 	
 	<%-- Page content start --%>
 	<div class="container mb-4 col-6 shadow rounded">
@@ -60,25 +60,14 @@
 	
 	<%-- Page content end --%>
 	
-	<jsp:include page="./components/footer.jsp"></jsp:include>  <%-- The footer --%>	
+	<jsp:include page="../components/footer.jsp"></jsp:include>  <%-- The footer --%>	
 	
 	
 	
 	
-<%@ include file="./components/tail.jsp" %>
+<%@ include file="../components/tail.jsp" %>
 <%-- Import JS for this page below (if any) --%>
-<script>
-    $(function () {
-      $('#contact-form').submit(function (e) {
-        e.preventDefault();
-        $('#success-message').removeClass('d-none');
-        //等候3秒網頁轉移
-        setTimeout(function () {
-          window.location.href = 'https://tw.yahoo.com/';
-        }, 3000);
-      });
-    });
-  </script>
+
 
 </body>
 </html>

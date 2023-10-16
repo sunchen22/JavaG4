@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="components/head.jsp"%>
+<%@ include file="../components/head.jsp" %>
 <%-- Import CSS for this page below (if any) --%>
 <link rel="stylesheet"
 	href="./vendor/bootstrap-5.3.1-dist/css/bootstrap.min.css">
@@ -22,7 +22,7 @@
 </head>
 
 <body>
-	<jsp:include page="./components/nav.jsp"></jsp:include>
+	<jsp:include page="../components/nav.jsp"></jsp:include>
 	<%-- The navigation bar --%>
 
 	<%-- Page content start --%>
@@ -60,13 +60,13 @@
 
 	<%-- Page content end --%>
 
-	<jsp:include page="./components/footer.jsp"></jsp:include>
+	<jsp:include page="../components/footer.jsp"></jsp:include>
 	<%-- The footer --%>
 
 
 
 
-	<%@ include file="./components/tail.jsp"%>
+	<%@ include file="../components/tail.jsp"%>
 	<%-- Import JS for this page below (if any) --%>
 	<script>
     $(document).ready(function () {
