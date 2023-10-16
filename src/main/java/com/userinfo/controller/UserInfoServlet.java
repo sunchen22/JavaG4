@@ -19,6 +19,7 @@ import com.buildinginfo.entity.BuildingInfo;
 import com.userinfo.entity.UserInfo;
 import com.userinfo.service.UserInfoService;
 
+
 @WebServlet("/consumer/user.do")
 @MultipartConfig(maxFileSize = 1073741824)
 public class UserInfoServlet extends HttpServlet {
@@ -113,9 +114,10 @@ public class UserInfoServlet extends HttpServlet {
 			HttpSession session = req.getSession();
 			UserInfo loginUserInfo = userInfoService.getOneByUserAccount(userAccount);
 			session.setAttribute("loginUserInfo", loginUserInfo);
+			req.setAttribute("isRegistration", true);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/consumer/UserInfo.jsp";
+			String url = "/consumer/Registration.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
@@ -174,7 +176,7 @@ public class UserInfoServlet extends HttpServlet {
 			session.setAttribute("loginUserInfo", newUserInfo);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/consumer/UserInfo.jsp";
+			String url = "/consumer/protected/UserInfo.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
@@ -197,12 +199,28 @@ public class UserInfoServlet extends HttpServlet {
 			String userName = req.getParameter("userName");
 			String userNickName = req.getParameter("userNickName");
 			String userPhone = req.getParameter("userPhone");
-//			Integer buildingID = Integer.valueOf(req.getParameter("buildingID"));
-			//之後要改用option取值
+			Integer buildingID = Integer.valueOf(req.getParameter("buildingID"));
+			Part userBlobPart = req.getPart("userBlob");
+			
 			
 			userInfo.setUserName(userName);
 			userInfo.setUserNickName(userNickName);
 			userInfo.setUserPhone(userPhone);
+			BuildingInfo buildingInfo = new BuildingInfo();
+			buildingInfo.setBuildingID(buildingID);
+			userInfo.setBuildinginfo(buildingInfo);
+			
+			//userBlob非null才取
+			if(userBlobPart != null && userBlobPart.getSize() > 0) {
+				try {
+					InputStream is = userBlobPart.getInputStream();
+					;
+					byte[] userBlobData = is.readAllBytes();
+					userInfo.setUserBlob(userBlobData);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 			
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
@@ -214,18 +232,13 @@ public class UserInfoServlet extends HttpServlet {
 
 			/*************************** 2.開始更新資料 ***************************************/
 			userInfoService.updateUserInfo(userInfo);
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-
 			HttpSession session = req.getSession();
 			UserInfo loginUserInfo = userInfoService.getOneUserID(userID);
 			session.setAttribute("loginUserInfo", loginUserInfo);
+			req.setAttribute("isUpdate", true);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/consumer/UserInfo.jsp";
+			String url = "/consumer/protected/UserInfo.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
