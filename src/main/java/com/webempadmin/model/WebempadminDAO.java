@@ -185,7 +185,7 @@ public class WebempadminDAO implements WebempadminDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// empVo ï¿½]ï¿½Ù¬ï¿½ Domain objects
+				// empVo ¤]ºÙ¬° Domain objects
 				empVO = new WebempadminVO();
 				empVO.setEmpID(rs.getInt("empID"));
 				empVO.setEmpName(rs.getString("empName"));
@@ -246,6 +246,7 @@ public class WebempadminDAO implements WebempadminDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
+				// empVO ¤]ºÙ¬° Domain objects
 				empVO = new WebempadminVO();
 				empVO.setEmpID(rs.getInt("empID"));
 				empVO.setEmpName(rs.getString("empName"));
@@ -296,9 +297,9 @@ public class WebempadminDAO implements WebempadminDAO_interface {
 		return fis;
 	}
 
-	public static void readPicture(Blob blob) throws IOException, SQLException {  //ï¿½Ç¤Jï¿½ï¿½ï¿½ìªºblobï¿½ï¿½ï¿½ï¿½
+	public static void readPicture(Blob blob) throws IOException, SQLException {  //¶Ç¤J®³¨ìªºblobª«¥ó
 		InputStream is = blob.getBinaryStream();
-		FileOutputStream fos = new FileOutputStream("Output/1.png"); //ï¿½â®³ï¿½ìªºï¿½ï¿½Æ¿ï¿½X ï¿½sï¿½Joutputï¿½ï¿½Æ§ï¿½
+		FileOutputStream fos = new FileOutputStream("Output/1.png"); //§â®³¨ìªº¸ê®Æ¿é¥X ¦s¤Joutput¸ê®Æ§¨
 		int i; 
 		while ((i = is.read()) != -1) {
 			fos.write(i);
@@ -309,7 +310,7 @@ public class WebempadminDAO implements WebempadminDAO_interface {
 	}
 
 	public static void readPicture(InputStream is) throws IOException {
-		FileOutputStream fos = new FileOutputStream("C:/Users/jumbo/Desktop/ï¿½Mï¿½Dï¿½ï¿½ï¿½ï¿½/1.png");
+		FileOutputStream fos = new FileOutputStream("C:/Users/jumbo/Desktop/±MÃD¬ÛÃö/1.png");
 		int i;
 		while ((i = is.read()) != -1) {
 			fos.write(i);

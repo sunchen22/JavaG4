@@ -15,7 +15,7 @@ import util.HibernateUtil;
 import com.grouporder.entity.GroupOrder;
 
 public class HelloJane {
-	public static void main(String[] args) {
+//	public static void main(String[] args) {
 //		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 //		try {
 //			session.beginTransaction();
@@ -58,31 +58,32 @@ public class HelloJane {
 //			HibernateUtil.shutdown();
 //		}	
 //		
-		GroupOrderDAO dao1 = new GroupOrderDAOHibernateImpl();
-		
-		GroupOrder groupOrder2 = new GroupOrder();
-		groupOrder2.setDinerID(3);
-		groupOrder2.setBuildingID(3);;
-		groupOrder2.setOrderStatus("1");
-		groupOrder2.setGroupOrderCreateTime(Timestamp.valueOf(LocalDateTime.now()));
-		groupOrder2.setGroupOrderSubmitTime(Timestamp.valueOf(LocalDateTime.now()));
-		groupOrder2.setHolderID(3);
-		Integer newID2 = dao1.add(groupOrder2);
-		System.out.println("new group order ID = " + newID2);
-		
-		groupOrder2 = dao1.findByPK(newID2);
-		groupOrder2.setOrderStatus("2");
-		if(dao1.update(groupOrder2) == 1) {
-			System.out.println(dao1.findByPK(newID2));
-			System.out.println("group order updated");
-		}
-		
-		List<GroupOrder> list1 = dao1.getAll();
-		System.out.println(list1);
-
-		dao1.delete(newID2);
-		System.out.println(dao1.findByPK(newID2)); 
-
-			
-	}
+//		GroupOrderDAO dao1 = new GroupOrderDAOHibernateImpl();
+//		
+//		GroupOrder groupOrder2 = new GroupOrder();
+//		groupOrder2.setDinerID(3);
+//		groupOrder2.setBuildingID(3);;
+//		groupOrder2.setOrderStatus("1");
+//		groupOrder2.setGroupOrderCreateTime(Timestamp.valueOf(LocalDateTime.now()));
+//		groupOrder2.setGroupOrderSubmitTime(Timestamp.valueOf(LocalDateTime.now()));
+//		groupOrder2.setHolderID(3);
+//		Integer newID2 = dao1.add(groupOrder2);
+//		System.out.println("new group order ID = " + newID2);
+//		
+//		groupOrder2 = dao1.findByPK(newID2);
+//		groupOrder2.setOrderStatus("2");
+//		if(dao1.update(groupOrder2) == 1) {
+//			System.out.println(dao1.findByPK(newID2));
+//			System.out.println("group order updated");
+//		}
+//		
+//		List<GroupOrder> list1 = dao1.getAll();
+//		System.out.println(list1);
+//
+//		dao1.delete(newID2);
+//		System.out.println(dao1.findByPK(newID2)); 
+//
+//			
+//	}
+//}
 }

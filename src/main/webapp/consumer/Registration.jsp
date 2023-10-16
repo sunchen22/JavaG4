@@ -3,7 +3,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%@ page import="com.userinfo.entity.*"%>
-
+<%@ page import="com.buildinginfo.entity.*"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.buildinginfo.dao.*"%>
+<%
+BuildingInfoDAO buildingInfoDAO = new BuildingInfoDAOHibernateImpl();
+List<BuildingInfo> buildingList = buildingInfoDAO.getAll();
+pageContext.setAttribute("buildingList", buildingList);
+%>
 
 <link href="./css/style.css" rel="stylesheet">
 
@@ -17,11 +24,12 @@
 	<%-- The navigation bar --%>
 
 	<%-- Page content start --%>
+
 	<div class="container mt-5">
 
 		<div class="card p-4 mx-auto" style="width: 500px;">
 			<h2 class="mb-4 text-center">請填寫以下註冊資訊</h2>
-			
+
 			<%-- 錯誤表列 --%>
 			<c:if test="${not empty errorMsgs}">
 				<font style="color: red">請修正以下錯誤:</font>
@@ -31,7 +39,18 @@
 					</c:forEach>
 				</ul>
 			</c:if>
-			
+			<!--檢查是否註冊成功，如果有，則在 5 秒後將跳轉到 Login.jsp -->
+				<%if (request.getAttribute("isRegistration") != null) {%>
+				<div class="alert alert-primary" role="alert">
+				  註冊成功！ 5 秒後將跳到登入頁面
+				</div>
+				<script>
+					setTimeout(function() {
+						window.location.href = "Login.jsp";
+					}, 5000);
+				</script>
+				<%}%>
+
 			<form method="post" action="user.do" enctype="multipart/form-data">
 				<div class="row mb-3">
 					<label for="userAccount_input" class="col-form-label col-md-3">帳號Mail：</label>
@@ -54,8 +73,8 @@
 							name="userPasswordAgain" id="pwd_inputAgain"
 							placeholder="請再輸入一次密碼" maxlength="10">
 						<div class="form-check mt-2">
-							<input class="form-check-input" type="checkbox"
-								id="pwdmask" onchange="togglePwdDisplay()"> <label
+							<input class="form-check-input" type="checkbox" id="pwdmask"
+								onchange="togglePwdDisplay()"> <label
 								class="form-check-label" for="pwdmask">顯示密碼</label>
 						</div>
 					</div>
@@ -91,24 +110,29 @@
 				<div class="row mb-3">
 					<label for="buildingID" class="col-form-label col-md-3">常用大樓：</label>
 					<div class="col-md-9">
-						<input type="text" class="form-control" id="buildingID"
-							name="buildingID" placeholder="請選擇常用大樓" maxlength="10">
+						<select class="form-control" id="buildingID" name="buildingID">
+							<c:forEach var="building" items="${buildingList}">
+								<option value="${building.buildingID}">${building.buildingName}</option>
+							</c:forEach>
+						</select>
 					</div>
 				</div>
 				<div class="row mb-3">
 					<label for="userBlob" class="col-form-label col-md-3">個人照片：</label>
 					<div class="col-md-9">
 						<input type="file" class="form-control" id="userBlob"
-							name="userBlob" placeholder="請上傳個人照片">
+							name="userBlob" placeholder="請上傳個人照片" onchange="previewImage(event)">
+						<img id="previewBlob" src="" alt="Image preview" 
+						style="margin-top:10px; max-width: 200px;" >
 					</div>
 				</div>
 				<div class="d-grid">
-					<input type="hidden" name="action" value="registration">
-					<input type="submit" class="btn btn-primary" value="註冊">
+					<input type="hidden" name="action" value="registration"> <input
+						type="submit" class="btn btn-primary" value="註冊">
 				</div>
 			</form>
 			<div class="mt-3 text-center">
-				<a href="login.html">我已經有帳號了</a>
+				<a href="Login.jsp">我已經有帳號了</a>
 			</div>
 		</div>
 	</div>
@@ -140,6 +164,15 @@
 					$(this).attr("type", "password");
 				}
 			});
+		}
+		
+		function previewImage(event) {
+		    var reader = new FileReader();
+		    reader.onload = function(){
+		        var output = document.getElementById('previewBlob');
+		        output.src = reader.result;
+		    };
+		    reader.readAsDataURL(event.target.files[0]);
 		}
 	</script>
 

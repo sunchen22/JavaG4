@@ -15,17 +15,17 @@ public class GroupOrderDAOHibernateImplC implements GroupOrderDAOC{
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		
 		try {
-			session.beginTransaction();
+//			session.beginTransaction();
 			List<GroupOrder> list = session.createQuery
 					("from GroupOrder where dinerid = ?0 ", GroupOrder.class)
 					.setParameter(0,dinerID)
 					.list();
 			
-			session.getTransaction().commit();
+//			session.getTransaction().commit();
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+//			session.getTransaction().rollback();
 		}
 		
 		return null;
@@ -35,19 +35,44 @@ public class GroupOrderDAOHibernateImplC implements GroupOrderDAOC{
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		
 		try {
-			session.beginTransaction();
+//			session.beginTransaction();
 			GroupOrder gor = session.get(GroupOrder.class,groupOrderID);
 			byte[] img = gor.getDeliveredBlob();
 			
-			session.getTransaction().commit();
+//			session.getTransaction().commit();
 			return img ;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+//			session.getTransaction().rollback();
 		}
 		
 		return null;
 		
+	}
+	
+	
+	
+	@Override
+	public GroupOrder findByPK(Integer groupOrderID) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+
+//			session.beginTransaction();
+
+			GroupOrder gor = session.get(GroupOrder.class,groupOrderID);
+//			session.getTransaction().commit();
+
+
+			
+
+
+			return gor;
+		} catch (Exception e) {
+			e.printStackTrace();
+//			getSession().getTransaction().rollback();
+		}
+
+		return null;
 	}
 	
 }

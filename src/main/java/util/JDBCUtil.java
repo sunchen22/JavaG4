@@ -18,3 +18,4 @@ public class JDBCUtil {
 	
 	public static final String PASSWORD = "apple1220";
 }
+
