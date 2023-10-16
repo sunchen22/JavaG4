@@ -1,5 +1,6 @@
 package com.dinerinfo.service;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,15 @@ public class DinerInfoServiceImpl  implements DinerInfoService {
 
 	@Override
 	public DinerInfo updateDinerInfo(DinerInfo dinerInfo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	@Override
+	public DinerInfo registerDinerInfo(String dinerName, String dinerPassword, Timestamp dinerRegisterTime,
+			String dinerTaxID, String dinerContact, String dinerPhone, String dinerEmail, String dinerAddress,
+			String dinerBank, String dinerAccount, String dinerAccountName, String dinerType) {
 		// TODO Auto-generated method stub
 		return null;
 	}
