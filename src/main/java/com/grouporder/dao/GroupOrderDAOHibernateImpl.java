@@ -10,25 +10,23 @@ import com.dinerinfo.entity.DinerInfo;
 import com.grouporder.entity.GroupOrder;
 import com.product.entity.Product;
 import com.producttype.entity.ProductType;
-
-
-
-
-
+import com.productvary.entity.ProductVary;
+import com.varytype.entity.VaryType;
 
 public class GroupOrderDAOHibernateImpl implements GroupOrderDAO {
 	private static final int PAGE_MAX_RESULT = 3;
 	// One SessionFactory(which is thread-safe) for one DAO
 	private SessionFactory factory;
+
 	public GroupOrderDAOHibernateImpl(SessionFactory factory) {
-			this.factory = factory;
+		this.factory = factory;
 	}
-		
-	// Each CRUD method in this DAO should get its own Session(which is not thread-safe)
+
+	// Each CRUD method in this DAO should get its own Session(which is not
+	// thread-safe)
 	private Session getSession() {
 		return factory.getCurrentSession();
 	}
-		
 
 	@Override
 	public int add(GroupOrder groupOrder) {
@@ -99,8 +97,9 @@ public class GroupOrderDAOHibernateImpl implements GroupOrderDAO {
 
 		return null;
 	}
-
-	public DinerInfo findByPKJoinDiner(Integer groupOrderID) {		
+	
+	@Override
+	public DinerInfo findByPKJoinDiner(Integer groupOrderID) {
 		try {
 //			getSession().beginTransaction();
 			DinerInfo dinerInfo = getSession().get(GroupOrder.class, groupOrderID).getDinerInfo();
@@ -113,8 +112,21 @@ public class GroupOrderDAOHibernateImpl implements GroupOrderDAO {
 
 		return null;
 	}
-	
-	
+
+	@Override
+	public Product findByPKProduct(Integer productID) {
+		try {
+//			getSession().beginTransaction();
+			Product product = getSession().get(Product.class, productID);
+//			getSession().getTransaction().commit();
+			return product;
+		} catch (Exception e) {
+			e.printStackTrace();
+//			getSession().getTransaction().rollback();
+		}
+		
+		return null;
+	}	
 
 	@Override
 	public List<GroupOrder> getAll() {
@@ -132,24 +144,19 @@ public class GroupOrderDAOHibernateImpl implements GroupOrderDAO {
 	}
 
 	@Override
-	public List<Object[]> getAllJoin(int currentPage) {
+	public List<Object[]> getAllJoin(Integer currentPage) {
 		try {
 //			getSession().beginTransaction();
-//			String hql = "SELECT go, d.dinerName, d.dinerAddress, d.dinerType, d.dinerOrderThreshold, d.dinerStatus, "
-//			        + "b.buildingName, b.buildingAddress, u.userNickName "
-//			        + "FROM GroupOrder go "
-//			        + "LEFT JOIN go.dinerInfo d "
-//			        + "LEFT JOIN go.buildingInfo b "
-//			        + "LEFT JOIN go.userInfo u "
-//			        + "WHERE orderStatus = '1' OR orderStatus = '2'";
 			String hql = "SELECT go, d.dinerID, d.dinerName, d.dinerAddress, d.dinerType, d.dinerOrderThreshold, d.dinerStatus, "
 					+ "b.buildingName, b.buildingAddress, u.userNickName, "
 					+ "(SELECT ROUND(AVG(drc.dinerRating), 1) FROM DinerRatingComment drc WHERE drc.dinerInfo = d) AS averageRating "
-					+ "FROM GroupOrder go " + "LEFT JOIN go.dinerInfo d " + "LEFT JOIN go.buildingInfo b "
-					+ "LEFT JOIN go.userInfo u " + "WHERE go.orderStatus = '1' OR go.orderStatus = '2'";
+					+ "FROM GroupOrder go " 
+					+ "LEFT JOIN go.dinerInfo d " + "LEFT JOIN go.buildingInfo b "
+					+ "LEFT JOIN go.userInfo u " 
+					+ "WHERE go.orderStatus = '1' OR go.orderStatus = '2'";
 
 			int first = (currentPage - 1) * PAGE_MAX_RESULT;
-			List<Object[]> results = getSession().createQuery(hql).setFirstResult(first).setMaxResults(PAGE_MAX_RESULT)
+			List<Object[]> results = getSession().createQuery(hql, Object[].class).setFirstResult(first).setMaxResults(PAGE_MAX_RESULT)
 					.list();
 
 //			getSession().getTransaction().commit();
@@ -162,18 +169,21 @@ public class GroupOrderDAOHibernateImpl implements GroupOrderDAO {
 
 		return null;
 	}
-	
+
 	@Override
-	public List<Object[]> getOneJoin(int groupOrderID) {
+	public List<Object[]> getOneJoin(Integer groupOrderID) {
 		try {
 //			getSession().beginTransaction();
 			String hql = "SELECT go, d.dinerID, d.dinerName, d.dinerAddress, d.dinerType, d.dinerOrderThreshold, d.dinerStatus, "
 					+ "b.buildingName, b.buildingAddress, u.userNickName, "
 					+ "(SELECT ROUND(AVG(drc.dinerRating), 1) FROM DinerRatingComment drc WHERE drc.dinerInfo = d) AS averageRating "
-					+ "FROM GroupOrder go " + "LEFT JOIN go.dinerInfo d " + "LEFT JOIN go.buildingInfo b "
-					+ "LEFT JOIN go.userInfo u " + "WHERE go.groupOrderID = " + String.valueOf(groupOrderID);
+					+ "FROM GroupOrder go " 
+					+ "LEFT JOIN go.dinerInfo d " + "LEFT JOIN go.buildingInfo b "
+					+ "LEFT JOIN go.userInfo u " 
+					+ "WHERE go.groupOrderID = " 
+					+ String.valueOf(groupOrderID);
 
-			List<Object[]> result = getSession().createQuery(hql).list();
+			List<Object[]> result = getSession().createQuery(hql, Object[].class).list();
 //			getSession().getTransaction().commit();
 			return result;
 
@@ -185,23 +195,21 @@ public class GroupOrderDAOHibernateImpl implements GroupOrderDAO {
 		return null;
 	}
 	
-	public List<Object[]> getOneJoinMenu(int dinerID) {
+	@Override
+	public List<Object[]> getOneJoinMenu(Integer dinerID) {
 		try {
 //			getSession().beginTransaction();
-			String sql = "SELECT d.dinerID, d.dinerName, p.*, pt.* " +
-		             "FROM DinerInfo AS d " +
-		             "LEFT JOIN Product AS p ON p.dinerID = d.dinerID " +
-		             "LEFT JOIN ProductType AS pt ON p.productTypeID = pt.productTypeID " +
-		             "WHERE d.dinerID = " + String.valueOf(dinerID);
-
-			NativeQuery query = getSession().createNativeQuery(sql)
-		        .addEntity("d", DinerInfo.class)
-		        .addEntity("p", Product.class)
-		        .addEntity("pt", ProductType.class);
-
-		List<Object[]> results = query.list();
+			String sql = "SELECT p.productID, p.productName, p.productPrice, pt.productTypeDes "
+					+ "	FROM DinerInfo AS d "
+					+ "	LEFT JOIN Product AS p ON d.dinerID = p.dinerID "
+					+ "	LEFT JOIN ProductType AS pt ON p.productTypeID = pt.productTypeID "
+					+ "	WHERE d.dinerID = " + String.valueOf(dinerID)
+					+ "	ORDER BY pt.productTypeID, p.productPrice";	
+			
+			@SuppressWarnings("unchecked")
+			List<Object[]> results = getSession().createNativeQuery(sql).list();
 //			getSession().getTransaction().commit();
-			System.out.println(results);
+
 			return results;
 
 		} catch (Exception e) {
@@ -211,6 +219,5 @@ public class GroupOrderDAOHibernateImpl implements GroupOrderDAO {
 
 		return null;
 	}
-	
 
 }

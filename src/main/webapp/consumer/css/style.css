@@ -20,6 +20,17 @@
   height: 24rem;
 }
 
+/* Carousel base class */
+.carousel-orderdetail {
+  margin-bottom: 0rem;
+}
+
+/* Declare heights because of positioning of img element */
+.carousel-item-orderdetail {
+  height: 12rem;
+}
+
+
 /* CUSTOMIZE THE NAVBAR-BADGE
 -------------------------------------------------- */
 .navbar-badge {
