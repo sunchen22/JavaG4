@@ -78,5 +78,30 @@
 		<servlet-name>EmpPhoto</servlet-name>
 		<url-pattern>/pages/emp.photo</url-pattern>
 	</servlet-mapping>
+	
+	<!-- 後台濾器 -->
+<!-- 	<filter> -->
+<!-- 		<filter-name>bgloginFilter</filter-name> -->
+<!-- 		<filter-class>filter.BgLoginFilter</filter-class> -->
+<!-- 	</filter> -->
+<!-- 	<filter-mapping> -->
+<!-- 		<filter-name>bgloginFilter</filter-name> -->
+<!-- 		<url-pattern>/background/login.jsp</url-pattern> -->
+<!-- 		<dispatcher>REQUEST</dispatcher> -->
+<!-- 		<dispatcher>FORWARD</dispatcher> -->
+<!-- 		<dispatcher>INCLUDE</dispatcher> -->
+<!-- 		<dispatcher>ERROR</dispatcher> -->
+<!-- 		<dispatcher>ASYNC</dispatcher> -->
+<!-- 	</filter-mapping> -->
+	
+	<!-- 後台登入頁面 -->
+	<servlet>
+		<servlet-name>bglogin</servlet-name>
+		<servlet-class>com.background.BgLoginHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>bglogin</servlet-name>
+		<url-pattern>/background/bglogin</url-pattern>
+	</servlet-mapping>	
 
 </web-app>
