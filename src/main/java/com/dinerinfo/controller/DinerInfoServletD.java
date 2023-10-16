@@ -1,17 +1,19 @@
 package com.dinerinfo.controller;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.emp.model.EmpService;
-import com.emp.model.EmpVO;
+import com.dinerinfo.entity.DinerInfo;
+import com.dinerinfo.service.DinerInfoServiceImpl;
 
 
 public class DinerInfoServletD extends HttpServlet  {
@@ -29,7 +31,7 @@ public class DinerInfoServletD extends HttpServlet  {
 		
 //		=========================== 註冊 =============================
 		
-	       if ("insert".equals(action)) { // 來自register-form.jsp的請求  
+	       if ("insert".equals(action)) { // 如果接收到的是insert，代表來自 register-form.jsp 的請求  
 				
 				List<String> errorMsgs = new LinkedList<String>();
 				// Store this set in the request scope, in case we need to
@@ -53,6 +55,10 @@ public class DinerInfoServletD extends HttpServlet  {
 //					} else if(!dinerPassword.trim().matches(dinerPassword)) { 
 //						errorMsgs.add("密碼 : 只能是英文字母、數字和_ , 且長度必需在6到10之間");
 //		            }
+					
+//					調用寫好的密碼產生器，產生一組預設的密碼
+					String temporaryPassword = DinerPasswordGenerator.generateTemporaryPassword(6);
+					
 					
 					String dinerTaxID = req.getParameter("dinerTaxID");
 					String dinerTaxIDReg = "^[(0-9)]{8}$";
@@ -80,69 +86,104 @@ public class DinerInfoServletD extends HttpServlet  {
 					}
 
 					String dinerPhone = req.getParameter("dinerPhone");
-					String dinerPhoneReg = "^[(0-9)]{2,10}$";
+					String dinerPhoneReg = "^09[0-9]{8}$";
 					if (dinerPhone == null || dinerPhone.trim().length() == 0) {
 						errorMsgs.add("商家手機號碼 : 請勿空白");
 					} else if(!dinerPhone.trim().matches(dinerPhoneReg)) { 
-						errorMsgs.add("商家手機號碼 : 只能是10個數字");
+						errorMsgs.add("商家手機號碼 : 必須是09開頭的10個數字");
+		            }
+									
+					String dinerEmail = req.getParameter("dinerEmail");
+					String dinerEmailReg = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+					if (dinerEmail == null || dinerEmail.trim().length() == 0) {
+						errorMsgs.add("商家Email : 請勿空白");
+					} else if(!dinerEmail.trim().matches(dinerEmailReg)) {
+						errorMsgs.add("商家Email : 輸入的不是有效的Email地址 ");
 		            }
 					
-					
-					String job = req.getParameter("job").trim();
-					if (job == null || job.trim().length() == 0) {
-						errorMsgs.add("職位請勿空白");
+					String dinerAddress = req.getParameter("dinerAddress");
+					if (dinerAddress == null || dinerAddress.trim().length() == 0) {
+					    errorMsgs.add("商家地址 : 請勿空白");
+					} else {
+					    // 判定是否為台北市或新北市
+					    if (!dinerAddress.trim().matches(".*(台北市|新北市|臺北市).*")) {
+					        errorMsgs.add("商家地址 : 目前僅開放台北市和新北市");
+					    }
+					    // 判定地址長度是否在6個字以上
+					    if (dinerAddress.trim().length() < 6) {
+					        errorMsgs.add("商家地址 : 長度必須在6個字以上");
+					    }
 					}
 					
-					java.sql.Date hiredate = null;
-					try {
-						hiredate = java.sql.Date.valueOf(req.getParameter("hiredate").trim());
-					} catch (IllegalArgumentException e) {
-						hiredate=new java.sql.Date(System.currentTimeMillis());
-						errorMsgs.add("請輸入日期!");
-					}
+					String dinerBank = req.getParameter("dinerBank");
+					String dinerBankReg = "^[(0-9)]{3}$";
+					if (dinerBank == null || dinerBank.trim().length() == 0) {
+						errorMsgs.add("商家銀行代號 : 請勿空白");
+					} else if(!dinerBank.trim().matches(dinerBankReg)) { 
+						errorMsgs.add("商家銀行代號 : 僅能為3碼的數字");
+		            }
+					//這裡可以做 redius，目前先這樣
 					
-					Double sal = null;
-					try {
-						sal = Double.valueOf(req.getParameter("sal").trim());
-					} catch (NumberFormatException e) {
-						sal = 0.0;
-						errorMsgs.add("薪水請填數字.");
-					}
+					String dinerAccount = req.getParameter("dinerAccount");
+					String dinerAccountReg = "^[(0-9)]{10,16}$";
+					if (dinerAccount == null || dinerAccount.trim().length() == 0) {
+						errorMsgs.add("商家銀行帳號 : 請勿空白");
+					} else if(!dinerAccount.trim().matches(dinerAccountReg)) { //以下練習正則(規)表示式(regular-expression)
+						errorMsgs.add("商家銀行帳號 : 僅能為10~16碼的數字");
+		            }
+			
+					String dinerAccountName = req.getParameter("dinerAccountName");
+					String dinerAccountNameReg = "^[(\u4e00-\u9fa5)]{1,25}$";
+					if (dinerAccountName == null || dinerAccountName.trim().length() == 0) {
+						errorMsgs.add("商家銀行戶名 : 請勿空白");
+					} else if(!dinerAccountName.trim().matches(dinerAccountNameReg)) { //以下練習正則(規)表示式(regular-expression)
+						errorMsgs.add("商家銀行戶名 : 僅能使用中文");
+		            }
 					
-					Double comm = null;
-					try {
-						comm = Double.valueOf(req.getParameter("comm").trim());
-					} catch (NumberFormatException e) {
-						comm = 0.0;
-						errorMsgs.add("獎金請填數字.");
-					}
-					
-					Integer deptno = Integer.valueOf(req.getParameter("deptno").trim());
+					String dinerType = req.getParameter("dinerType");
+					if (dinerType == null || dinerType.trim().length() == 0) {
+					    errorMsgs.add("商家種類 : 請勿空白");
+					} else if (!"M".equals(dinerType.trim()) && !"D".equals(dinerType.trim()) && !"X".equals(dinerType.trim())) {
+					    errorMsgs.add("商家種類 : 選項不合法");
+					}					
+					//雖然前端選項寫死，還是稍微做個判定，增加安全性
 
-					EmpVO empVO = new EmpVO();
-					empVO.setEname(ename);
-					empVO.setJob(job);
-					empVO.setHiredate(hiredate);
-					empVO.setSal(sal);
-					empVO.setComm(comm);
-					empVO.setDeptno(deptno);
+					DinerInfo dinerInfo = new DinerInfo();
+					
+//					//Timestamp的當前時間設置
+					Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+					
+					dinerInfo.setDinerName(dinerName);
+					dinerInfo.setDinerPassword(temporaryPassword);
+					dinerInfo.setDinerRegisterTime(currentTime);
+					dinerInfo.setDinerTaxID(dinerTaxID);
+					dinerInfo.setDinerContact(dinerContact);
+					dinerInfo.setDinerPhone(dinerPhone);
+					dinerInfo.setDinerEmail(dinerEmail);
+					dinerInfo.setDinerAddress(dinerAddress);
+					dinerInfo.setDinerBank(dinerBank);
+					dinerInfo.setDinerAccount(dinerAccount);
+					dinerInfo.setDinerAccountName(dinerAccountName);
+					dinerInfo.setDinerType(dinerType);
+	
 
 					// Send the use back to the form, if there were errors
 					if (!errorMsgs.isEmpty()) {
-	req.setAttribute("empVO", empVO); // 含有輸入格式錯誤的empVO物件,也存入req
+						req.setAttribute("dinerInfo", dinerInfo); // 含有輸入格式錯誤的empVO物件,也存入req
 						RequestDispatcher failureView = req
-								.getRequestDispatcher("/emp/addEmp.jsp");
+								.getRequestDispatcher("/dinerbackground/pages/Team/register/register-form.jsp");
 						failureView.forward(req, res);
 						return;
 					}
 					
 					/***************************2.開始新增資料***************************************/
-					EmpService empSvc = new EmpService();
-					empVO = empSvc.addEmp(ename, job, hiredate, sal, comm, deptno);
+					DinerInfoServiceImpl dinerInfoSvc = new DinerInfoServiceImpl();
+					dinerInfo = dinerInfoSvc.registerDinerInfo(dinerName, temporaryPassword, currentTime, dinerTaxID, dinerContact, dinerPhone,dinerEmail,dinerAddress,dinerBank,dinerAccount,dinerAccountName,dinerType);
 					
 					/***************************3.新增完成,準備轉交(Send the Success view)***********/
-					String url = "/emp/listAllEmp.jsp";
-					RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+					String url = "/dinerbackground/pages/Team/register/registerSuccess.html";
+					RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交 registerSuccess.html
+
 					successView.forward(req, res);				
 			}
 	}

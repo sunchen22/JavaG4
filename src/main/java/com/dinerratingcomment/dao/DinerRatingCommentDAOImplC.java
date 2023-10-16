@@ -17,19 +17,19 @@ public class DinerRatingCommentDAOImplC implements DinerRatingCommentDAOC {
 		
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
-			session.beginTransaction();
+//			session.beginTransaction();
 			DinerRatingComment drc = session.get(DinerRatingComment.class , commentID);
 			if(drc != null) {
 			
 			session.delete(drc);
 			}
-			session.getTransaction().commit();	
+//			session.getTransaction().commit();	
 		
 		
 			return 0;
 		}catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+//			session.getTransaction().rollback();
 		}
 		return -1;
 						
@@ -40,13 +40,13 @@ public class DinerRatingCommentDAOImplC implements DinerRatingCommentDAOC {
 	public DinerRatingComment findByPK(Integer commentID) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
-		session.beginTransaction();
+//		session.beginTransaction();
 		DinerRatingComment drc = session.get(DinerRatingComment.class, commentID);
 		
 		
 		}catch(Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+//			session.getTransaction().rollback();
 		}
 		
 		return null;
@@ -89,7 +89,7 @@ public class DinerRatingCommentDAOImplC implements DinerRatingCommentDAOC {
 	public List<DinerRatingComment> getAll(Integer dinerID){
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
-		session.beginTransaction();
+//		session.beginTransaction();
 //		List<DinerRatingComment> list = session.createQuery(" from DinerRatingComment " , DinerRatingComment.class).list();
 //		NativeQuery<DinerRatingComment> query = session.createNativeQuery("SELECT * FROM DinerRatingComment where dinerid = ?0", DinerRatingComment.class).;
 //																		
@@ -108,12 +108,12 @@ public class DinerRatingCommentDAOImplC implements DinerRatingCommentDAOC {
 				
 		
 		
-		session.getTransaction().commit();
+//		session.getTransaction().commit();
 		return list;
 		
 	}catch(Exception e) {
 		e.printStackTrace();
-		session.getTransaction().rollback();
+//		session.getTransaction().rollback();
 		}
 		return null;
 	}

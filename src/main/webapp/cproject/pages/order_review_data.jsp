@@ -424,7 +424,7 @@ pageContext.setAttribute("list", list);
                                 <tr>
                                     <td><span class="text-muted">${dinerratingcomment.commentID}</span></td>
                                     <td>${dinerratingcomment.commentID}</td>
-                                    <td>${dinerratingcomment.userID}</td>
+                                    <td>${dinerratingcomment.userInfo.userID}</td>
                                     <td>${dinerratingcomment.userCommentContent}</td>
                                     <td>${dinerratingcomment.userCommentTime}</td>
                                     <td>${dinerratingcomment.dinerRating}</td>
