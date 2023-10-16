@@ -16,15 +16,14 @@ import javax.servlet.http.HttpSession;
 //@WebFilter("/*")
 public class BgLoginFilter implements Filter {
 
-//	登入用
-	private FilterConfig config;
+//	private FilterConfig config;
 
 	public void init(FilterConfig config) {
-		this.config = config;
+//		this.config = config;
 	}
 
 	public void destroy() {
-		config = null;
+//		config = null;
 	}
 
 	@Override
