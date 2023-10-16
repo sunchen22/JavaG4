@@ -58,16 +58,40 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 	}
 
 	public Map<String, Object> getOneJoinGroupOrder(int groupOrderID) {
+		// returns a Map in the following format:
+		// {
+		//  groupOrderID: 1,
+		//	orderStatus: 1,
+		//	groupOrderCreateTime: 2023-10-08 09:01:00.0,
+		//	groupOrderSubmitTime: 2023-10-08 11:00:00.0,
+		//	dinerID: 1, 
+		//	dinerName: John's Cafe,
+		//	dinerAddress: 台北市羅斯福路三段124巷7樓,
+		//	dinerType: M
+		//	dinerOrderThreshold: 100,
+		//	dinerStatus: Submitted, 
+		//	buildingName: BB大樓,
+		//	buildingAddress: 台北市松山區2號,
+		//	userNickName: nickname3,
+		//	dinerRating: 4.0, 
+		//	menuData: {1飯類: [{productID: 10, productName: 炒飯, productPrice: 65}, 
+		//	                  {productID: 1, productName: 滷肉飯, productPrice: 70}, 
+		//	           2麵類: [{productID: 8, productName: 義大利麵, productPrice: 90}], 
+		//	           3飲料: [{productID: 9, productName: 可樂, productPrice: 60}]
+		//			  }
+		// }
+		
+		// First query
 		List<Object[]> results = dao.getOneJoin(groupOrderID);
-//		
-		Object[] result = results.get(0);
+
 		Map<String, Object> groupOrderData = new HashMap<>();
+		Object[] result = results.get(0);
 		GroupOrder groupOrder = (GroupOrder) result[0]; // Access the entity object
 		groupOrderData.put("groupOrderID", groupOrder.getGroupOrderID());
 		groupOrderData.put("orderStatus", groupOrder.getOrderStatus());
 		groupOrderData.put("groupOrderCreateTime", groupOrder.getGroupOrderCreateTime());
 		groupOrderData.put("groupOrderSubmitTime", groupOrder.getGroupOrderSubmitTime());
-//		groupTotalPrice
+		// groupTotalPrice
 
 		groupOrderData.put("dinerID", (int) result[1]);
 		groupOrderData.put("dinerName", (String) result[2]);
@@ -80,6 +104,7 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 		groupOrderData.put("userNickName", (String) result[9]);
 		groupOrderData.put("dinerRating", (double) result[10]);
 
+		// Second query
 		List<Object[]> menuResult = dao.getOneJoinMenu((int) result[1]);
 
 		Map<String, List<Map<String, Object>>> menuData = new LinkedHashMap<>();
@@ -98,7 +123,8 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 				menuData.get((String) row[3]).add(productData);
 			}
 		}
-		System.out.println("========" + menuData);
+		System.out.println("==== menuData returned by GroupOrderServiceImpl.getOneJoinGroupOrder(int groupOrderID) ====\n" 
+							+ menuData + "\n====================\n");
 		groupOrderData.put("menuData", menuData);
 		
 	return groupOrderData;

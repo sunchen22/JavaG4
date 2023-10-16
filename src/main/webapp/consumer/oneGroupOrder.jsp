@@ -7,8 +7,6 @@
 HashMap<String, Object> groupOrderData = (HashMap<String, Object>) request.getAttribute("groupOrderData");
 LinkedHashMap<String, List<HashMap<String, Object>>> menuData = (LinkedHashMap<String, List<HashMap<String, Object>>>) request
 		.getAttribute("menuData");
-System.out.println(groupOrderData);
-System.out.println(menuData);
 %>
 <%@ include file="components/head.jsp"%>
 <%-- Import CSS for this page below (if any) --%>
