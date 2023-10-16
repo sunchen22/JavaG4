@@ -245,13 +245,13 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="./pages/ord_query.jsp" class="nav-link">
+                  <a href="./ord_query.jsp" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>訂單查詢</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="./pages/ord_review.jsp" class="nav-link">
+                  <a href="./ord_review.jsp" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>評論管理</p>
                   </a>

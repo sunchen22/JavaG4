@@ -29,14 +29,18 @@ public class ProductServletImgC extends HttpServlet {
 		
 		
 		List<byte[]> b = new ProductDAOImplC().getImg(productID);
-		
+//		
 		byte[] a = b.get(0);
-//		byte[] c = b.get(1);
-//		byte[] d = b.get(2);		
+//		System.out.println(a);
+		byte[] c = b.get(1);
+		byte[] d = b.get(2);
 		
+		out.write(c);
 		out.write(a);
-//		out.write(c);
-//		out.write(d);
+		
+		
+		
+		out.write(d);
 		
 		
 }

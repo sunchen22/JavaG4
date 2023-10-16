@@ -328,19 +328,32 @@
                   </div>
                 </div>
                 
+                
+<!--                 <script> -->
+// 			      var a = $("#txt1").val();
+// 			      var b = $("#txt2").val();
+// 			      var c = $("#txt3").val();
+// 			      var d = $("#txt4").val();
+// 			      var e = $("#txt5").val();
+// 			      var f = $("#txt6").val();
+// 			      var g = $("#txt7").val();
+// 			      var h = $("#txt8").val();
+// 			      var i = $("#txt9").val();
+// 			      var j = $("#txt10").val();
+			      
+			      
+			      
+			      
+<!-- 			      </script> -->
 
-				<%
-					DinerInfo dif = (DinerInfo)request.getAttribute("dif");
-					
-// 					List list =(ArrayList)request.getAttribute("list");
-				%>
+				
 
 
 
-                <form  method = "post" action="" style="padding:10px;">
+                <form  method = "post" action="difs.do" style="padding:10px;">
 
 
-                  <div style="display: flex">
+                  <div style="display: flex;">
 
                       <div style="width: 50%;">
 
@@ -352,173 +365,71 @@
 
                           <span>
                               <label>品牌名稱：</label>
-                              <input type="text" value = "<%= dif.getDinerName() %>" class="border border-warning" style="width :60%">
+                              <input type="text" id= "txt1" name = "action1"  class="border border-warning" style="width :60%">
                           </span>
                           <br>
 
                           <span>
                               <label>地址：&ensp;&ensp;&ensp;&ensp;</label>
-                              <input type="text" value = "<%= dif.getDinerAddress() %>" class="border border-warning" style="width :60%">
+                              <input type="text" id= "txt2 " name = "action2"  class="border border-warning" style="width :60%">
                           </span>
                           <br>
                           <span>
                               <label>姓名：&ensp;&ensp;&ensp;&ensp;</label>
-                              <input type="text" value = "<%= dif.getDinerContact() %>" class="border border-warning" style="width :60%">
+                              <input type="text"  id= "txt3" name = "action3"  class="border border-warning" style="width :60%">
                           </span>
                           <br>
                           <span>
                               <label>統編：&ensp;&ensp;&ensp;&ensp;</label>
-                              <input type="text" value = "<%= dif.getDinerTaxID() %>" class="border border-warning" style="width :60%">
+                              <input type="text" id= "txt4" name = "action4"  class="border border-warning" style="width :60%">
                           </span>
                           <br>
                           <span>
                               <label>e-mail ：&emsp;</label>
-                              <input type="text" value = "<%= dif.getDinerEmail() %>" class="border border-warning" style="width :60%">
+                              <input type="text"  id= "txt5" name = "action5"  class="border border-warning" style="width :60%">
                           </span>
                           <br>
                           <span>
                               <label>密碼：&ensp;&ensp;&ensp;&ensp;</label>
-                              <input type="text" value = "<%= dif.getDinerPassword() %>" class="border border-warning" style="width :60%">
+                              <input type="text" id= "txt6" name = "action6"  class="border border-warning" style="width :60%">
                           </span>
                           <br>
                           <span>
                               <label>銀行代號：</label>
-                              <input type="text" value = "<%= dif.getDinerBank() %>" class="border border-warning" style="width :60%">
+                              <input type="text"  id= "txt7" name = "action7"  class="border border-warning" style="width :60%">
                           </span>
                           <br>
                           <span>
                               <label>銀行帳號：</label>
-                              <input type="text" value = "<%= dif.getDinerAccount() %>" class="border border-warning" style="width :60%">
+                              <input type="text" id= "txt8" name = "action8"  class="border border-warning" style="width :60%">
                           </span>
                           <br>
                           <span>
                               <label>戶名：&ensp;&ensp;&ensp;&ensp;</label>
-                              <input type="text" value = "<%= dif.getDinerAccountName() %>" class="border border-warning" style="width :60%">
+                              <input type="text" id= "txt9" name = "action9"  class="border border-warning" style="width :60%">
                           </span>
                           <br>
                           <span>
                               <label>電話：&ensp;&ensp;&ensp;&ensp;</label>
-                              <input type="text" value = "<%= dif.getDinerPhone() %>" class="border border-warning" style="width :60%">
+                              <input type="text" id= "txt10" name = "action10"  class="border border-warning" style="width :60%">
                           </span>
                           <br>
                           <br>
 
                       </div>
 
-                      <div style="width: 50%;">
-                          <span>
-                              <label>&ensp;欲修改資料</label>
-                          </span>
-                          <br>
-                          <span>
-                              <label>&ensp;</label>
-                              <input type="text" value = ""class="border border-warning" style="width :60%">
-                          </span>
-                          <br>
-                          <span>
-                              <label>&ensp;</label>
-                              <input type="text" class="border border-warning" style="width :60%">
-                          </span>
-                          <br>
-                          <span>
-                              <label>&ensp;</label>
-                              <input type="text" class="border border-warning" style="width :60%">
-                          </span>
-                          <br>
-                          <span>
-                              <label>&ensp;</label>
-                              <input type="text" class="border border-warning" style="width :60%">
-                          </span>
-                          <br>
-                          <span>
-                              <label>&ensp;</label>
-                              <input type="text" class="border border-warning" style="width :60%">
-                          </span>
-                          <br>
-                          <span>
-                              <label>&ensp;</label>
-                              <input type="text" class="border border-warning" style="width :60%">
-                          </span>
-                          <br>
-                          <span>
-                              <label>&ensp;</label>
-                              <input type="text" class="border border-warning" style="width :60%">
-                          </span>
-                          <br>
-                          <span>
-                              <label>&ensp;</label>
-                              <input type="text" class="border border-warning" style="width :60%">
-                          </span>
-                          <br>
-                          <span>
-                              <label>&ensp;</label>
-                              <input type="text" class="border border-warning" style="width :60%">
-                          </span>
-                          <br>
-                          <span>
-                              <label>&ensp;</label>
-                              <input type="text" class="border border-warning" style="width :60%">
-                          </span>
-                          <br>
-                          
-                      </div>
-                  </div>
+                      
 
                   <div align="right" style="margin-right: 20px;">
-                      <!-- <button type = "button" id="stop" class="btn btn-warning" style="font-weight :bold">停權</button> -->
-
-
-
-
-
-                      <!-- Button trigger modal -->
-                      <button type="button" id="stop" class="btn btn-warning" style="font-weight :bold"
-                          data-bs-toggle="modal" data-bs-target="#exampleModal">
+                     
+                 
+                      <button type="submit" class="btn btn-warning" >
+                      <input type="hidden" name = "action"  value = "go_for_check_changed" class="border border-warning">
                           審核
                       </button>
 
-                      <button type="button" id="product" class="btn btn-warning" style="font-weight :bold"
-                          data-bs-toggle="modal" data-bs-target="#exampleModal">
-                          拒絕
-                      </button>
-
                   </div>
 
-
-
-
-
-
-
-                  <!-- Modal -->
-                  <div class="modal fade" id="exampleModal" tabindex="-1"
-                      aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog">
-                          <div class="modal-content">
-                              <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLabel">提示</h5>
-                                  <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                      aria-label="Close"></button>
-                              </div>
-                              <div class="modal-body">
-                                  <p style="text-align: center; font-size: 20px;">確定要審核/拒絕嗎</p>
-                                  <div align="center">
-                                      <input type="text" placeholder="欲拒絕請輸入原因:" id="msg"
-                                          style="width: 80%">
-                                  </div>
-                              </div>
-
-
-                              <div class="modal-footer">
-                                  <button type="button" id="stop1" class="btn btn-warning"
-                                      data-bs-dismiss="modal">確定</button>
-                                  <button type="button" class="btn btn-secondary"
-                                      data-bs-dismiss="modal">取消</button>
-
-                              </div>
-                          </div>
-                      </div>
-                  </div>
 
 
               </form>
@@ -594,11 +505,9 @@
       <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
       <script src="./assets/js/require.min.js"></script>
-      <script>
-        
-
-        
-  </script>
+      
+      
+      
 
 </body>
 

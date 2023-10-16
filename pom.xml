@@ -6,10 +6,10 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.tha103</groupId>
-	<artifactId>jo</artifactId>
+	<artifactId>JavaG4</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>jo</name>
+	<name>JavaG4</name>
 	<!-- FIXME change it to the project's website -->
 	<url>http://www.example.com</url>
 

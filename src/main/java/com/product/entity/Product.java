@@ -8,7 +8,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.dinerinfo.entity.DinerInfo;
 
 @Entity
 @Table(name = "product")
@@ -19,8 +23,13 @@ public class Product {
 	@Column(name = "productID", updatable = false)
 	private Integer productID;
 
-	@Column(name = "dinerID")
-	private Integer dinerID;
+//	@Column(name = "dinerID")
+//	private Integer dinerID;
+	
+	@ManyToOne
+	@JoinColumn(name = "dinerID" , referencedColumnName = "dinerID")
+	private DinerInfo dinerinfo;
+	
 
 	@Column(name = "productName")
 	private String productName;
@@ -58,16 +67,14 @@ public class Product {
 		super();
 	}
 
-	public Product(Integer productID, Integer dinerID, String productName, Integer productPrice, Integer productTypeID,
 
-			Integer productDailyStock, Timestamp productReleaseTime, byte[] productBlob1, byte[] productBlob2, byte[] productBlob3,
 
-			
-
-			String productRemark) {
+	public Product(Integer productID, DinerInfo dinerid, String productName, Integer productPrice,
+			Integer productTypeID, Integer productDailyStock, Timestamp productReleaseTime, byte[] productBlob1,
+			byte[] productBlob2, byte[] productBlob3, String productRemark, String productStatus , DinerInfo dinerinfo) {
 		super();
 		this.productID = productID;
-		this.dinerID = dinerID;
+		this.dinerinfo = dinerinfo;
 		this.productName = productName;
 		this.productPrice = productPrice;
 		this.productTypeID = productTypeID;
@@ -77,7 +84,9 @@ public class Product {
 		this.productBlob2 = productBlob2;
 		this.productBlob3 = productBlob3;
 		this.productRemark = productRemark;
+		this.productStatus = productStatus;
 	}
+
 
 
 	public Integer getProductID() {
@@ -92,14 +101,14 @@ public class Product {
 
 
 
-	public Integer getDinerID() {
-		return dinerID;
+	public DinerInfo getDinerinfo() {
+		return dinerinfo;
 	}
 
 
 
-	public void setDinerID(Integer dinerID) {
-		this.dinerID = dinerID;
+	public void setDinerinfo(DinerInfo dinerinfo) {
+		this.dinerinfo = dinerinfo;
 	}
 
 
@@ -151,9 +160,11 @@ public class Product {
 	}
 
 
+
 	public Timestamp getProductReleaseTime() {
 		return productReleaseTime;
 	}
+
 
 
 	public void setProductReleaseTime(Timestamp productReleaseTime) {
@@ -163,13 +174,8 @@ public class Product {
 
 
 	public byte[] getProductBlob1() {
-
 		return productBlob1;
 	}
-
-
-
-
 
 
 
@@ -179,14 +185,9 @@ public class Product {
 
 
 
-
-
-
 	public byte[] getProductBlob2() {
 		return productBlob2;
 	}
-
-
 
 
 
@@ -196,15 +197,9 @@ public class Product {
 
 
 
-
-
-
 	public byte[] getProductBlob3() {
 		return productBlob3;
 	}
-
-
-
 
 
 
@@ -236,16 +231,7 @@ public class Product {
 		this.productStatus = productStatus;
 	}
 
-
-
-	@Override
-	public String toString() {
-		return "Product [productID=" + productID + ", dinerID=" + dinerID + ", productName=" + productName
-				+ ", productPrice=" + productPrice + ", productTypeID=" + productTypeID + ", productDailyStock="
-				+ productDailyStock + ", productReleaseTime=" + productReleaseTime + ", productBlob1=" + productBlob1
-				+ ", productBlob2=" + productBlob2 + ", productBlob3=" + productBlob3 + ", productRemark="
-				+ productRemark + ", productStatus=" + productStatus + "]";
-	}
+	
 
 
 }

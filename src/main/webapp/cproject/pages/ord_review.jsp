@@ -333,7 +333,7 @@
                 <form action="" style="padding:10px;">
 
                   <span>
-                    <label>商家帳號(統編)：</label>
+                    <label>商家帳號：</label>
                     <input type="search" class="border border-warning">
                   </span>
 
@@ -380,12 +380,12 @@ pageContext.setAttribute("list", list);
 %>
 
                 <div class="table-responsive">
-                  <table class="table card-table table-vcenter text-nowrap">
+                  <table id = "table" class="table table-bordered">
                     <thead>
                       <tr>
                         <th>商家編號</th>
                         <th>商家名稱</th>
-                        
+                        <th></th>
                         
                                                
                         
@@ -400,7 +400,7 @@ pageContext.setAttribute("list", list);
                         
                         
                         <td>
-                          <form method="post" action = "drcs.do" style="width: 15px ; height: 15px">
+                          <form method="post" action = "drcs.do" ">
                           <input type="hidden" name="dinerID"  value="${dinerinfo.dinerID}">    
 			      		  <input type="hidden" name="action" value="go_for_review">
                           <button class ="btn btn-warning" style = "font-weight :bold">查詢</button>
@@ -453,10 +453,41 @@ pageContext.setAttribute("list", list);
       <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
       <script src="./assets/js/require.min.js"></script>
+      
+     	 <%@ include file="included-fragment.file" %>
+		<script src="https://code.jquery.com/jquery-3.5.1.js"></script>                                    <!-- ●●js  for jquery datatables 用 -->
+		<script	src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>              <!-- ●●js  for jquery datatables 用 -->
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.jqueryui.min.css" /> <!-- ●●css for jquery datatables 用 -->
       <script>
-        $("#query").on("click",function(){
-          window.location.href = "order_review_data.jsp";
-        });
+      $(document).ready(function() {
+  		$('#table').DataTable({
+  			"lengthMenu": [5],
+  			"searching": true,  //搜尋功能, 預設是開啟
+  		    "paging": true,     //分頁功能, 預設是開啟
+  		    "ordering": true,   //排序功能, 預設是開啟
+  		    "language": {
+  		        "processing": "處理中...",
+  		        "loadingRecords": "載入中...",
+  		        "lengthMenu": "顯示 _MENU_ 筆結果",
+  		        "zeroRecords": "沒有符合的結果",
+  		        "info": "顯示第 _START_ 至 _END_ 筆結果，共<font color=red> _TOTAL_ </font>筆",
+  		        "infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
+  		        "infoFiltered": "(從 _MAX_ 筆結果中過濾)",
+  		        "infoPostFix": "",
+  		        "search": "搜尋:",
+  		        "paginate": {
+  		            "first": "第一頁",
+  		            "previous": "上一頁",
+  		            "next": "下一頁",
+  		            "last": "最後一頁"
+  		        },
+  		        "aria": {
+  		            "sortAscending":  ": 升冪排列",
+  		            "sortDescending": ": 降冪排列"
+  		        }
+  		    }
+  		});
+  	});
         
 
         

@@ -1,4 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="utf-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.*"%>
+<%@ page import="com.dinerinfo.dao.*"%>
+<%@ page import="com.dinerinfo.entity.*"%>
 <html>
 
 <head>
@@ -332,13 +336,13 @@
 
                     <span>
                       <label>商家帳號(統編)：</label>
-                      <input type="search" placeholder="請輸入商家帳號" class="border border-warning">
+                      <input type="search" class="border border-warning">
                     </span>
   
   
                     <span>
                       <label>商家名稱：</label>
-                      <input type="search" placeholder="請輸入商家名稱" class="border border-warning">
+                      <input type="search" class="border border-warning">
                     </span>
   
                     <span>
@@ -363,61 +367,58 @@
             <!-- /.col -->
           </div>
           <!-- /.row -->
+          
+          
+          <%
+				
+
+				DinerInfoDAOImplC didi = new DinerInfoDAOImplC();
+				List<DinerInfo> list = didi.getAllChanged();
+				pageContext.setAttribute("list", list);
+         		
+ 			%>
 
                 
     
     
     
               <div class="table-responsive">
-                <table class="table card-table table-vcenter text-nowrap">
+                <table id = "table" class="table table-bordered">
                   <thead>
                     <tr>
                       <th class="w-1">商家編號</th>
                       <th>商家帳號</th>
                       <th>商家名稱</th>
-                      <th>商家電話</th>
-                      <th>資料異動</th>
-                  
-                      <th>  </th>
+                      <th>狀態</th>
+                      <th></th>                  
+                      
                       
                     </tr>
                   </thead>
                   <tbody>
+                  <c:forEach var="dinerinfo" items="${list}">
                     <tr>
-                      <td><span class="text-muted">1</span></td>
-                      <td><a href="invoice.html" class="text-inherit">54321</a></td>
+                      <td><span class="text-muted">${dinerinfo.dinerID}</span></td>
+                      <td><a href="invoice.html" class="text-inherit">${dinerinfo.dinerTaxID}</a></td>
                       <td>
-                        吉野家烤肉飯
+                        ${dinerinfo.dinerName}
                       </td>
                       <td>
-                        88880000
-                      </td>
-                      <td>
-                        申請中
-                      </td>
-                      <td>
-                        <button id = "check" type ="button" class ="btn btn-warning" style = "font-weight :bold">審核</button>
+                        ${dinerinfo.dinerStatus}
                       </td>
                       
-                    <tr>
-                      <td><span class="text-muted">2</span></td>
-                      <td><a href="invoice.html" class="text-inherit">12345</a></td>
                       <td>
-                        三商巧福
+                      	<form method = "post" action = "difs.do">
+                      	<input type="hidden" name="dinerID"  value="${dinerinfo.dinerID}">
+                      	<input type="hidden" name="action"  value="go_for_check_changed">
+                        <button type = "submit" class ="btn btn-warning" style = "font-weight :bold">審核</button>
+                        </form>
                       </td>
-                      <td>
-                        00008888
-                      </td>
-                      <td>
-                        申請中
-                      </td>
-                      <td>
-                        <button id = "check" type ="button" class ="btn btn-warning" style = "font-weight :bold">審核</button>
-                      </td>
-                        
+                      
+                      
                       
                       </tr> 
-                  
+                  </c:forEach>
                   </tbody>
                 </table>
               </div>
@@ -465,12 +466,41 @@
       <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
       <script src="./assets/js/require.min.js"></script>
+      <%@ include file="included-fragment.file" %>
+		<script src="https://code.jquery.com/jquery-3.5.1.js"></script>                                    <!-- ●●js  for jquery datatables 用 -->
+		<script	src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>              <!-- ●●js  for jquery datatables 用 -->
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.jqueryui.min.css" /> <!-- ●●css for jquery datatables 用 -->
       <script>
-        $("#check").on("click",function(){
-          console.log("aaa");
-          window.location.href = "mer_details_check.jsp";
-
-        });
+      $(document).ready(function() {
+  		$('#table').DataTable({
+  			"lengthMenu": [5],
+  			"searching": true,  //搜尋功能, 預設是開啟
+  		    "paging": true,     //分頁功能, 預設是開啟
+  		    "ordering": true,   //排序功能, 預設是開啟
+  		    "language": {
+  		        "processing": "處理中...",
+  		        "loadingRecords": "載入中...",
+  		        "lengthMenu": "顯示 _MENU_ 筆結果",
+  		        "zeroRecords": "沒有符合的結果",
+  		        "info": "顯示第 _START_ 至 _END_ 筆結果，共<font color=red> _TOTAL_ </font>筆",
+  		        "infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
+  		        "infoFiltered": "(從 _MAX_ 筆結果中過濾)",
+  		        "infoPostFix": "",
+  		        "search": "搜尋:",
+  		        "paginate": {
+  		            "first": "第一頁",
+  		            "previous": "上一頁",
+  		            "next": "下一頁",
+  		            "last": "最後一頁"
+  		        },
+  		        "aria": {
+  		            "sortAscending":  ": 升冪排列",
+  		            "sortDescending": ": 降冪排列"
+  		        }
+  		    }
+  		});
+  	});
+        
 
         
   </script>
