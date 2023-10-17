@@ -1,5 +1,6 @@
 package com.dinerinfo.dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +11,9 @@ import com.dinerinfo.entity.DinerInfo;
 public interface DinerInfoDAO {
 	// 此介面定義對資料庫的相關存取抽象方法
 	int add(DinerInfo dinerInfo);
-	int update(DinerInfo dinerInfo);
+	DinerInfo register(String dinerName, String dinerPassword, Timestamp dinerRegisterTime ,String dinerTaxID, String dinerContact, String dinerPhone, String dinerEmail, String dinerAddress,
+			String dinerBank, String dinerAccount, String dinerAccountName, String dinerType, String dinerStatus);
+	DinerInfo update(DinerInfo dinerInfo);
 	int delete(Integer dinerID);
 	DinerInfo findByPK(Integer  dinerID);
 	DinerInfo findByTaxID(String  dinerTaxID);
