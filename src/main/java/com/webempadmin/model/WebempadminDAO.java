@@ -29,6 +29,8 @@ public class WebempadminDAO implements WebempadminDAO_interface {
 		"DELETE FROM webempadmin where empID = ?";
 	private static final String UPDATE = 
 		"UPDATE webempadmin set empName=?, empPassword=?, empArriveDate=?, empAdminAuthorization=? ,empBlob=? where empID = ?";
+	private static final String GET_EMP_STMT = 
+			"SELECT empName,empPassword FROM webempadmin where empName = ?";
 
 	@Override
 	public void insert(WebempadminVO empVO) {
@@ -185,7 +187,7 @@ public class WebempadminDAO implements WebempadminDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// empVo ¤]ºÙ¬° Domain objects
+				// empVo ï¿½]ï¿½Ù¬ï¿½ Domain objects
 				empVO = new WebempadminVO();
 				empVO.setEmpID(rs.getInt("empID"));
 				empVO.setEmpName(rs.getString("empName"));
@@ -229,6 +231,63 @@ public class WebempadminDAO implements WebempadminDAO_interface {
 		}
 		return empVO;
 	}
+	
+	@Override
+	public Map<String,String> findAccoundPassword(String empName) {
+		WebempadminVO empVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Map<String, String> emp = new HashMap<>();
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_EMP_STMT);
+			pstmt.setString(1, empName);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				empVO = new WebempadminVO();
+				empVO.setEmpName(rs.getString("empName"));
+				empVO.setEmpPassword(rs.getString("empPassword"));
+				emp.put(empVO.getEmpName(), empVO.getEmpPassword());
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return emp;
+	}
 
 	@Override
 	public List<WebempadminVO> getAll() {
@@ -246,7 +305,7 @@ public class WebempadminDAO implements WebempadminDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// empVO ¤]ºÙ¬° Domain objects
+				// empVO ï¿½]ï¿½Ù¬ï¿½ Domain objects
 				empVO = new WebempadminVO();
 				empVO.setEmpID(rs.getInt("empID"));
 				empVO.setEmpName(rs.getString("empName"));
@@ -297,9 +356,9 @@ public class WebempadminDAO implements WebempadminDAO_interface {
 		return fis;
 	}
 
-	public static void readPicture(Blob blob) throws IOException, SQLException {  //¶Ç¤J®³¨ìªºblobª«¥ó
+	public static void readPicture(Blob blob) throws IOException, SQLException {  //ï¿½Ç¤Jï¿½ï¿½ï¿½ìªºblobï¿½ï¿½ï¿½ï¿½
 		InputStream is = blob.getBinaryStream();
-		FileOutputStream fos = new FileOutputStream("Output/1.png"); //§â®³¨ìªº¸ê®Æ¿é¥X ¦s¤Joutput¸ê®Æ§¨
+		FileOutputStream fos = new FileOutputStream("Output/1.png"); //ï¿½â®³ï¿½ìªºï¿½ï¿½Æ¿ï¿½X ï¿½sï¿½Joutputï¿½ï¿½Æ§ï¿½
 		int i; 
 		while ((i = is.read()) != -1) {
 			fos.write(i);
@@ -310,7 +369,7 @@ public class WebempadminDAO implements WebempadminDAO_interface {
 	}
 
 	public static void readPicture(InputStream is) throws IOException {
-		FileOutputStream fos = new FileOutputStream("C:/Users/jumbo/Desktop/±MÃD¬ÛÃö/1.png");
+		FileOutputStream fos = new FileOutputStream("C:/Users/jumbo/Desktop/ï¿½Mï¿½Dï¿½ï¿½ï¿½ï¿½/1.png");
 		int i;
 		while ((i = is.read()) != -1) {
 			fos.write(i);

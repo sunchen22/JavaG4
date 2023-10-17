@@ -1,9 +1,10 @@
-package com.varytype.dao;
+package com.varytype.service;
 
 import java.util.List;
 
+import com.varytype.dao.VaryTypeDAO;
+import com.varytype.dao.VaryTypeDAO_interface;
 import com.varytype.entity.VaryType;
-import com.varytype.service.VaryTypeDAO_interface;
 
 public class VaryTypeService {
 
