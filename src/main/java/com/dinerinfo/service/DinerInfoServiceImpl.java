@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.dinerinfo.dao.DinerInfoDAO;
-import com.dinerinfo.dao.DinerInfoDAOImpl;
+import com.dinerinfo.dao.DinerInfoDAOHibernateImpl;
 import com.dinerinfo.entity.DinerInfo;
 
 import util.HibernateUtil;
@@ -17,54 +17,58 @@ public class DinerInfoServiceImpl  implements DinerInfoService {
 	private DinerInfoDAO dao;
 	
 	public DinerInfoServiceImpl() {
-		dao = new DinerInfoDAOImpl(HibernateUtil.getSessionFactory());
+		dao = new DinerInfoDAOHibernateImpl(HibernateUtil.getSessionFactory());
+	}
+
+	public DinerInfoDAO getDao() {
+		return dao;
+	}
+
+	public void setDao(DinerInfoDAO dao) {
+		this.dao = dao;
 	}
 
 	@Override
-	public DinerInfo addDinerInfo(DinerInfo dinerInfo) {
-		// TODO Auto-generated method stub
-		return null;
+	public Integer addDinerInfo(DinerInfo dinerInfo) {
+		return dao.add(dinerInfo);
 	}
 
 	@Override
 	public DinerInfo updateDinerInfo(DinerInfo dinerInfo) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.update(dinerInfo);
 	}
 
 	
+
+
 	@Override
 	public DinerInfo registerDinerInfo(String dinerName, String dinerPassword, Timestamp dinerRegisterTime,
 			String dinerTaxID, String dinerContact, String dinerPhone, String dinerEmail, String dinerAddress,
-			String dinerBank, String dinerAccount, String dinerAccountName, String dinerType) {
-		// TODO Auto-generated method stub
-		return null;
+			String dinerBank, String dinerAccount, String dinerAccountName, String dinerType , String dinerStatus) {
+		return dao.register(dinerName, dinerPassword, dinerRegisterTime, dinerTaxID, dinerContact, dinerPhone,
+				dinerEmail, dinerAddress, dinerBank, dinerAccount, dinerAccountName, dinerType ,dinerStatus);
 	}
 
 	@Override
-	public void deleteDinerID(Integer dinerID) {
-		// TODO Auto-generated method stub
-		
+	public Integer deleteDinerID(Integer dinerID) {
+		return dao.delete(dinerID);
 	}
 
 	@Override
 	public DinerInfo getDinerInfoByDinerID(Integer dinerID) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.findByPK(dinerID);
 	}
 	
 	
 
 	@Override
 	public DinerInfo getDinerInfoByDinerTaxID(String dinerTaxID) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.findByTaxID(dinerTaxID);
 	}
 
 	@Override
 	public List<DinerInfo> getAllDinerInfos(int currentPage) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.getAll();
 	}
 
 	@Override

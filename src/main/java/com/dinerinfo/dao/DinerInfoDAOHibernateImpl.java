@@ -1,114 +1,112 @@
 package com.dinerinfo.dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
-import java.io.Serializable;
+
+import javax.transaction.Transaction;
+
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
 import com.dinerinfo.entity.DinerInfo;
 
-import util.HibernateUtil;
+public class DinerInfoDAOHibernateImpl implements DinerInfoDAO {
+	private SessionFactory factory;
 
-public class DinerInfoDAOHibernateImpl implements DinerInfoDAO{
+	public DinerInfoDAOHibernateImpl(SessionFactory factory) {
+		this.factory = factory;
+	}
 
-	@Override
-	public int add(DinerInfo dinerInfo) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-			Integer id = (Integer) session.save(dinerInfo);
-			session.getTransaction().commit();
-			return id;  //成功的話，回傳id
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		}
-		return -1;  //不成功的話，回傳-1
+	private Session getSession() {
+		return factory.getCurrentSession();
 	}
 
 	@Override
-	public int update(DinerInfo dinerInfo) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	public int add(DinerInfo dinerInfo) {
+		System.out.println("開始增加商家資料");
+		return (Integer) getSession().save(dinerInfo);
+	}
+
+	@Override
+	public DinerInfo register(String dinerName, String dinerPassword, Timestamp dinerRegisterTime, String dinerTaxID,
+			String dinerContact, String dinerPhone, String dinerEmail, String dinerAddress, String dinerBank,
+			String dinerAccount, String dinerAccountName, String dinerType, String dinerStatus) {
+		
+
+		  DinerInfo dinerInfo = new DinerInfo();
+
+		    dinerInfo.setDinerName(dinerName);
+		    dinerInfo.setDinerPassword(dinerPassword);
+		    dinerInfo.setDinerRegisterTime(dinerRegisterTime);
+		    dinerInfo.setDinerTaxID(dinerTaxID);
+		    dinerInfo.setDinerContact(dinerContact);
+		    dinerInfo.setDinerPhone(dinerPhone);
+		    dinerInfo.setDinerEmail(dinerEmail);
+		    dinerInfo.setDinerAddress(dinerAddress);
+		    dinerInfo.setDinerBank(dinerBank);
+		    dinerInfo.setDinerAccount(dinerAccount);
+		    dinerInfo.setDinerAccountName(dinerAccountName);
+		    dinerInfo.setDinerType(dinerType);
+		    dinerInfo.setDinerStatus(dinerStatus);
+
+		    Session session = getSession();
+		    org.hibernate.Transaction tx = null;
+		    try {
+		        tx = session.beginTransaction();  // 開始事務
+		        session.save(dinerInfo);
+		        tx.commit();  // 提交事務
+		    } catch (Exception e) {
+		        if (tx != null) {
+		            tx.rollback();  // 如果出現錯誤，則回滾事務
+		        }
+		        throw e;  // 或者選擇其他的錯誤處理方式
+		    }
+		    
+		    return dinerInfo;
+
+	}
+
+	@Override
+	public DinerInfo update(DinerInfo dinerInfo) {
 		try {
-			session.beginTransaction();
-			session.update(dinerInfo);
-			session.getTransaction().commit();
-			return 1;  //成功的話，回傳1
+			getSession().update(dinerInfo);
+			return dinerInfo; // 成功的話，回傳dinerInfo
 		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
+			return null;
 		}
-		return -1;  //不成功的話，回傳-1
 	}
 
 	@Override
 	public int delete(Integer dinerID) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-			DinerInfo dinerInfo = session.get(DinerInfo.class, dinerID);
-			if (dinerInfo != null) {
-				session.delete(dinerInfo);
-			}
-			session.getTransaction().commit();
-			return 1;   //成功的話，回傳1
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
+
+		DinerInfo dinerInfo = getSession().get(DinerInfo.class, dinerID);
+		if (dinerInfo != null) {
+			getSession().delete(dinerInfo);
+			return 1; // 成功的話，回傳1
+		} else {
+			return -1; // 不成功的話，回傳-1
 		}
-		return -1;  //不成功的話，回傳-1
 	}
 
 	@Override
 	public DinerInfo findByPK(Integer dinerID) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-			DinerInfo dinerInfo = session.get(DinerInfo.class, dinerID);
-			session.getTransaction().commit();
-			return dinerInfo;   //成功的話，回傳 dinerInfo 物件
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		}
-		return null;   //不成功的話，回傳null
+		return getSession().get(DinerInfo.class, dinerID);
 	}
 
-	
 	@Override
 	public DinerInfo findByTaxID(String dinerTaxID) {
-	    Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-	    try {
-	        session.beginTransaction();
-	        String hql = "FROM DinerInfo WHERE dinerTaxID  = :dinerTaxID";
-	        Query<DinerInfo> query = session.createQuery(hql, DinerInfo.class);
-	        query.setParameter("dinerTaxID", dinerTaxID);
-	        DinerInfo dinerInfo = query.uniqueResult(); // 因為dinerTaxID應該是唯一的，所以使用uniqueResult()取得單一結果
-	        session.getTransaction().commit();
-	        return dinerInfo;   //成功的話，回傳 dinerInfo 物件
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        session.getTransaction().rollback();
-	    }
-	    return null;   //不成功的話，回傳null
+		String hql = "FROM DinerInfo WHERE dinerTaxID  = :dinerTaxID";
+		Query<DinerInfo> query = getSession().createQuery(hql, DinerInfo.class);
+		query.setParameter("dinerTaxID", dinerTaxID);
+		DinerInfo dinerInfo = query.uniqueResult(); // 因為dinerTaxID應該是唯一的，所以使用uniqueResult()取得單一結果
+		return dinerInfo; // 成功的話，回傳 dinerInfo 物件
 	}
-
 
 	@Override
 	public List<DinerInfo> getAll() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-			List<DinerInfo> list = session.createQuery("from DinerInfo", DinerInfo.class).list();
-			session.getTransaction().commit();
-			return list;   //成功的話，回傳Emp的list
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		}
-		return null;   //不成功的話，回傳null
-	
+		return getSession().createQuery("FROM DinerInfo", DinerInfo.class).list();
 
 	}
 

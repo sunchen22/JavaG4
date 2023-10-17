@@ -6,26 +6,22 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
-import com.dinerinfo.dao.DinerInfoDAOHibernateImpl;
 import com.dinerinfo.entity.DinerInfo;
-
+import com.dinerinfo.service.DinerInfoServiceImpl;
 
 public class DinerInfoServletD extends HttpServlet {
-	
-	private DinerInfoDAOHibernateImpl dinerDAOImpl;
+
+	private DinerInfoServiceImpl dinerInfoServiceImpl;
 
 	@Override
-	public void init(ServletConfig config) throws ServletException {
-		dinerDAOImpl = new DinerInfoDAOHibernateImpl();    // 實做一個方法物件
+	public void init() throws ServletException {
+		dinerInfoServiceImpl = new DinerInfoServiceImpl(); // 實做一個方法物件
 	}
 
 	@Override
@@ -157,28 +153,32 @@ public class DinerInfoServletD extends HttpServlet {
 			}
 			// 雖然前端選項寫死，還是稍微做個判定，增加安全性
 
-			DinerInfo dinerInfo = new DinerInfo();
+			DinerInfo dinerInfoRg = new DinerInfo();   // 創建一個 dinerInfo 對象，來儲存註冊者輸入的資料
 
 			// Timestamp的當前時間設置
 			Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-
-			dinerInfo.setDinerName(dinerName);
-			dinerInfo.setDinerPassword(temporaryPassword);
-			dinerInfo.setDinerRegisterTime(currentTime);
-			dinerInfo.setDinerTaxID(dinerTaxID);
-			dinerInfo.setDinerContact(dinerContact);
-			dinerInfo.setDinerPhone(dinerPhone);
-			dinerInfo.setDinerEmail(dinerEmail);
-			dinerInfo.setDinerAddress(dinerAddress);
-			dinerInfo.setDinerBank(dinerBank);
-			dinerInfo.setDinerAccount(dinerAccount);
-			dinerInfo.setDinerAccountName(dinerAccountName);
-			dinerInfo.setDinerType(dinerType);
-			dinerInfo.setDinerStatus("Submitted");
+			String dinerStatus = "Submitted";
+			
+			dinerInfoRg = dinerInfoServiceImpl.registerDinerInfo(dinerName, temporaryPassword, 
+					currentTime, dinerTaxID, dinerContact, dinerPhone, dinerEmail, dinerAddress,
+					dinerBank, dinerAccountName, dinerAccountName, dinerType, dinerStatus);
+//			dinerInfoRg.setDinerName(dinerName);
+//			dinerInfoRg.setDinerPassword(temporaryPassword);
+//			dinerInfoRg.setDinerRegisterTime(currentTime);
+//			dinerInfoRg.setDinerTaxID(dinerTaxID);
+//			dinerInfoRg.setDinerContact(dinerContact);
+//			dinerInfoRg.setDinerPhone(dinerPhone);
+//			dinerInfoRg.setDinerEmail(dinerEmail);
+//			dinerInfoRg.setDinerAddress(dinerAddress);
+//			dinerInfoRg.setDinerBank(dinerBank);
+//			dinerInfoRg.setDinerAccount(dinerAccount);
+//			dinerInfoRg.setDinerAccountName(dinerAccountName);
+//			dinerInfoRg.setDinerType(dinerType);
+//			dinerInfoRg.setDinerStatus("Submitted");
 
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("dinerInfo", dinerInfo); // 含有輸入格式錯誤的 dinerInfo 物件,也存入req
+				req.setAttribute("dinerInfo", dinerInfoRg); // 含有輸入格式錯誤的 dinerInfo 物件,也存入req
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/dinerbackground/pages/Team/register/register-form.jsp");
 				failureView.forward(req, res);
@@ -187,17 +187,18 @@ public class DinerInfoServletD extends HttpServlet {
 
 			/*************************** 2.開始新增資料 ***************************************/
 
-
 //			DinerInfoDAOHibernateImpl dinerInfoSvc = new DinerInfoDAOHibernateImpl();
-			dinerDAOImpl.add(dinerInfo);
+//			dinerInfoServiceImpl.getDao().add(dinerInfoRg);
+			HttpSession session = req.getSession();
+			session.setAttribute("NewDinerInfo", dinerInfoRg);
+			req.setAttribute("isRegistration", true);
+			
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			String url = "/dinerbackground/pages/Team/register/registerSuccess.html";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交 registerSuccess.html
 			successView.forward(req, res);
 		}
-		
-		
 
 //			=========================== 登入 =============================	
 
@@ -218,8 +219,7 @@ public class DinerInfoServletD extends HttpServlet {
 			} else if (!dinerTaxID.trim().matches(dinerTaxIDReg)) {
 				errorMsgs.add("商家帳號 : 只能是8個數字");
 			}
-			
-			
+
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/dinerbackground/pages/Team/login/login-form.jsp");
@@ -228,27 +228,25 @@ public class DinerInfoServletD extends HttpServlet {
 			}
 
 			String dinerPassword = req.getParameter("dinerPassword"); // 用一個字串容器儲存diner密碼
-			
-			
+
 			DinerInfo dinerInfoBlg = new DinerInfo(); // 創建一個新的 dinerInfo 容器儲存使用者輸入的帳密
 			dinerInfoBlg.setDinerTaxID(dinerTaxID);
 			dinerInfoBlg.setDinerPassword(dinerPassword);
-			
-			
-			DinerInfo dinerInfoAlg = dinerDAOImpl.findByTaxID(dinerTaxID);  // 創建一個新的 dinerInfo 容器引入使用者在資料庫裡的舊密碼
+
+			DinerInfo dinerInfoAlg = dinerInfoServiceImpl.getDinerInfoByDinerTaxID(dinerTaxID); // 創建一個新的 dinerInfo 容器引入使用者在資料庫裡的舊密碼
 
 			if (dinerInfoAlg == null) {
 				errorMsgs.add("查無該帳號");
 			} else if (!dinerPassword.equals(dinerInfoAlg.getDinerPassword())) {
 				errorMsgs.add("密碼錯誤");
 			}
-			
-			//密碼存儲和驗證可以用雜湊函式BCrypt來提升安全性，有空的話再做
+
+			// 密碼存儲和驗證可以用雜湊函式BCrypt來提升安全性，有空的話再做
 
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("dinerInfo", dinerInfoBlg); // 含有輸入格式錯誤的dinerInfo物件,也存入req
-															 // 這樣重新登錄的時候，填過的資料就不會消失
+																// 這樣重新登錄的時候，填過的資料就不會消失
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/dinerbackground/pages/Team/login/login-form.jsp");
 				failureView.forward(req, res);
@@ -257,9 +255,8 @@ public class DinerInfoServletD extends HttpServlet {
 
 			/*************************** 2.開始載入資料 *****************************************/
 
-		
 			HttpSession session = req.getSession(); // 用一個會話來儲存現在已經登入成功的物件
-			session.setAttribute("account", dinerInfoAlg);  // 將 account 標記為資料庫的 dinerInfo 相對物件，當filter在過濾時就會知道這是已經登錄的帳號
+			session.setAttribute("account", dinerInfoAlg); // 將 account 標記為資料庫的 dinerInfo 相對物件，當filter在過濾時就會知道這是已經登錄的帳號
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 

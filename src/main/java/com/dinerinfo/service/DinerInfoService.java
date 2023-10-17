@@ -9,15 +9,15 @@ import com.dinerinfo.entity.DinerInfo;
 
 public interface DinerInfoService {
 
-	DinerInfo addDinerInfo(DinerInfo dinerInfo);
+	Integer addDinerInfo(DinerInfo dinerInfo);
 
 	DinerInfo updateDinerInfo(DinerInfo dinerInfo);
 
-	DinerInfo registerDinerInfo(String dinerName, String dinerPassword, Timestamp dinerRegisterTime, String dinerTaxID,
-			String dinerContact, String dinerPhone, String dinerEmail, String dinerAddress, String dinerBank,
-			String dinerAccount, String dinerAccountName, String dinerType);
+	DinerInfo registerDinerInfo(String dinerName, String dinerPassword, Timestamp dinerRegisterTime,
+			String dinerTaxID, String dinerContact, String dinerPhone, String dinerEmail, String dinerAddress,
+			String dinerBank, String dinerAccount, String dinerAccountName, String dinerType , String dinerStatus);
 
-	void deleteDinerID(Integer dinerID);
+	Integer deleteDinerID(Integer dinerID);
 
 	DinerInfo getDinerInfoByDinerID(Integer dinerID);
 
