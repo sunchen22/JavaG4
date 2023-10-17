@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -17,8 +20,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <!-- <a href="../../index2.html"><b>Admin</b>LTE</a> -->
-      <img height="60px" src="../dist/img/Logo.png" alt="樓頂揪樓咖 Logo" class="brand-image img-circle elevation-3" style="opacity: .8" >
+      <img height="60px" src="<%= request.getContextPath()%>/background/dist/img/Logo.png" alt="樓頂揪樓咖 Logo" class="brand-image img-circle elevation-3" style="opacity: .8" >
       <span class="brand-text font-weight-normal" style="text-align: start; font-size:80%;">樓頂揪樓咖</span>
   </div>
 
@@ -27,9 +29,9 @@
     <div class="card-body login-card-body">
       <p class="login-box-msg " style="font-weight:bold">後台管理平台 </p>
 
-      <form action="index3.html" method="post">
+      <form action="bglogin" method="post">
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="請輸入帳號">
+          <input type="text" class="form-control" name="account" value="" placeholder="請輸入帳號">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
@@ -37,7 +39,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="請輸入密碼">
+          <input type="password" class="form-control" name="password" value="" placeholder="請輸入密碼">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -46,16 +48,16 @@
         </div>
         <div class="row">
           <div class="col-8">
-            <div class="icheck-primary">
-              <input type="checkbox" id="remember">
-              <label for="remember">
-                Remember Me
-              </label>
-            </div>
+<!--             <div class="icheck-primary"> -->
+<!--               <input type="checkbox" id="remember"> -->
+<!--               <label for="remember"> -->
+<!--                 Remember Me -->
+<!--               </label> -->
+<!--             </div> -->
           </div>
           <!-- /.col -->
           <div class="col-4">
-            <button type="submit" class="btn btn-warning btn-block" style="font-weight:bold">登入</button>
+          	<input type="submit" value="登入" class="btn btn-warning btn-block" style="font-weight:bold">
           </div>
           <!-- /.col -->
         </div>
