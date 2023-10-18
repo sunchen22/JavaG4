@@ -12,10 +12,10 @@ public class HelloApple {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			
-			DinerInfoDAOHibernateImpl dd = new DinerInfoDAOHibernateImpl();
-			DinerInfo di = new DinerInfo();
-			di = dd.findByTaxID("12345678");
-			System.out.println(di.getDinerName());
+//			DinerInfoDAOHibernateImpl dd = new DinerInfoDAOHibernateImpl();
+//			DinerInfo di = new DinerInfo();
+//			di = dd.findByTaxID("12345678");
+//			System.out.println(di.getDinerName());
 			
 			
 //			session.beginTransaction();
