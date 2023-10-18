@@ -4,11 +4,12 @@
 <%@ page import="com.dinerinfo.service.*"%>
 
 <% 
-	DinerInfoServiceImpl dinerSvc = new DinerInfoServiceImpl();
-	DinerInfo dinerInfoBc = dinerSvc.getDinerInfoByDinerID(1);
+// 	DinerInfoServiceImpl dinerSvc = new DinerInfoServiceImpl();
+// 	DinerInfo dinerInfoBc = dinerSvc.getDinerInfoByDinerID(1);
 	//測試用，之後順利連結頁面後要改以下這種
 	
-	//DinerInfo dinerInfo = (DinerInfo)request.getAttribute("dinerInfo");
+	DinerInfo account = (DinerInfo)session.getAttribute("account");
+	//這是login之後傳進來的account，代表已登錄後才能看到的資料
 %>
 
 <html lang="zh-Hant">
@@ -306,7 +307,8 @@
                   <div class="row">
                     <!-- 商店名稱 -->
                     <div class="input-group mb-3 col-6">
-                      <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerName()%>">
+<%--                       <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerName()%>"> --%>
+                      <input type="text" class="form-control" value="<%=account.getDinerName()%>">
                       <div class="input-group-append">
                         <div class="input-group-text">
                           <span class="fas fa-store"></span>
@@ -316,7 +318,10 @@
 
                     <!-- 銀行帳戶 銀行代碼 -->
                     <div class="input-group mb-3 col-6">
-                      <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerBank()%>">
+<%--                       <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerBank()%>"> --%>
+<!-- 							以上為測試單獨頁面用 -->
+
+                      <input type="text" class="form-control" value="<%=account.getDinerBank()%>">
                       <div class="input-group-append">
                         <div class="input-group-text">
                           <span class="fas fa-user"></span>
@@ -326,7 +331,9 @@
 
                     <!-- 商店地址 -->
                     <div class="input-group mb-3 col-6">
-                      <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerAddress()%>">
+<%--                       <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerAddress()%>"> --%>
+<!-- 							以上為測試單獨頁面用 -->
+                      <input type="text" class="form-control" value="<%=account.getDinerAddress()%>">
                       <div class="input-group-append">
                         <div class="input-group-text">
                           <span class="fas fa-map-marker-alt"></span>
@@ -337,7 +344,9 @@
 
                     <!-- 銀行帳戶 帳戶號碼 -->
                     <div class="input-group mb-3 col-6">
-                      <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerAccount()%>">
+<%--                       <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerAccount()%>"> --%>
+<!-- 							以上為測試單獨頁面用 -->
+                      <input type="text" class="form-control" value="<%=account.getDinerAccount()%>">
                       <div class="input-group-append">
                         <div class="input-group-text">
                           <span class="fas fa-university"></span>
@@ -347,7 +356,9 @@
 
                     <!-- 聯絡人姓名 -->
                     <div class="input-group mb-3 col-6">
-                      <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerContact()%>">
+<%--                       <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerContact()%>"> --%>
+<!-- 							以上為測試單獨頁面用 -->
+                      <input type="text" class="form-control" value="<%=account.getDinerContact()%>">
                       <div class="input-group-append">
                         <div class="input-group-text">
                           <span class="fas fa-user"></span>
@@ -357,7 +368,9 @@
 
                     <!-- 銀行帳戶 戶名 -->
                     <div class="input-group mb-3 col-6">
-                      <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerAccountName()%>">
+<%--                       <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerAccountName()%>"> --%>
+<!-- 							以上為測試單獨頁面用 -->
+                      <input type="text" class="form-control" value="<%=account.getDinerAccountName()%>">
                       <div class="input-group-append">
                         <div class="input-group-text">
                           <span class="fas fa-money-check-alt"></span>
@@ -368,7 +381,9 @@
 
                     <!-- 聯絡電話  請留手機號碼-->
                     <div class="input-group mb-3 col-6">
-                      <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerPhone()%>">
+<%--                       <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerPhone()%>"> --%>
+<!-- 							以上為測試單獨頁面用 -->
+                      <input type="text" class="form-control" value="<%=account.getDinerPhone()%>">
                       <div class="input-group-append">
                         <div class="input-group-text">
                           <span class="fas fa-phone"></span>
@@ -378,7 +393,9 @@
 
                     <!-- 聯絡人email  -->
                     <div class="input-group mb-3 col-6">
-                      <input type="email" class="form-control" value="<%=dinerInfoBc.getDinerEmail()%>">
+<%--                       <input type="email" class="form-control" value="<%=dinerInfoBc.getDinerEmail()%>"> --%>
+<!-- 							以上為測試單獨頁面用 -->
+                      <input type="email" class="form-control" value="<%=account.getDinerEmail()%>">
                       <div class="input-group-append">
                         <div class="input-group-text">
                           <span class="fas fa-envelope"></span>
@@ -387,22 +404,17 @@
                     </div>
                     <!-- 統編  (將來會作為登入帳號使用) -->
                     <div class="input-group mb-3 col-6">
-                      <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerTaxID()%>">
+<%--                       <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerTaxID()%>"> --%>
+<!-- 							以上為測試單獨頁面用 -->
+                      <input type="text" class="form-control" value="<%=account.getDinerTaxID()%>">
                       <div class="input-group-append">
                         <div class="input-group-text">
                           <span class="fas fa-signature"></span>
                         </div>
                       </div>
                     </div>
-                    <!-- 請問您販售的商品是甚麼類型? * -->
-                    <!-- <div class="form-group mb-3 col-6">
-                  <select name="dinerType" class="form-control" value="">
-                    <option value="" disabled>您販售的商品類型</option>
-                    <option value="M">單純餐點</option>
-                    <option value="D">單純飲料</option>
-                    <option value="X">複合餐飲</option>
-                  </select>
-                </div> -->
+                
+  
                     <!-- 請問您販售的商品是甚麼類型? * -->
                     <div class="form-group form-inline mb-3 col-6 row">
                       <div class="col-4" style="text-align: right;">
@@ -410,9 +422,9 @@
                       </div>
                       <div class="col-8">
                         <select name="dinerType" class="form-control w-100">
-                          <option value="M">單純餐點</option>
-                          <option value="D">單純飲料</option>
-                          <option value="X">複合餐飲</option>
+                          <option value="M" <%= (account.getDinerType() != null && account.getDinerType().equals("M")) ? "selected" : "" %> >單純餐點</option>
+    					  <option value="D" <%= (account.getDinerType() != null && account.getDinerType().equals("D")) ? "selected" : "" %> >單純飲料</option>
+   						  <option value="X" <%= (account.getDinerType() != null && account.getDinerType().equals("X")) ? "selected" : "" %> >複合餐飲</option>
                         </select>
                       </div>
                     </div>
@@ -424,7 +436,9 @@
 
                   <div class="row">
                    <div class="input-group mb-3 col-6">
-                      <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerTaxID()%>">
+<%--                       <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerTaxID()%>"> --%>
+<!-- 							以上為測試單獨頁面用 -->
+                      <input type="text" class="form-control" value="<%=account.getDinerTaxID()%>">
                       <div class="input-group-append">
                         <div class="input-group-text">
                           <span class="fas fa-signature"></span>
