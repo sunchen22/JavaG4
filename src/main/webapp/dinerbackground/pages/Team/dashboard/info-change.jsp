@@ -1,9 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.dinerinfo.entity.*"%>
+<%@ page import="com.dinerinfo.service.*"%>
 
 <% 
-   DinerInfo dinerInfo = (DinerInfo) request.getAttribute("dinerInfo");
+	DinerInfoServiceImpl dinerSvc = new DinerInfoServiceImpl();
+	DinerInfo dinerInfoBc = dinerSvc.getDinerInfoByDinerID(1);
+	//測試用，之後順利連結頁面後要改以下這種
+	
+	//DinerInfo dinerInfo = (DinerInfo)request.getAttribute("dinerInfo");
 %>
 
 <html lang="zh-Hant">
@@ -295,11 +300,13 @@
                 <p class="login-box-msg">確認資訊無誤後，將為您更新資訊</p>
 
 
-                <form action="../../../index.html" method="post">
+                <form action="<%=request.getContextPath()%>/dinerbackground/pages/Team/dashboard/dinerInfo.do"
+                 method="post">
+                 
                   <div class="row">
                     <!-- 商店名稱 -->
                     <div class="input-group mb-3 col-6">
-                      <input type="text" class="form-control" value="<%=dinerInfo.getDinerName()%>">
+                      <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerName()%>">
                       <div class="input-group-append">
                         <div class="input-group-text">
                           <span class="fas fa-store"></span>
@@ -309,7 +316,7 @@
 
                     <!-- 銀行帳戶 銀行代碼 -->
                     <div class="input-group mb-3 col-6">
-                      <input type="text" class="form-control" value="<%=dinerInfo.getDinerBank()%>">
+                      <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerBank()%>">
                       <div class="input-group-append">
                         <div class="input-group-text">
                           <span class="fas fa-user"></span>
@@ -319,7 +326,7 @@
 
                     <!-- 商店地址 -->
                     <div class="input-group mb-3 col-6">
-                      <input type="text" class="form-control" value="<%=dinerInfo.getDinerAddress()%>">
+                      <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerAddress()%>">
                       <div class="input-group-append">
                         <div class="input-group-text">
                           <span class="fas fa-map-marker-alt"></span>
@@ -330,7 +337,7 @@
 
                     <!-- 銀行帳戶 帳戶號碼 -->
                     <div class="input-group mb-3 col-6">
-                      <input type="text" class="form-control" value="<%=dinerInfo.getDinerAccount()%>">
+                      <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerAccount()%>">
                       <div class="input-group-append">
                         <div class="input-group-text">
                           <span class="fas fa-university"></span>
@@ -340,7 +347,7 @@
 
                     <!-- 聯絡人姓名 -->
                     <div class="input-group mb-3 col-6">
-                      <input type="text" class="form-control" value="<%=dinerInfo.getDinerContact()%>">
+                      <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerContact()%>">
                       <div class="input-group-append">
                         <div class="input-group-text">
                           <span class="fas fa-user"></span>
@@ -350,7 +357,7 @@
 
                     <!-- 銀行帳戶 戶名 -->
                     <div class="input-group mb-3 col-6">
-                      <input type="text" class="form-control" value="<%=dinerInfo.getDinerAccountName()%>">
+                      <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerAccountName()%>">
                       <div class="input-group-append">
                         <div class="input-group-text">
                           <span class="fas fa-money-check-alt"></span>
@@ -361,7 +368,7 @@
 
                     <!-- 聯絡電話  請留手機號碼-->
                     <div class="input-group mb-3 col-6">
-                      <input type="text" class="form-control" value="<%=dinerInfo.getDinerPhone()%>">
+                      <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerPhone()%>">
                       <div class="input-group-append">
                         <div class="input-group-text">
                           <span class="fas fa-phone"></span>
@@ -371,7 +378,7 @@
 
                     <!-- 聯絡人email  -->
                     <div class="input-group mb-3 col-6">
-                      <input type="email" class="form-control" value="<%=dinerInfo.getDinerEmail()%>">
+                      <input type="email" class="form-control" value="<%=dinerInfoBc.getDinerEmail()%>">
                       <div class="input-group-append">
                         <div class="input-group-text">
                           <span class="fas fa-envelope"></span>
@@ -380,7 +387,7 @@
                     </div>
                     <!-- 統編  (將來會作為登入帳號使用) -->
                     <div class="input-group mb-3 col-6">
-                      <input type="text" class="form-control" value="<%=dinerInfo.getDinerTaxID()%>">
+                      <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerTaxID()%>">
                       <div class="input-group-append">
                         <div class="input-group-text">
                           <span class="fas fa-signature"></span>
@@ -417,7 +424,7 @@
 
                   <div class="row">
                    <div class="input-group mb-3 col-6">
-                      <input type="text" class="form-control" value="<%=dinerInfo.getDinerTaxID()%>">
+                      <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerTaxID()%>">
                       <div class="input-group-append">
                         <div class="input-group-text">
                           <span class="fas fa-signature"></span>
