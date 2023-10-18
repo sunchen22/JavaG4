@@ -40,9 +40,10 @@ public class DinerLoginFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)  
 			throws IOException, ServletException {
+		
+		System.out.println("==============這裡開始登入濾器==================");
 		// 為了保持 Servlet 過濾器的通用性，所以這裡用了父類別 ServletRequest、ServletResponse
 		// 這樣，同一個過濾器可以被用於不同的 Servlet 類型，不僅僅是基於 HTTP 的 Servlets
-		
 		// 強制轉型
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
@@ -50,15 +51,15 @@ public class DinerLoginFilter implements Filter {
 		// 取得 session
 		HttpSession session = req.getSession();
 		// 從 session 判斷此 diner 是否登入過
-		Object account = session.getAttribute("account");
+
 		// account 是在成功登入後，servlet 有將資料庫既有dinerInfo物件標註進去 session 的屬性
-		if(account == null) {
+		if(session.getAttribute("account") == null) {
 			// 代表完全沒登錄過
 			session.setAttribute("location" , req.getRequestURI());
 			// 將當前的URI（也就是使用者原本試圖訪問的頁面）保存到session的"location"屬性中
 			// 以便在成功登入後返回此頁面
 			
-			res.sendRedirect(req.getContextPath() + "/dinerbackground/pages/Team/dashboard/login-form.jsp");
+			res.sendRedirect(req.getContextPath() + "/dinerbackground/pages/Team/login/login-form.jsp");
 			// 將使用者重定向到登入頁面
 			return;
 			// 提早結束doFilter方法的執行，不繼續處理這次的請求
@@ -68,7 +69,7 @@ public class DinerLoginFilter implements Filter {
 			// 將請求和回應傳遞給下一個過濾器或目標資源
 		}
 		
-		
+		System.out.println("==============這裡結束登入濾器==================");
 		
 	}
 	
