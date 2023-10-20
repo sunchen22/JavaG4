@@ -3,6 +3,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.varytype.dao.*"%>
 <%@ page import="com.varytype.entity.*"%>
+<%@ page import="com.varytype.service.*"%>
 <%
     VaryTypeService VTSvc = new VaryTypeService();
     List <VaryType> VTList= VTSvc.getAll();
@@ -435,8 +436,8 @@
 										
 									<tr>
 										<td>客製選項分類:</td>
-										<td><input type="TEXT" name="varyType" value="${param.varyType}" placeholder="辣度"/></td> 
-										<td>${errorMsgs.varyType}
+										<td><input type="TEXT" name="varyType" value="${param.varyType}" placeholder="辣度"/>${errorMsgs.varyType}</td> 
+										<td>
 										    <input type="hidden" name="action" value="insert">
 									        <input type="submit" value="新增分類"> 
 										</td>
