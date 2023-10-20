@@ -60,7 +60,7 @@
 					<%
 					}
 					%>
-					<form method="post" action="user.do" enctype="multipart/form-data">
+					<form method="post" action="${pageContext.request.contextPath}/user.do" enctype="multipart/form-data">
 						<div class="row mb-3">
 							<label for="userAccount" class="col-form-label col-md-3">帳號：</label>
 							<div class="col-md-9">
@@ -320,7 +320,7 @@
 
 	<%@ include file="../components/tail.jsp"%>
 	<%-- Import JS for this page below (if any) --%>
-	<script src="./vendor/bootstrap-5.3.1-dist/js/bootstrap.bundle.min.js"></script>
+	
 	<script>
 		function previewImage(event) {
 			var reader = new FileReader();

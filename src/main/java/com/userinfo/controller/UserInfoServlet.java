@@ -15,7 +15,7 @@ import com.userinfo.entity.UserInfo;
 import com.userinfo.service.UserInfoService;
 
 
-@WebServlet("/consumer/user.do")
+@WebServlet("/user.do")
 @MultipartConfig(maxFileSize = 1073741824)
 public class UserInfoServlet extends HttpServlet {
 	private UserInfoService userInfoService;

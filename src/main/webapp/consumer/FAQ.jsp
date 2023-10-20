@@ -1,8 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="components/head.jsp"%>
 <%-- Import CSS for this page below (if any) --%>
-<link href="./css/style.css" rel="stylesheet">
-<script src="./vendor/bootstrap-5.3.1-dist/js/bootstrap.bundle.min.js"></script>
+
 
 <title>樓頂揪樓咖-FAQ</title>
 <%-- Remember to edit the page title --%>
