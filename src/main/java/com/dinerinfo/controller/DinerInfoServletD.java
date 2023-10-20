@@ -46,6 +46,9 @@ public class DinerInfoServletD extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
+			
+			DinerInfo dinerInfoRg = new DinerInfo(); // 創建一個 dinerInfo 對象，來儲存註冊者輸入的資料
+			
 			String dinerName = req.getParameter("dinerName");
 			String dinerNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9)]{1,15}$";
 			if (dinerName == null || dinerName.trim().length() == 0) {
@@ -53,7 +56,8 @@ public class DinerInfoServletD extends HttpServlet {
 			} else if (!dinerName.trim().matches(dinerNameReg)) {
 				errorMsgs.add("商家名稱 : 只能是中、英文字母、數字, 且長度必需在1到15之間");
 			}
-
+			dinerInfoRg.setDinerName(dinerName); // 存下註冊者輸入的資訊
+			
 //					密碼預設註冊時為EMAIL通知 , 這裡就不寫
 //					String dinerPassword = req.getParameter("dinerPassword");
 //					String dinerPasswordReg = "^[(a-zA-Z0-9_)]{6,10}$";
@@ -64,8 +68,9 @@ public class DinerInfoServletD extends HttpServlet {
 //		            }
 
 //					調用寫好的密碼產生器，產生一組預設的密碼
-			String temporaryPassword = DinerPasswordGenerator.generateTemporaryPassword(6);
-
+//			String temporaryPassword = DinerPasswordGenerator.generateTemporaryPassword(6);
+//			dinerInfoRg.setDinerPassword(temporaryPassword); // 存下密碼產生器產生的密碼
+			
 			String dinerTaxID = req.getParameter("dinerTaxID");
 			String dinerTaxIDReg = "^[(0-9)]{8}$";
 
@@ -74,13 +79,13 @@ public class DinerInfoServletD extends HttpServlet {
 			} else if (!dinerTaxID.trim().matches(dinerTaxIDReg)) {
 				errorMsgs.add("商家統編 : 只能是8個數字");
 			} else {
-
+				// 比對資料庫第一次 : 記錄錯誤選項
 				DinerInfo oldDiner = dinerInfoServiceImpl.getDinerInfoByDinerTaxID(dinerTaxID);
 				if (oldDiner != null) {
 					errorMsgs.add("商家統編 : 此統編已被註冊");
 				}
-
 			}
+			dinerInfoRg.setDinerTaxID(dinerTaxID); // 存下註冊者輸入的資訊
 
 			String dinerContact = req.getParameter("dinerContact");
 			String chineseNameReg = "^[\u4e00-\u9fa5]+$"; // 只能是中文，不含空格
@@ -97,6 +102,7 @@ public class DinerInfoServletD extends HttpServlet {
 					errorMsgs.add("聯絡人姓名 : 中文名稱不可有空格，英文名稱可有一個空格分隔姓與名");
 				}
 			}
+			dinerInfoRg.setDinerContact(dinerContact); // 存下註冊者輸入的資訊
 
 			String dinerPhone = req.getParameter("dinerPhone");
 			String dinerPhoneReg = "^09[0-9]{8}$";
@@ -105,12 +111,13 @@ public class DinerInfoServletD extends HttpServlet {
 			} else if (!dinerPhone.trim().matches(dinerPhoneReg)) {
 				errorMsgs.add("商家手機號碼 : 必須是09開頭的10個數字");
 			} else {
-
+				// 比對資料庫第一次 : 記錄錯誤選項
 				DinerInfo oldDiner = dinerInfoServiceImpl.getDinerInfoByDinerPhone(dinerPhone);
 				if (oldDiner != null) {
 					errorMsgs.add("商家手機號碼 : 此手機號碼已被註冊");
 				}
 			}
+			dinerInfoRg.setDinerPhone(dinerPhone); // 存下註冊者輸入的資訊
 
 			String dinerEmail = req.getParameter("dinerEmail");
 			String dinerEmailReg = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
@@ -121,12 +128,13 @@ public class DinerInfoServletD extends HttpServlet {
 			} else if (dinerInfoServiceImpl.getDinerInfoByDinerEmail(dinerEmail) != null) {
 				errorMsgs.add("商家Email  : 此Email已被註冊");
 			} else {
-
+				// 比對資料庫第一次 : 記錄錯誤選項
 				DinerInfo oldDiner = dinerInfoServiceImpl.getDinerInfoByDinerEmail(dinerEmail);
 				if (oldDiner != null) {
 					errorMsgs.add("商家Email : 此Email已被註冊");
 				}
 			}
+			dinerInfoRg.setDinerEmail(dinerEmail); // 存下註冊者輸入的資訊
 
 			String dinerAddress = req.getParameter("dinerAddress");
 			if (dinerAddress == null || dinerAddress.trim().length() == 0) {
@@ -141,6 +149,7 @@ public class DinerInfoServletD extends HttpServlet {
 					errorMsgs.add("商家地址 : 長度必須在6個字以上");
 				}
 			}
+			dinerInfoRg.setDinerAddress(dinerAddress); // 存下註冊者輸入的資訊
 
 			String dinerBank = req.getParameter("dinerBank");
 			String dinerBankReg = "^[(0-9)]{3}$";
@@ -150,6 +159,7 @@ public class DinerInfoServletD extends HttpServlet {
 				errorMsgs.add("商家銀行代號 : 僅能為3碼的數字");
 			}
 			// 這裡可以做 redius，目前先這樣
+			dinerInfoRg.setDinerBank(dinerBank); // 存下註冊者輸入的資訊
 
 			String dinerAccount = req.getParameter("dinerAccount");
 			String dinerAccountReg = "^[(0-9)]{10,16}$";
@@ -158,6 +168,7 @@ public class DinerInfoServletD extends HttpServlet {
 			} else if (!dinerAccount.trim().matches(dinerAccountReg)) { // 以下練習正則(規)表示式(regular-expression)
 				errorMsgs.add("商家銀行帳號 : 僅能為10~16碼的數字");
 			}
+			dinerInfoRg.setDinerAccount(dinerAccount);; // 存下註冊者輸入的資訊
 
 			String dinerAccountName = req.getParameter("dinerAccountName");
 			String dinerAccountNameReg = "^[(\u4e00-\u9fa5)]{1,25}$";
@@ -166,6 +177,7 @@ public class DinerInfoServletD extends HttpServlet {
 			} else if (!dinerAccountName.trim().matches(dinerAccountNameReg)) { // 以下練習正則(規)表示式(regular-expression)
 				errorMsgs.add("商家銀行戶名 : 僅能使用中文");
 			}
+			dinerInfoRg.setDinerAccountName(dinerAccountName); // 存下註冊者輸入的資訊
 
 			String dinerType = req.getParameter("dinerType");
 			if (dinerType == null || dinerType.trim().length() == 0) {
@@ -175,16 +187,20 @@ public class DinerInfoServletD extends HttpServlet {
 				errorMsgs.add("商家種類 : 選項不合法");
 			}
 			// 雖然前端選項寫死，還是稍微做個判定，增加安全性
+			dinerInfoRg.setDinerType(dinerType); // 存下註冊者輸入的資訊
 
-			DinerInfo dinerInfoRg = new DinerInfo(); // 創建一個 dinerInfo 對象，來儲存註冊者輸入的資料
-
+			
 			// Timestamp的當前時間設置
-			Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-			String dinerStatus = "Submitted";
+//			Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+//			dinerInfoRg.setDinerRegisterTime(currentTime);// 存下註冊者的註冊時間
+//			
+//			String dinerStatus = "Submitted";
+			// 註冊如果失敗，就不需要存下註冊者的商家狀態
+			// 這格應該是會資料庫自己新增，但是可以之後再試試看
 
-			dinerInfoRg = dinerInfoServiceImpl.registerCheckDinerInfo(dinerName, temporaryPassword, currentTime,
-					dinerTaxID, dinerContact, dinerPhone, dinerEmail, dinerAddress, dinerBank, dinerAccount,
-					dinerAccountName, dinerType, dinerStatus);
+//			dinerInfoRg = dinerInfoServiceImpl.registerCheckDinerInfo(dinerName, temporaryPassword, currentTime,
+//					dinerTaxID, dinerContact, dinerPhone, dinerEmail, dinerAddress, dinerBank, dinerAccount,
+//					dinerAccountName, dinerType, dinerStatus);
 
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
@@ -196,10 +212,22 @@ public class DinerInfoServletD extends HttpServlet {
 			}
 
 			/*************************** 2.開始新增資料 ***************************************/
-
-			HttpSession session = req.getSession();
-			session.setAttribute("NewDinerInfo", dinerInfoRg);
-			req.setAttribute("isRegistration", true);
+			
+			DinerInfo newDinerInfo = new DinerInfo();   // 創建一個容器，儲存與資料庫比對後，無重複的、可新增進資料庫的新註冊商家
+			newDinerInfo = dinerInfoServiceImpl.registerCheckDinerInfo(dinerInfoRg);
+			if (newDinerInfo != null) {
+				dinerInfoServiceImpl.registerDinerInfo(newDinerInfo);
+				HttpSession session = req.getSession();
+				session.setAttribute("NewDinerInfo", newDinerInfo);
+				req.setAttribute("isRegistration", true);
+			} 
+//			else {
+//				req.setAttribute("dinerInfo", dinerInfoRg); // 含有輸入格式錯誤的 dinerInfo 物件,也存入req
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/dinerbackground/pages/Team/register/register-form.jsp");
+//				failureView.forward(req, res);
+//				return;
+//			}
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			String url = "/dinerbackground/pages/Team/register/registerSuccess.html";

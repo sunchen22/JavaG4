@@ -12,8 +12,7 @@ public interface DinerInfoDAO {
 	// 此介面定義對資料庫的相關存取抽象方法
 	int add(DinerInfo dinerInfo);
 	
-	DinerInfo register(String dinerName, String dinerPassword, Timestamp dinerRegisterTime ,String dinerTaxID, String dinerContact, String dinerPhone, String dinerEmail, String dinerAddress,
-			String dinerBank, String dinerAccount, String dinerAccountName, String dinerType, String dinerStatus);
+	DinerInfo register(DinerInfo dinerInfo);
 	
 //	DinerInfo register(String dinerName, String dinerPassword, Timestamp dinerRegisterTime ,String dinerTaxID, String dinerContact, String dinerPhone, String dinerEmail, String dinerAddress,
 //			String dinerBank, String dinerAccount, String dinerAccountName, String dinerType, String dinerStatus);
@@ -34,6 +33,14 @@ public interface DinerInfoDAO {
 	
 	DinerInfo findByEmail(String  dinerEmail);
 	
+	//============ 以下三個方法用來比對資料庫不能重複的選項 ===========
+	
+	String isExistTaxID(String dinerTaxID);
+	String isExistEmail(String dinerEmail);
+	String isExistPhone(String dinerPhone);
+		
+	//======================================================
+
 	String compare(DinerInfo oldInfo, DinerInfo newInfo);
 	
 //	DinerInfo isValueExist(String column , String value);  // 註冊驗證 : 資料庫比對

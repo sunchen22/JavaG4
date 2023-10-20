@@ -40,6 +40,27 @@ public class DinerInfoServiceImpl implements DinerInfoService {
 		return dao.update(dinerInfo);
 	}
 
+	// 這個方法是註冊的時候用來分辨哪些是可以註冊、哪些是要記錄到session讓註冊者重填資料比較不麻煩的
+	// 傳入的 dinerInfo 是註冊者輸入的資訊
+	// 回傳的 dinerInfo 是要記錄到下一步，即將真正可以註冊的使用者容器(newDinerInfo)裡
+	@Override
+	public DinerInfo registerCheckDinerInfo(DinerInfo dinerInfo) {
+		String dinerTaxID = dinerInfo.getDinerTaxID();
+		String dinerPhone = dinerInfo.getDinerPhone();
+		String dinerEmail = dinerInfo.getDinerEmail();
+		if(dinerTaxID.equals(dao.isExistTaxID(dinerTaxID)) || dinerPhone.equals(dao.isExistPhone(dinerPhone)) || dinerEmail.equals(dao.isExistEmail(dinerEmail))) {
+			return null;
+		} else {
+			return dinerInfo;
+		}
+	}
+	
+	@Override
+	public DinerInfo registerDinerInfo(DinerInfo dinerInfo) {
+		dao.register(dinerInfo);
+		return dinerInfo;
+	}
+	
 //	@Override
 //	public DinerInfo registerDinerInfo(String dinerName, String dinerPassword, Timestamp dinerRegisterTime,
 //			String dinerTaxID, String dinerContact, String dinerPhone, String dinerEmail, String dinerAddress,
@@ -57,21 +78,21 @@ public class DinerInfoServiceImpl implements DinerInfoService {
 //		return null;
 //	}
 
-	@Override
-	public DinerInfo registerCheckDinerInfo(String dinerName, String dinerPassword, Timestamp dinerRegisterTime,
-			String dinerTaxID, String dinerContact, String dinerPhone, String dinerEmail, String dinerAddress,
-			String dinerBank, String dinerAccount, String dinerAccountName, String dinerType , String dinerStatus) {
-		
-	    //先確認 : 如果dinerTaxID、dinerEmail、dinerPhone有重複，就註冊不成功
-	    if (dao.findByTaxID(dinerTaxID) != null || dao.findByPhone(dinerPhone) != null || dao.findByEmail(dinerEmail) != null) {
-	    	return null;
-	    } else {
-	    	return dao.register(dinerName, dinerPassword, dinerRegisterTime, dinerTaxID, dinerContact, dinerPhone,
-					dinerEmail, dinerAddress, dinerBank, dinerAccount, dinerAccountName, dinerType ,dinerStatus);
-	    }
-	    
-	    
-	}
+//	@Override
+//	public DinerInfo registerCheckDinerInfo(String dinerName, String dinerPassword, Timestamp dinerRegisterTime,
+//			String dinerTaxID, String dinerContact, String dinerPhone, String dinerEmail, String dinerAddress,
+//			String dinerBank, String dinerAccount, String dinerAccountName, String dinerType , String dinerStatus) {
+//		
+//	    //先確認 : 如果dinerTaxID、dinerEmail、dinerPhone有重複，就註冊不成功
+//	    if (dao.findByTaxID(dinerTaxID) != null || dao.findByPhone(dinerPhone) != null || dao.findByEmail(dinerEmail) != null) {
+//	    	return null;
+//	    } else {
+//	    	return dao.register(dinerName, dinerPassword, dinerRegisterTime, dinerTaxID, dinerContact, dinerPhone,
+//					dinerEmail, dinerAddress, dinerBank, dinerAccount, dinerAccountName, dinerType ,dinerStatus);
+//	    }
+//	    
+//	    
+//	}
 
 //	@Override
 //	public DinerInfo registerDinerInfo(DinerInfo dinerinfo, String dinerName, String dinerPassword,

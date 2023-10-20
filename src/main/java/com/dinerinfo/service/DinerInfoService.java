@@ -16,10 +16,17 @@ public interface DinerInfoService {
 
 
 
-	DinerInfo registerCheckDinerInfo(String dinerName, String dinerPassword, Timestamp dinerRegisterTime,
-			String dinerTaxID, String dinerContact, String dinerPhone, String dinerEmail, String dinerAddress,
-			String dinerBank, String dinerAccount, String dinerAccountName, String dinerType , String dinerStatus) ;
+//	DinerInfo registerCheckDinerInfo(String dinerName, String dinerPassword, Timestamp dinerRegisterTime,
+//			String dinerTaxID, String dinerContact, String dinerPhone, String dinerEmail, String dinerAddress,
+//			String dinerBank, String dinerAccount, String dinerAccountName, String dinerType , String dinerStatus) ;
 
+	// 這個方法是註冊的時候用來分辨哪些是可以註冊、哪些是要記錄到session讓註冊者重填資料比較不麻煩的
+	DinerInfo registerCheckDinerInfo(DinerInfo dinerInfo) ;
+	
+	//這個方法才是真正的註冊，寫入資料庫
+	DinerInfo registerDinerInfo(DinerInfo dinerInfo) ;
+	
+	
 	Integer deleteDinerID(Integer dinerID);
 
 	DinerInfo getDinerInfoByDinerID(Integer dinerID);
