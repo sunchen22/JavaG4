@@ -2,6 +2,7 @@ package com.userinfo.entity;
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -118,13 +119,31 @@ public class UserInfo implements Serializable{
 		this.userBlob = userBlob;
 	}
 	
-	
 	@Override
 	public String toString() {
 		return "UserInfo [userID=" + userID + ", userAccount=" + userAccount + ", userPassword=" + userPassword
 				+ ", userPhone=" + userPhone + ", userName=" + userName + ", userRegisterTime=" + userRegisterTime
-				+ ", userNickName=" + userNickName + /* ", buildingID=" + buildingID + */ ", userBirthday=" + userBirthday
-				+ "]";
+				+ ", userNickName=" + userNickName + ", buildinginfo=" + buildinginfo + ", userBirthday=" + userBirthday
+				+ ", userBlob=" + Arrays.toString(userBlob) + "]";
+	}
+
+	public UserInfo() {
+	}
+	
+	public UserInfo(Integer userID, String userAccount, String userPassword, String userPhone, String userName,
+			Timestamp userRegisterTime, String userNickName, BuildingInfo buildinginfo, Date userBirthday,
+			byte[] userBlob) {
+		super();
+		this.userID = userID;
+		this.userAccount = userAccount;
+		this.userPassword = userPassword;
+		this.userPhone = userPhone;
+		this.userName = userName;
+		this.userRegisterTime = userRegisterTime;
+		this.userNickName = userNickName;
+		this.buildinginfo = buildinginfo;
+		this.userBirthday = userBirthday;
+		this.userBlob = userBlob;
 	}
 	
 

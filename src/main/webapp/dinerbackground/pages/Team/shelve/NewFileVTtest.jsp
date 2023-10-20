@@ -3,6 +3,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.varytype.dao.*"%>
 <%@ page import="com.varytype.entity.*"%>
+<%@ page import="com.varytype.service.*"%>
 <%
     VaryTypeService VTSvc = new VaryTypeService();
     List <VaryType> VTList= VTSvc.getAll();

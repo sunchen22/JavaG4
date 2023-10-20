@@ -1,19 +1,20 @@
-package com.product.model;
+package com.product.dao;
 
 import java.util.List;
-import java.util.Map;
+
+import com.product.entity.Product;
 
 public interface ProductDAO_interface {
 
-	public void insert(ProductVO productVO);
+	public void insert(Product product);
 
-	public void update(ProductVO productVO);
+	public void update(Product product);
 
 	public void delete(Integer productID);
 
-	public ProductVO findByPrimaryKey(Integer productID);
+	public Product findByPrimaryKey(Integer productID);
 
-	public List<ProductVO> getAll();
+	public List<Product> getAll();
 
 //	// 萬用複合查詢(傳入參數型態Map)(回傳 List)
 //	public List<ProductVO> getAll(Map<String, String[]> map);

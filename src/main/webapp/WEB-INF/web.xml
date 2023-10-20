@@ -112,5 +112,25 @@
 		<servlet-name>bglogin</servlet-name>
 		<url-pattern>/background/bglogin</url-pattern>
 	</servlet-mapping>	
+	
+	<!-- 查詢會員 -->
+	<servlet>
+		<servlet-name>UserInfo2Servlet</servlet-name>
+		<servlet-class>com.userinfo.controller.UserInfo2Servlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UserInfo2Servlet</servlet-name>
+		<url-pattern>/background/pages/user.do</url-pattern>
+	</servlet-mapping>
+	
+		<!-- 載入會員照片 -->
+	<servlet>
+		<servlet-name>UserImage</servlet-name>
+		<servlet-class>com.userinfo.controller.UserImage</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UserImage</servlet-name>
+		<url-pattern>/background/pages/UserImage</url-pattern>
+	</servlet-mapping>	
 
 </web-app>
