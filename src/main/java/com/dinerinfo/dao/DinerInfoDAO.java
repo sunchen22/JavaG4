@@ -11,12 +11,33 @@ import com.dinerinfo.entity.DinerInfo;
 public interface DinerInfoDAO {
 	// 此介面定義對資料庫的相關存取抽象方法
 	int add(DinerInfo dinerInfo);
+	
 	DinerInfo register(String dinerName, String dinerPassword, Timestamp dinerRegisterTime ,String dinerTaxID, String dinerContact, String dinerPhone, String dinerEmail, String dinerAddress,
 			String dinerBank, String dinerAccount, String dinerAccountName, String dinerType, String dinerStatus);
+	
+//	DinerInfo register(String dinerName, String dinerPassword, Timestamp dinerRegisterTime ,String dinerTaxID, String dinerContact, String dinerPhone, String dinerEmail, String dinerAddress,
+//			String dinerBank, String dinerAccount, String dinerAccountName, String dinerType, String dinerStatus);
+	
+	
+	
+//	DinerInfo change(DinerInfo dinerInfoChange , DinerInfo oldDinerInfo);
+	
 	DinerInfo update(DinerInfo dinerInfo);
+	
 	int delete(Integer dinerID);
+	
 	DinerInfo findByPK(Integer  dinerID);
+	
 	DinerInfo findByTaxID(String  dinerTaxID);
+
+	DinerInfo findByPhone(String  dinerPhone);
+	
+	DinerInfo findByEmail(String  dinerEmail);
+	
+	String compare(DinerInfo oldInfo, DinerInfo newInfo);
+	
+//	DinerInfo isValueExist(String column , String value);  // 註冊驗證 : 資料庫比對
+	
 	List<DinerInfo> getAll();
 	
 	List<DinerInfo> getByCompositeQuery(Map<String, String> map);

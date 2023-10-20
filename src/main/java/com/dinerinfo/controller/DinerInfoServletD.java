@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.dinerinfo.entity.DinerInfo;
 import com.dinerinfo.service.DinerInfoServiceImpl;
+import com.google.gson.Gson;
 
 public class DinerInfoServletD extends HttpServlet {
 
@@ -35,7 +36,7 @@ public class DinerInfoServletD extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 
-//		=========================== 註冊 =============================
+//		=========================== 註冊 ======================================================	
 
 		if ("insert".equals(action)) { // 如果接收到的是insert，代表來自 register-form.jsp 的請求
 
@@ -67,10 +68,18 @@ public class DinerInfoServletD extends HttpServlet {
 
 			String dinerTaxID = req.getParameter("dinerTaxID");
 			String dinerTaxIDReg = "^[(0-9)]{8}$";
+
 			if (dinerTaxID == null || dinerTaxID.trim().length() == 0) {
 				errorMsgs.add("商家統編 : 請勿空白");
 			} else if (!dinerTaxID.trim().matches(dinerTaxIDReg)) {
 				errorMsgs.add("商家統編 : 只能是8個數字");
+			} else {
+
+				DinerInfo oldDiner = dinerInfoServiceImpl.getDinerInfoByDinerTaxID(dinerTaxID);
+				if (oldDiner != null) {
+					errorMsgs.add("商家統編 : 此統編已被註冊");
+				}
+
 			}
 
 			String dinerContact = req.getParameter("dinerContact");
@@ -95,6 +104,12 @@ public class DinerInfoServletD extends HttpServlet {
 				errorMsgs.add("商家手機號碼 : 請勿空白");
 			} else if (!dinerPhone.trim().matches(dinerPhoneReg)) {
 				errorMsgs.add("商家手機號碼 : 必須是09開頭的10個數字");
+			} else {
+
+				DinerInfo oldDiner = dinerInfoServiceImpl.getDinerInfoByDinerPhone(dinerPhone);
+				if (oldDiner != null) {
+					errorMsgs.add("商家手機號碼 : 此手機號碼已被註冊");
+				}
 			}
 
 			String dinerEmail = req.getParameter("dinerEmail");
@@ -103,6 +118,14 @@ public class DinerInfoServletD extends HttpServlet {
 				errorMsgs.add("商家Email : 請勿空白");
 			} else if (!dinerEmail.trim().matches(dinerEmailReg)) {
 				errorMsgs.add("商家Email : 輸入的不是有效的Email地址 ");
+			} else if (dinerInfoServiceImpl.getDinerInfoByDinerEmail(dinerEmail) != null) {
+				errorMsgs.add("商家Email  : 此Email已被註冊");
+			} else {
+
+				DinerInfo oldDiner = dinerInfoServiceImpl.getDinerInfoByDinerEmail(dinerEmail);
+				if (oldDiner != null) {
+					errorMsgs.add("商家Email : 此Email已被註冊");
+				}
 			}
 
 			String dinerAddress = req.getParameter("dinerAddress");
@@ -153,28 +176,15 @@ public class DinerInfoServletD extends HttpServlet {
 			}
 			// 雖然前端選項寫死，還是稍微做個判定，增加安全性
 
-			DinerInfo dinerInfoRg = new DinerInfo();   // 創建一個 dinerInfo 對象，來儲存註冊者輸入的資料
+			DinerInfo dinerInfoRg = new DinerInfo(); // 創建一個 dinerInfo 對象，來儲存註冊者輸入的資料
 
 			// Timestamp的當前時間設置
 			Timestamp currentTime = new Timestamp(System.currentTimeMillis());
 			String dinerStatus = "Submitted";
-			
-			dinerInfoRg = dinerInfoServiceImpl.registerDinerInfo(dinerName, temporaryPassword, 
-					currentTime, dinerTaxID, dinerContact, dinerPhone, dinerEmail, dinerAddress,
-					dinerBank, dinerAccountName, dinerAccountName, dinerType, dinerStatus);
-//			dinerInfoRg.setDinerName(dinerName);
-//			dinerInfoRg.setDinerPassword(temporaryPassword);
-//			dinerInfoRg.setDinerRegisterTime(currentTime);
-//			dinerInfoRg.setDinerTaxID(dinerTaxID);
-//			dinerInfoRg.setDinerContact(dinerContact);
-//			dinerInfoRg.setDinerPhone(dinerPhone);
-//			dinerInfoRg.setDinerEmail(dinerEmail);
-//			dinerInfoRg.setDinerAddress(dinerAddress);
-//			dinerInfoRg.setDinerBank(dinerBank);
-//			dinerInfoRg.setDinerAccount(dinerAccount);
-//			dinerInfoRg.setDinerAccountName(dinerAccountName);
-//			dinerInfoRg.setDinerType(dinerType);
-//			dinerInfoRg.setDinerStatus("Submitted");
+
+			dinerInfoRg = dinerInfoServiceImpl.registerCheckDinerInfo(dinerName, temporaryPassword, currentTime,
+					dinerTaxID, dinerContact, dinerPhone, dinerEmail, dinerAddress, dinerBank, dinerAccount,
+					dinerAccountName, dinerType, dinerStatus);
 
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
@@ -187,12 +197,9 @@ public class DinerInfoServletD extends HttpServlet {
 
 			/*************************** 2.開始新增資料 ***************************************/
 
-//			DinerInfoDAOHibernateImpl dinerInfoSvc = new DinerInfoDAOHibernateImpl();
-//			dinerInfoServiceImpl.getDao().add(dinerInfoRg);
 			HttpSession session = req.getSession();
 			session.setAttribute("NewDinerInfo", dinerInfoRg);
 			req.setAttribute("isRegistration", true);
-			
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			String url = "/dinerbackground/pages/Team/register/registerSuccess.html";
@@ -200,7 +207,7 @@ public class DinerInfoServletD extends HttpServlet {
 			successView.forward(req, res);
 		}
 
-//			=========================== 登入 =============================	
+//			=========================== 登入 ======================================================	
 
 		if ("dinerLogin".equals(action)) { // 來自login-form.jsp的請求 ， 相當於整個表單送出後的請求
 
@@ -233,7 +240,8 @@ public class DinerInfoServletD extends HttpServlet {
 			dinerInfoBlg.setDinerTaxID(dinerTaxID);
 			dinerInfoBlg.setDinerPassword(dinerPassword);
 
-			DinerInfo dinerInfoAlg = dinerInfoServiceImpl.getDinerInfoByDinerTaxID(dinerTaxID); // 創建一個新的 dinerInfo 容器引入使用者在資料庫裡的舊密碼
+			DinerInfo dinerInfoAlg = dinerInfoServiceImpl.getDinerInfoByDinerTaxID(dinerTaxID); // 創建一個新的 dinerInfo
+																								// 容器引入使用者在資料庫裡的舊密碼
 
 			if (dinerInfoAlg == null) {
 				errorMsgs.add("查無該帳號");
@@ -264,6 +272,168 @@ public class DinerInfoServletD extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 info-change.jsp
 			successView.forward(req, res);
 		}
+
+//		=========================== 送出商家資料修改 ======================================================			
+
+//		if ("dinerInfoChange".equals(action)) { // 如果接收到的是 dinerInfoChange，代表來自 info-change.jsp 的請求
+//
+//			List<String> errorMsgs = new LinkedList<String>();
+//			// Store this set in the request scope, in case we need to
+//			// send the ErrorPage view.
+//			req.setAttribute("errorMsgs", errorMsgs);
+//
+//			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
+//
+//			String dinerName = req.getParameter("dinerName");
+//			String dinerNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9)]{1,15}$";
+//			if (dinerName == null || dinerName.trim().length() == 0) {
+//				errorMsgs.add("商家名稱 : 請勿空白");
+//			} else if (!dinerName.trim().matches(dinerNameReg)) {
+//				errorMsgs.add("商家名稱 : 只能是中、英文字母、數字, 且長度必需在1到15之間");
+//			}
+//
+//			String dinerPassword = req.getParameter("dinerPassword");
+//			String dinerPasswordReg = "^[(a-zA-Z0-9@#*+.)]{6,15}$";
+//			if (dinerPassword == null || dinerPassword.trim().length() == 0) {
+//				errorMsgs.add("密碼 : 請勿空白");
+//			} else if (!dinerPassword.trim().matches(dinerPassword)) {
+//				errorMsgs.add("密碼 : 僅能為英文大小寫、數字、和 @ # * + . 五個符號所組成 , 且長度必需在6到15之間");
+//			}	
+//			
+//			String dinerTaxID = req.getParameter("dinerTaxID");
+//			String dinerTaxIDReg = "^[(0-9)]{8}$";
+//			if (dinerTaxID == null || dinerTaxID.trim().length() == 0) {
+//				errorMsgs.add("商家統編 : 請勿空白");
+//			} else if (!dinerTaxID.trim().matches(dinerTaxIDReg)) {
+//				errorMsgs.add("商家統編 : 只能是8個數字");
+//			}
+//
+//			String dinerContact = req.getParameter("dinerContact");
+//			String chineseNameReg = "^[\u4e00-\u9fa5]+$"; // 只能是中文，不含空格
+//			String englishNameReg = "^[a-zA-Z]+(\\s[a-zA-Z]+)?$"; // 只能是英文，允許一個空格
+//
+//			if (dinerContact == null || dinerContact.trim().length() == 0) {
+//				errorMsgs.add("聯絡人姓名 : 請勿空白");
+//			} else {
+//				if (dinerContact.matches(chineseNameReg)) {
+//					// 中文名稱，不含空格
+//				} else if (dinerContact.matches(englishNameReg)) {
+//					// 英文名稱，允許一個空格
+//				} else {
+//					errorMsgs.add("聯絡人姓名 : 中文名稱不可有空格，英文名稱可有一個空格分隔姓與名");
+//				}
+//			}
+//
+//			String dinerPhone = req.getParameter("dinerPhone");
+//			String dinerPhoneReg = "^09[0-9]{8}$";
+//			if (dinerPhone == null || dinerPhone.trim().length() == 0) {
+//				errorMsgs.add("商家手機號碼 : 請勿空白");
+//			} else if (!dinerPhone.trim().matches(dinerPhoneReg)) {
+//				errorMsgs.add("商家手機號碼 : 必須是09開頭的10個數字");
+//			}
+//
+//			String dinerEmail = req.getParameter("dinerEmail");
+//			String dinerEmailReg = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+//			if (dinerEmail == null || dinerEmail.trim().length() == 0) {
+//				errorMsgs.add("商家Email : 請勿空白");
+//			} else if (!dinerEmail.trim().matches(dinerEmailReg)) {
+//				errorMsgs.add("商家Email : 輸入的不是有效的Email地址 ");
+//			}
+//
+//			String dinerAddress = req.getParameter("dinerAddress");
+//			if (dinerAddress == null || dinerAddress.trim().length() == 0) {
+//				errorMsgs.add("商家地址 : 請勿空白");
+//			} else {
+//				// 判定是否為台北市或新北市
+//				if (!dinerAddress.trim().matches(".*(台北市|新北市|臺北市).*")) {
+//					errorMsgs.add("商家地址 : 目前僅開放台北市和新北市");
+//				}
+//				// 判定地址長度是否在6個字以上
+//				if (dinerAddress.trim().length() < 6) {
+//					errorMsgs.add("商家地址 : 長度必須在6個字以上");
+//				}
+//			}
+//
+//			String dinerBank = req.getParameter("dinerBank");
+//			String dinerBankReg = "^[(0-9)]{3}$";
+//			if (dinerBank == null || dinerBank.trim().length() == 0) {
+//				errorMsgs.add("商家銀行代號 : 請勿空白");
+//			} else if (!dinerBank.trim().matches(dinerBankReg)) {
+//				errorMsgs.add("商家銀行代號 : 僅能為3碼的數字");
+//			}
+//			// 這裡可以做 redius，目前先這樣
+//
+//			String dinerAccount = req.getParameter("dinerAccount");
+//			String dinerAccountReg = "^[(0-9)]{10,16}$";
+//			if (dinerAccount == null || dinerAccount.trim().length() == 0) {
+//				errorMsgs.add("商家銀行帳號 : 請勿空白");
+//			} else if (!dinerAccount.trim().matches(dinerAccountReg)) { // 以下練習正則(規)表示式(regular-expression)
+//				errorMsgs.add("商家銀行帳號 : 僅能為10~16碼的數字");
+//			}
+//
+//			String dinerAccountName = req.getParameter("dinerAccountName");
+//			String dinerAccountNameReg = "^[(\u4e00-\u9fa5)]{1,25}$";
+//			if (dinerAccountName == null || dinerAccountName.trim().length() == 0) {
+//				errorMsgs.add("商家銀行戶名 : 請勿空白");
+//			} else if (!dinerAccountName.trim().matches(dinerAccountNameReg)) { // 以下練習正則(規)表示式(regular-expression)
+//				errorMsgs.add("商家銀行戶名 : 僅能使用中文");
+//			}
+//
+//			String dinerType = req.getParameter("dinerType");
+//			if (dinerType == null || dinerType.trim().length() == 0) {
+//				errorMsgs.add("商家種類 : 請勿空白");
+//			} else if (!"M".equals(dinerType.trim()) && !"D".equals(dinerType.trim())
+//					&& !"X".equals(dinerType.trim())) {
+//				errorMsgs.add("商家種類 : 選項不合法");
+//			}
+//			// 雖然前端選項寫死，還是稍微做個判定，增加安全性
+//			
+//			// 查詢使用者在資料庫的原始資料，並轉為 Json 格式
+//			Integer dinerID = Integer.parseInt(req.getParameter("dinerID"));
+//			DinerInfo oldInfo = dinerInfoServiceImpl.getDinerInfoByDinerID(dinerID);
+//			// 創建一個 dinerInfo 對象，來儲存使用者輸入的資料
+//			DinerInfo newInfo = new DinerInfo();
+//			newInfo.setDinerName(dinerName);
+//			newInfo.setDinerName(dinerPassword);
+//			newInfo.setDinerName(dinerTaxID);
+//			newInfo.setDinerName(dinerContact);
+//			newInfo.setDinerName(dinerPhone);
+//			newInfo.setDinerName(dinerEmail);
+//			newInfo.setDinerName(dinerAddress);
+//			newInfo.setDinerName(dinerBank);
+//			newInfo.setDinerName(dinerAccount);
+//			newInfo.setDinerName(dinerAccountName);
+//			newInfo.setDinerName(dinerType);
+//			
+//			// 將原始資料、使用者填寫的欄位送進資料庫比對哪個欄位有做修改
+//			// 用 dao 裡的方法回傳一個 JSON 格式，存入 dinerUpdate 欄位中
+//			String difference = dinerInfoServiceImpl.compareDinerInfo(oldInfo, newInfo);
+//			oldInfo.setDinerUpdate(difference);
+//			oldInfo = dinerInfoServiceImpl.updateDinerInfo(oldInfo);
+//			
+//			// Send the use back to the form, if there were errors
+//			if (!errorMsgs.isEmpty()) {
+//				req.setAttribute("dinerEdit", newInfo); // 含有輸入格式錯誤的 dinerInfo 物件,存入req
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/dinerbackground/pages/Team/dashboard/info-change.jsp");
+//				failureView.forward(req, res);
+//				return;
+//			}
+//
+//			/*************************** 2.開始新增資料 ***************************************/
+//
+//			
+//			HttpSession session = req.getSession();
+//			session.setAttribute("DinerInfoChange", difference);
+//			req.setAttribute("isChange", true);
+//			req.setAttribute("successMsg", "修改申請已送出，請靜待審核");
+//
+//			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
+//			String url = "/dinerbackground/pages/Team/dashboard/info-change.jsp";
+//			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交 registerSuccess.html
+//			successView.forward(req, res);
+//		}
+
 	}
 
 }

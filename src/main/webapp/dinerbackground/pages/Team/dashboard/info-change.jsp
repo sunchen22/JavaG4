@@ -5,7 +5,7 @@
 
 <% 
 // 	DinerInfoServiceImpl dinerSvc = new DinerInfoServiceImpl();
-// 	DinerInfo dinerInfoBc = dinerSvc.getDinerInfoByDinerID(1);
+// 	DinerInfo account = dinerSvc.getDinerInfoByDinerID(1);
 	//測試用，之後順利連結頁面後要改以下這種
 	
 	DinerInfo account = (DinerInfo)session.getAttribute("account");
@@ -300,6 +300,21 @@
                 <p class="login-box-msg">送出需要修改的資訊後，將有專人與您聯絡</p>
                 <p class="login-box-msg">確認資訊無誤後，將為您更新資訊</p>
 
+					<%-- 錯誤表列 --%>
+				<c:if test="${not empty errorMsgs}">
+					<font style="color: red">請修正以下錯誤:</font>
+					<ul>
+						<c:forEach var="message" items="${errorMsgs}">
+							<li style="color: red">${message}</li>
+						</c:forEach>
+					</ul>
+					
+				</c:if>
+					<%-- 申請成功表列 --%>
+<%-- 				<c:if test="${not empty successMsg}"> --%>
+<%--     				<font style="color: green">${successMsg}</font> --%>
+<%-- 				</c:if> --%>
+				
 
                 <form action="<%=request.getContextPath()%>/dinerbackground/pages/Team/dashboard/dinerInfo.do"
                  method="post">
@@ -307,7 +322,6 @@
                   <div class="row">
                     <!-- 商店名稱 -->
                     <div class="input-group mb-3 col-6">
-<%--                       <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerName()%>"> --%>
                       <input type="text" name="dinerName" class="form-control" placeholder="商店名稱"
                       		value="<%=account.getDinerName()%>">
                       <div class="input-group-append">
@@ -319,9 +333,6 @@
 
                     <!-- 銀行帳戶 銀行代碼 -->
                     <div class="input-group mb-3 col-6">
-<%--                       <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerBank()%>"> --%>
-<!-- 							以上為測試單獨頁面用 -->
-
                       <input type="text" name="dinerBank" class="form-control" placeholder="銀行帳戶 銀行代碼 " 
                       		value="<%=account.getDinerBank()%>">
                       <div class="input-group-append">
@@ -333,8 +344,6 @@
 
                     <!-- 商店地址 -->
                     <div class="input-group mb-3 col-6">
-<%--                       <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerAddress()%>"> --%>
-<!-- 							以上為測試單獨頁面用 -->
                       <input type="text" name="dinerAddress" class="form-control" placeholder="商店地址" 
                       		value="<%=account.getDinerAddress()%>">
                       <div class="input-group-append">
@@ -347,8 +356,6 @@
 
                     <!-- 銀行帳戶 帳戶號碼 -->
                     <div class="input-group mb-3 col-6">
-<%--                       <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerAccount()%>"> --%>
-<!-- 							以上為測試單獨頁面用 -->
                       <input type="text" name="dinerAccount" class="form-control" placeholder="銀行帳戶 帳戶號碼" 
                       		value="<%=account.getDinerAccount()%>">
                       <div class="input-group-append">
@@ -360,8 +367,6 @@
 
                     <!-- 聯絡人姓名 -->
                     <div class="input-group mb-3 col-6">
-<%--                       <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerContact()%>"> --%>
-<!-- 							以上為測試單獨頁面用 -->
                       <input type="text" name="dinerContact" class="form-control" placeholder="聯絡人姓名"
                       		 value="<%=account.getDinerContact()%>">
                       <div class="input-group-append">
@@ -373,8 +378,6 @@
 
                     <!-- 銀行帳戶 戶名 -->
                     <div class="input-group mb-3 col-6">
-<%--                       <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerAccountName()%>"> --%>
-<!-- 							以上為測試單獨頁面用 -->
                       <input type="text" class="form-control" name="dinerAccountName" placeholder="銀行帳戶 戶名" 
                       		value="<%=account.getDinerAccountName()%>">
                       <div class="input-group-append">
@@ -387,8 +390,6 @@
 
                     <!-- 聯絡電話  請留手機號碼-->
                     <div class="input-group mb-3 col-6">
-<%--                       <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerPhone()%>"> --%>
-<!-- 							以上為測試單獨頁面用 -->
                       <input type="text" name="dinerPhone" class="form-control" placeholder="聯絡電話 (請填寫手機)"
                       		value="<%=account.getDinerPhone()%>">
                       <div class="input-group-append">
@@ -400,8 +401,6 @@
 
                     <!-- 聯絡人email  -->
                     <div class="input-group mb-3 col-6">
-<%--                       <input type="email" class="form-control" value="<%=dinerInfoBc.getDinerEmail()%>"> --%>
-<!-- 							以上為測試單獨頁面用 -->
                       <input type="email" name="dinerEmail" class="form-control" placeholder="聯絡人email"
                       		value="<%=account.getDinerEmail()%>">
                       <div class="input-group-append">
@@ -412,8 +411,6 @@
                     </div>
                     <!-- 統編  (將來會作為登入帳號使用) -->
                     <div class="input-group mb-3 col-6">
-<%--                       <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerTaxID()%>"> --%>
-<!-- 							以上為測試單獨頁面用 -->
                       <input type="text" name="dinerTaxID" class="form-control" placeholder="統編"
                       		value="<%=account.getDinerTaxID()%>">
                       <div class="input-group-append">
@@ -437,16 +434,12 @@
                         </select>
                       </div>
                     </div>
-
-
-
                   </div>
 
-
+				<!-- 密碼 -->
                   <div class="row">
                    <div class="input-group mb-3 col-6">
-<%--                       <input type="text" class="form-control" value="<%=dinerInfoBc.getDinerTaxID()%>"> --%>
-<!-- 							以上為測試單獨頁面用 -->
+
                       <input type="text" class="form-control" value="<%=account.getDinerTaxID()%>">
                       <div class="input-group-append">
                         <div class="input-group-text">
@@ -456,7 +449,13 @@
                     </div>
                     <!-- /.col -->
                     <div class="col-4 mr-1">
+                    
+                      <input type="hidden" name="dinerID" value="<%=account.getDinerID()%>">                      
+                      <input type="hidden" name="action" value="dinerInfoChange">
+					  <!--這個隱藏格是為了再送出整個表單時有個錨定點 -->
                       <button type="submit" class="btn btn-primary btn-block">確認修改</button>
+<!--                       <button type="submit" class="btn btn-primary btn-block" onclick="submitForm()">確認修改</button> -->
+
                     </div>
                     <!-- /.col -->
                   </div>
@@ -499,17 +498,28 @@
 
       <!-- PAGE PLUGINS -->
       <!-- jQuery Mapael -->
-      <script src="../../../../plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
-      <script src="../../../../plugins/raphael/raphael.min.js"></script>
-      <script src="../../../../plugins/jquery-mapael/jquery.mapael.min.js"></script>
-      <script src="../../../../plugins/jquery-mapael/maps/usa_states.min.js"></script>
+      <script src="../../../plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
+      <script src="../../../plugins/raphael/raphael.min.js"></script>
+      <script src="../../../plugins/jquery-mapael/jquery.mapael.min.js"></script>
+      <script src="../../../plugins/jquery-mapael/maps/usa_states.min.js"></script>
       <!-- ChartJS -->
-      <script src="../../../../plugins/chart.js/Chart.min.js"></script>
+      <script src="../../../plugins/chart.js/Chart.min.js"></script>
 
       <!-- AdminLTE for demo purposes -->
-      <script src="../../../../dist/js/demo.js"></script>
+      <script src="../../../dist/js/demo.js"></script>
       <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-      <script src="../../../../dist/js/pages/dashboard2.js"></script>
+      <script src="../../../dist/js/pages/dashboard2.js"></script>
+
+<!--       <script> -->
+//       		function submitForm() {
+//       		    event.preventDefault(); // 阻止表單的默认提交行为
+//       		    var r = confirm("修改申請已送出，請靜待審核");
+//       		    if (r == true) {
+//       		        document.forms["myForm"].submit(); // 提交表單
+//       		    }
+//       		}
+<!--       </script> -->
+
 </body>
 
 </html>
