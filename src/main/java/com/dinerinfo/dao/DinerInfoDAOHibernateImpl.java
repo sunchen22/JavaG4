@@ -37,10 +37,10 @@ public class DinerInfoDAOHibernateImpl implements DinerInfoDAO {
 		// Timestamp的當前時間設置
 		Timestamp currentTime = new Timestamp(System.currentTimeMillis());
 		dinerInfo.setDinerRegisterTime(currentTime);// 存下註冊者的註冊時間
- 		// 調用寫好的密碼產生器，產生一組預設的密碼
+		// 調用寫好的密碼產生器，產生一組預設的密碼
 		String temporaryPassword = DinerPasswordGenerator.generateTemporaryPassword(6);
-		dinerInfo.setDinerPassword(temporaryPassword); // 存下密碼產生器產生的密碼	
-		
+		dinerInfo.setDinerPassword(temporaryPassword); // 存下密碼產生器產生的密碼
+
 		String dinerStatus = "Submitted";
 		dinerInfo.setDinerStatus(dinerStatus);
 
@@ -127,66 +127,44 @@ public class DinerInfoDAOHibernateImpl implements DinerInfoDAO {
 
 	@Override
 	public DinerInfo findByTaxID(String dinerTaxID) {
-		Session session = getSession();
-		org.hibernate.Transaction tx = null;
 		try {
-			tx = session.beginTransaction(); // 開始事務
-
 			String hql = "FROM DinerInfo WHERE dinerTaxID  = :dinerTaxID";
 			Query<DinerInfo> query = getSession().createQuery(hql, DinerInfo.class);
 			query.setParameter("dinerTaxID", dinerTaxID);
 			DinerInfo dinerInfo = query.uniqueResult(); // 因為dinerTaxID應該是唯一的，所以使用uniqueResult()取得單一結果
-
-			tx.commit(); // 提交事務
 			return dinerInfo; // 成功的話，回傳 dinerInfo 物件
 		} catch (Exception e) {
-			if (tx != null)
-				tx.rollback();
-			return null;
+			e.printStackTrace();
 		}
+		return null;
 	}
 
 	@Override
 	public DinerInfo findByPhone(String dinerPhone) {
-		Session session = getSession();
-		org.hibernate.Transaction tx = null;
 		try {
-			tx = session.beginTransaction(); // 開始事務
-
 			String hql = "FROM DinerInfo WHERE dinerPhone  = :dinerPhone";
 			Query<DinerInfo> query = getSession().createQuery(hql, DinerInfo.class);
 			query.setParameter("dinerPhone", dinerPhone);
-			DinerInfo dinerInfo = query.uniqueResult(); // 因為dinerPhone應該是唯一的，所以使用uniqueResult()取得單一結果
-
-			tx.commit(); // 提交事務
+			DinerInfo dinerInfo = query.uniqueResult(); // 因為dinerTaxID應該是唯一的，所以使用uniqueResult()取得單一結果
 			return dinerInfo; // 成功的話，回傳 dinerInfo 物件
 		} catch (Exception e) {
-			if (tx != null)
-				tx.rollback();
-			return null;
+			e.printStackTrace();
 		}
+		return null;
 	}
 
 	@Override
 	public DinerInfo findByEmail(String dinerEmail) {
-
-		Session session = getSession();
-		org.hibernate.Transaction tx = null;
 		try {
-			tx = session.beginTransaction(); // 開始事務
-
 			String hql = "FROM DinerInfo WHERE dinerEmail  = :dinerEmail";
 			Query<DinerInfo> query = getSession().createQuery(hql, DinerInfo.class);
 			query.setParameter("dinerEmail", dinerEmail);
-			DinerInfo dinerInfo = query.uniqueResult(); // 因為dinerEmail應該是唯一的，所以使用uniqueResult()取得單一結果
-
-			tx.commit(); // 提交事務
+			DinerInfo dinerInfo = query.uniqueResult(); // 因為dinerTaxID應該是唯一的，所以使用uniqueResult()取得單一結果
 			return dinerInfo; // 成功的話，回傳 dinerInfo 物件
 		} catch (Exception e) {
-			if (tx != null)
-				tx.rollback();
-			return null;
+			e.printStackTrace();
 		}
+		return null;
 	}
 
 	// ============ 以下三個方法用來比對資料庫不能重複的選項 ===========
