@@ -409,12 +409,13 @@
                         </div>
                       </div>
                     </div>
+                    
                     <!-- 統編  (將來會作為登入帳號使用) -->
                     <div class="input-group mb-3 col-6">
                       <input type="text" name="dinerTaxID" class="form-control" placeholder="統編"
                       		value="<%=account.getDinerTaxID()%>">
-                      <div class="input-group-append">
-                        <div class="input-group-text">
+                      <div class="input-group-append ">
+                        <div class="input-group-text ">
                           <span class="fas fa-signature"></span>
                         </div>
                       </div>
@@ -422,11 +423,11 @@
                 
   
                     <!-- 請問您販售的商品是甚麼類型? * -->
-                    <div class="form-group form-inline mb-3 col-6 row">
+                    <div class="form-group form-inline mb-3 col row">
                       <div class="col-4" style="text-align: right;">
                         <label for="dinerType">您販售的商品類型</label>
                       </div>
-                      <div class="col-8">
+                      <div class="col">
                         <select name="dinerType" class="form-control w-100">
                           <option value="M" <%= (account.getDinerType() != null && account.getDinerType().equals("M")) ? "selected" : "" %> >單純餐點</option>
     					  <option value="D" <%= (account.getDinerType() != null && account.getDinerType().equals("D")) ? "selected" : "" %> >單純飲料</option>
@@ -440,10 +441,10 @@
                   <div class="row">
                    <div class="input-group mb-3 col-6">
 
-                      <input type="text" class="form-control" value="<%=account.getDinerTaxID()%>">
+                      <input type="text" class="form-control" value="<%=account.getDinerPassword()%>">
                       <div class="input-group-append">
                         <div class="input-group-text">
-                          <span class="fas fa-signature"></span>
+                          <span class="fas fa-lock"></span>
                         </div>
                       </div>
                     </div>
@@ -510,15 +511,15 @@
       <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
       <script src="../../../dist/js/pages/dashboard2.js"></script>
 
-<!--       <script> -->
-//       		function submitForm() {
-//       		    event.preventDefault(); // 阻止表單的默认提交行为
-//       		    var r = confirm("修改申請已送出，請靜待審核");
-//       		    if (r == true) {
-//       		        document.forms["myForm"].submit(); // 提交表單
-//       		    }
-//       		}
-<!--       </script> -->
+      <script>
+      		function submitForm() {
+       		    event.preventDefault(); // 阻止表單的默认提交行为
+      		    var r = confirm("修改申請已送出，請靜待審核");
+      		    if (r == true) {
+      		        document.forms["myForm"].submit(); // 提交表單
+      		    }
+      		}
+      </script> 
 
 </body>
 
