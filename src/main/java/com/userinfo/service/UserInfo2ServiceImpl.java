@@ -74,19 +74,17 @@ public class UserInfo2ServiceImpl implements UserInfo2Service {
 			}
 			// 若是value為空即代表沒有查詢條件，做個去除動作 //檢查value有沒有資料
 			String value = row.getValue()[0]; //getValue拿到一個String陣列,接著[0]取得第一個元素檢查
-//			if (value.isEmpty() || value == null) { //算是比較不好的寫法 因為若剛好這個值是null則程式會發生例外
 			if (value == null || value.isEmpty()) { //比較好的寫法，先確認此值有沒有位置
 				continue;
 			}
 			query.put(key, value); //有資料就交給map
 		}
-				
 		return dao.getByCompositeQuery(query); //回傳List
 	}
 
 	@Override
 	public int getPageTotal() { //分頁邏輯
-		long total = dao.getTotal(); // 計算Emp數量每頁3筆的話總共有幾頁
+		long total = dao.getTotal();
 		int pageQty = (int)(total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
 		return pageQty;
 	}
