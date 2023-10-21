@@ -60,43 +60,6 @@ public class DinerInfoDAOHibernateImpl implements DinerInfoDAO {
 		return dinerInfo;
 	}
 
-//	@Override
-//	public DinerInfo register(String dinerName, String dinerPassword, Timestamp dinerRegisterTime, String dinerTaxID,
-//			String dinerContact, String dinerPhone, String dinerEmail, String dinerAddress, String dinerBank,
-//			String dinerAccount, String dinerAccountName, String dinerType, String dinerStatus) {
-//
-//		DinerInfo dinerInfo = new DinerInfo();
-//
-//		dinerInfo.setDinerName(dinerName);
-//		dinerInfo.setDinerPassword(dinerPassword);
-//		dinerInfo.setDinerRegisterTime(dinerRegisterTime);
-//		dinerInfo.setDinerTaxID(dinerTaxID);
-//		dinerInfo.setDinerContact(dinerContact);
-//		dinerInfo.setDinerPhone(dinerPhone);
-//		dinerInfo.setDinerEmail(dinerEmail);
-//		dinerInfo.setDinerAddress(dinerAddress);
-//		dinerInfo.setDinerBank(dinerBank);
-//		dinerInfo.setDinerAccount(dinerAccount);
-//		dinerInfo.setDinerAccountName(dinerAccountName);
-//		dinerInfo.setDinerType(dinerType);
-//		dinerInfo.setDinerStatus(dinerStatus);
-//
-//		Session session = getSession();
-//		org.hibernate.Transaction tx = null;
-//		try {
-//			tx = session.beginTransaction(); // 開始事務
-//			session.save(dinerInfo);
-//			tx.commit(); // 提交事務
-//		} catch (Exception e) {
-//			if (tx != null) {
-//				tx.rollback(); // 如果出現錯誤，則回滾事務
-//			}
-//			throw e; // 或者選擇其他的錯誤處理方式
-//		}
-//
-//		return dinerInfo;
-//
-//	}
 
 	@Override
 	public DinerInfo update(DinerInfo dinerInfo) {
@@ -167,7 +130,7 @@ public class DinerInfoDAOHibernateImpl implements DinerInfoDAO {
 		return null;
 	}
 
-	// ============ 以下三個方法用來比對資料庫不能重複的選項 ===========
+	// ============ 專用於註冊 : 以下三個方法用來比對資料庫不能重複的選項 ===================================
 
 	@Override
 	public String isExistTaxID(String dinerTaxID) {
@@ -211,7 +174,59 @@ public class DinerInfoDAOHibernateImpl implements DinerInfoDAO {
 		return null;
 	}
 
-	// ======================================================
+	// ===========================================================================================
+
+	
+	// ============ 專用於商家修改 : 以下三個方法用來比對資料庫不能重複的選項 ===================================
+	
+	@Override
+	public String isExistTaxID(String dinerTaxID, Integer dinerID) {
+		try {
+			String hql = "FROM DinerInfo WHERE dinerTaxID = :dinerTaxID AND dinerID != :dinerID";
+			Query<DinerInfo> query = getSession().createQuery(hql, DinerInfo.class);
+			query.setParameter("dinerTaxID", dinerTaxID);
+			query.setParameter("dinerID", dinerID);
+			DinerInfo dinerInfo = query.uniqueResult();
+			return (dinerInfo != null) ? dinerInfo.getDinerTaxID() : null;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	@Override
+	public String isExistEmail(String dinerEmail, Integer dinerID) {
+		try {
+			String hql = "FROM DinerInfo WHERE dinerEmail = :dinerEmail AND dinerID != :dinerID";
+			Query<DinerInfo> query = getSession().createQuery(hql, DinerInfo.class);
+			query.setParameter("dinerEmail", dinerEmail);
+			query.setParameter("dinerID", dinerID);
+			DinerInfo dinerInfo = query.uniqueResult();
+			return (dinerInfo != null) ? dinerInfo.getDinerEmail() : null;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	@Override
+	public String isExistPhone(String dinerPhone, Integer dinerID) {
+		try {
+			String hql = "FROM DinerInfo WHERE dinerPhone = :dinerPhone AND dinerID != :dinerID";
+			Query<DinerInfo> query = getSession().createQuery(hql, DinerInfo.class);
+			query.setParameter("dinerPhone", dinerPhone);
+			query.setParameter("dinerID", dinerID);
+			DinerInfo dinerInfo = query.uniqueResult();
+			return (dinerInfo != null) ? dinerInfo.getDinerPhone() : null;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	// =============================================================================================	
+	
+
 
 	@Override
 	public String compare(DinerInfo oldInfo, DinerInfo newInfo) {
@@ -254,9 +269,15 @@ public class DinerInfoDAOHibernateImpl implements DinerInfoDAO {
 
 		// 使用 Gson 將 JsonObject 轉換成 String
 		Gson gson = new Gson();
-		String jsonString = gson.toJson(difference);
-		// 返回對比完的 String , 以便放入商家修改的欄位中
-		return jsonString;
+
+		// 確認商家確實有修改資訊，才返回JSON格式	
+		// 這裡不能用 != null 來判斷，因為她還是會返回{}符號
+		if (difference.size() > 0) {
+		    return gson.toJson(difference);
+		} else {
+		    return null;
+		}
+
 	}
 
 	@Override

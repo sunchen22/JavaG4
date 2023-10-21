@@ -19,7 +19,6 @@ public interface DinerInfoDAO {
 	
 	
 	
-//	DinerInfo change(DinerInfo dinerInfoChange , DinerInfo oldDinerInfo);
 	
 	DinerInfo update(DinerInfo dinerInfo);
 	
@@ -33,14 +32,25 @@ public interface DinerInfoDAO {
 	
 	DinerInfo findByEmail(String  dinerEmail);
 	
-	//============ 以下三個方法用來比對資料庫不能重複的選項 ===========
+	//============ 專用於註冊 : 以下三個方法用來比對資料庫不能重複的選項 =============
 	
 	String isExistTaxID(String dinerTaxID);
 	String isExistEmail(String dinerEmail);
 	String isExistPhone(String dinerPhone);
 		
-	//======================================================
+	//===================================================================
 
+	//============ 專用於商家修改 ===========================================
+	
+	String isExistTaxID(String dinerTaxID, Integer dinerID);
+	String isExistEmail(String dinerEmail, Integer dinerID);
+	String isExistPhone(String dinerPhone, Integer dinerID);
+	
+	//===================================================================
+	
+
+//	DinerInfo change(DinerInfo dinerInfoChange , DinerInfo oldDinerInfo);
+	
 	String compare(DinerInfo oldInfo, DinerInfo newInfo);
 	
 //	DinerInfo isValueExist(String column , String value);  // 註冊驗證 : 資料庫比對

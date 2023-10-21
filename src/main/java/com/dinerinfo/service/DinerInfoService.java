@@ -14,19 +14,13 @@ public interface DinerInfoService {
 
 	DinerInfo updateDinerInfo(DinerInfo dinerInfo);
 
-
-
-//	DinerInfo registerCheckDinerInfo(String dinerName, String dinerPassword, Timestamp dinerRegisterTime,
-//			String dinerTaxID, String dinerContact, String dinerPhone, String dinerEmail, String dinerAddress,
-//			String dinerBank, String dinerAccount, String dinerAccountName, String dinerType , String dinerStatus) ;
-
 	// 這個方法是註冊的時候用來分辨哪些是可以註冊、哪些是要記錄到session讓註冊者重填資料比較不麻煩的
 	DinerInfo registerCheckDinerInfo(DinerInfo dinerInfo) ;
 	
 	//這個方法才是真正的註冊，寫入資料庫
 	DinerInfo registerDinerInfo(DinerInfo dinerInfo) ;
 	
-	
+
 	Integer deleteDinerID(Integer dinerID);
 
 	DinerInfo getDinerInfoByDinerID(Integer dinerID);
@@ -36,9 +30,29 @@ public interface DinerInfoService {
 	DinerInfo getDinerInfoByDinerPhone(String dinerPhone);
 
 	DinerInfo getDinerInfoByDinerEmail(String dinerEmail);
+	
 
-	String compareDinerInfo(DinerInfo oldInfo, DinerInfo newInfo);
+	//***************** 此區專門給商家修改使用***************************************
+	
+	// 在錯誤紀錄區，先比對出來資料庫有無此筆資料
+	String checkDinerTaxID(String dinerTaxID , Integer dinerID);
+	
+	String checkDinerPhone(String dinerPhone , Integer dinerID);
+	
+	String checkDinerEmail(String dinerEmail , Integer dinerID);
 
+	// 確認商家修改後的資訊
+	// dinerTaxID、dinerPhone、dinerEmail 和資料庫裡其他商家沒有重複
+	DinerInfo checkEditDinerInfo(DinerInfo oldInfo, DinerInfo editInfo);
+
+	// 用來比對新舊資料後，送出JSON格式資料到dinerUpdate欄位，
+	// 返回夾帶更改申請的舊 DinerInfo
+	DinerInfo compareDinerInfo(DinerInfo oldInfo, DinerInfo newInfo);
+
+	
+	//*************************************************************************
+
+	
 	List<DinerInfo> getAllDinerInfos(int currentPage);
 
 	int getPageTotal();

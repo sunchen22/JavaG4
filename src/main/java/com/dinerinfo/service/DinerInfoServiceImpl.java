@@ -48,60 +48,19 @@ public class DinerInfoServiceImpl implements DinerInfoService {
 		String dinerTaxID = dinerInfo.getDinerTaxID();
 		String dinerPhone = dinerInfo.getDinerPhone();
 		String dinerEmail = dinerInfo.getDinerEmail();
-		if(dinerTaxID.equals(dao.isExistTaxID(dinerTaxID)) || dinerPhone.equals(dao.isExistPhone(dinerPhone)) || dinerEmail.equals(dao.isExistEmail(dinerEmail))) {
+		if (dinerTaxID.equals(dao.isExistTaxID(dinerTaxID)) || dinerPhone.equals(dao.isExistPhone(dinerPhone))
+				|| dinerEmail.equals(dao.isExistEmail(dinerEmail))) {
 			return null;
 		} else {
 			return dinerInfo;
 		}
 	}
-	
+
 	@Override
 	public DinerInfo registerDinerInfo(DinerInfo dinerInfo) {
 		dao.register(dinerInfo);
 		return dinerInfo;
 	}
-	
-//	@Override
-//	public DinerInfo registerDinerInfo(String dinerName, String dinerPassword, Timestamp dinerRegisterTime,
-//			String dinerTaxID, String dinerContact, String dinerPhone, String dinerEmail, String dinerAddress,
-//			String dinerBank, String dinerAccount, String dinerAccountName, String dinerType , String dinerStatus) {
-//		return dao.register(dinerName, dinerPassword, dinerRegisterTime, dinerTaxID, dinerContact, dinerPhone,
-//				dinerEmail, dinerAddress, dinerBank, dinerAccount, dinerAccountName, dinerType ,dinerStatus);
-//	}
-	
-	
-//	@Override
-//	public DinerInfo registerDinerInfo(DinerInfo dinerinfo, String dinerName, String dinerPassword,
-//			Timestamp dinerRegisterTime, String dinerContact, String dinerAddress, String dinerBank,
-//			String dinerAccount, String dinerAccountName, String dinerType, String dinerStatus) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-
-//	@Override
-//	public DinerInfo registerCheckDinerInfo(String dinerName, String dinerPassword, Timestamp dinerRegisterTime,
-//			String dinerTaxID, String dinerContact, String dinerPhone, String dinerEmail, String dinerAddress,
-//			String dinerBank, String dinerAccount, String dinerAccountName, String dinerType , String dinerStatus) {
-//		
-//	    //先確認 : 如果dinerTaxID、dinerEmail、dinerPhone有重複，就註冊不成功
-//	    if (dao.findByTaxID(dinerTaxID) != null || dao.findByPhone(dinerPhone) != null || dao.findByEmail(dinerEmail) != null) {
-//	    	return null;
-//	    } else {
-//	    	return dao.register(dinerName, dinerPassword, dinerRegisterTime, dinerTaxID, dinerContact, dinerPhone,
-//					dinerEmail, dinerAddress, dinerBank, dinerAccount, dinerAccountName, dinerType ,dinerStatus);
-//	    }
-//	    
-//	    
-//	}
-
-//	@Override
-//	public DinerInfo registerDinerInfo(DinerInfo dinerinfo, String dinerName, String dinerPassword,
-//			Timestamp dinerRegisterTime, String dinerContact, String dinerAddress, String dinerBank,
-//			String dinerAccount, String dinerAccountName, String dinerType, String dinerStatus) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-
 
 	@Override
 	public Integer deleteDinerID(Integer dinerID) {
@@ -128,16 +87,53 @@ public class DinerInfoServiceImpl implements DinerInfoService {
 		return dao.findByEmail(dinerEmail);
 	}
 
+	// ****************此區專門給商家修改使用*********************************************
+
 	@Override
-	public String compareDinerInfo(DinerInfo oldInfo, DinerInfo newInfo) {
-		return dao.compare(oldInfo, newInfo);
+	public String checkDinerTaxID(String dinerTaxID, Integer dinerID) {		
+		return dao.isExistTaxID(dinerTaxID, dinerID);
 	}
 
-//	@Override
-//	public DinerInfo existDinerInfo(String column, String value) {
-//		return dao.isValueExist(column, value);
-//	}
+	@Override
+	public String checkDinerPhone(String dinerPhone, Integer dinerID) {
+		return dao.isExistPhone(dinerPhone, dinerID);
+	}
 
+	@Override
+	public String checkDinerEmail(String dinerEmail, Integer dinerID) {
+		return dao.isExistEmail(dinerEmail, dinerID);
+	}
+
+	@Override
+	public DinerInfo checkEditDinerInfo(DinerInfo oldInfo, DinerInfo editInfo) {
+		int dinerID = oldInfo.getDinerID();
+		String dinerTaxID = editInfo.getDinerTaxID();
+		String dinerPhone = editInfo.getDinerPhone();
+		String dinerEmail = editInfo.getDinerEmail();
+		if (dinerTaxID.equals(dao.isExistTaxID(dinerTaxID, dinerID))
+				|| dinerPhone.equals(dao.isExistPhone(dinerPhone, dinerID))
+				|| dinerEmail.equals(dao.isExistEmail(dinerEmail, dinerID))) {
+			return null;
+		} else {
+			return editInfo;
+		}
+	}
+
+	@Override
+	public DinerInfo compareDinerInfo(DinerInfo oldInfo, DinerInfo newInfo) {
+		String change = dao.compare(oldInfo, newInfo);
+
+		// 要確認真的有修改，才去改商家狀態
+		if (change != null) {
+			oldInfo.setDinerUpdate(change);
+			oldInfo.setDinerStatus("changed");
+		}			
+		return oldInfo;
+	}
+
+	// ****************************************************************************
+	
+	
 	@Override
 	public List<DinerInfo> getAllDinerInfos(int currentPage) {
 		return dao.getAll();

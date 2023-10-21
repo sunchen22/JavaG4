@@ -80,7 +80,7 @@
 
 		<url-pattern>/dinerbackground/pages/Team/register/dinerInfo.do</url-pattern>
 		<url-pattern>/dinerbackground/pages/Team/login/dinerInfo.do</url-pattern>
-<!-- 		<url-pattern>/dinerbackground/pages/Team/dashboard/dinerInfo.do</url-pattern> -->
+		<url-pattern>/dinerbackground/pages/Team/dashboard/dinerInfo.do</url-pattern>
 	</servlet-mapping>
 	
 <!-- ================1==================== -->
