@@ -140,32 +140,22 @@
   <!-- REQUIRED SCRIPTS -->
 
   <!-- jQuery -->
-  <script src="plugins/jquery/jquery.min.js"></script>
+  <script src="../plugins/jquery/jquery.min.js"></script>
   <!-- Bootstrap -->
-  <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- AdminLTE -->
-  <script src="dist/js/adminlte.js"></script>
+  <script src="../dist/js/adminlte.js"></script>
 
   <!-- OPTIONAL SCRIPTS -->
-  <script src="plugins/chart.js/Chart.min.js"></script>
+  <script src="../plugins/chart.js/Chart.min.js"></script>
   <!-- AdminLTE for demo purposes -->
   <!-- <script src="dist/js/demo.js"></script> -->
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-  <script src="dist/js/pages/dashboard3.js"></script>
+  <script src="../dist/js/pages/dashboard3.js"></script>
 
-  <!-- 縮小時,登出按鈕消失 -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <!-- 縮小時,登出按鈕消失 -->
-  <script>
-    function toggleLogoutButton() {
-      var logoutButton = document.getElementById("logoutButton");
-      if (logoutButton.style.display === "none") {
-        logoutButton.style.display = "block";
-      } else {
-        logoutButton.style.display = "none";
-      }
-    }
-  </script>
+ <!-- 引入selfjs -->
+<%@ include  file="pagejs.file" %>
+
 
 </body>
 

@@ -240,20 +240,9 @@ pageContext.setAttribute("list", list);
 	<script src="../dist/js/pages/dashboard3.js"></script>
 	<!-- AdminLTE App -->
 	<!-- <script src="../dist/js/adminlte.min.js"></script> -->
-	<!-- 縮小時,登出按鈕消失 -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-	<!-- 縮小時,登出按鈕消失 -->
-	<script>
-		function toggleLogoutButton() {
-			var logoutButton = document.getElementById("logoutButton");
-			if (logoutButton.style.display === "none") {
-				logoutButton.style.display = "block";
-			} else {
-				logoutButton.style.display = "none";
-			}
-		}
-	</script>
+	
+ <!-- 引入selfjs -->
+<%@ include  file="pagejs.file" %>
 	
 <!-- 停權 -->
 	<script>
