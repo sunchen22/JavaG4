@@ -111,6 +111,7 @@
 	<servlet-mapping>
 		<servlet-name>bglogin</servlet-name>
 		<url-pattern>/background/bglogin</url-pattern>
+		<url-pattern>/background/pages/bglogin</url-pattern>
 	</servlet-mapping>	
 	
 	<!-- 查詢會員 -->
