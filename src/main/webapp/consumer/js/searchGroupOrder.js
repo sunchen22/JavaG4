@@ -4,7 +4,7 @@
 
 function search(requestData) {
 	$.ajax({
-		url: "http://localhost:8081/JavaG4/GroupOrder.do?action=getAll",  // 資料請求的網址
+		url: contextPath + "/GroupOrder.do?action=getAll",  // 資料請求的網址
 		type: "POST",                  // GET | POST | PUT | DELETE | PATCH
 		data: JSON.stringify(requestData),   // 將物件資料(不用雙引號) 傳送到指定的 url
 		contentType: "application/json",
@@ -42,7 +42,7 @@ function search(requestData) {
 									<li class="list-inline-item">成團條件：${item.dinerOrderThreshold}元 </li>
 									<li class="list-inline-item">成團狀態：${item.orderStatus=='1'? '未達成團條件' : '已達成團條件'}</li>
 									<li>付款截止時間：${item.groupOrderSubmitTime}</li>
-									<div class="d-flex justify-content-end"><a class="btn btn-dark" href="http://localhost:8081/JavaG4/GroupOrder.do?action=getOne&ID=${item.groupOrderID}">加入此大樓揪團</a>
+									<div class="d-flex justify-content-end"><a class="btn btn-dark" href="http://localhost:8081/JavaG4/GroupOrder.do?action=getOne&groupOrderID=${item.groupOrderID}">加入此大樓揪團</a>
 									</div>
 								</ul>
 							</div>

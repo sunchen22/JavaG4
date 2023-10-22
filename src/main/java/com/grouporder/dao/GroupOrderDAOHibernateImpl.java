@@ -12,6 +12,7 @@ import com.product.entity.Product;
 import com.producttype.entity.ProductType;
 import com.productvary.entity.ProductVary;
 import com.varytype.entity.VaryType;
+import com.buildinginfo.entity.BuildingInfo;
 
 public class GroupOrderDAOHibernateImpl implements GroupOrderDAO {
 	private static final int PAGE_MAX_RESULT = 3;
@@ -79,12 +80,6 @@ public class GroupOrderDAOHibernateImpl implements GroupOrderDAO {
 	@Override
 	public GroupOrder findByPK(Integer groupOrderID) {
 		try {
-
-//			session.beginTransaction();
-//
-//			GroupOrder groupOrder = session.get(GroupOrder.class, groupOrderID);
-//			session.getTransaction().commit();
-
 //			getSession().beginTransaction();
 			GroupOrder groupOrder = getSession().get(GroupOrder.class, groupOrderID);
 //			getSession().getTransaction().commit();
@@ -120,6 +115,21 @@ public class GroupOrderDAOHibernateImpl implements GroupOrderDAO {
 			Product product = getSession().get(Product.class, productID);
 //			getSession().getTransaction().commit();
 			return product;
+		} catch (Exception e) {
+			e.printStackTrace();
+//			getSession().getTransaction().rollback();
+		}
+		
+		return null;
+	}	
+	
+	@Override
+	public ProductVary findByPKProductVary(Integer productVaryID) {
+		try {
+//			getSession().beginTransaction();
+			ProductVary productVary = getSession().get(ProductVary.class, productVaryID);
+//			getSession().getTransaction().commit();
+			return productVary;
 		} catch (Exception e) {
 			e.printStackTrace();
 //			getSession().getTransaction().rollback();
@@ -219,5 +229,30 @@ public class GroupOrderDAOHibernateImpl implements GroupOrderDAO {
 
 		return null;
 	}
+	
+	@Override
+	public List<Object[]> getProductJoinProductVary(Integer productID) {
+		try {
+//			getSession().beginTransaction();
+			String sql = "SELECT pv.productvaryID, pv.productVaryDes, pv.productVaryPrice, vt.varyType "
+					+ "	FROM Product AS p "
+					+ "	LEFT JOIN ProductType AS pt ON p.productTypeID = pt.productTypeID "
+					+ "	LEFT JOIN ProductVary AS pv ON p.productID = pv.productID "
+					+ "	LEFT JOIN VaryType AS vt ON pv.varyTypeID = vt.varyTypeID "
+					+ "	WHERE p.productID = " + String.valueOf(productID)
+					+ "	ORDER BY pv.varyTypeID, pv.productVaryPrice";	
+			
+			@SuppressWarnings("unchecked")
+			List<Object[]> results = getSession().createNativeQuery(sql).list();
+//			getSession().getTransaction().commit();
 
+			return results;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+//			getSession().getTransaction().rollback();
+		}
+		return null;		
+	}
+	
 }

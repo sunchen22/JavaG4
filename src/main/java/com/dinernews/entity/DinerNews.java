@@ -11,7 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.webempadmin.model.WebempadminVO;
+import com.webempadmin.entity.Webempadmin;
+
 
 @Entity
 @Table(name = "DinerNews")
@@ -30,7 +31,7 @@ public class DinerNews {
 	
 	@ManyToOne
 	@JoinColumn(name = "empID" , referencedColumnName = "empID")
-	private WebempadminVO webempadminvo;
+	private Webempadmin webempadmin;
 	
 	
 	@Column(name = "dinerNewsReleaseTime")
@@ -44,12 +45,12 @@ public class DinerNews {
 		super();
 	}
 
-	public DinerNews(Integer dinerNewsID, String dinerNewsContent, WebempadminVO webempadminvo,
+	public DinerNews(Integer dinerNewsID, String dinerNewsContent, Webempadmin webempadmin,
 			Timestamp dinerNewsReleaseTime, Timestamp dinerNewsReviseTime) {
 		super();
 		this.dinerNewsID = dinerNewsID;
 		this.dinerNewsContent = dinerNewsContent;
-		this.webempadminvo = webempadminvo;
+		this.webempadmin = webempadmin;
 		this.dinerNewsReleaseTime = dinerNewsReleaseTime;
 		this.dinerNewsReviseTime = dinerNewsReviseTime;
 	}
@@ -70,12 +71,12 @@ public class DinerNews {
 		this.dinerNewsContent = dinerNewsContent;
 	}
 
-	public WebempadminVO getWebempadminvo() {
-		return webempadminvo;
+	public Webempadmin getWebempadmin() {
+		return webempadmin;
 	}
 
-	public void setWebempadminvo(WebempadminVO webempadminvo) {
-		this.webempadminvo = webempadminvo;
+	public void setWebempadmin(Webempadmin webempadmin) {
+		this.webempadmin = webempadmin;
 	}
 
 	public Timestamp getDinerNewsReleaseTime() {

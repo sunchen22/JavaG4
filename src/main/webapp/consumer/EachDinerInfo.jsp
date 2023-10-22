@@ -232,12 +232,12 @@
 
 
 
-
+	
 	<%@ include file="./components/tail.jsp"%>
 	<%-- Import JS for this page below (if any) --%>
-	<script src="./vendor/jquery/jquery-3.7.1.min.js"></script>
+	
 	<!-- <script src="./vendor/bootstrap-5.3.1-dist/js/bootstrap.bundle.js"></script> -->
-
+	
 	<script>
 		//愛心切換加入最愛商家
 		$(function() {

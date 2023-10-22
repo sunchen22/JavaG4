@@ -3,7 +3,7 @@
 <%-- Import CSS for this page below (if any) --%>
 
 
-<title>樓頂揪樓咖-XX頁面</title>
+<title>樓頂揪樓咖-首頁</title>
 <%-- Remember to edit the page title --%>
 </head>
 
@@ -161,13 +161,8 @@
 
 	<%@ include file="./components/tail.jsp"%>
 	<%-- Import JS for this page below (if any) --%>
-	<script>
-		var script = document.createElement('script');
-		script.src = './vendor/bootstrap-5.3.1-dist/js/bootstrap.bundle.min.js';
-		document.head.appendChild(script);
-	</script>
-	<script src="./vendor/fontawesome-free-6.4.2-web/js/all.min.js"></script>
-	<script src="./js/all.js"></script>
+
+	
 
 </body>
 </html>

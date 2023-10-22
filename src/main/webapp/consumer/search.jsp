@@ -469,7 +469,7 @@
 
 	<%@ include file="./components/tail.jsp"%>
 	<%-- Import JS for this page below (if any) --%>
-	<script src="./js/searchGroupOrder.js"></script>
+	<script src="${pageContext.request.contextPath}/consumer/js/searchGroupOrder.js"></script>
 
 </body>
 </html>

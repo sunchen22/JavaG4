@@ -5,6 +5,7 @@ import java.util.List;
 import com.dinerinfo.entity.DinerInfo;
 import com.grouporder.entity.GroupOrder;
 import com.product.entity.Product;
+import com.productvary.entity.ProductVary;
 
 public interface GroupOrderDAO {
 	int add(GroupOrder groupOrder);
@@ -13,9 +14,10 @@ public interface GroupOrderDAO {
 	GroupOrder findByPK(Integer groupOrderID);
 	DinerInfo findByPKJoinDiner(Integer groupOrderID);
 	Product findByPKProduct(Integer productID);
+	ProductVary findByPKProductVary(Integer productID);
 	List<GroupOrder> getAll();
 	List<Object[]> getAllJoin(Integer currentPage);
 	List<Object[]> getOneJoin(Integer groupOrderID);
 	List<Object[]> getOneJoinMenu(Integer dinerID);
-	
+	List<Object[]> getProductJoinProductVary(Integer productID);
 }
