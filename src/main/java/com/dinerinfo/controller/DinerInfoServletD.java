@@ -262,7 +262,7 @@ public class DinerInfoServletD extends HttpServlet {
 
 			HttpSession session = req.getSession(); // 用一個會話來儲存現在已經登入成功的物件
 			session.setAttribute("account", dinerInfoAlg); // 將 account 標記為資料庫的 dinerInfo 相對物件，當filter在過濾時就會知道這是已經登錄的帳號
-
+			System.out.println(dinerInfoAlg.getDinerID()+"===========這是取得的dinerID===========");
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 
 			String url = "/dinerbackground/pages/Team/dashboard/info-change.jsp"; // 登入完成後跳轉的頁面
@@ -288,6 +288,8 @@ public class DinerInfoServletD extends HttpServlet {
 			DinerInfo editInfo = new DinerInfo(); // 創建一個 dinerInfo 對象，來儲存商家輸入的資料
 			DinerInfo oldInfo = new DinerInfo(); // 創建一個 dinerInfo 對象，來儲存商家原始的資料
 			DinerInfo newInfo = new DinerInfo(); // 創建一個 dinerInfo 對象，來儲存商家輸入，且經確認，格式無誤、與資料庫其他商家不重複的資料
+			
+			
 
 			int dinerID = Integer.parseInt(req.getParameter("dinerID")); // 從隱藏欄位取得送出此請求的商家id
 			oldInfo = dinerInfoServiceImpl.getDinerInfoByDinerID(dinerID); // 查詢出商家資料，放入商家原始的資料的容器
@@ -428,8 +430,10 @@ public class DinerInfoServletD extends HttpServlet {
 
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("account", editInfo); // 含有輸入格式錯誤的 dinerInfo 物件,也存入req
-													   // account 登入後就預設好的dinerInfo
+				req.setAttribute("modifiedData", editInfo); // 含有輸入格式錯誤的 dinerInfo 物件,也存入req，存入"modifiedData"
+													   // 特別注意 : account 是登入後就預設好的dinerInfo，不能存在這裡，
+				                                       // 不然servlet再跑第二次的時候就會讀不到資料庫的資料
+				
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/dinerbackground/pages/Team/dashboard/info-change.jsp");
 				failureView.forward(req, res);
@@ -442,21 +446,31 @@ public class DinerInfoServletD extends HttpServlet {
 			// 確認過與資料庫無重複的資料才可被寫入
 			System.out.println(newInfo);
 
-			oldInfo = dinerInfoServiceImpl.compareDinerInfo(oldInfo, newInfo);
-			System.out.println(oldInfo);
-			// oldInfo : dinerUpdate 欄位被寫入、dinerStatus 欄位備置換成"changed"
-			HttpSession session = req.getSession();
-
-			if (oldInfo.getDinerUpdate() != null) {
-
-				session.setAttribute("account", oldInfo);
-				req.setAttribute("isChange", true);
-
-				req.setAttribute("successMsg", "修改申請已送出，請靜待審核");
-
+			//存入前先檢查資料庫裡的 dinerUpdate 欄位是空的，而且dinerStatus不能是"changed" 
+			if(oldInfo.getDinerUpdate() != null || oldInfo.getDinerStatus().equals("changed")) {
+				
+				req.setAttribute("alreadyApplyMsg", "您已提交過修改申請，請靜待管理員審核");
+				
 			} else {
-				req.setAttribute("successMsg", "您沒有變更任何資料");
+				
+				oldInfo = dinerInfoServiceImpl.compareDinerInfo(oldInfo, newInfo);
+				System.out.println(oldInfo);
+				// oldInfo : dinerUpdate 欄位被寫入、dinerStatus 欄位備置換成"changed"
+				HttpSession session = req.getSession();
+				
+				if (oldInfo.getDinerUpdate() != null) {
+
+					session.setAttribute("account", oldInfo);
+					req.setAttribute("isChange", true);
+
+					req.setAttribute("successMsg", "修改申請已送出，請靜待審核");
+
+				} else {
+					req.setAttribute("successMsg", "您沒有變更任何資料");
+				}
+				
 			}
+			
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			String url = "/dinerbackground/pages/Team/dashboard/info-change.jsp";

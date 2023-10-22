@@ -122,7 +122,7 @@ public class DinerInfoServiceImpl implements DinerInfoService {
 	@Override
 	public DinerInfo compareDinerInfo(DinerInfo oldInfo, DinerInfo newInfo) {
 		String change = dao.compare(oldInfo, newInfo);
-
+		System.out.println(change);
 		// 要確認真的有修改，才去改商家狀態
 		if (change != null) {
 			oldInfo.setDinerUpdate(change);
