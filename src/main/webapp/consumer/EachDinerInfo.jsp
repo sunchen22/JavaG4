@@ -53,7 +53,10 @@
 
 	//依據DinerID找到餐點List
 	ProductDAOImpl_Tz productDao = new ProductDAOImpl_Tz();
-	List<Product> products = productDao.getAll(dinerID);
+	List<Product_Tz> productList = productDao.getAll(dinerID);
+	request.setAttribute("productList", productList);
+// 	String productName = productList.get(0).getProductName();
+// 	System.out.println("第一個產品的名稱是：" + productName);
 	%>
 
 	<section class="container mt-3">
@@ -134,7 +137,7 @@
 		<h2 class="text-center">菜單</h2>
 		<h4>餐點</h4>
 		<div class="row mb-5 row-cols-3">
-			<c:forEach var="product" items="${products}">
+			<c:forEach var="productL" items="${productList}">
 				<div class="col">
 					<div class="card">
 						<div>
@@ -144,9 +147,9 @@
 						</div>
 						<div>
 							<div class="card-body">
-								<h5 class="mealName">${product.productName} 雞腿飯</h5>
+								<h5 class="mealName">${productL.productName}</h5>
 								<ul class="list-unstyled card-text">
-									<li>價格：NT$<span class="mealPrice">80</span></li></ul>
+									<li>價格：NT$<span class="mealPrice">${productL.productPrice}</span></li></ul>
 							</div>
 						</div>
 					</div>
@@ -168,19 +171,19 @@
 
 	<script>
 		//愛心切換加入最愛商家
-		$(document).ready(function() {
-			$('.heartBtn').click(function() {
-				if ($(this).hasClass('fa-regular')) {
-					$(this).removeClass('fa-regular');
-					$(this).addClass('fa-solid');
-					alert('已加入最愛商家');
-				} else if ($(this).hasClass('fa-solid')) {
-					$(this).removeClass('fa-solid');
-					$(this).addClass('fa-regular');
-					alert('已取消最愛商家');
-				}
-			});
-		});
+// 		$(document).ready(function() {
+// 			$('.heartBtn').click(function() {
+// 				if ($(this).hasClass('fa-regular')) {
+// 					$(this).removeClass('fa-regular');
+// 					$(this).addClass('fa-solid');
+// 					alert('已加入最愛商家');
+// 				} else if ($(this).hasClass('fa-solid')) {
+// 					$(this).removeClass('fa-solid');
+// 					$(this).addClass('fa-regular');
+// 					alert('已取消最愛商家');
+// 				}
+// 			});
+// 		});
 	</script>
 
 </body>
