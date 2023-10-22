@@ -2,7 +2,6 @@ package com.userinfo.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +18,6 @@ import com.buildinginfo.entity.BuildingInfo;
 import com.userinfo.entity.UserInfo;
 import com.userinfo.service.UserInfo2Service;
 import com.userinfo.service.UserInfo2ServiceImpl;
-import com.webempadmin.model.WebempadminService;
 
 @MultipartConfig(maxFileSize = 1073741824)
 public class UserInfo2Servlet extends HttpServlet {
@@ -35,87 +33,81 @@ public class UserInfo2Servlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-		String forwardPath = "";
-		switch (action) { // 針對請求字串,導去對應的方法或頁面
-		case "getAll":
-			forwardPath = getAllEmps(req, res);
-			break;
-		case "compositeQuery":
-			forwardPath = getUserInfoByCompositeQuery(req, res);
-			break;
-		case "modifyuserinfo":
-			forwardPath = forwardUserinfoUpdatePage(req, res);
-			break;
-
-		case "update":
-			forwardPath = userinfoupdate(req, res);
-			break;
-
-		default:
-			forwardPath = "/background/pages/mem_account.jsp";
-		}
-
-		res.setContentType("text/html; charset=UTF-8");
-		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
-		dispatcher.forward(req, res);
-	}
 
 //	============= 查詢資料	=============
-	private String getAllEmps(HttpServletRequest req, HttpServletResponse res) {
-		String page = req.getParameter("page"); // 取得第幾頁
-		int currentPage = (page == null) ? 1 : Integer.parseInt(page); // 若沒帶回值，表示在第一頁
-		
-		List<UserInfo> userinfoList = userinfoService.getAllUserInfo(currentPage);
+		if ("getAll".equals(action)) {
+			String page = req.getParameter("page"); // 取得第幾頁
+			int currentPage = (page == null) ? 1 : Integer.parseInt(page); // 若沒帶回值，表示在第一頁
 
-		if (req.getSession().getAttribute("empPageQty") == null) {
-			int empPageQty = userinfoService.getPageTotal();
-			req.getSession().setAttribute("empPageQty", empPageQty);
+			List<UserInfo> userinfoList = userinfoService.getAllUserInfo(currentPage);
+
+			if (req.getSession().getAttribute("empPageQty") == null) {
+				int empPageQty = userinfoService.getPageTotal();
+				req.getSession().setAttribute("empPageQty", empPageQty);
+			}
+
+			req.setAttribute("userinfoList", userinfoList); // setAttribute設定 將結果傳出去
+			req.setAttribute("currentPage", currentPage); // setAttribute設定 將結果傳出去
+			System.out.println("我在getall查詢內 currentPage:"+currentPage);
+
+			String url = "/background/pages/mem_account.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交
+			successView.forward(req, res);
 		}
-
-		req.setAttribute("userinfoList", userinfoList); // setAttribute設定 將結果傳出去
-		req.setAttribute("currentPage", currentPage); // setAttribute設定 將結果傳出去
-
-		return "/background/pages/mem_account.jsp"; // 要forward到這裡
-	}
 
 //	============= 修改 : 載入修改資料	=============
-	private String forwardUserinfoUpdatePage(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		List<String> errorMsgs = new LinkedList<String>();
-		req.setAttribute("errorMsgs", errorMsgs);
-		String requestURL = req.getParameter("requestURL"); // 送出修改的來源網頁路徑
+		if ("getOne_For_Update".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			System.out.println("=======================");
+			System.out.println("我在getOne_For_Update");
+			try {
+				/*************************** 1.接收請求參數 ****************************************/
+				Integer userID = new Integer(req.getParameter("userID"));
 
-		try {
-			Integer userID = Integer.parseInt(req.getParameter("userID"));
-			UserInfo userinfo = userinfoService.getUserInfoByuserID(userID);
+				/*************************** 2.開始查詢資料 ****************************************/
+				UserInfo userinfo = userinfoService.getUserInfoByuserID(userID);
 
-			//頁碼
-//			String page = req.getParameter("page"); // 取得第幾頁
-//			int currentPage = (page == null) ? 1 : Integer.parseInt(page); // 若沒帶回值，表示在第一頁
-//			if (req.getSession().getAttribute("empPageQty") == null) { // 頁數相關
-//				int empPageQty = userinfoService.getPageTotal();
-//				req.getSession().setAttribute("empPageQty", empPageQty);
-//			}
-
-			req.setAttribute("userinfo", userinfo); // setAttribute設定 將結果傳出去
-//			req.setAttribute("currentPage", currentPage); // setAttribute設定 將結果傳出去
-
-			return "/background/pages/mem_account_modify.jsp"; // 要forward到這裡
-		} catch (Exception e) {
-			errorMsgs.add("修改資料取出時失敗:" + e.getMessage());
-			return requestURL;
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+				req.setAttribute("userinfo", userinfo);
+				String url = "/background/pages/mem_account_modify.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交
+				successView.forward(req, res);
+			} catch (Exception e) {
+				errorMsgs.add("修改資料取出時失敗:" + e.getMessage());
+				String url = "/background/pages/mem_account.jsp";
+				RequestDispatcher failView = req.getRequestDispatcher(url);
+				failView.forward(req, res);
+			}
 		}
-	}
 
 //	============= 修改資料&送出修改	=============
-	private String userinfoupdate(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+		if ("update".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
 
-			Integer userID = Integer.parseInt(req.getParameter("userID").trim());
+			Integer userID = new Integer(req.getParameter("userID").trim());
 			String userAccount = req.getParameter("userAccount").trim();
 			String userName = req.getParameter("userName").trim();
+			String enameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_\s)]{2,10}$";
+			if (userName == null || userName.trim().length() == 0) {
+				errorMsgs.add("會員姓名: 請勿空白");
+			} else if (!userName.trim().matches(enameReg)) { // 以下練習正則(規)表示式(regular-expression)
+				errorMsgs.add("會員姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+			}
+
 			String userPhone = req.getParameter("userPhone").trim();
+			String phoneReg = "^09\\d{2}-?\\d{3}-?\\d{3}$";
+			if (userPhone == null || userPhone.trim().length() == 0) {
+				errorMsgs.add("手機號碼請勿空白");
+			} else if (!userPhone.trim().matches(phoneReg)) { // 以下練習正則(規)表示式(regular-expression)
+				errorMsgs.add("請直接輸入09開頭，長度10的手機號碼");
+			}
+
 			String userPassword = req.getParameter("userPassword").trim();
 			String userNickName = req.getParameter("userNickName").trim();
-			java.sql.Timestamp userRegisterTime = java.sql.Timestamp.valueOf(req.getParameter("userRegisterTime").trim());
+			java.sql.Timestamp userRegisterTime = java.sql.Timestamp
+					.valueOf(req.getParameter("userRegisterTime").trim());
 			java.sql.Date userBirthday = java.sql.Date.valueOf(req.getParameter("userBirthday").trim());
 			Integer buildingID = Integer.valueOf(req.getParameter("buildingID").trim());
 
@@ -134,69 +126,96 @@ public class UserInfo2Servlet extends HttpServlet {
 			userinfo.setBuildinginfo(buildingInfo);
 
 			// 圖片
+//			byte[] userBlob = null;
+//			InputStream in = req.getPart("userBlob").getInputStream();
+//			if (in.available() == 0) {  // 取原本資料內的照片
+//				userBlob = new UserInfo2ServiceImpl().getImage(userID);
+//				System.out.println("原定要取原本的照片userBlob"+userBlob);
+//			} else {
+//				userBlob = new byte[in.available()];
+//				in.read(userBlob);
+//				in.close();
+//			}
+//			userinfo.setUserBlob(userBlob);
+
+			// 圖片
 			byte[] userBlob = null;
 			InputStream in = req.getPart("userBlob").getInputStream();
 			if (in.available() == 0) { // 取原本資料內的照片
-				userBlob = new UserInfo2ServiceImpl().getImage(userID);
+				System.out.println("要取原本照片的ID userIDuserIDuserIDuserIDuserID" + userID);
+				UserInfo userinfoorg = userinfoService.getUserInfoByuserID(userID);
+				System.out.println("userinfoorg取的到媽媽媽媽媽媽媽媽媽媽媽媽媽媽" + userinfoorg);
+				userBlob = userinfoorg.getUserBlob();
+				System.out.println("原定要取原本的照片userBlob" + userBlob);
+				userinfo.setUserBlob(userBlob);
 			} else {
 				userBlob = new byte[in.available()];
 				in.read(userBlob);
 				in.close();
+				userinfo.setUserBlob(userBlob);
 			}
-			userinfo.setUserBlob(userBlob);
 
-			userinfoService.updateUserInfo(userinfo); 
+			// 有錯誤提示的的話
+			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("userinfo", userinfo); // 含有輸入格式錯誤的empVO物件,也存入req
+				RequestDispatcher failureView = req.getRequestDispatcher("/background/pages/mem_account_modify.jsp");
+				failureView.forward(req, res);
+				return; // 程式中斷
+			}
+
+			userinfoService.updateUserInfo(userinfo);
 			UserInfo userinfo2 = userinfoService.getUserInfoByuserID(userID);
-			req.getSession().setAttribute("userinfo", userinfo2); // setAttribute設定 將結果傳出去
+			req.getSession().setAttribute("userinfo", userinfo2);
 
-			//mem_account_results.jsp頁碼處理
-//			getAllEmps(req, res);
-//			String page = req.getParameter("page"); // 取得第幾頁
-//			System.out.println("page"+page);
-//			int currentPage = (page == null) ? 1 : Integer.parseInt(page); // 若沒帶回值，表示在第一頁
-//		
-//			if (req.getSession().getAttribute("empPageQty") == null) {
-//				int empPageQty = userinfoService.getPageTotal();
-//				req.getSession().setAttribute("empPageQty", empPageQty);
-//			}
-//			req.setAttribute("currentPage", currentPage); // setAttribute設定 將結果傳出去
-			
-			//將結果傳入mem_account_results.jsp 總清單頁面 OK
-//			getUserInfoByCompositeQuery(req,res);
-//			Map<String, String[]> map = req.getParameterMap(); // 拿請求參數,回傳MAP
-//			if (map != null) {
-//				List<UserInfo> userinfoList = userinfoService.getUserInfoByCompositeQuery(map);
-//				req.setAttribute("userinfoList", userinfoList);
-//			}
-			
-			//test 將結果傳入mem_account_results.jsp 總清單頁面+分頁
-			//但Update會失敗
+			// mem_account_results.jsp頁碼處理
 			String page = req.getParameter("page"); // 取得第幾頁
+			System.out.println("page" + page);
 			int currentPage = (page == null) ? 1 : Integer.parseInt(page); // 若沒帶回值，表示在第一頁
-			List<UserInfo> userinfoList = userinfoService.getAllUserInfo(currentPage);
-			
+
 			if (req.getSession().getAttribute("empPageQty") == null) {
 				int empPageQty = userinfoService.getPageTotal();
 				req.getSession().setAttribute("empPageQty", empPageQty);
 			}
-			req.setAttribute("userinfoList", userinfoList); // setAttribute設定 將結果傳出去
-			req.setAttribute("currentPage", currentPage);
-			
-			
-			return "/background/pages/mem_account_results.jsp"; // 要forward到這裡
-		}
+			req.setAttribute("currentPage", currentPage); // setAttribute設定 將結果傳出去
 
+			String url = "/background/pages/mem_account_listone.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功轉交
+			successView.forward(req, res);
+		}
 
 //	============= 複合查詢	=============
-	private String getUserInfoByCompositeQuery(HttpServletRequest req, HttpServletResponse res) {
-		Map<String, String[]> map = req.getParameterMap(); // 拿請求參數,回傳MAP
-		if (map != null) {
-			List<UserInfo> userinfoList = userinfoService.getUserInfoByCompositeQuery(map);
-			req.setAttribute("userinfoList", userinfoList);
-		} else {
-			return "/background/pages/mem_account_results.jsp";
-		}
-		return "/background/pages/mem_account.jsp";
+		if ("compositeQuery".equals(action)){
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				Map<String, String[]> map = req.getParameterMap(); // 拿請求參數,回傳MAP
+				if (map != null) {
+					List<UserInfo> userinfoList = userinfoService.getUserInfoByCompositeQuery(map);
+					req.setAttribute("userinfoList", userinfoList);
+					
+					//頁碼 fail
+//					String page = req.getParameter("page"); // 取得第幾頁
+//					System.out.println("我在compositeQuery查詢內 Page:"+page);
+//					int currentPage = (page == null) ? 1 : Integer.parseInt(page); // 若沒帶回值，表示在第一頁
+//					if (req.getSession().getAttribute("empPageQty") == null) {
+//						int empPageQty = userinfoService.getPageTotal();
+//						req.getSession().setAttribute("empPageQty", empPageQty);
+//						req.setAttribute("currentPage", currentPage); // setAttribute設定 將結果傳出去
+//					}
+				} else {
+					String url = "/background/pages/mem_account.jsp";
+					RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功轉交
+					successView.forward(req, res);
+				}
+			} catch (Exception e) {
+				errorMsgs.add(e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/background/pages/mem_account.jsp");
+				failureView.forward(req, res);
+			}
+		}					
+		String url = "/background/pages/mem_account_results.jsp";
+		RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功轉交
+		successView.forward(req, res);
 	}
 
 	@Override

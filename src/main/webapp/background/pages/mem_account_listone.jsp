@@ -1,18 +1,25 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="java.util.*"%>
-<%@ page import="com.webempadmin.model.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%
-WebempadminService empSvc = new WebempadminService();
-List<WebempadminVO> list = empSvc.getAll();
-pageContext.setAttribute("list", list);
+<!-- userinfo資料 -->
+<%@ page import="com.userinfo.entity.*" %>>
+
+<%UserInfo userinfo = (UserInfo) request.getAttribute("userinfo");
+System.out.println("我在JSP"+userinfo+"為何");
 %>
+
+<!-- 先取出BuildingInfo List以供常用大樓選單使用 -->
+<!-- 這個會壞掉 -->
+<%-- <%@ page import="com.buildinginfo.entity.*"%> --%>
+<%-- <% --%>
+// BuildingInfo buildingInfo = userinfo.getBuildinginfo();
+<%-- %>  --%>
 
 <html lang="en">
 
 <head>
-<!--   <meta charset="utf-8"> -->
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>樓頂揪樓咖後台管理</title>
 
@@ -28,15 +35,8 @@ pageContext.setAttribute("list", list);
 <!-- Theme style -->
 <link rel="stylesheet" href="../dist/css/adminlte.min.css">
 
-
-<!-- 管理員表格頭像的設定 -->
-<style>
-.emp_table_img {
-	height: 40px;
-}
-</style>
-
 </head>
+
 
 <body class="hold-transition sidebar-mini">
 	<div class="wrapper">
@@ -50,13 +50,13 @@ pageContext.setAttribute("list", list);
 						class="fas fa-bars"></i></a></li>
 
 				<li class="nav-item d-none d-sm-inline-block "><a
-					href="adm_men.jsp" class="nav-link">管理者帳號管理</a></li>
+					href="mem_account.jsp" class="nav-link">會員資料查詢</a></li>
 			</ul>
 
 			<!-- Right navbar links -->
 			<ul class="navbar-nav ml-auto">
 
-				<li class="nav-item"><a class="nav-link" href="../index3.html"
+				<li class="nav-item"><a class="nav-link" href="../index3.jsp"
 					role="button"> <i class="fas fa-home"></i>
 				</a></li>
 
@@ -96,16 +96,18 @@ pageContext.setAttribute("list", list);
 				<nav class="mt-2">
 					<ul class="nav nav-pills nav-sidebar flex-column"
 						data-widget="treeview" role="menu" data-accordion="false">
-						
+						<!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+
  <!-- 引入側邊欄 -->
 <%@ include  file="pageaside.file" %>
-
 				</nav>
 				<!-- /.sidebar-menu -->
 			</div>
 			<!-- /.sidebar -->
 		</aside>
 
+		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
@@ -114,88 +116,62 @@ pageContext.setAttribute("list", list);
 						<div class="col-sm-6">
 							<h1></h1>
 						</div>
-					</div>
 
+					</div>
 				</div>
 				<!-- /.container-fluid -->
 			</section>
 
 			<!-- Main content -->
-			<!-- <section class="content">從這裡開始 -->
-
-			<div class="col-12" style="padding-left: 20px;">
-				<div class="card">
-					<div class="card-header">
-						<div class="card-title" style="align-items: center;">管理者帳號</div>
-						<div style="display: flex; justify-content: right;">
-							<a href="adm_men_add.jsp" class="btn btn-warning "><i
-								class="fa fa-plus-circle"></i>增加管理者</a>
-							<!-- <button class="btn btn-warning "><i class="fa fa-plus"></i>增加管理者</button> -->
-						</div>
-					</div>
-
-					<div class="card-body">
-						<div class="table-responsive">
-							<table class="table card-table table-vcenter text-nowrap">
-								<thead>
+			<!-- 以下預計放置搜尋出的畫面 -->
+			<div class="card">
+				<div class="card-body">
+				<p>成功更新會員資料!</p>
+						<table class="table table-bordered">
+							<thead>
+								<tr style="text-align: center;">
+									<th>會員編號</th>
+									<th>會員帳號</th>
+									<th>會員姓名</th>
+									<th>會員電話</th>
+									<th>會員暱稱</th>
+									<th>註冊時間</th>
+									<th>會員生日</th>
+									<th>常用大樓</th>
+									<th>照片</th>
+								</tr>
+							</thead>
+							
+							<tbody>
 									<tr>
-										<th>員工編號</th>
-										<th>姓名</th>
-										<th>大頭照</th>
-										<th>管理權限</th>
-										<th>入職日期</th>
-										<th>修改</th>
-										<th>停權</th>
+										<td>${userinfo.userID}</td>
+										<td>${userinfo.userAccount}</td>
+										<td>${userinfo.userName}</td>
+										<td>${userinfo.userPhone}</td>
+										<td>${userinfo.userNickName}</td>
+										<td>${userinfo.userRegisterTime}</td>
+										<td>${userinfo.userBirthday}</td>
+<%-- 										<td><%=buildingInfo.getBuildingID()%>【<%=buildingInfo.getBuildingName()%>】</td> --%>
+<%-- 										<td>${userinfo.buildingID}</td> --%>
+										<td>${userinfo.buildingID.buildingName}</td>
+										<td><img width="100" src="UserImage?userID=${userinfo.userID}" ></td>
 									</tr>
-								</thead>
-
-								<tbody id="table-body">
-									<%@ include file="adm_men1.file"%>
-									<c:forEach var="empIDVO" items="${list}" begin="<%=pageIndex%>"
-										end="<%=pageIndex+rowsPerPage-1%>">
-										<tr>
-											<td>${empIDVO.empID}</td>
-											<td>${empIDVO.empName}</td>
-											<td><img
-												src="<%= request.getContextPath()%>/pages/emp.photo?empID=${empIDVO.empID}"
-												class="img-circle elevation-1 emp_table_img"></td>
-											<td>${empIDVO.empAdminAuthorization}</td>
-											<td>${empIDVO.empArriveDate}</td>
-											<td>
-												<div >
-												<FORM METHOD="post"
-													ACTION="<%=request.getContextPath()%>/background/pages/emp.do"
-													ENCTYPE="multipart/form-data" style="margin-bottom: 0px;" id="modifybtn">
-													<input type="submit" value="修改" class="btn btn-warning btn-sm" id="modifybtn1"> 
-														<input type="hidden" name="empID" value="${empIDVO.empID}" id="modifybtn2">
-														<input type="hidden" name="action" value="getOne_For_Update" id="modifybtn3">															
-												</FORM>
-												<div>
-											</td>
-											<td>
-<%-- 刪除	 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/background/pages/emp.do" style="margin-bottom: 0px;"> --%>
-												<FORM METHOD="post" style="margin-bottom: 0px;" id="suspendbtn">
-													<input type="submit" value="已離職" class="btn btn-danger btn-sm" > 
-													<input type="hidden" name="empID" value="${empIDVO.empID}" >
-<!-- 刪除	 <input type="hidden" name="action" value="delete"> -->
-
-												</FORM>
-											</td>
-										</tr>
-
-									</c:forEach>
-								</tbody>
-							</table>
-							<%@ include file="adm_men2.file"%>
-						</div>
-					</div>
+							</tbody>
+						</table>
 				</div>
-				<!-- card end -->
-			</div>
-			<!-- class="col-12 -->
-		</div>
-		<!-- content-wrappe end -->
 
+<!-- ======= 底部頁數/頁碼 ======= -->
+<div class="card-footer bg-transparent ">
+	<ul class="pagination justify-content-center ">
+	<a href="${pageContext.request.contextPath}/background/pages/mem_account.jsp">回會員資料查詢頁</a>
+	</ul>
+	
+	
+</div>
+
+				</div>
+		</div>
+		<!-- /.content-wrapper -->
 
 
 		<!-- Control Sidebar -->
@@ -225,27 +201,10 @@ pageContext.setAttribute("list", list);
 	<!-- OPTIONAL SCRIPTS -->
 	<script src="../plugins/chart.js/Chart.min.js"></script>
 	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-	<script src="../dist/js/pages/dashboard3.js"></script>
-	<!-- AdminLTE App -->
-	<!-- <script src="../dist/js/adminlte.min.js"></script> -->
+	<!-- <script src="../dist/js/pages/dashboard3.js"></script> -->
 	
  <!-- 引入selfjs -->
 <%@ include  file="pagejs.file" %>
-	
-<!-- 停權 -->
-	<script>
-   
-    $("#suspendbtn").click(function(){
-    	console.log(123);
-    	$("#modifybtn").attr("disabled",true);
-    	$("#modifybtn2").attr("disabled",true);
-    	$("#modifybtn3").attr("disabled",true);
-    })
-   
-</script>
-
-
-
 
 </body>
 

@@ -23,15 +23,6 @@
 
 
 </head>
-<!--
-`body` tag options:
-
-  Apply one or more of the following classes to to the body tag
-  to get the desired effect
-
-  * sidebar-collapse
-  * sidebar-mini
--->
 
 <body class="hold-transition sidebar-mini">
 	<div class="wrapper">
@@ -91,21 +82,10 @@
 				<nav class="mt-2">
 					<ul class="nav nav-pills nav-sidebar flex-column"
 						data-widget="treeview" role="menu" data-accordion="false">
-						<!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
 
-<!-- 引入側邊欄 -->
+ <!-- 引入側邊欄 -->
 <%@ include  file="pageaside.file" %>
 
-							<ul class="nav nav-pills nav-sidebar " data-accordion="false"
-								style="justify-content: flex-end">
-								<li class="col-sm-5">
-									<button id="logoutButton" type="button"
-										class="btn btn-block btn-outline-warning btn-sm">
-										<i class="fa fa-sign-out-alt  nav-icon"></i>登出
-									</button>
-								</li>
-							</ul>
 				</nav>
 				<!-- /.sidebar-menu -->
 			</div>
@@ -194,7 +174,7 @@
 			<!-- 以下預計放置搜尋出的畫面 -->
 			<div class="card">
 				<div class="card-body">
-				<p>這頁是results!!!!</p>
+				<p>這頁是複合查詢的results!!!!</p>
 <!-- 						<ul class="pagination justify-content-left "> -->
 <%-- 							<c:if test="${empPageQty > 0}"> --%>
 <%-- 						  		<b><font >第${currentPage}/${empPageQty}頁</font></b> --%>
@@ -213,7 +193,6 @@
 							</thead>
 							
 							<tbody>
-
 								<c:forEach var="user" items="${userinfoList}">
 									<tr>
 										<td>${user.userID}</td>
@@ -225,7 +204,7 @@
 												action="${pageContext.request.contextPath}/background/pages/user.do" style="margin-bottom: 0px;" id="modifybtn">
 												<input type="submit" value="修改" class="btn btn-warning btn-sm"> 
 													<input type="hidden" name="userID" value="${user.userID}" >
-													<input type="hidden" name="action" value="modifyuserinfo" >
+													<input type="hidden" name="action" value="getOne_For_Update" >
 											</FORM>
 										</td>
 										<td>
@@ -245,16 +224,16 @@
 <div class="card-footer bg-transparent ">
 	<ul class="pagination justify-content-center ">
 	<c:if test="${currentPage > 1}">
-		<a href="${pageContext.request.contextPath}/background/pages/user.do?action=update&page=1">至第一頁</a>&nbsp;
+		<a href="${pageContext.request.contextPath}/background/pages/user.do?action=getAll&page=1">至第一頁</a>&nbsp;
 	</c:if>
 	<c:if test="${currentPage - 1 != 0}">
-		<a href="${pageContext.request.contextPath}/background/pages/user.do?action=update&page=${currentPage - 1}">上一頁</a>&nbsp;
+		<a href="${pageContext.request.contextPath}/background/pages/user.do?action=getAll&page=${currentPage - 1}">上一頁</a>&nbsp;
 	</c:if>
 	<c:if test="${currentPage + 1 <= empPageQty}">
-		<a href="${pageContext.request.contextPath}/background/pages/user.do?action=update&page=${currentPage + 1}">下一頁</a>&nbsp;
+		<a href="${pageContext.request.contextPath}/background/pages/user.do?action=getAll&page=${currentPage + 1}">下一頁</a>&nbsp;
 	</c:if>
 	<c:if test="${currentPage != empPageQty}">
-		<a href="${pageContext.request.contextPath}/background/pages/user.do?action=update&page=${empPageQty}">至最後一頁</a>&nbsp;
+		<a href="${pageContext.request.contextPath}/background/pages/user.do?action=getAll&page=${empPageQty}">至最後一頁</a>&nbsp;
 	</c:if>
 
 	</ul>

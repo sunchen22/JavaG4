@@ -132,18 +132,9 @@
 					<ul class="nav nav-pills nav-sidebar flex-column"
 						data-widget="treeview" role="menu" data-accordion="false">
 
-<!-- 引入側邊欄 -->
+ <!-- 引入側邊欄 -->
 <%@ include  file="pageaside.file" %>
 
-							<ul class="nav nav-pills nav-sidebar " data-accordion="false"
-								style="justify-content: flex-end">
-								<li class="col-sm-5">
-									<button id="logoutButton" type="button"
-										class="btn btn-block btn-outline-warning btn-sm">
-										<i class="fa fa-sign-out-alt  nav-icon"></i>登出
-									</button>
-								</li>
-							</ul>
 				</nav>
 				<!-- /.sidebar-menu -->
 			</div>
