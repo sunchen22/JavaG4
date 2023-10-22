@@ -177,13 +177,6 @@ public class DinerInfoServletD extends HttpServlet {
 			// 雖然前端選項寫死，還是稍微做個判定，增加安全性
 			dinerInfoRg.setDinerType(dinerType); // 存下註冊者輸入的資訊
 
-			// Timestamp的當前時間設置
-//			Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-//			dinerInfoRg.setDinerRegisterTime(currentTime);// 存下註冊者的註冊時間
-//			
-//			String dinerStatus = "Submitted";
-			// 註冊如果失敗，就不需要存下註冊者的商家狀態
-			// 這格應該是會資料庫自己新增，但是可以之後再試試看
 
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
@@ -276,6 +269,9 @@ public class DinerInfoServletD extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 info-change.jsp
 			successView.forward(req, res);
 		}
+		
+		
+		
 
 //		=========================== 送出商家資料修改 ======================================================			
 

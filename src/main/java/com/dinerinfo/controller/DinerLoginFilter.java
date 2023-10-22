@@ -1,6 +1,9 @@
 package com.dinerinfo.controller;
 
+import java.awt.Menu;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -12,6 +15,8 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.dinerinfo.entity.DinerInfo;
 
 //確保商家使用者在訪問需要身份驗證的網頁時已經登入
 @WebFilter(filterName = "dinerLoginFilter", 
@@ -64,8 +69,9 @@ public class DinerLoginFilter implements Filter {
 			return;
 			// 提早結束doFilter方法的執行，不繼續處理這次的請求
 		} else {
+						
 			chain.doFilter(request, response);
-			// 如果使用者已登入（account不為null），則繼續處理請求
+			// 如果使用者已登入（accou nt不為null），則繼續處理請求
 			// 將請求和回應傳遞給下一個過濾器或目標資源
 		}
 		
