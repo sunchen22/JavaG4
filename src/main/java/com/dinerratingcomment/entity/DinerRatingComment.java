@@ -20,24 +20,11 @@ import com.userinfo.entity.UserInfo;
 @Table(name="dinerratingcomment")
 
 public class DinerRatingComment {
-
-//	@Id
-//	@GeneratedValue(strategy =  GenerationType.IDENTITY)
-//	@Column(name = "commentID")
-//	private Integer commentID;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="commentID", updatable = false)
 	private Integer commentID;
-	
-//	@ManyToOne
-//	@JoinColumn(name= "dinerID" , referencedColumnName = "dinerID")
-//	@Column(name = "dinerID")
-//	private Integer dinerID;
-//	private DinerInfo dinerinfo;
-	
-	
 	
 	@ManyToOne
 	@JoinColumn(name = "dinerID", referencedColumnName = "dinerID")
@@ -46,9 +33,6 @@ public class DinerRatingComment {
 	@ManyToOne
 	@JoinColumn(name = "userID", referencedColumnName = "userID")
 	private UserInfo userInfo;
-	
-//	@Column(name = "userID")
-//	private Integer userID;
 	
 	@Column(name = "dinerRating")
 	private Integer dinerRating;
@@ -66,8 +50,7 @@ public class DinerRatingComment {
 	private Timestamp dinerReplyTime;
 
 	public DinerRatingComment() {
-		super();
-		 
+		super(); 
 	}
 
 	public Integer getCommentID() {

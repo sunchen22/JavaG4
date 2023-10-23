@@ -8,21 +8,26 @@ if (session.getAttribute("loginUserInfo") == null) { // 如為 null, 代表此us
 <nav class="navbar navbar-expand-md sticky-top navbar-light bg-light">
 	<div class="container-fluid">
 		<!-- 品牌 -->
-		<a class="navbar-brand" href="${pageContext.request.contextPath}/consumer/index.jsp">樓頂揪樓咖</a>
+		<a class="navbar-brand"
+			href="${pageContext.request.contextPath}/consumer/index.jsp">樓頂揪樓咖</a>
 
 		<!-- 導覽列項目 -->
 		<div class="navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav me-auto mb-0 ms-2">
 				<li class="nav-item"><a class="nav-link" aria-current="page"
 					href="#!">搜尋大樓揪團</a></li>
-				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/consumer/search.jsp">搜尋餐廳</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="${pageContext.request.contextPath}/consumer/search.jsp">搜尋餐廳</a></li>
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" id="navbarDropdown" href="#"
 					role="button" data-bs-toggle="dropdown" aria-expanded="false">協助</a>
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<li><a class="dropdown-item" href="${pageContext.request.contextPath}/consumer/FAQ.jsp">常見問題</a></li>
-						<li><a class="dropdown-item" href="${pageContext.request.contextPath}/consumer/protected/DinerComment.jsp">意見反饋</a></li>
-						<li><a class="dropdown-item" href="${pageContext.request.contextPath}/consumer/protected/Chatroom.jsp">聯繫客服</a></li>
+						<li><a class="dropdown-item"
+							href="${pageContext.request.contextPath}/consumer/FAQ.jsp">常見問題</a></li>
+						<li><a class="dropdown-item"
+							href="${pageContext.request.contextPath}/consumer/protected/DinerComment.jsp">意見反饋</a></li>
+						<li><a class="dropdown-item"
+							href="${pageContext.request.contextPath}/consumer/protected/Chatroom.jsp">聯繫客服</a></li>
 					</ul></li>
 			</ul>
 			<!-- 登入相關 -->
@@ -39,21 +44,26 @@ if (session.getAttribute("loginUserInfo") == null) { // 如為 null, 代表此us
 <nav class="navbar navbar-expand-md sticky-top navbar-light bg-light">
 	<div class="container-fluid">
 		<!-- 品牌 -->
-		<a class="navbar-brand" href="${pageContext.request.contextPath}/consumer/index.jsp">樓頂揪樓咖</a>
+		<a class="navbar-brand"
+			href="${pageContext.request.contextPath}/consumer/index.jsp">樓頂揪樓咖</a>
 
 		<!-- 導覽列項目 -->
 		<div class="navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav me-auto mb-0 ms-2">
 				<li class="nav-item"><a class="nav-link" aria-current="page"
 					href="#!">搜尋大樓揪團</a></li>
-				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/consumer/search.jsp">搜尋餐廳</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="${pageContext.request.contextPath}/consumer/search.jsp">搜尋餐廳</a></li>
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" id="navbarDropdown" href="#"
 					role="button" data-bs-toggle="dropdown" aria-expanded="false">協助</a>
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<li><a class="dropdown-item" href="${pageContext.request.contextPath}/consumer/FAQ.jsp">常見問題</a></li>
-						<li><a class="dropdown-item" href="${pageContext.request.contextPath}/consumer/protected/Feedback.jsp">意見反饋</a></li>
-						<li><a class="dropdown-item" href="${pageContext.request.contextPath}/consumer/protected/Chatroom.jsp">聯繫客服</a></li>
+						<li><a class="dropdown-item"
+							href="${pageContext.request.contextPath}/consumer/FAQ.jsp">常見問題</a></li>
+						<li><a class="dropdown-item"
+							href="${pageContext.request.contextPath}/consumer/protected/Feedback.jsp">意見反饋</a></li>
+						<li><a class="dropdown-item"
+							href="${pageContext.request.contextPath}/consumer/protected/Chatroom.jsp">聯繫客服</a></li>
 					</ul></li>
 			</ul>
 			<!-- 登入相關 -->
@@ -111,10 +121,19 @@ if (session.getAttribute("loginUserInfo") == null) { // 如為 null, 代表此us
 				</a>
 					<ul class="dropdown-menu dropdown-menu-end"
 						aria-labelledby="userDropdown">
-						<li><a class="dropdown-item" href="${pageContext.request.contextPath}/consumer/protected/UserInfo.jsp">會員中心</a></li>
-						<li><a class="dropdown-item" href="${pageContext.request.contextPath}/consumer/protected/UserInfo.jsp">最愛餐廳</a></li>
-						<li><a class="dropdown-item" href="${pageContext.request.contextPath}/consumer/protected/ConsumerOrder.jsp">訂單</a></li>
-						<li><a class="dropdown-item" href="#!">登出</a></li>
+						<li><a class="dropdown-item"
+							href="${pageContext.request.contextPath}/consumer/protected/UserInfo.jsp">會員中心</a></li>
+						<li><a class="dropdown-item"
+							href="${pageContext.request.contextPath}/consumer/protected/UserInfo.jsp">最愛餐廳</a></li>
+						<li><a class="dropdown-item"
+							href="${pageContext.request.contextPath}/consumer/protected/ConsumerOrder.jsp">訂單</a></li>
+						<li>
+							<form action="${pageContext.request.contextPath}/user.do"
+								method="post">
+								<input type="hidden" name="action" value="logout" readonly>
+								<button type="submit" class="dropdown-item">登出</button>
+							</form>
+						</li>
 					</ul></li>
 
 

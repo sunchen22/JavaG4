@@ -73,7 +73,8 @@
 							<label for="userName" class="col-form-label col-md-3">姓名：</label>
 							<div class="col-md-9">
 								<input type="hidden" name="userID"
-									value="${loginUserInfo.userID}"> <input type="text"
+									value="${loginUserInfo.userID}"> 
+								<input type="text"
 									class="form-control" id="userName" maxlength="20"
 									value="${loginUserInfo.userName}" name="userName">
 							</div>
