@@ -39,6 +39,7 @@ public class DinerNews {
 	
 	@ManyToOne
 	@JoinColumn(name = "empID" , referencedColumnName = "empID")
+
 	private Webempadmin webempadmin ;
 	
 	
@@ -46,6 +47,9 @@ public class DinerNews {
 	
 	
 	
+
+	private Webempadmin webempadmin;
+
 	
 	
 	@Column(name = "dinerNewsReleaseTime")
@@ -62,16 +66,26 @@ public class DinerNews {
 		super();
 	}
 
+
 	public DinerNews(Integer dinerNewsID, String dinerNewsContent1, /*Integer empID,*/
 			Date dinerNewsReleaseTime, Date dinerNewsReviseTime , String dinerNewsContent2 , String dinerNewsContent3 , 
 			Integer dinerNewsStatus , Webempadmin webempadmin) {
-		super();
+
+	public DinerNews(Integer dinerNewsID, String dinerNewsContent, Webempadmin webempadmin,
+			Timestamp dinerNewsReleaseTime, Timestamp dinerNewsReviseTime) {
+
+		super();}
 		this.dinerNewsID = dinerNewsID;
+
 		this.dinerNewsContent1 = dinerNewsContent1;
 		this.dinerNewsContent2 = dinerNewsContent2;
 		this.dinerNewsContent3 = dinerNewsContent3;
 		this.webempadmin = webempadmin;
 //		this.empID = empID;
+=======
+		this.dinerNewsContent = dinerNewsContent;
+		this.webempadmin = webempadmin;
+>>>>>>> refs/heads/master
 		this.dinerNewsReleaseTime = dinerNewsReleaseTime;
 		this.dinerNewsReviseTime = dinerNewsReviseTime;
 		this.dinerNewsStatus = dinerNewsStatus;
@@ -108,14 +122,24 @@ public class DinerNews {
 		this.dinerNewsContent1 = dinerNewsContent1;
 	}
 
+<<<<<<< HEAD
 		
 	
 	public String getDinerNewsContent2() {
 		return dinerNewsContent2;
+=======
+	public Webempadmin getWebempadmin() {
+		return webempadmin;
+>>>>>>> refs/heads/master
 	}
 
+<<<<<<< HEAD
 	public void setDinerNewsContent2(String dinerNewsContent2) {
 		this.dinerNewsContent2 = dinerNewsContent2;
+=======
+	public void setWebempadmin(Webempadmin webempadmin) {
+		this.webempadmin = webempadmin;
+>>>>>>> refs/heads/master
 	}
 
 	public String getDinerNewsContent3() {

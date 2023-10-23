@@ -2,6 +2,7 @@ package com.webempadmin.model;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 
 public class WebempadminService {
@@ -62,6 +63,10 @@ public class WebempadminService {
 		return dao.findByPrimaryKey(empID);
 	}
 
+	public Map<String,String> getOnePassword(String empAccound) {
+		return dao.findAccoundPassword(empAccound);
+	}
+	
 	public List<WebempadminVO> getAll() {
 		return dao.getAll();
 	}

@@ -13,7 +13,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import com.varytype.entity.VaryType;
-import com.varytype.service.VaryTypeDAO_interface;
+import com.varytype.dao.VaryTypeDAO_interface;
 
 public class VaryTypeDAO implements VaryTypeDAO_interface {
 

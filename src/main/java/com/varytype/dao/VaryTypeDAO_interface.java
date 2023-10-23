@@ -1,4 +1,4 @@
-package com.varytype.service;
+package com.varytype.dao;
 
 import java.util.List;
 

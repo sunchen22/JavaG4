@@ -15,7 +15,7 @@ public class ProductType {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "productTypeID", updatable = false)
 	private Integer productTypeID;
-	
+
 	@Column(name = "productTypeDes")
 	private String productTypeDes;
 
@@ -29,19 +29,19 @@ public class ProductType {
 		this.productTypeDes = productTypeDes;
 	}
 
-	public Integer getproductTypeID() {
+	public Integer getProductTypeID() {
 		return productTypeID;
 	}
 
-	public void setgetproductTypeID() {
+	public void setProductTypeID(Integer productTypeID) {
 		this.productTypeID = productTypeID;
 	}
 
-	public String getproductTypeDes() {
+	public String getProductTypeDes() {
 		return productTypeDes;
 	}
 
-	public void setproductTypeDes() {
+	public void setProductTypeDes(String productTypeDes) {
 		this.productTypeDes = productTypeDes;
 	}
 

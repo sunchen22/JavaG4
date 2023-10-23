@@ -65,12 +65,7 @@
 
 
 	<%@ include file="./components/tail.jsp"%>
-	<%-- Import JS for this page below (if any) --%>
-	<script>
-		var script = document.createElement('script');
-		script.src = './vendor/bootstrap-5.3.1-dist/js/bootstrap.bundle.min.js';
-		document.head.appendChild(script);
-	</script>
+	
 
 </body>
 </html>

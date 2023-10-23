@@ -16,14 +16,24 @@ public class ProductDAOImplC implements ProductDAOC {
 	public Product down(Integer ProductID) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
+<<<<<<< HEAD
 //			session.beginTransaction();
 			Product pdt = session.get(Product.class, ProductID);
+=======
+			session.beginTransaction();
+			Product pdt = session.get(Product.class, dinerID);
+>>>>>>> refs/heads/master
 			
+<<<<<<< HEAD
 //			session.getTransaction().commit();
 			return pdt;
+=======
+			session.getTransaction().commit();
+			return 1;
+>>>>>>> refs/heads/master
 		} catch (Exception e) {
 			e.printStackTrace();
-//			session.getTransaction().rollback();
+			session.getTransaction().rollback();
 		}
 		return null;
 		
@@ -34,17 +44,22 @@ public class ProductDAOImplC implements ProductDAOC {
 	public List<Product> getAll(Integer dinerID){
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
+<<<<<<< HEAD
 //		session.beginTransaction();//狀態為1的才查的到
 		List<Product> list = session.createQuery("from Product where dinerid = ?0 and productStatus = ?1 ", Product.class)
+=======
+		session.beginTransaction();//狀態為1的才查的到
+		List<Product> list = session.createQuery("from Product where dinerid = ?0 ", Product.class)
+>>>>>>> refs/heads/master
 				.setParameter(0,dinerID)
 				.setParameter(1,"上架中")
 				.list();
 		
-//		session.getTransaction().commit();
+		session.getTransaction().commit();
 		return list;
 	}catch(Exception e) {
 		e.printStackTrace();
-//		session.getTransaction().rollback();
+		session.getTransaction().rollback();
 		}
 		return null;
 	}
@@ -53,8 +68,13 @@ public class ProductDAOImplC implements ProductDAOC {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		
 		try {
+<<<<<<< HEAD
 //			session.beginTransaction();
 			Product pdt = session.get(Product.class,productID);
+=======
+			session.beginTransaction();
+			Product gor = session.get(Product.class,productID);
+>>>>>>> refs/heads/master
 			
 			List list = new ArrayList();
 			
@@ -67,13 +87,13 @@ public class ProductDAOImplC implements ProductDAOC {
 //			list.get(1);
 //			list.get(2);
 //			list.get(3);
-//			session.getTransaction().commit();
+			session.getTransaction().commit();
 			
 			return list;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-//			session.getTransaction().rollback();
+			session.getTransaction().rollback();
 		}
 		
 		return null;
