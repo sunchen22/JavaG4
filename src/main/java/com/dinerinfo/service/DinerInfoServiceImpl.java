@@ -134,10 +134,42 @@ public class DinerInfoServiceImpl implements DinerInfoService {
 	// ****************************************************************************
 	
 	
+	// 用來設定成團訂單金額的方法
+	@Override
+	public DinerInfo setDinerOrderThreshold(Integer dinerID, String dinerOrderThreshold) {
+		DinerInfo dinerinfo = dao.findByPK(dinerID);
+		int dot = Integer.parseInt(dinerOrderThreshold);
+		dinerinfo.setDinerOrderThreshold(dot);
+		return dinerinfo;
+	}
+	
+	// 用來讀取圖片的方法
+	@Override
+	public byte[] getDinerBlob(Integer dinerID) {
+		DinerInfo dinerInfo = dao.findByPK(dinerID);
+		if (dinerInfo != null) {
+			byte[] dinerBlob = dinerInfo.getDinerBlob();
+			return dinerBlob;
+		} else {
+			return null;
+		}
+	}
+		
+	// 用來新增圖片的方法
+	@Override
+	public DinerInfo setDinerBlob(byte[] dinerBlob , Integer dinerID) {
+		DinerInfo dinerInfo = dao.findByPK(dinerID);
+		dinerInfo.setDinerBlob(dinerBlob);
+		return dinerInfo;
+	}
+	
+
 	@Override
 	public List<DinerInfo> getAllDinerInfos(int currentPage) {
 		return dao.getAll();
 	}
+
+
 
 	@Override
 	public int getPageTotal() {

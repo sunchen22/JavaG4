@@ -85,7 +85,14 @@ public class DinerInfoDAOHibernateImpl implements DinerInfoDAO {
 
 	@Override
 	public DinerInfo findByPK(Integer dinerID) {
+		try {
+			
 		return getSession().get(DinerInfo.class, dinerID);
+		
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
@@ -279,6 +286,21 @@ public class DinerInfoDAOHibernateImpl implements DinerInfoDAO {
 		}
 
 	}
+	
+	
+
+//	@Override
+//	public byte[] getBlob(Integer dinerID) {
+//		try {
+//			
+//			DinerInfo dinerInfo = getSession().get(DinerInfo.class, dinerID);
+//			byte[] dinerBlob = dinerInfo.getDinerBlob();
+//			
+//			}catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//			return null;
+//	}
 
 	@Override
 	public List<DinerInfo> getAll() {

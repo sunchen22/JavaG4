@@ -53,6 +53,15 @@ public interface DinerInfoService {
 	//*************************************************************************
 
 	
+	// 用來設定成團訂單金額的方法
+	DinerInfo setDinerOrderThreshold(Integer dinerID , String dinerOrderThreshold);
+	
+	// 用來讀取圖片的方法
+	byte[] getDinerBlob(Integer dinerID);
+	
+	// 用來新增圖片的方法
+	DinerInfo setDinerBlob(byte[] dinerBlob , Integer dinerID);
+	
 	List<DinerInfo> getAllDinerInfos(int currentPage);
 
 	int getPageTotal();

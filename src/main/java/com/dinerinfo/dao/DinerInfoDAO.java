@@ -53,6 +53,8 @@ public interface DinerInfoDAO {
 	
 	String compare(DinerInfo oldInfo, DinerInfo newInfo);
 	
+//	public byte[] getBlob(Integer dinerID);
+	
 //	DinerInfo isValueExist(String column , String value);  // 註冊驗證 : 資料庫比對
 	
 	List<DinerInfo> getAll();
