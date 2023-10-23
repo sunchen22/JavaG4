@@ -2,11 +2,7 @@
 <%@ include file="../components/head.jsp"%>
 <%-- Import CSS for this page below (if any) --%>
 <!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="./vendor/bootstrap-5.3.1-dist/css/bootstrap.min.css">
-<!-- Font Awesome -->
-<link rel="stylesheet"
-	href="./vendor/fontawesome-free-6.4.2-web/css/all.min.css">
+
 <style>
 .star_block {
 	display: inline-block;
@@ -95,9 +91,7 @@
 
 	<%@ include file="../components/tail.jsp"%>
 	<%-- Import JS for this page below (if any) --%>
-	<script src="./vendor/jquery/jquery-3.7.1.min.js"></script>
-	<script src="./vendor/bootstrap-5.3.1-dist/js/bootstrap.min.js"></script>
-	<script src="./vendor/bootstrap-5.3.1-dist/js/bootstrap.js"></script>
+	
 	<script>
 		$(document).ready(function () {
 			// 提交評論
