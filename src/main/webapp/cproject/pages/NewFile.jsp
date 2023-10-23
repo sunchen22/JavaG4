@@ -106,7 +106,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="./adm_sales.html" class="nav-link active">
+                  <a href="./adm_sales.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>銷售狀況</p>
                   </a>
@@ -184,7 +184,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="./mer_details.jsp" class="nav-link">
+                  <a href="./mer_details.jsp" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>商家資料異動</p>
                   </a>
@@ -197,7 +197,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="./mer_payment.jsp" class="nav-link active">
+                  <a href="./mer_payment.jsp" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>金流報表</p>
                   </a>
@@ -299,134 +299,146 @@
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
       <section class="content-header">
-<!--         <div class="container-fluid"> -->
-<!--           <div class="row mb-2"> -->
-<!--             <div class="col-sm-6"> -->
-<!--               <h1> </h1> -->
-<!--             </div> -->
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1> </h1>
+            </div>
 
-<!--           </div> -->
-<!--         </div>/.container-fluid -->
-<!--       </section> -->
+          </div>
+        </div><!-- /.container-fluid -->
+      </section>
 
-<!--       Main content -->
-<!--       <section class="content"> -->
-<!--         <div class="container-fluid"> -->
-<!--           <div class="row"> -->
-<!--             <div class="col-10"> -->
-<!--               interactive chart -->
-<!--               <div class="card card-warning card-outline"> -->
-<!--                 <div class="card-header"> -->
-<!--                   <h3 class="card-title"> -->
-<!--                     <i class="fa fa-search fa-sm"></i> -->
-<!--                   </h3> -->
-<!--                   <div class="card-tools"> -->
-<!--                     <button type="button" class="btn btn-tool" data-card-widget="collapse"> -->
-<!--                     </button> -->
-<!--                   </div> -->
-<!--                 </div> -->
-<!--                 <div id="interactive" style="height: 10px;"></div> -->
-
-<!--                 <div class="col-md-3"> -->
-<!--                 <form action="" style="padding:10px;"> -->
-
-<!--                   <span> -->
-<!--                     <label>商家帳號(統編)：</label> -->
-<!--                     <input type="search" placeholder="請輸入商家帳號" class="border border-warning"> -->
-<!--                   </span> -->
-
-
-<!--                   <span> -->
-<!--                     <label>商家名稱：</label> -->
-<!--                     <input type="search" placeholder="請輸入商家名稱" class="border border-warning"> -->
-<!--                   </span> -->
-
-<!--                   <span> -->
-<!--                     <button type="submit" style="font-weight:bold" class="btn btn-warning">查詢</button> -->
-<!--                   </span> -->
-<!--                 </form> -->
-<!--                 </div> -->
+      <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-10">
+              <!-- interactive chart -->
+              <div class="card card-warning card-outline">
+                <div class="card-header">
+                  <h3 class="card-title">
+                    商家資料
+                </h3>
+                  <div class="card-tools">
 
 
 
-<!--                 <div id="interactive" style="height: 20px;"></div> -->
-<!--               </div> -->
-
-
-
-
-<!--               /.card-body -->
-<!--             </div> -->
-<!--             /.card -->
-
-<!--           </div> -->
-<!--           /.col -->
-<!--         </div> -->
-<!--         /.row -->
-        
-        
-        
-        
-        <%
-				
-
-				DinerInfoDAOImplC didi = new DinerInfoDAOImplC();
-				List<DinerInfo> list = didi.getAll();
-				pageContext.setAttribute("list", list);
-         		
- 			%>
-        
-        
-        
-        
-        
-
-        <div class="table-responsive">
-          <table id = "table" class="table table-bordered">
-            <thead>
-              <tr>
-                <th class="w-1">商家編號</th>
-                      <th>商家帳號</th>
-                      <th>商家名稱</th>
-					  <th></th>
+                    
+                  </div>
+                </div>
                 
-              </tr>
-            </thead>
-            <tbody>
-              <c:forEach var="dinerinfo" items="${list}">
-                    <tr>
-                      <td><span class="text-muted">${dinerinfo.dinerID}</span></td>
-                      <td><a href="invoice.html" class="text-inherit">${dinerinfo.dinerTaxID}</a></td>
-                      <td>
-                        ${dinerinfo.dinerName}
-                      </td>                      
-                      
-                      <td>
-                        <form method = "get" action = "difs.do">
-                          <input type="hidden" name="dinerID"  value="${dinerinfo.dinerID}">    
-                          <input type="hidden" name="action"  value="go_for_payment">    
-			      		  
-			      		  			      		  
-                          <button type = "submit" class ="btn btn-warning" style = "font-weight :bold">查詢</button>
-                          
-                          
-                          </form>
-                          
-                          
-                          
-                          
-                          
-                      </td>
+
+				<%
+// 					DinerInfo dif = (DinerInfo)request.getAttribute("dif");
+					
+// 					List list =(ArrayList)request.getAttribute("list");
+				%>
+
+
+
+                <form  method = "post" action="difs1.do" style="padding:10px;">
+
+
                   
-                
-                </tr> 
-            </c:forEach>
-            </tbody>
-          </table>
-        </div>
-        </section>
 
-      </div>
+                      <div style="width: 50%;">
+                          <span>
+                              <label>&ensp;欲修改資料</label>
+                          </span>
+                          <br>
+                          <span>
+                              <label>&ensp;</label>
+                              <input type="text" name = "action1" class="border border-warning" style="width :60%">
+                          </span>
+                          <br>
+                          <span>
+                              <label>&ensp;</label>
+                              <input type="text" name = "action2" class="border border-warning" style="width :60%">
+                          </span>
+                          <br>
+                          <span>
+                              <label>&ensp;</label>
+                              <input type="text" name = "action3" class="border border-warning" style="width :60%">
+                          </span>
+                          <br>
+                          <span>
+                              <label>&ensp;</label>
+                              <input type="text" name = "action4" class="border border-warning" style="width :60%">
+                          </span>
+                          <br>
+                          <span>
+                              <label>&ensp;</label>
+                              <input type="text" name = "action5" class="border border-warning" style="width :60%">
+                          </span>
+                          <br>
+                          <span>
+                              <label>&ensp;</label>
+                              <input type="text" name = "action6" class="border border-warning" style="width :60%">
+                          </span>
+                          <br>
+                          <span>
+                              <label>&ensp;</label>
+                              <input type="text" name = "action7" class="border border-warning" style="width :60%">
+                          </span>
+                          <br>
+                          <span>
+                              <label>&ensp;</label>
+                              <input type="text" name = "action8" class="border border-warning" style="width :60%">
+                          </span>
+                          <br>
+                          <span>
+                              <label>&ensp;</label>
+                              <input type="text" name = "action9" class="border border-warning" style="width :60%">
+                          </span>
+                          <br>
+                          <span>
+                              <label>&ensp;</label>
+                              <input type="text" name = "action10" class="border border-warning" style="width :60%">
+                          </span>
+                          <br>
+                          
+                      </div>
+                  
+						<input type="hidden" name="dinerID"  value="31">
+                  
+                     
+                      <button  >
+                          審核
+                      </button>
+
+   
+
+              </form>
+                  <!-- </div> -->
+  
+  
+  
+                  <div id="interactive" style="height: 20px;"></div>
+                </div>
+  
+  
+  
+  
+                <!-- /.card-body-->
+              </div>
+              <!-- /.card -->
+  
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+
+                
+    
+    
+    
+              
+              </section>
+
+            </div>
+
+
 
 
 
@@ -453,6 +465,10 @@
       <script src="../plugins/jquery/jquery.min.js"></script>
       <!-- Bootstrap -->
       <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
       <!-- AdminLTE -->
       <script src="../dist/js/adminlte.js"></script>
       <!-- OPTIONAL SCRIPTS -->
@@ -466,41 +482,11 @@
       <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
       <script src="./assets/js/require.min.js"></script>
-      <%@ include file="included-fragment.file" %>
-		<script src="https://code.jquery.com/jquery-3.5.1.js"></script>                                    <!-- ●●js  for jquery datatables 用 -->
-		<script	src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>              <!-- ●●js  for jquery datatables 用 -->
-		<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.jqueryui.min.css" /> <!-- ●●css for jquery datatables 用 -->
       <script>
-      $(document).ready(function() {
-  		$('#table').DataTable({
-  			"lengthMenu": [5],
-  			"searching": true,  //搜尋功能, 預設是開啟
-  		    "paging": true,     //分頁功能, 預設是開啟
-  		    "ordering": true,   //排序功能, 預設是開啟
-  		    "language": {
-  		        "processing": "處理中...",
-  		        "loadingRecords": "載入中...",
-  		        "lengthMenu": "顯示 _MENU_ 筆結果",
-  		        "zeroRecords": "沒有符合的結果",
-  		        "info": "顯示第 _START_ 至 _END_ 筆結果，共<font color=red> _TOTAL_ </font>筆",
-  		        "infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
-  		        "infoFiltered": "(從 _MAX_ 筆結果中過濾)",
-  		        "infoPostFix": "",
-  		        "search": "搜尋:",
-  		        "paginate": {
-  		            "first": "第一頁",
-  		            "previous": "上一頁",
-  		            "next": "下一頁",
-  		            "last": "最後一頁"
-  		        },
-  		        "aria": {
-  		            "sortAscending":  ": 升冪排列",
-  		            "sortDescending": ": 降冪排列"
-  		        }
-  		    }
-  		});
-  	});
-      </script>
+        
+
+        
+  </script>
 
 </body>
 

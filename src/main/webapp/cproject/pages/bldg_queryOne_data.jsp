@@ -334,7 +334,7 @@
 				%>
 
 				<div class="table-responsive">
-					<table class="table card-table table-vcenter text-nowrap">
+					<table class="table table-bordered">
 						<thead>
 							<tr>
 								<th class="w-1">大樓編號</th>
@@ -352,14 +352,14 @@
 								
 								
 								<td>
-								<form style="width: 0px ; height: 0px">
-									<button  class="btn btn-warning"
-										style="font-weight: bold" data-bs-toggle="modal"
-										data-bs-target="#exampleModal">修改</button>
-										<form>
-										</td>
-										<td>															
-										<form METHOD="get" ACTION="<%=request.getContextPath()%>/cproject/pages/bis.do" style="width: 15px ; height: 15px">                
+<!-- 								<form style="width: 0px ; height: 0px"> -->
+<!-- 									<button  class="btn btn-warning" -->
+<!-- 										style="font-weight: bold" data-bs-toggle="modal" -->
+<!-- 										data-bs-target="#exampleModal">修改</button> -->
+<!-- 										<form> -->
+<!-- 										</td> -->
+<!-- 										<td>															 -->
+										<form METHOD="get" ACTION="<%=request.getContextPath()%>/cproject/pages/bis.do">                
 					                  <input type="hidden" name="buildingID"  value="<%=bif.getBuildingID() %>">    
 								      <input type="hidden" name="action" value="delete">
 								      <button type="submit" value ="送出" class ="btn btn-warning" style = "font-weight :bold " data-bs-toggle="modal" data-bs-target="#exampleModal">刪除</button>

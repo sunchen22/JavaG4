@@ -80,8 +80,7 @@
 	        <artifactId>jfreechart</artifactId>
 	        <version>1.0.19</version> <!-- 使用最新版本 -->
     	</dependency>
-<!-- ============================== -->		
-		
+
 	</dependencies>
 
 	<build>

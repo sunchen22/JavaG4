@@ -24,10 +24,16 @@ public class Advertisement {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="advertisementID", updatable = false)
 	private Integer advertisementID;
+		
+	
+//	@Column(name="dinerID")
+//	private Integer	dinerID;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "dinerid" ,referencedColumnName = "dinerid")
+	private DinerInfo dinerid;
 	
 	
-	@Column(name="dinerID")
-	private Integer	dinerID;
 	
 	@Column(name="advertisementBlob", columnDefinition = "longBlob" )
 	private byte[] advertisementBlob;
@@ -53,18 +59,19 @@ public class Advertisement {
 	}
 
 
-	public Advertisement(Integer advertisementID, Integer dinerID, byte[] advertisementBlob, String advertisementName,
+	public Advertisement(Integer advertisementID, byte[] advertisementBlob, String advertisementName,
 			Timestamp advertisementUpTime, Timestamp advertisementDownTime, Integer advertisementDuringTime,
-			String advertisementStatus) {
+			String advertisementStatus , DinerInfo dinerid) {
 		super();
 		this.advertisementID = advertisementID;
-		this.dinerID = dinerID;
+//		this.dinerID = dinerID;
 		this.advertisementBlob = advertisementBlob;
 		this.advertisementName = advertisementName;
 		this.advertisementUpTime = advertisementUpTime;
 		this.advertisementDownTime = advertisementDownTime;
 		this.advertisementDuringTime = advertisementDuringTime;
 		this.advertisementStatus = advertisementStatus;
+		this.dinerid = dinerid;
 	}
 
 
@@ -77,20 +84,45 @@ public class Advertisement {
 		this.advertisementID = advertisementID;
 	}
 
+	
+	
+	
+	
+	
+	
 
-	public Integer getDinerID() {
-		return dinerID;
+//	public Integer getDinerID() {
+//		return dinerID;
+//	}
+//
+//
+//	public void setDinerID(Integer dinerID) {
+//		this.dinerID = dinerID;
+//	}
+	
+	
+	
+
+
+	
+
+	public DinerInfo getDinerid() {
+		return dinerid;
 	}
 
 
-	public void setDinerID(Integer dinerID) {
-		this.dinerID = dinerID;
+	public void setDinerid(DinerInfo dinerid) {
+		this.dinerid = dinerid;
 	}
-
-
+	
+	
+	
 	public byte[] getAdvertisementBlob() {
 		return advertisementBlob;
 	}
+
+
+	
 
 
 	public void setAdvertisementBlob(byte[] advertisementBlob) {

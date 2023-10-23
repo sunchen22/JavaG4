@@ -108,6 +108,7 @@
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
+              
               <ul class="nav nav-treeview">
                 <li class="nav-item">
                   <a href="./adm_sales.html" class="nav-link active">
@@ -300,72 +301,72 @@
 
     
     <div class="content-wrapper">
-      <!-- Content Header (Page header) -->
+     
       <section class="content-header">
-        <div class="container-fluid">
-          <div class="row mb-2">
+<!--         <div class="container-fluid"> -->
+<!--           <div class="row mb-2"> -->
             <div class="col-sm-6">
               <h1> </h1>
             </div>
 
-          </div>
-        </div><!-- /.container-fluid -->
-      </section>
+<!--           </div> -->
+<!--         </div>/.container-fluid -->
+<!--       </section> -->
 
-      <!-- Main content -->
-      <section class="content">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-10">
-              <!-- interactive chart -->
-              <div class="card card-warning card-outline">
-                <div class="card-header">
-                  <h3 class="card-title">
-                    <i class="fa fa-search fa-sm"></i>
-                  </h3>
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    </button>
-                  </div>
-                </div>
-                <div id="interactive" style="height: 10px;"></div>
+<!--       Main content -->
+<!--       <section class="content"> -->
+<!--         <div class="container-fluid"> -->
+<!--           <div class="row"> -->
+<!--             <div class="col-10"> -->
+<!--               interactive chart -->
+<!--               <div class="card card-warning card-outline"> -->
+<!--                 <div class="card-header"> -->
+<!--                   <h3 class="card-title"> -->
+<!--                     <i class="fa fa-search fa-sm"></i> -->
+<!--                   </h3> -->
+<!--                   <div class="card-tools"> -->
+<!--                     <button type="button" class="btn btn-tool" data-card-widget="collapse"> -->
+<!--                     </button> -->
+<!--                   </div> -->
+<!--                 </div> -->
+<!--                 <div id="interactive" style="height: 10px;"></div> -->
 
-                <!-- <div class="col-md-3"> -->
-                <form action="" style="padding:10px;">
+<!--                 <div class="col-md-3"> -->
+<!--                 <form action="" style="padding:10px;"> -->
 
-                  <span>
-                    <label>商家帳號(統編)：</label>
-                    <input type="search"  class="border border-warning">
-                  </span>
-
-
-                  <span>
-                    <label>商家名稱：</label>
-                    <input type="search"  class="border border-warning">
-                  </span>
-
-                  <span>
-                    <button type="submit" style="font-weight:bold" class="btn btn-warning">查詢</button>
-                  </span>
-                </form>
-                <!-- </div> -->
+<!--                   <span> -->
+<!--                     <label>商家帳號(統編)：</label> -->
+<!--                     <input type="search"  class="border border-warning"> -->
+<!--                   </span> -->
 
 
+<!--                   <span> -->
+<!--                     <label>商家名稱：</label> -->
+<!--                     <input type="search"  class="border border-warning"> -->
+<!--                   </span> -->
 
-                <div id="interactive" style="height: 20px;"></div>
-              </div>
+<!--                   <span> -->
+<!--                     <button type="submit" style="font-weight:bold" class="btn btn-warning">查詢</button> -->
+<!--                   </span> -->
+<!--                 </form> -->
+<!--                 </div> -->
 
 
 
+<!--                 <div id="interactive" style="height: 20px;"></div> -->
+<!--               </div> -->
 
-              <!-- /.card-body-->
-            </div>
-            <!-- /.card -->
 
-          </div>
-          <!-- /.col -->
-        </div>
-        <!-- /.row -->
+
+
+<!--               /.card-body -->
+<!--             </div> -->
+<!--             /.card -->
+
+<!--           </div> -->
+<!--           /.col -->
+<!--         </div> -->
+<!--         /.row -->
 			<%
 				
 
@@ -382,13 +383,14 @@
     
     
               <div class="table-responsive">
-                <table class="table card-table table-vcenter text-nowrap">
+                <table id = "table" class="table table-bordered">
                   <thead>
                     <tr>
                       <th class="w-1">商家編號</th>
                       <th>商家帳號</th>
                       <th>商家名稱</th>                      
-
+					  <th></th>
+					  <th></th>
                       
                     </tr>
                   </thead>
@@ -404,7 +406,7 @@
                         ${dinerinfo.dinerStatus}
                       </td>                     
                       <td>
-                        <form action = "difs.do" style="width: 15px ; height: 15px">
+                        <form method = "post" action = "difs.do">
                           <input type="hidden" name="dinerID"  value="${dinerinfo.dinerID}">    
 			      		  <input type="hidden" name="action" value="go_for_mer_data">
                           <button class ="btn btn-warning" style = "font-weight :bold">查詢</button>
@@ -416,8 +418,12 @@
                       
                       </tr> 
                   </c:forEach>
+                  
+                  
                   </tbody>
                 </table>
+                
+                
               </div>
               </section>
 
@@ -473,19 +479,44 @@
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
       <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
-      <script src="./assets/js/require.min.js"></script>
-
-
-
+      <%@ include file="included-fragment.file" %>
+		<script src="https://code.jquery.com/jquery-3.5.1.js"></script>                                    <!-- ●●js  for jquery datatables 用 -->
+		<script	src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>              <!-- ●●js  for jquery datatables 用 -->
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.jqueryui.min.css" /> <!-- ●●css for jquery datatables 用 -->
       <script>
-        $("#query").on("click",function(){
-          window.location.href = "mer_list_data.jsp";
-        })
+      $(document).ready(function() {
+  		$('#table').DataTable({
+  			"lengthMenu": [5],
+  			"searching": true,  //搜尋功能, 預設是開啟
+  		    "paging": true,     //分頁功能, 預設是開啟
+  		    "ordering": true,   //排序功能, 預設是開啟
+  		    "language": {
+  		        "processing": "處理中...",
+  		        "loadingRecords": "載入中...",
+  		        "lengthMenu": "顯示 _MENU_ 筆結果",
+  		        "zeroRecords": "沒有符合的結果",
+  		        "info": "顯示第 _START_ 至 _END_ 筆結果，共<font color=red> _TOTAL_ </font>筆",
+  		        "infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
+  		        "infoFiltered": "(從 _MAX_ 筆結果中過濾)",
+  		        "infoPostFix": "",
+  		        "search": "搜尋:",
+  		        "paginate": {
+  		            "first": "第一頁",
+  		            "previous": "上一頁",
+  		            "next": "下一頁",
+  		            "last": "最後一頁"
+  		        },
+  		        "aria": {
+  		            "sortAscending":  ": 升冪排列",
+  		            "sortDescending": ": 降冪排列"
+  		        }
+  		    }
+  		});
+  	});
+        
 
         
-        
-      </script>
-
+  </script>
 </body>
 
 </html>
