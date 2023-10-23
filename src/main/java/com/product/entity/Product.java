@@ -65,17 +65,12 @@ public class Product {
 	}
 
 
-<<<<<<< HEAD
+
 
 	public Product(Integer productID, DinerInfo dinerid, String productName, Integer productPrice,
 			Integer productTypeID, Integer productDailyStock, Timestamp productReleaseTime, byte[] productBlob1,
 			byte[] productBlob2, byte[] productBlob3, String productRemark, String productStatus , DinerInfo dinerinfo) {
-=======
-			Integer productDailyStock, Timestamp productReleaseTime, byte[] productBlob1, byte[] productBlob2,
-			byte[] productBlob3,
 
-			String productRemark) {
->>>>>>> refs/heads/master
 		super();
 		this.productID = productID;
 		this.dinerinfo = dinerinfo;
@@ -91,11 +86,7 @@ public class Product {
 		this.productStatus = productStatus;
 	}
 
-<<<<<<< HEAD
 
-
-=======
->>>>>>> refs/heads/master
 	public Integer getProductID() {
 		return productID;
 	}
@@ -104,27 +95,21 @@ public class Product {
 		this.productID = productID;
 	}
 
-<<<<<<< HEAD
+
 
 
 	public DinerInfo getDinerinfo() {
 		return dinerinfo;
-=======
-	public Integer getDinerID() {
-		return dinerID;
->>>>>>> refs/heads/master
+
 	}
 
-<<<<<<< HEAD
+
 
 
 	public void setDinerinfo(DinerInfo dinerinfo) {
 		this.dinerinfo = dinerinfo;
-=======
-	public void setDinerID(Integer dinerID) {
-		this.dinerID = dinerID;
->>>>>>> refs/heads/master
 	}
+	
 
 	public String getProductName() {
 		return productName;
@@ -158,20 +143,18 @@ public class Product {
 		this.productDailyStock = productDailyStock;
 	}
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> refs/heads/master
+
+
+
 	public Timestamp getProductReleaseTime() {
 		return productReleaseTime;
 	}
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> refs/heads/master
+
 	public void setProductReleaseTime(Timestamp productReleaseTime) {
 		this.productReleaseTime = productReleaseTime;
 	}
@@ -180,47 +163,31 @@ public class Product {
 		return productBlob1;
 	}
 
-<<<<<<< HEAD
 
-
-=======
->>>>>>> refs/heads/master
 	public void setProductBlob1(byte[] productBlob1) {
 		this.productBlob1 = productBlob1;
 	}
 
-<<<<<<< HEAD
 
-
-=======
->>>>>>> refs/heads/master
 	public byte[] getProductBlob2() {
 		return productBlob2;
 	}
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> refs/heads/master
+
 	public void setProductBlob2(byte[] productBlob2) {
 		this.productBlob2 = productBlob2;
 	}
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> refs/heads/master
+
 	public byte[] getProductBlob3() {
 		return productBlob3;
 	}
 
-<<<<<<< HEAD
 
-
-=======
->>>>>>> refs/heads/master
 	public void setProductBlob3(byte[] productBlob3) {
 		this.productBlob3 = productBlob3;
 	}
@@ -241,17 +208,16 @@ public class Product {
 		this.productStatus = productStatus;
 	}
 
-<<<<<<< HEAD
+
 	
-=======
+
 	@Override
 	public String toString() {
-		return "Product [productID=" + productID + ", dinerID=" + dinerID + ", productName=" + productName
+		return "Product [productID=" + productID + ", productName=" + productName
 				+ ", productPrice=" + productPrice + ", productTypeID=" + productTypeID + ", productDailyStock="
 				+ productDailyStock + ", productReleaseTime=" + productReleaseTime + ", productBlob1=" + productBlob1
 				+ ", productBlob2=" + productBlob2 + ", productBlob3=" + productBlob3 + ", productRemark="
 				+ productRemark + ", productStatus=" + productStatus + "]";
 	}
->>>>>>> refs/heads/master
 
 }

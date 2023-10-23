@@ -84,8 +84,7 @@ public class DinerInfo {
 	@Column(name="dinerUpdate")
 	private String dinerUpdate;
 
-	@Column(name="dinerUpdate")
-	private String dinerUpdate;
+	
 	
 
 	

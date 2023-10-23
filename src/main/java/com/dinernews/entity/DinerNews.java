@@ -42,15 +42,7 @@ public class DinerNews {
 
 	private Webempadmin webempadmin ;
 	
-	
-	
-	
-	
-	
 
-	private Webempadmin webempadmin;
-
-	
 	
 	@Column(name = "dinerNewsReleaseTime")
 	
@@ -71,10 +63,7 @@ public class DinerNews {
 			Date dinerNewsReleaseTime, Date dinerNewsReviseTime , String dinerNewsContent2 , String dinerNewsContent3 , 
 			Integer dinerNewsStatus , Webempadmin webempadmin) {
 
-	public DinerNews(Integer dinerNewsID, String dinerNewsContent, Webempadmin webempadmin,
-			Timestamp dinerNewsReleaseTime, Timestamp dinerNewsReviseTime) {
-
-		super();}
+	
 		this.dinerNewsID = dinerNewsID;
 
 		this.dinerNewsContent1 = dinerNewsContent1;
@@ -82,13 +71,15 @@ public class DinerNews {
 		this.dinerNewsContent3 = dinerNewsContent3;
 		this.webempadmin = webempadmin;
 //		this.empID = empID;
-=======
-		this.dinerNewsContent = dinerNewsContent;
+
+		
 		this.webempadmin = webempadmin;
->>>>>>> refs/heads/master
+
 		this.dinerNewsReleaseTime = dinerNewsReleaseTime;
 		this.dinerNewsReviseTime = dinerNewsReviseTime;
 		this.dinerNewsStatus = dinerNewsStatus;
+		
+		
 	}
 
 	
@@ -105,10 +96,6 @@ public class DinerNews {
 		return dinerNewsID;
 	}
 	
-	
-	
-
-	
 
 	public void setDinerNewsID(Integer dinerNewsID) {
 		this.dinerNewsID = dinerNewsID;
@@ -122,41 +109,39 @@ public class DinerNews {
 		this.dinerNewsContent1 = dinerNewsContent1;
 	}
 
-<<<<<<< HEAD
+
 		
 	
 	public String getDinerNewsContent2() {
 		return dinerNewsContent2;
-=======
-	public Webempadmin getWebempadmin() {
-		return webempadmin;
->>>>>>> refs/heads/master
-	}
-
-<<<<<<< HEAD
+	}	
 	public void setDinerNewsContent2(String dinerNewsContent2) {
-		this.dinerNewsContent2 = dinerNewsContent2;
-=======
-	public void setWebempadmin(Webempadmin webempadmin) {
-		this.webempadmin = webempadmin;
->>>>>>> refs/heads/master
+	this.dinerNewsContent2 = dinerNewsContent2;
+		
 	}
-
 	public String getDinerNewsContent3() {
-		return dinerNewsContent3;
-	}
-
-	public void setDinerNewsContent3(String dinerNewsContent3) {
-		this.dinerNewsContent3 = dinerNewsContent3;
-	}
-
+			return dinerNewsContent3;
+		}
+	
+		public void setDinerNewsContent3(String dinerNewsContent3) {
+			this.dinerNewsContent3 = dinerNewsContent3;
+		}
 	public Webempadmin getWebempadmin() {
 		return webempadmin;
+
 	}
+
+
+	
 
 	public void setWebempadmin(Webempadmin webempadmin) {
 		this.webempadmin = webempadmin;
+
 	}
+
+	
+
+
 	
 //	public Integer getEmpID() {
 //		return empID;
