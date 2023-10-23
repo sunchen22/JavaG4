@@ -13,19 +13,19 @@ import util.HibernateUtil;
 
 public class ProductDAOImplC implements ProductDAOC {
 	
-	public int down(Integer dinerID) {
+	public Product down(Integer ProductID) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 //			session.beginTransaction();
-			Product pdt = session.get(Product.class, dinerID);
+			Product pdt = session.get(Product.class, ProductID);
 			
 //			session.getTransaction().commit();
-			return 1;
+			return pdt;
 		} catch (Exception e) {
 			e.printStackTrace();
 //			session.getTransaction().rollback();
 		}
-		return -1;
+		return null;
 		
 		
 	}
@@ -35,8 +35,9 @@ public class ProductDAOImplC implements ProductDAOC {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 //		session.beginTransaction();//狀態為1的才查的到
-		List<Product> list = session.createQuery("from Product where dinerid = ?0 ", Product.class)
+		List<Product> list = session.createQuery("from Product where dinerid = ?0 and productStatus = ?1 ", Product.class)
 				.setParameter(0,dinerID)
+				.setParameter(1,"上架中")
 				.list();
 		
 //		session.getTransaction().commit();

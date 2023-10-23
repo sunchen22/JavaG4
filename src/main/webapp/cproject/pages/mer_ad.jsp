@@ -305,13 +305,16 @@
 // 				pageContext.setAttribute("list", list);
 				
 				AdvertisementDAOHibernateImplC ac = new AdvertisementDAOHibernateImplC();
-				List<Advertisement> list = ac.getAllAD();
+				List<Advertisement> list = ac.getAllApprovedAD();
 				pageContext.setAttribute("list", list);
+				
+				List<Advertisement> list1 = ac.getAllSubmittedAD();
+				pageContext.setAttribute("list1", list1);
  			%>
     
 
 
-
+	
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
       <section class="content-header">
@@ -327,7 +330,7 @@
         
         
         
-        
+        <p style="color: red">已審核</p>
         <div class="">
           <table id = "table" class="table table-bordered">
             <thead>
@@ -338,7 +341,11 @@
                 <th>商家帳號</th>
                 <th>商家名稱</th>                      				                
                 <th>審核狀態</th>
-                <th> </th>
+                <th>廣告名稱</th>
+                <th>上架時間</th>
+                <th>下架時間</th>
+                <th>圖片</th>
+                
 
               </tr>
             </thead>
@@ -355,10 +362,21 @@
                 <td>
                   ${advertisement.advertisementStatus}
                 </td>
+                
+				<td>
+				  ${advertisement.advertisementName}
+				</td>
 				
 				<td>
-				<button id="check" class="btn btn-warning" style="font-weight :bold">審核</button>
+				  ${advertisement.advertisementUpTime}
 				</td>
+				<td>
+				  ${advertisement.advertisementDownTime}
+				</td>
+				
+				<td>
+				</td>
+				
     
 
               </tr>
@@ -370,6 +388,8 @@
           
           <br>
           
+          
+          <p style="color: red">待審核</p>
           <div class="">
           <table id = "table1" class="table table-bordered">
             <thead>
@@ -380,13 +400,18 @@
                 <th>商家帳號</th>
                 <th>商家名稱</th>                      				                
                 <th>審核狀態</th>
-                <th> </th>
-
+                <th>廣告名稱</th>
+                <th>上架時間</th>
+                <th>下架時間</th>
+                <th>圖片</th>
+                
+				<th></th>
+				<th></th>
               </tr>
             </thead>
             
             <tbody>
-            <c:forEach var="advertisement" items="${list}">
+            <c:forEach var="advertisement" items="${list1}">
               <tr>
                 <td><span class="text-muted">${advertisement.dinerid.dinerID}</span></td>
                 <td><a href="invoice.html" class="text-inherit">${advertisement.dinerid.dinerTaxID}</a></td>
@@ -397,9 +422,33 @@
                 <td>
                   ${advertisement.advertisementStatus}
                 </td>
+                <td>
+                	${advertisement.advertisementName}
+                </td>
+				 <td>
+				 ${advertisement.advertisementUpTime}
+                </td>
+                 <td>
+                 ${advertisement.advertisementDownTime}
+                </td>
+                <td></td>
+                
+                
 				
 				<td>
-				<button id="check" class="btn btn-warning" style="font-weight :bold">審核</button>
+				<form method = "get" action = "ads.do">
+				<input type="hidden" name="action" value = "go_for_check">
+				<input type="hidden" name="check" value = "${advertisement.advertisementID}">
+				<button type = "submit" class="btn btn-warning" style="font-weight :bold">審核</button>
+				</form>
+				</td>
+				
+				<td>
+				<form method = "get" action = "ads.do">
+				<input type="hidden" name="action" value = "go_for_rejected">
+				<input type="hidden" name="check" value = "${advertisement.dinerid.dinerID}">
+				<button type = "submit" class="btn btn-warning" style="font-weight :bold">拒絕</button>
+				</form>
 				</td>
     
 

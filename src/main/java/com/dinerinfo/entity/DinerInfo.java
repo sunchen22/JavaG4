@@ -79,14 +79,29 @@ public class DinerInfo {
 	@Column(name="dinerBlob",columnDefinition="longblob")
 	private byte[] dinerBlob;
 	
+	
+	@Column(name="dinerUpdate")
+	private String dinerUpdate;
+	
 //	@OneToMany(mappedBy = "advertisement",cascade = CascadeType.ALL)
 //	@OrderBy("dinerID asc")
 //	private Set<Advertisement> advertisements;
 	
 	
+	public String getDinerUpdate() {
+		return dinerUpdate;
+	}
+
+	public void setDinerUpdate(String dinerUpdate) {
+		this.dinerUpdate = dinerUpdate;
+	}
+	
+	
 	public Set<Advertisement> getAds() {
 		return ads;
 	}
+
+	
 
 	public void setAds(Set<Advertisement> ads) {
 		this.ads = ads;
@@ -250,7 +265,8 @@ public class DinerInfo {
 	public DinerInfo(Integer dinerID, String dinerName, String dinerPassword, Timestamp dinerRegisterTime,
 			String dinerTaxID, String dinerContact, String dinerPhone, String dinerEmail, String dinerAddress,
 			String dinerBank, String dinerAccount, String dinerAccountName, String dinerType, String dinerStatus,
-			Integer dinerOrderThreshold, byte[] dinerBlob ,List<Product> products , Set<Advertisement> ads) {
+			Integer dinerOrderThreshold, byte[] dinerBlob ,List<Product> products , Set<Advertisement> ads , String
+			dinerUpdate) {
 		super();
 		this.dinerID = dinerID;
 		this.dinerName = dinerName;
@@ -270,6 +286,7 @@ public class DinerInfo {
 		this.dinerBlob = dinerBlob;
 		this.products = products;
 		this.ads = ads;
+		this.dinerUpdate = dinerUpdate;
 	}
 
 	@Override

@@ -10,5 +10,14 @@ import com.dinerinfo.entity.DinerInfo;
 
 public interface AdvertisementDAOC {
 	
-	public List<Advertisement> getAllAD();
+	
+	List<Advertisement> getAllApprovedAD();
+	List<Advertisement> getAllSubmittedAD();
+	
+//	List<Advertisement> getDinerInfoSubmittedAD(Integer dinerID);
+	
+//	List<Advertisement> getDinerInfoDeactivatedAD(Integer dinerID);
+	
+	Advertisement update(Integer advertisementID);
+	
 }

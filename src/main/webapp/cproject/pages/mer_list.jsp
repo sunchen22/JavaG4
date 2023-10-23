@@ -108,6 +108,7 @@
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
+              
               <ul class="nav nav-treeview">
                 <li class="nav-item">
                   <a href="./adm_sales.html" class="nav-link active">
@@ -300,72 +301,72 @@
 
     
     <div class="content-wrapper">
-      <!-- Content Header (Page header) -->
+     
       <section class="content-header">
-        <div class="container-fluid">
-          <div class="row mb-2">
+<!--         <div class="container-fluid"> -->
+<!--           <div class="row mb-2"> -->
             <div class="col-sm-6">
               <h1> </h1>
             </div>
 
-          </div>
-        </div><!-- /.container-fluid -->
-      </section>
+<!--           </div> -->
+<!--         </div>/.container-fluid -->
+<!--       </section> -->
 
-      <!-- Main content -->
-      <section class="content">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-10">
-              <!-- interactive chart -->
-              <div class="card card-warning card-outline">
-                <div class="card-header">
-                  <h3 class="card-title">
-                    <i class="fa fa-search fa-sm"></i>
-                  </h3>
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    </button>
-                  </div>
-                </div>
-                <div id="interactive" style="height: 10px;"></div>
+<!--       Main content -->
+<!--       <section class="content"> -->
+<!--         <div class="container-fluid"> -->
+<!--           <div class="row"> -->
+<!--             <div class="col-10"> -->
+<!--               interactive chart -->
+<!--               <div class="card card-warning card-outline"> -->
+<!--                 <div class="card-header"> -->
+<!--                   <h3 class="card-title"> -->
+<!--                     <i class="fa fa-search fa-sm"></i> -->
+<!--                   </h3> -->
+<!--                   <div class="card-tools"> -->
+<!--                     <button type="button" class="btn btn-tool" data-card-widget="collapse"> -->
+<!--                     </button> -->
+<!--                   </div> -->
+<!--                 </div> -->
+<!--                 <div id="interactive" style="height: 10px;"></div> -->
 
-                <!-- <div class="col-md-3"> -->
-                <form action="" style="padding:10px;">
+<!--                 <div class="col-md-3"> -->
+<!--                 <form action="" style="padding:10px;"> -->
 
-                  <span>
-                    <label>商家帳號(統編)：</label>
-                    <input type="search"  class="border border-warning">
-                  </span>
-
-
-                  <span>
-                    <label>商家名稱：</label>
-                    <input type="search"  class="border border-warning">
-                  </span>
-
-                  <span>
-                    <button type="submit" style="font-weight:bold" class="btn btn-warning">查詢</button>
-                  </span>
-                </form>
-                <!-- </div> -->
+<!--                   <span> -->
+<!--                     <label>商家帳號(統編)：</label> -->
+<!--                     <input type="search"  class="border border-warning"> -->
+<!--                   </span> -->
 
 
+<!--                   <span> -->
+<!--                     <label>商家名稱：</label> -->
+<!--                     <input type="search"  class="border border-warning"> -->
+<!--                   </span> -->
 
-                <div id="interactive" style="height: 20px;"></div>
-              </div>
+<!--                   <span> -->
+<!--                     <button type="submit" style="font-weight:bold" class="btn btn-warning">查詢</button> -->
+<!--                   </span> -->
+<!--                 </form> -->
+<!--                 </div> -->
 
 
 
+<!--                 <div id="interactive" style="height: 20px;"></div> -->
+<!--               </div> -->
 
-              <!-- /.card-body-->
-            </div>
-            <!-- /.card -->
 
-          </div>
-          <!-- /.col -->
-        </div>
-        <!-- /.row -->
+
+
+<!--               /.card-body -->
+<!--             </div> -->
+<!--             /.card -->
+
+<!--           </div> -->
+<!--           /.col -->
+<!--         </div> -->
+<!--         /.row -->
 			<%
 				
 

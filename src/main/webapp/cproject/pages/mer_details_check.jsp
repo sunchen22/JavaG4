@@ -1,8 +1,10 @@
+<%@page import="org.json.JSONArray"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="utf-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.*"%>
 <%@ page import="com.dinerinfo.dao.*"%>
 <%@ page import="com.dinerinfo.entity.*"%>
+<%@ page import="org.json.JSONObject" %>
 <html>
 
 <head>
@@ -332,7 +334,14 @@
 				<%
 					DinerInfo dif = (DinerInfo)request.getAttribute("dif");
 					
-// 					List list =(ArrayList)request.getAttribute("list");
+ 					
+					
+// 					JSONObject j = new JSONObject(dif.getDinerUpdate());
+					
+// 					j.get("a").toString() 下面的value
+					
+					
+					
 				%>
 
 

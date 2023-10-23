@@ -1,6 +1,6 @@
 package com.dinernews.entity;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.webempadmin.model.WebempadminVO;
+import com.webempadmin.entity.Webempadmin;
+
 
 @Entity
 @Table(name = "DinerNews")
@@ -21,8 +22,16 @@ public class DinerNews {
 	@Column(name = "dinerNewsID")
 	private Integer dinerNewsID;
 	
-	@Column(name = "dinerNewsContent")
-	private String dinerNewsContent;
+	@Column(name = "dinerNewsContent1")
+	private String dinerNewsContent1;
+	
+	@Column(name = "dinerNewsContent2")
+	private String dinerNewsContent2;
+	
+	
+	@Column(name = "dinerNewsContent3")
+	private String dinerNewsContent3;
+	
 	
 	
 //	@Column(name = "empID")
@@ -30,85 +39,128 @@ public class DinerNews {
 	
 	@ManyToOne
 	@JoinColumn(name = "empID" , referencedColumnName = "empID")
-	private WebempadminVO webempadminvo;
+	private Webempadmin webempadmin ;
+	
+	
+	
+	
+	
+	
 	
 	
 	@Column(name = "dinerNewsReleaseTime")
 	
-	private Timestamp dinerNewsReleaseTime;
+	private Date dinerNewsReleaseTime;
 		
 	@Column(name = "dinerNewsReviseTime")
-	private Timestamp dinerNewsReviseTime;
+	private Date dinerNewsReviseTime;
 	
+	@Column(name = "dinerNewsStatus")
+	private Integer dinerNewsStatus;
 	
 	public DinerNews(){
 		super();
 	}
 
-
-	public DinerNews(Integer dinerNewsID, String dinerNewsContent, WebempadminVO webempadminvo,
-			Timestamp dinerNewsReleaseTime, Timestamp dinerNewsReviseTime) {
+	public DinerNews(Integer dinerNewsID, String dinerNewsContent1, /*Integer empID,*/
+			Date dinerNewsReleaseTime, Date dinerNewsReviseTime , String dinerNewsContent2 , String dinerNewsContent3 , 
+			Integer dinerNewsStatus , Webempadmin webempadmin) {
 		super();
 		this.dinerNewsID = dinerNewsID;
-		this.dinerNewsContent = dinerNewsContent;
-		this.webempadminvo = webempadminvo;
+		this.dinerNewsContent1 = dinerNewsContent1;
+		this.dinerNewsContent2 = dinerNewsContent2;
+		this.dinerNewsContent3 = dinerNewsContent3;
+		this.webempadmin = webempadmin;
+//		this.empID = empID;
 		this.dinerNewsReleaseTime = dinerNewsReleaseTime;
 		this.dinerNewsReviseTime = dinerNewsReviseTime;
+		this.dinerNewsStatus = dinerNewsStatus;
 	}
 
-
+	
+	
+	public void setDinerNewsStatus(Integer dinerNewsStatus) {
+		this.dinerNewsStatus = dinerNewsStatus;
+	}
+	
+	public Integer getDinerNewsStatus() {
+			return dinerNewsStatus;
+	}
+	
 	public Integer getDinerNewsID() {
 		return dinerNewsID;
 	}
+	
+	
+	
 
+	
 
 	public void setDinerNewsID(Integer dinerNewsID) {
 		this.dinerNewsID = dinerNewsID;
 	}
 
-
-	public String getDinerNewsContent() {
-		return dinerNewsContent;
+	public String getDinerNewsContent1() {
+		return dinerNewsContent1;
 	}
 
-
-	public void setDinerNewsContent(String dinerNewsContent) {
-		this.dinerNewsContent = dinerNewsContent;
+	public void setDinerNewsContent1(String dinerNewsContent1) {
+		this.dinerNewsContent1 = dinerNewsContent1;
 	}
 
-
-	public WebempadminVO getWebempadminvo() {
-		return webempadminvo;
+		
+	
+	public String getDinerNewsContent2() {
+		return dinerNewsContent2;
 	}
 
-
-	public void setWebempadminvo(WebempadminVO webempadminvo) {
-		this.webempadminvo = webempadminvo;
+	public void setDinerNewsContent2(String dinerNewsContent2) {
+		this.dinerNewsContent2 = dinerNewsContent2;
 	}
 
+	public String getDinerNewsContent3() {
+		return dinerNewsContent3;
+	}
 
-	public Timestamp getDinerNewsReleaseTime() {
+	public void setDinerNewsContent3(String dinerNewsContent3) {
+		this.dinerNewsContent3 = dinerNewsContent3;
+	}
+
+	public Webempadmin getWebempadmin() {
+		return webempadmin;
+	}
+
+	public void setWebempadmin(Webempadmin webempadmin) {
+		this.webempadmin = webempadmin;
+	}
+	
+//	public Integer getEmpID() {
+//		return empID;
+//	}
+//
+//	public void setEmpID(Integer empID) {
+//		this.empID = empID;
+//	}
+
+	
+	
+
+	public Date getDinerNewsReleaseTime() {
 		return dinerNewsReleaseTime;
 	}
 
-
-	public void setDinerNewsReleaseTime(Timestamp dinerNewsReleaseTime) {
+	
+	public void setDinerNewsReleaseTime(Date dinerNewsReleaseTime) {
 		this.dinerNewsReleaseTime = dinerNewsReleaseTime;
 	}
 
-
-	public Timestamp getDinerNewsReviseTime() {
+	public Date getDinerNewsReviseTime() {
 		return dinerNewsReviseTime;
 	}
 
-
-	public void setDinerNewsReviseTime(Timestamp dinerNewsReviseTime) {
+	public void setDinerNewsReviseTime(Date dinerNewsReviseTime) {
 		this.dinerNewsReviseTime = dinerNewsReviseTime;
 	}
-
-	
-
-	
 
 	
 	

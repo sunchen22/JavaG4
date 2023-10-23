@@ -97,8 +97,7 @@
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                        data-accordion="false">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
 
@@ -112,6 +111,7 @@
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
+                            
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="./adm_sales.html" class="nav-link active">
@@ -430,38 +430,56 @@
                                        ${product.productPrice}
                                     </td>
                                     <td>
-                                       <img src= "psimg.do?productID=${product.productID}">
+                                       <img src = "psimg.do?productID=${product.productID}">
                                     </td>
                                     	
                                     <td>
                                        
                                     </td>
                                     
-                                    <td></td>
+                                    <td>
+                                    
+                                    
+                                    </td>
                                     	
                                     	
                                     	
 									<td>
 									
 									
-									<form action = "psimg.do">
-		                            <input type="hidden" name= productID  value="${product.productID}">    
-					      		    <input type="hidden" name="action">
-		                            <button class ="btn btn-warning" style = "font-weight :bold">查詢</button>
-									</form>
 									
 									
-									<div class="btn-group">
-                                            <button type="button" class="btn btn-warning dropdown-toggle"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                上架中
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="#">上架</a></li>
-                                                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">下架</a></li>
-                                                
-                                            </ul>
-                                        </div>
+									
+									
+									
+										<form method ="post" action = "pdsc.do">
+										
+										<input type = "hidden" name = "productID" value = "${product.productID}">
+										<input type = "hidden" name = "dinerID" value = "${product.dinerinfo.dinerID}">
+										<input type = "hidden" name="action" value = "go_for_down">
+										
+										<button type = "submit" class ="btn btn-warning" style = "font-weight :bold">下架</button>
+										
+										
+										
+<!-- 										<select name = "productID" > -->
+									  	
+									  					  						
+<%-- 										<option value="${product.productID}">${product.productStatus}</option>					 --%>
+<%-- 										<option value = "${product.productID}">下架</option> --%>
+										
+<!-- 									  </select> -->
+<!-- 										<input type = "submit" > -->
+<%-- 										<input type = "hidden" name = "dinerID" value = "${product.dinerinfo.dinerID}"> --%>
+<!-- 										<input type = "hidden" name="action" value = "go_for_down"> -->
+									  </form>
+									
+									
+
+
+
+
+                                        
                                         
                                         
                                         
@@ -471,11 +489,7 @@
 									
 									
 									
-<!--                                     <td> -->
-                                        
-                                        
 
-<!--                                     </td> -->
 
                                     
 
@@ -490,26 +504,31 @@
             </section>
 
         </div>
-
-        <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">提示</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p style="text-align: center; font-size: 20px;">確定要下架商品嗎</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" id = "stop1" class="btn btn-warning" data-bs-dismiss="modal">確定</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+								
+        
+<!--   <!-- Modal -->
+  
+<!--   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
+<!--     <div class="modal-dialog"> -->
+<!--       <div class="modal-content"> -->
+<!--         <div class="modal-header"> -->
+<!--           <h5 class="modal-title" id="exampleModalLabel">提示</h5> -->
+<!--           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+<!--         </div> -->
+<!--         <div class="modal-body"> -->
+<!--           <p style="text-align: center; font-size: 20px;">確定要下架商品嗎</p> -->
+<!--         </div> -->
+<!--         <div class="modal-footer"> -->
+<!--         	<form> -->
+<!--         	<input type="hidden" name="action"> -->
+<!--           	<button type="submit" id = "stop1" class="btn btn-warning" data-bs-dismiss="modal">確定</button>         	 -->
+<!--           	</form> -->
+<!--           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button> -->
           
-        </div>
-      </div>
-    </div>
-  </div>
+<!--         </div> -->
+<!--       </div> -->
+<!--     </div> -->
+<!--   </div> -->
 
 
 
@@ -562,6 +581,8 @@
     <script src="./assets/js/require.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 	
+	<script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"/>
+	
 	<%@ include file="included-fragment.file" %>
 		<script src="https://code.jquery.com/jquery-3.5.1.js"></script>                                    <!-- ●●js  for jquery datatables 用 -->
 		<script	src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>              <!-- ●●js  for jquery datatables 用 -->
@@ -569,9 +590,11 @@
       
 	
     <script>
+    	
+
       $(document).ready(function() {
   		$('#table').DataTable({
-  			"lengthMenu": [1],
+  			"lengthMenu": [2],
   			"searching": true,  //搜尋功能, 預設是開啟
   		    "paging": true,     //分頁功能, 預設是開啟
   		    "ordering": true,   //排序功能, 預設是開啟
@@ -597,7 +620,13 @@
   		        }
   		    }
   		});
+  		
+  		
+  		
   	});
+      
+     
+      
       </script>
 
 

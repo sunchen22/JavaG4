@@ -61,7 +61,7 @@ public class Advertisement {
 
 	public Advertisement(Integer advertisementID, byte[] advertisementBlob, String advertisementName,
 			Timestamp advertisementUpTime, Timestamp advertisementDownTime, Integer advertisementDuringTime,
-			String advertisementStatus , DinerInfo dinerinfo) {
+			String advertisementStatus , DinerInfo dinerid) {
 		super();
 		this.advertisementID = advertisementID;
 //		this.dinerID = dinerID;
@@ -71,7 +71,7 @@ public class Advertisement {
 		this.advertisementDownTime = advertisementDownTime;
 		this.advertisementDuringTime = advertisementDuringTime;
 		this.advertisementStatus = advertisementStatus;
-		this.dinerid = dinerinfo;
+		this.dinerid = dinerid;
 	}
 
 
@@ -99,7 +99,12 @@ public class Advertisement {
 //	public void setDinerID(Integer dinerID) {
 //		this.dinerID = dinerID;
 //	}
+	
+	
+	
 
+
+	
 
 	public DinerInfo getDinerid() {
 		return dinerid;
@@ -109,11 +114,15 @@ public class Advertisement {
 	public void setDinerid(DinerInfo dinerid) {
 		this.dinerid = dinerid;
 	}
-
-
+	
+	
+	
 	public byte[] getAdvertisementBlob() {
 		return advertisementBlob;
 	}
+
+
+	
 
 
 	public void setAdvertisementBlob(byte[] advertisementBlob) {

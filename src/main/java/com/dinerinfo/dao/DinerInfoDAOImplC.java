@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
+import org.json.JSONObject;
 import org.hibernate.Session;
 
+import com.buildinginfo.entity.BuildingInfo;
 import com.dinerinfo.entity.DinerInfo;
 
 
@@ -111,6 +113,75 @@ public List<DinerInfo> getAllAD(){
 	return null;
 }
 
+
+public DinerInfo update(Integer dinerInfoID) {
+	
+	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	try {
+//	session.beginTransaction();
+	DinerInfo dif = session.get(DinerInfo.class, dinerInfoID);
+	
+//	if(dif!=null) {
+//		JSONObject j = new JSONObject();
+//		 j.put("1","111");
+//		 j.put("2", "222");
+//		dif.setDinerUpdate(j.toString());
+//	}
+	
+	
+//	session.getTransaction().commit();
+	
+	
+	
+	return dif;
+																		
+	}catch(Exception e) {
+		e.printStackTrace();
+//		session.getTransaction().rollback();
+	}
+	return null;
+}
+
+
+
+public DinerInfo DeactivatedByPK(Integer dinerInfoID) {
+	
+	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	try {
+//	session.beginTransaction();
+	DinerInfo dif = session.get(DinerInfo.class, dinerInfoID);
+//	session.getTransaction().commit();
+	
+	
+	
+	return dif;
+																		
+	}catch(Exception e) {
+		e.printStackTrace();
+//		session.getTransaction().rollback();
+	}
+	return null;
+}
+
+
+public DinerInfo ActiveByPK(Integer dinerInfoID) {
+	
+	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	try {
+//	session.beginTransaction();
+	DinerInfo dif = session.get(DinerInfo.class, dinerInfoID);
+//	session.getTransaction().commit();
+	
+	
+	
+	return dif;
+																		
+	}catch(Exception e) {
+		e.printStackTrace();
+//		session.getTransaction().rollback();
+	}
+	return null;
+}
 
 
 

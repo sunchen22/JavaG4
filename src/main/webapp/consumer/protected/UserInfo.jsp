@@ -21,7 +21,9 @@ pageContext.setAttribute("buildingList", buildingList);
     UserInfo loginUserInfo = (UserInfo) session.getAttribute("loginUserInfo");
     byte[] userBlobData = loginUserInfo.getUserBlob();
     // 將byte[]轉換為Base64編碼的字符串
+    if(userBlobData != null) {
     String base64Image = Base64.getEncoder().encodeToString(userBlobData);
+	} 
 %>
 
 
@@ -126,10 +128,10 @@ pageContext.setAttribute("buildingList", buildingList);
 							<div class="col-md-9">
 								<input type="file" class="form-control" id="userBlob"
 									name="userBlob" placeholder="請上傳個人照片"
-									onchange="previewImage(event)"> 
-								<img id="previewBlob"
-									src="data:image/jpeg;base64, <%= base64Image %>" alt="Image preview"
-									style="margin-top: 10px; max-width: 200px;">
+									onchange="previewImage(event)">
+								
+								<img id="previewBlob" alt="Image preview" style="margin-top: 10px; max-width: 200px;" 
+     src="${not empty base64Image ? 'data:image/jpeg;base64,' + base64Image : ''}" />
 							</div>
 						</div>
 						<div class="d-grid">
@@ -141,7 +143,7 @@ pageContext.setAttribute("buildingList", buildingList);
 				
 				
 				<div class="tab-pane fade" id="v-pills-pwd">
-					<form>
+					<form method="post" action="user.do">
 						<div class="row mb-3">
 							<label for="oldPwd" class="col-form-label col-md-4">舊密碼：</label>
 							<div class="col-md-8">

@@ -1,4 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="utf-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.*"%>
+<%@ page import="com.dinerinfo.dao.*"%>
+<%@ page import="com.dinerinfo.entity.*"%>
+<%@ page import="com.advertisement.entity.*"%>
+<%@ page import="com.advertisement.dao.*"%>
 <html>
 
 <head>
@@ -323,85 +329,213 @@
                             <!-- <div class="col-md-3"> -->
 
                             <!-- </div> -->
+                            
+                 <%
+//                  	DinerInfo dif = (DinerInfo)request.getAttribute("dif");
+                 	
+//                  	AdvertisementDAOHibernateImplC adic = new AdvertisementDAOHibernateImplC();
+       		
+//         			List<Advertisement> list = adic.getDinerInfoSubmittedAD(dif.getDinerID());
+              
+//                  	pageContext.setAttribute("list", list);
+                 
+//                  	List<Advertisement> list1 = adic.getDinerInfoDeactivatedAD(dif.getDinerID());
+                 	
+//                  	pageContext.setAttribute("list1", list1);
+                 	
+                 	
+                 %>           
+                            
+                            
 
 
 
                             <div class="table-responsive">
-                                <table class="table card-table table-vcenter text-nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th class="w-1">廣告名稱</th>
-                                            <th>上架日期</th>
-                                            <th>下架日期</th>
-                                            <th>廣告天數</th>
-                                            <th>狀態</th>
-                                            
+                            	<table class="table card-table table-vcenter text-nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th class="w-1">商家編號</th>
+                                                <th>商家帳號</th>
+                                                <th>商家名稱</th>
+                                                <th>商家電話</th>
+                                                <th>e-mail</th>
+                                                <th>地址</th>
 
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><span class="text-muted">1</span></td>
-                                            <td>2023-01-01</td>
-                                            <td>
-                                                2023-01-01
-                                            </td>
-                                            <td>
-                                                1
-                                            </td>
-                                            <td>
-                                                已上架
-                                            </td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+<%--                                                 <td><span class="text-muted"><%= dif.getDinerID() %></span></td> --%>
+<%--                                                 <td><a href="invoice.html" class="text-inherit"><%= dif.getDinerTaxID() %></a></td> --%>
+                                                <td>
+<%--                                                     <%= dif.getDinerName() %> --%>
+                                                </td>
+                                                <td>
+<%--                                                     <%= dif.getDinerPhone() %> --%>
+                                                </td>
+                                                <td>
+<%--                                                     <%= dif.getDinerEmail() %> --%>
+                                                </td>
 
-                                            
+                                                <td>
+<%--                                                     <%= dif.getDinerAddress() %> --%>
+                                                </td>
 
-                                        </tr>
+                                            </tr>
 
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
 
 
+                                </div>
+
+
+
+
+                                <!-- /.card-body-->
                             </div>
+                            <!-- /.card -->
 
-
-
-
-                            <!-- /.card-body-->
                         </div>
-                        <!-- /.card -->
-
+                        <!-- /.col -->
                     </div>
-                    <!-- /.col -->
-                </div>
-                <!-- /.row -->
+                    
                 
+						<div class="table-responsive">
+                        <table id = "table" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="w-1">廣告編號</th>
+					              	<th>廣告名稱</th>
+					                <th>上架日期</th>
+					                <th>下架日期</th>
+					                <th>廣告天數</th>
+					                <th>狀態</th>
+									<th>圖片</th>
+									<th></th>
+                                </tr>
+                            </thead>
+                            
+                            <tbody>
+                            <c:forEach var="advertisement" items="${list}">
+                                        <tr>
+                                        <td><span class="text-muted">${advertisement.advertisementID}</span></td>
+						                <td>${advertisement.advertisementName}</td>
+						                <td>${advertisement.advertisementUpTime}</td>
+						                <td>
+						                  ${advertisement.advertisementDownTime}
+						                </td>
+						                
+						                <td>
+						                  ${advertisement.advertisementDuringTime}
+						                </td>
+						                
+										
+										<td>
+										
+										${advertisement.advertisementStatus}
+										
+										</td>
+										
+										<td>
+									
+										圖片
+										</td>
+										
+										
+										<td>
+										
+										<form method = "get" action = "ads.do">
+										<input type="hidden" name="action" value = "go_for_submitted">
+										<input type="hidden" name="submitted" value = "${advertisement.advertisementID}">
+										<button type = "submit" class="btn btn-warning" style="font-weight :bold">審核</button>
+										</form>
+										
+										</td>
+                                            
 
+                                        </tr>
+										</c:forEach>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    
+                    
+                    
+          <div class="">
+          <table id = "table1" class="table table-bordered">
+            <thead>
+            
+              <tr>
+              
+              	<th class="w-1">廣告編號</th>
+              	<th>廣告名稱</th>
+                <th>上架日期</th>
+                <th>下架日期</th>
+                <th>廣告天數</th>
+                <th>狀態</th>
+				<th>圖片</th>
+				
+              </tr>
+            </thead>
+            
+            <tbody>
+            <c:forEach var="advertisement" items="${list1}">
+              <tr>
+                <td><span class="text-muted">${advertisement.advertisementID}</span></td>
+                <td>${advertisement.advertisementName}</td>
+                <td>${advertisement.advertisementUpTime}</td>
+                <td>
+                  ${advertisement.advertisementDownTime}
+                </td>
+                
+                <td>
+                  ${advertisement.advertisementDuringTime}
+                </td>
+                
+				
+				<td>
+				
+				${advertisement.advertisementStatus}
+				
+				</td>
+				
+				<td>
+			
+				圖片
+				</td>
+				
+				
+				
+    
+
+              </tr>
+			  </c:forEach>
+			  
+            </tbody>
+          </table>
+          </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
               
 
-        <div class="table-responsive">
-
-            <div style="background:white ; width: 83%; height:300px ; border-color: lightgray; border-style: solid ">
-                <div>
-                    <label>&emsp;&emsp;&emsp;廣告名稱:&emsp;</label>
-                    <label>XXXXXX</label>
-                </div>
-            <div style="background: rgb(225, 227, 194); width: 100%; height:230px ; border-radius:50px;">
-                
-
-            </div>      
-            <div>
-                <label>&emsp;&emsp;&emsp;廣告上架日期:&emsp;</label>
-                <label>2023-01-01&emsp;&emsp;</label>
-                <label>廣告下架日期:&emsp;</label>
-                <label>2023-01-01&emsp;&emsp;</label>
-                <label>廣告區間:&emsp;</label>
-                <label>1天</label>
-            </div>          
-              </div>
-
-
-          
-        </div>
+        
       </section>
 
     </div>
@@ -449,11 +583,83 @@
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
   <script src="./assets/js/require.min.js"></script>
-  <script>
-    
+  <%@ include file="included-fragment.file" %>
+		<script src="https://code.jquery.com/jquery-3.5.1.js"></script>                                    <!-- ●●js  for jquery datatables 用 -->
+		<script	src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>              <!-- ●●js  for jquery datatables 用 -->
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.jqueryui.min.css" /> <!-- ●●css for jquery datatables 用 -->
+      
+	
+    <script>
+    	
 
-
-  </script>
+      $(document).ready(function() {
+  		$('#table').DataTable({
+  			"lengthMenu": [2],
+  			"searching": true,  //搜尋功能, 預設是開啟
+  		    "paging": true,     //分頁功能, 預設是開啟
+  		    "ordering": true,   //排序功能, 預設是開啟
+  		    "language": {
+  		        "processing": "處理中...",
+  		        "loadingRecords": "載入中...",
+  		        "lengthMenu": "顯示 _MENU_ 筆結果",
+  		        "zeroRecords": "沒有符合的結果",
+  		        "info": "顯示第 _START_ 至 _END_ 筆結果，共<font color=red> _TOTAL_ </font>筆",
+  		        "infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
+  		        "infoFiltered": "(從 _MAX_ 筆結果中過濾)",
+  		        "infoPostFix": "",
+  		        "search": "搜尋:",
+  		        "paginate": {
+  		            "first": "第一頁",
+  		            "previous": "上一頁",
+  		            "next": "下一頁",
+  		            "last": "最後一頁"
+  		        },
+  		        "aria": {
+  		            "sortAscending":  ": 升冪排列",
+  		            "sortDescending": ": 降冪排列"
+  		        }
+  		    }
+  		});
+  		
+  		
+  		
+  	});
+      
+     
+      
+      $(document).ready(function() {
+  		$('#table1').DataTable({
+  			"lengthMenu": [3],
+  			"searching": true,  //搜尋功能, 預設是開啟
+  		    "paging": true,     //分頁功能, 預設是開啟
+  		    "ordering": true,   //排序功能, 預設是開啟
+  		    "language": {
+  		        "processing": "處理中...",
+  		        "loadingRecords": "載入中...",
+  		        "lengthMenu": "顯示 _MENU_ 筆結果",
+  		        "zeroRecords": "沒有符合的結果",
+  		        "info": "顯示第 _START_ 至 _END_ 筆結果，共<font color=red> _TOTAL_ </font>筆",
+  		        "infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
+  		        "infoFiltered": "(從 _MAX_ 筆結果中過濾)",
+  		        "infoPostFix": "",
+  		        "search": "搜尋:",
+  		        "paginate": {
+  		            "first": "第一頁",
+  		            "previous": "上一頁",
+  		            "next": "下一頁",
+  		            "last": "最後一頁"
+  		        },
+  		        "aria": {
+  		            "sortAscending":  ": 升冪排列",
+  		            "sortDescending": ": 降冪排列"
+  		        }
+  		    }
+  		});
+  	});
+      
+      
+      
+      </script>
 
 </body>
 

@@ -299,81 +299,81 @@
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
       <section class="content-header">
-        <div class="container-fluid">
-          <div class="row mb-2">
-            <div class="col-sm-6">
-              <h1> </h1>
-            </div>
+<!--         <div class="container-fluid"> -->
+<!--           <div class="row mb-2"> -->
+<!--             <div class="col-sm-6"> -->
+<!--               <h1> </h1> -->
+<!--             </div> -->
 
-          </div>
-        </div><!-- /.container-fluid -->
-      </section>
+<!--           </div> -->
+<!--         </div>/.container-fluid -->
+<!--       </section> -->
 
-      <!-- Main content -->
-      <section class="content">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-10">
-              <!-- interactive chart -->
-              <div class="card card-warning card-outline">
-                <div class="card-header">
-                  <h3 class="card-title">
-                    <i class="fa fa-search fa-sm"></i>
-                  </h3>
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    </button>
-                  </div>
-                </div>
-                <div id="interactive" style="height: 10px;"></div>
+<!--       Main content -->
+<!--       <section class="content"> -->
+<!--         <div class="container-fluid"> -->
+<!--           <div class="row"> -->
+<!--             <div class="col-10"> -->
+<!--               interactive chart -->
+<!--               <div class="card card-warning card-outline"> -->
+<!--                 <div class="card-header"> -->
+<!--                   <h3 class="card-title"> -->
+<!--                     <i class="fa fa-search fa-sm"></i> -->
+<!--                   </h3> -->
+<!--                   <div class="card-tools"> -->
+<!--                     <button type="button" class="btn btn-tool" data-card-widget="collapse"> -->
+<!--                     </button> -->
+<!--                   </div> -->
+<!--                 </div> -->
+<!--                 <div id="interactive" style="height: 10px;"></div> -->
 
-                <!-- <div class="col-md-3"> -->
+<!--                 <div class="col-md-3"> -->
                 
-                <form method="get" action = "gos.do"  style="padding:10px;">
+<!--                 <form method="get" action = "gos.do"  style="padding:10px;"> -->
                 
-                <c:if test="${not empty errorMsgs}">
-				<font style="color:red">請修正以下錯誤:</font>
-				<ul>
-	   			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color:red">${message}</li>
-				</c:forEach>
-				</ul>
-				</c:if>
+<%--                 <c:if test="${not empty errorMsgs}"> --%>
+<!-- 				<font style="color:red">請修正以下錯誤:</font> -->
+<!-- 				<ul> -->
+<%-- 	   			<c:forEach var="message" items="${errorMsgs}"> --%>
+<%-- 				<li style="color:red">${message}</li> --%>
+<%-- 				</c:forEach> --%>
+<!-- 				</ul> -->
+<%-- 				</c:if> --%>
 
-                  <span>
-                    <label>訂單編號：</label>
-                    <input type="text" name = "ordnum" class="border border-warning">
-                    <input type="hidden" name="action" value="go_one_data">
-                  </span>
+<!--                   <span> -->
+<!--                     <label>訂單編號：</label> -->
+<!--                     <input type="text" name = "ordnum" class="border border-warning"> -->
+<!--                     <input type="hidden" name="action" value="go_one_data"> -->
+<!--                   </span> -->
 
 
-                  <span>
-                    <label>商家名稱：</label>
-                    <input type="text" name = "ordname" class="border border-warning">
+<!--                   <span> -->
+<!--                     <label>商家名稱：</label> -->
+<!--                     <input type="text" name = "ordname" class="border border-warning"> -->
                     
-                  </span>
+<!--                   </span> -->
 
-                  <span>
-                    <button type="submit" style="font-weight:bold" class="btn btn-warning">查詢</button>
-                  </span>
-                </form>
-                <!-- </div> -->
-
-
-                <div id="interactive" style="height: 20px;"></div>
-              </div>
+<!--                   <span> -->
+<!--                     <button type="submit" style="font-weight:bold" class="btn btn-warning">查詢</button> -->
+<!--                   </span> -->
+<!--                 </form> -->
+<!--                 </div> -->
 
 
+<!--                 <div id="interactive" style="height: 20px;"></div> -->
+<!--               </div> -->
 
 
-              <!-- /.card-body-->
-            </div>
-            <!-- /.card -->
 
-          </div>
-          <!-- /.col -->
-        </div>
-        <!-- /.row -->
+
+<!--               /.card-body -->
+<!--             </div> -->
+<!--             /.card -->
+
+<!--           </div> -->
+<!--           /.col -->
+<!--         </div> -->
+<!--         /.row -->
         
         	<%
 // 				GroupOrderDAOHibernateImpl godhi = new GroupOrderDAOHibernateImpl();

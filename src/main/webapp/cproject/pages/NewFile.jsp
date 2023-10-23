@@ -328,109 +328,86 @@
                   </div>
                 </div>
                 
-                
-<!--                 <script> -->
-// 			      var a = $("#txt1").val();
-// 			      var b = $("#txt2").val();
-// 			      var c = $("#txt3").val();
-// 			      var d = $("#txt4").val();
-// 			      var e = $("#txt5").val();
-// 			      var f = $("#txt6").val();
-// 			      var g = $("#txt7").val();
-// 			      var h = $("#txt8").val();
-// 			      var i = $("#txt9").val();
-// 			      var j = $("#txt10").val();
-			      
-			      
-			      
-			      
-<!-- 			      </script> -->
 
-				
+				<%
+// 					DinerInfo dif = (DinerInfo)request.getAttribute("dif");
+					
+// 					List list =(ArrayList)request.getAttribute("list");
+				%>
 
 
 
-                <form  method = "post" action="difs.do" style="padding:10px;">
+                <form  method = "post" action="difs1.do" style="padding:10px;">
 
 
-                  <div style="display: flex;">
+                  
 
                       <div style="width: 50%;">
-
                           <span>
-                              <label>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;舊資料</label>
-
-                          </span>
-                          <br>
-
-                          <span>
-                              <label>品牌名稱：</label>
-                              <input type="text" id= "txt1" name = "action1"  class="border border-warning" style="width :60%">
-                          </span>
-                          <br>
-
-                          <span>
-                              <label>地址：&ensp;&ensp;&ensp;&ensp;</label>
-                              <input type="text" id= "txt2 " name = "action2"  class="border border-warning" style="width :60%">
+                              <label>&ensp;欲修改資料</label>
                           </span>
                           <br>
                           <span>
-                              <label>姓名：&ensp;&ensp;&ensp;&ensp;</label>
-                              <input type="text"  id= "txt3" name = "action3"  class="border border-warning" style="width :60%">
+                              <label>&ensp;</label>
+                              <input type="text" name = "action1" class="border border-warning" style="width :60%">
                           </span>
                           <br>
                           <span>
-                              <label>統編：&ensp;&ensp;&ensp;&ensp;</label>
-                              <input type="text" id= "txt4" name = "action4"  class="border border-warning" style="width :60%">
+                              <label>&ensp;</label>
+                              <input type="text" name = "action2" class="border border-warning" style="width :60%">
                           </span>
                           <br>
                           <span>
-                              <label>e-mail ：&emsp;</label>
-                              <input type="text"  id= "txt5" name = "action5"  class="border border-warning" style="width :60%">
+                              <label>&ensp;</label>
+                              <input type="text" name = "action3" class="border border-warning" style="width :60%">
                           </span>
                           <br>
                           <span>
-                              <label>密碼：&ensp;&ensp;&ensp;&ensp;</label>
-                              <input type="text" id= "txt6" name = "action6"  class="border border-warning" style="width :60%">
+                              <label>&ensp;</label>
+                              <input type="text" name = "action4" class="border border-warning" style="width :60%">
                           </span>
                           <br>
                           <span>
-                              <label>銀行代號：</label>
-                              <input type="text"  id= "txt7" name = "action7"  class="border border-warning" style="width :60%">
+                              <label>&ensp;</label>
+                              <input type="text" name = "action5" class="border border-warning" style="width :60%">
                           </span>
                           <br>
                           <span>
-                              <label>銀行帳號：</label>
-                              <input type="text" id= "txt8" name = "action8"  class="border border-warning" style="width :60%">
+                              <label>&ensp;</label>
+                              <input type="text" name = "action6" class="border border-warning" style="width :60%">
                           </span>
                           <br>
                           <span>
-                              <label>戶名：&ensp;&ensp;&ensp;&ensp;</label>
-                              <input type="text" id= "txt9" name = "action9"  class="border border-warning" style="width :60%">
+                              <label>&ensp;</label>
+                              <input type="text" name = "action7" class="border border-warning" style="width :60%">
                           </span>
                           <br>
                           <span>
-                              <label>電話：&ensp;&ensp;&ensp;&ensp;</label>
-                              <input type="text" id= "txt10" name = "action10"  class="border border-warning" style="width :60%">
+                              <label>&ensp;</label>
+                              <input type="text" name = "action8" class="border border-warning" style="width :60%">
                           </span>
                           <br>
+                          <span>
+                              <label>&ensp;</label>
+                              <input type="text" name = "action9" class="border border-warning" style="width :60%">
+                          </span>
                           <br>
-
+                          <span>
+                              <label>&ensp;</label>
+                              <input type="text" name = "action10" class="border border-warning" style="width :60%">
+                          </span>
+                          <br>
+                          
                       </div>
-
-                      
-
-                  <div align="right" style="margin-right: 20px;">
+                  
+						<input type="hidden" name="dinerID"  value="31">
+                  
                      
-                 
-                      <button type="submit" class="btn btn-warning" >
-                      <input type="hidden" name = "action"  value = "go_for_check_changed" class="border border-warning">
+                      <button  >
                           審核
                       </button>
 
-                  </div>
-
-
+   
 
               </form>
                   <!-- </div> -->
@@ -505,9 +482,11 @@
       <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
       <script src="./assets/js/require.min.js"></script>
-      
-      
-      
+      <script>
+        
+
+        
+  </script>
 
 </body>
 
