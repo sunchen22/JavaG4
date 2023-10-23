@@ -162,8 +162,17 @@ public class UserInfoServlet extends HttpServlet {
 			session.setAttribute("loginUserInfo", newUserInfo);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/consumer/protected/UserInfo.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);
+			String defaultURL = "/consumer/index.jsp";
+			String contextPath = req.getContextPath(); // 取得當前應用的 context path
+
+			Object locationObj = session.getAttribute("location");
+			String location = (locationObj != null) ? (String) locationObj : defaultURL;
+
+			if (location.startsWith(contextPath)) {
+			    location = location.substring(contextPath.length()); // 去除 context path
+			}
+			RequestDispatcher successView = req.getRequestDispatcher(location);
+			session.removeAttribute("location");
 			successView.forward(req, res);
 		}
 
