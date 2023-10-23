@@ -70,6 +70,10 @@ public class DinerInfo {
 	@Column(name="dinerBlob",columnDefinition="longblob")
 	private byte[] dinerBlob;
 	
+	@Column(name="dinerUpdate")
+	private String dinerUpdate;
+	
+	
 //	@OneToMany(mappedBy = "advertisement",cascade = CascadeType.ALL)
 //	@OrderBy("dinerID asc")
 //	private Set<Advertisement> advertisements;
@@ -200,6 +204,14 @@ public class DinerInfo {
 
 	public void setDinerBlob(byte[] dinerBlob) {
 		this.dinerBlob = dinerBlob;
+		
+	}
+	public String getDinerUpdate() {
+		return dinerUpdate;
+	}
+	
+	public void setDinerUpdate(String dinerUpdate) {
+		this.dinerUpdate = dinerUpdate;
 	}
 
 //	public Set<Advertisement> getAdvertisements() {
@@ -214,40 +226,42 @@ public class DinerInfo {
 		super();
 	}
 
-	public DinerInfo(Integer dinerID, String dinerName, String dinerPassword, Timestamp dinerRegisterTime,
-			String dinerTaxID, String dinerContact, String dinerPhone, String dinerEmail, String dinerAddress,
-			String dinerBank, String dinerAccount, String dinerAccountName, String dinerType, String dinerStatus,
-			Integer dinerOrderThreshold, byte[] dinerBlob) {
-		super();
-		this.dinerID = dinerID;
-		this.dinerName = dinerName;
-		this.dinerPassword = dinerPassword;
-		this.dinerRegisterTime = dinerRegisterTime;
-		this.dinerTaxID = dinerTaxID;
-		this.dinerContact = dinerContact;
-		this.dinerPhone = dinerPhone;
-		this.dinerEmail = dinerEmail;
-		this.dinerAddress = dinerAddress;
-		this.dinerBank = dinerBank;
-		this.dinerAccount = dinerAccount;
-		this.dinerAccountName = dinerAccountName;
-		this.dinerType = dinerType;
-		this.dinerStatus = dinerStatus;
-		this.dinerOrderThreshold = dinerOrderThreshold;
-		this.dinerBlob = dinerBlob;
+public DinerInfo(Integer dinerID, String dinerName, String dinerPassword, Timestamp dinerRegisterTime,
+		String dinerTaxID, String dinerContact, String dinerPhone, String dinerEmail, String dinerAddress,
+		String dinerBank, String dinerAccount, String dinerAccountName, String dinerType, String dinerStatus,
+		Integer dinerOrderThreshold, byte[] dinerBlob, String dinerUpdate) {
+	super();
+	this.dinerID = dinerID;
+	this.dinerName = dinerName;
+	this.dinerPassword = dinerPassword;
+	this.dinerRegisterTime = dinerRegisterTime;
+	this.dinerTaxID = dinerTaxID;
+	this.dinerContact = dinerContact;
+	this.dinerPhone = dinerPhone;
+	this.dinerEmail = dinerEmail;
+	this.dinerAddress = dinerAddress;
+	this.dinerBank = dinerBank;
+	this.dinerAccount = dinerAccount;
+	this.dinerAccountName = dinerAccountName;
+	this.dinerType = dinerType;
+	this.dinerStatus = dinerStatus;
+	this.dinerOrderThreshold = dinerOrderThreshold;
+	this.dinerBlob = dinerBlob;
+	this.dinerUpdate = dinerUpdate;
+}
 
-	}
+@Override
+public String toString() {
+	return "DinerInfo [dinerID=" + dinerID + ", dinerName=" + dinerName + ", dinerPassword=" + dinerPassword
+			+ ", dinerRegisterTime=" + dinerRegisterTime + ", dinerTaxID=" + dinerTaxID + ", dinerContact="
+			+ dinerContact + ", dinerPhone=" + dinerPhone + ", dinerEmail=" + dinerEmail + ", dinerAddress="
+			+ dinerAddress + ", dinerBank=" + dinerBank + ", dinerAccount=" + dinerAccount + ", dinerAccountName="
+			+ dinerAccountName + ", dinerType=" + dinerType + ", dinerStatus=" + dinerStatus + ", dinerOrderThreshold="
+			+ dinerOrderThreshold + ", dinerBlob=" + Arrays.toString(dinerBlob) + ", dinerUpdate=" + dinerUpdate + "]";
+}
 
-	@Override
-	public String toString() {
-		return "DinerInfo [dinerID=" + dinerID + ", dinerName=" + dinerName + ", dinerPassword=" + dinerPassword
-				+ ", dinerRegisterTime=" + dinerRegisterTime + ", dinerTaxID=" + dinerTaxID + ", dinerContact="
-				+ dinerContact + ", dinerPhone=" + dinerPhone + ", dinerEmail=" + dinerEmail + ", dinerAddress="
-				+ dinerAddress + ", dinerBank=" + dinerBank + ", dinerAccount=" + dinerAccount + ", dinerAccountName="
-				+ dinerAccountName + ", dinerType=" + dinerType + ", dinerStatus=" + dinerStatus
-				+ ", dinerOrderThreshold=" + dinerOrderThreshold + ", dinerBlob=" + Arrays.toString(dinerBlob)
-				+ ", advertisements=" + "]";
-	}
+
+
 	
 
 	
