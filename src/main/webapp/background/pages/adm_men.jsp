@@ -173,12 +173,11 @@ pageContext.setAttribute("list", list);
 												<div>
 											</td>
 											<td>
-<%-- 刪除	 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/background/pages/emp.do" style="margin-bottom: 0px;"> --%>
-												<FORM METHOD="post" style="margin-bottom: 0px;" id="suspendbtn">
+
+												<FORM METHOD="post"  ACTION="<%=request.getContextPath()%>/background/pages/emp.do" style="margin-bottom: 0px;" id="suspendbtn">
 													<input type="submit" value="已離職" class="btn btn-danger btn-sm" > 
 													<input type="hidden" name="empID" value="${empIDVO.empID}" >
-<!-- 刪除	 <input type="hidden" name="action" value="delete"> -->
-
+													<input type="hidden" name="action" value="suspend">
 												</FORM>
 											</td>
 										</tr>

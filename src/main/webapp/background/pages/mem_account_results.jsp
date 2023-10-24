@@ -188,7 +188,7 @@
 									<th>會員姓名</th>
 									<th>會員電話</th>
 									<th>修改</th>
-									<th>停權</th>
+<!-- 									<th>停權</th> -->
 								</tr>
 							</thead>
 							
@@ -207,12 +207,12 @@
 													<input type="hidden" name="action" value="getOne_For_Update" >
 											</FORM>
 										</td>
-										<td>
+<!-- 										<td> -->
 <!-- 											<FORM METHOD="post" style="margin-bottom: 0px;" -->
 <!-- 												id="suspendbtn" > -->
-													<input type="submit" value="停權" class="btn btn-danger btn-sm"> <input type="hidden" name="empID" value="${user.userID}">
+<%-- 													<input type="submit" value="停權" class="btn btn-danger btn-sm"> <input type="hidden" name="empID" value="${user.userID}"> --%>
 <!-- 											</FORM> -->
-										</td>
+<!-- 										</td> -->
 									</tr>
 								</c:forEach>
 
@@ -223,18 +223,6 @@
 <!-- ======= 底部頁數/頁碼 ======= -->
 <div class="card-footer bg-transparent ">
 	<ul class="pagination justify-content-center ">
-	<c:if test="${currentPage > 1}">
-		<a href="${pageContext.request.contextPath}/background/pages/user.do?action=getAll&page=1">至第一頁</a>&nbsp;
-	</c:if>
-	<c:if test="${currentPage - 1 != 0}">
-		<a href="${pageContext.request.contextPath}/background/pages/user.do?action=getAll&page=${currentPage - 1}">上一頁</a>&nbsp;
-	</c:if>
-	<c:if test="${currentPage + 1 <= empPageQty}">
-		<a href="${pageContext.request.contextPath}/background/pages/user.do?action=getAll&page=${currentPage + 1}">下一頁</a>&nbsp;
-	</c:if>
-	<c:if test="${currentPage != empPageQty}">
-		<a href="${pageContext.request.contextPath}/background/pages/user.do?action=getAll&page=${empPageQty}">至最後一頁</a>&nbsp;
-	</c:if>
 
 	</ul>
 </div>

@@ -193,15 +193,6 @@ public class UserInfo2Servlet extends HttpServlet {
 					List<UserInfo> userinfoList = userinfoService.getUserInfoByCompositeQuery(map);
 					req.setAttribute("userinfoList", userinfoList);
 					
-					//頁碼 fail
-//					String page = req.getParameter("page"); // 取得第幾頁
-//					System.out.println("我在compositeQuery查詢內 Page:"+page);
-//					int currentPage = (page == null) ? 1 : Integer.parseInt(page); // 若沒帶回值，表示在第一頁
-//					if (req.getSession().getAttribute("empPageQty") == null) {
-//						int empPageQty = userinfoService.getPageTotal();
-//						req.getSession().setAttribute("empPageQty", empPageQty);
-//						req.setAttribute("currentPage", currentPage); // setAttribute設定 將結果傳出去
-//					}
 				} else {
 					String url = "/background/pages/mem_account.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功轉交
@@ -212,10 +203,11 @@ public class UserInfo2Servlet extends HttpServlet {
 				RequestDispatcher failureView = req.getRequestDispatcher("/background/pages/mem_account.jsp");
 				failureView.forward(req, res);
 			}
-		}					
-		String url = "/background/pages/mem_account_results.jsp";
-		RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功轉交
-		successView.forward(req, res);
+			String url = "/background/pages/mem_account_results.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功轉交
+			successView.forward(req, res);
+			
+		}
 	}
 
 	@Override
