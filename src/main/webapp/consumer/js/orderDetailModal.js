@@ -21,30 +21,33 @@ function openOrderDetailModal(productID) {
 				$("#modal_product_name").html(data.productName);
 				$("#modal_product_remark").html(data.productRemark);
 				$("#modal_product_price").html(data.productPrice);
-				$("#modal_product_img_1 img").attr("src", `${contextPath}/GroupOrderDinerImage?entity=Product&id=${productID}`);
+				$("#modal_product_img_1 img").attr("src", `${contextPath}/GroupOrderDinerImage?entity=Product&id=${productID}&no=1`);
+				$("#modal_product_img_2 img").attr("src", `${contextPath}/GroupOrderDinerImage?entity=Product&id=${productID}&no=2`);
+				$("#modal_product_img_3 img").attr("src", `${contextPath}/GroupOrderDinerImage?entity=Product&id=${productID}&no=3`);
 				$("#modal_subtotal").html(data.productPrice);
 				$("#modal_productID").attr("data-productid", productID);
 				// console.log(data.productID);
 
 				let list_html = "";
-				let x = 1;
+				
 				$.each(data.varyTypes, function (index, item) {
 					
 					list_html += `<h5 class="modal_vary_type">${index}</h5>`;
 					console.log("index " + index);
 					console.log("item " + item);
-					list_html += `<div class="form-check">
-									<input class="form-check-input" type="radio" name="${index}" id="productVaryIDNone${x}" value="0" checked required>
-									<label class="form-check-label" for="productVaryIDNone${x}">無</label>
-				  				</div>`
-					x += 1;
+					
 					$.each(item, function (i, it) {
+						let isFirstOption = true;
 						console.log(i);
 						console.log(it);
 						list_html += `<div class="form-check">
-										<input class="form-check-input" type="radio" name="${index}" id="productVaryID${it.productVaryID}" value="${it.productVaryID}">
+										<input class="form-check-input" type="radio" name="${index}" id="productVaryID${it.productVaryID}" value="${it.productVaryID}" required>
 										<label class="form-check-label" for="productVaryID${it.productVaryID}">${it.productVaryDes} +${it.productVaryPrice}元</label>
 									  </div>`;
+						if (isFirstOption) {
+							$(`#productVaryID${it.productVaryID}`).prop('checked', true);
+							isFirstOption = false;
+						}
 					});
 	
 				});
@@ -146,9 +149,40 @@ $(function () {
 	});
 
 	$('#modal_product_quantity').on('keydown', function(event) {
-		if (event.which === 13) {
+		if (event.which === 13 || event.which === 32 || event.which === 8 || event.which === 46) {
 		  event.preventDefault(); // Prevent form submission on Enter key press
 		}
 	  });
+
+	
+	$("#share_link_button").click(function() {
+	  	// Prevent the default <a> click action
+    	event.preventDefault();
+    	
+	    // Get the current URL
+	    var currentURL = window.location.href;
+	    
+	    // Create an input element to temporarily hold the URL
+	    var $tempInput = $('<input>');
+	    
+	    // Append the input element to the body
+	    $('body').append($tempInput);
+	    
+	    // Set the value of the input element to the current URL
+	    $tempInput.val(currentURL);
+	    
+	    // Select the text in the input
+	    $tempInput.select();
+	    
+	    // Copy the selected text to the clipboard
+	    document.execCommand('copy');
+	    
+	    // Remove the temporary input element
+	    $tempInput.remove();
+	    
+	    // Alert the user
+	    alert("已複製連結：\n" + currentURL);
+  	});
+
 
 });

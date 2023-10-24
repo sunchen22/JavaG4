@@ -7,10 +7,16 @@ import java.util.LinkedHashMap;
 import java.util.HashMap;
 
 import util.HibernateUtil;
+import util.JedisUtil;
 
 import com.grouporder.entity.GroupOrder;
 import com.product.entity.Product;
 import com.productvary.entity.ProductVary;
+import com.userinfo.entity.UserInfo;
+
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+
 import com.grouporder.dao.GroupOrderDAOHibernateImpl;
 import com.buildinginfo.entity.BuildingInfo;
 import com.dinerinfo.entity.DinerInfo;
@@ -21,9 +27,13 @@ import com.google.gson.GsonBuilder;
 public class GroupOrderServiceImpl implements GroupOrderService {
 	// One DAO instance for one service instance
 	private GroupOrderDAOHibernateImpl dao;
+	// Jedis
+	private JedisPool pool;
 
 	public GroupOrderServiceImpl() {
 		dao = new GroupOrderDAOHibernateImpl(HibernateUtil.getSessionFactory());
+		// Jedis
+		pool = JedisUtil.getJedisPool();
 	}
 	
 	@Override
@@ -229,15 +239,97 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 	}
 	
 	@Override
-	public byte[] getGroupOrderProductImage(Integer productID) {
+	public byte[] getGroupOrderProductImage(Integer productID, Integer no) {
 		Product product = dao.findByPKProduct(productID);
+		byte[] imageData;
 		if (product != null) {
-			byte[] imageData = product.getProductBlob1();
+			switch (no) {
+				case 1:
+					imageData = product.getProductBlob1();
+					break;
+				case 2:
+					imageData = product.getProductBlob2();
+					break;
+				case 3:
+					imageData = product.getProductBlob3();
+					break;
+				default:
+					imageData = null;	
+			}
+		
 			return imageData;
+			
 		} else {
 			return null;
 		}
 	}
 	
+	@Override
+	public Boolean userIsGroupMember(Object userInfo, Integer groupOrderID) {
+		String userID = ((UserInfo) userInfo).getUserID().toString();
+		try (Jedis jedis = pool.getResource()) {
+			jedis.select(6);
+			return jedis.sismember("groupOrder:" + groupOrderID.toString(), userID);
+        }
+	}
+	
+	@Override
+	public void addUserToGroup(Object userInfo, Integer groupOrderID, String dinerName) {
+		// Update the following two types of data in Redis
+		// 1. Users belonging to each group order (for group order page)
+		// 	  {groupOrder:1 : [12, 11, 14, 13, 15]}
+		// 	  {groupOrder:2 : [13, 11]}
+		// 2. Each user's group orders (for nav bar)
+		// 	  {user:12 : [{groupOrder:1, dinerName: xxx}]}
+		//    {user:11 : [{groupOrder:1, dinerName: xxx}, {groupOrder:2, dinerName: yyy}]}
+		//    {user:14 : [{groupOrder:1, dinerName: xxx}]}
+		//    {user:13 : [{groupOrder:1, dinerName: xxx}, {groupOrder:2, dinerName: yyy}]}
+		// 	  {user:15 : [{groupOrder:1, dinerName: xxx}]}
+		Integer userID = ((UserInfo) userInfo).getUserID();
+		try (Jedis jedis = pool.getResource()) {
+			jedis.select(6);
+	        String groupOrderKey = "groupOrder:" + groupOrderID.toString();
+	        String userKey = "user:" + userID.toString();
+
+	        // Update users belonging to each group order
+	        jedis.sadd(groupOrderKey, userID.toString());
+
+	        // Update each user's group orders
+	        Map<String, String> userData = new HashMap<>();
+	        Gson gson = new Gson();
+	        
+	        userData.put("groupOrder", groupOrderID.toString());
+	        userData.put("dinerName", dinerName);
+	        jedis.hset(userKey, groupOrderID.toString(), gson.toJson(userData));
+			
+		}
+	}
+	
+	@Override
+	public List<Map<String, Object>> navbarJoinedGroupOrders(Object userInfo) {
+		// Returns a list of group orders for nav bar
+		// [{groupOrderID: 1, dinerName: xxx}, {groupOrderID: 2, dinerName: yyy}]
+		
+		// 1. Find the user's group orders in Redis
+		// 	  {user:12 : [{groupOrder:1, dinerName: xxx}]}
+		//    {user:11 : [{groupOrder:1, dinerName: xxx}, {groupOrder:2, dinerName: yyy}]}		
+		String userID = ((UserInfo) userInfo).getUserID().toString();
+		try (Jedis jedis = pool.getResource()) {
+			jedis.select(6);
+			String userKey = "user:" + userID;
+			List<Map<String, Object>> groupOrders = new ArrayList<>();
+			
+	        Map<String, String> userData = jedis.hgetAll(userKey);
+	        for (Map.Entry<String, String> entry : userData.entrySet()) {
+	            String groupOrderID = entry.getKey();
+	            String jsonGroupOrderInfo = entry.getValue();
+	            // 2. Make the list:
+	            Map<String, Object> groupOrderInfo = new Gson().fromJson(jsonGroupOrderInfo, java.util.Map.class);
+	            groupOrders.add(groupOrderInfo);
+	        }
+	        
+	        return groupOrders;
+		}
+	}
 	
 }
