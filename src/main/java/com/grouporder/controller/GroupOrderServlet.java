@@ -205,11 +205,10 @@ public class GroupOrderServlet extends HttpServlet {
     	if (userInfo != null && dinerName != null) {
     		groupOrderServiceImpl.addUserToGroup(userInfo, groupOrderID, dinerName);
     		
-    		///////////////
-//    		ArrayList<Map<String, Object>> navbarJoinedGroupOrders = (ArrayList<Map<String, Object>>) groupOrderServiceImpl.navbarJoinedGroupOrders(userInfo);
-//    		req.getSession().setAttribute("navbarJoinedGroupOrders", navbarJoinedGroupOrders);
-    		
-    		//////////////
+    		// Also need to set this attribute in action=login of UserInfoServlet.java
+    		// so that the joined group orders data can be loaded from Redis upon user logging in
+    		ArrayList<Map<String, Object>> navbarJoinedGroupOrders = (ArrayList<Map<String, Object>>) groupOrderServiceImpl.navbarJoinedGroupOrders(userInfo);
+    		req.getSession().setAttribute("navbarJoinedGroupOrders", navbarJoinedGroupOrders);
     	}
     	
 		res.setContentType("text/html; charset=UTF-8");

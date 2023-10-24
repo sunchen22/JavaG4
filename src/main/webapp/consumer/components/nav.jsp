@@ -5,8 +5,8 @@
 <%@ page import="java.util.ArrayList"%>
 
 <%
-// 	ArrayList<HashMap<String, Object>> navbarJoinedGroupOrders = (ArrayList<HashMap<String, Object>>) session
-// 		.getAttribute("navbarJoinedGroupOrders");
+	ArrayList<HashMap<String, Object>> navbarJoinedGroupOrders = (ArrayList<HashMap<String, Object>>) session
+		.getAttribute("navbarJoinedGroupOrders");
 %>
 
 <%
@@ -80,50 +80,50 @@ if (session.getAttribute("loginUserInfo") == null) { // 如為 null, 代表此us
 				<li class="nav-item dropdown"><a class="nav-link dropdown"
 					id="groupCartDropdown" href="#" data-bs-toggle="dropdown"
 					aria-expanded="false"> <i class="fa-solid fa-users"></i> <span
-<%-- 						class="badge badge-danger navbar-badge"><%=navbarJoinedGroupOrders == null? 0 : navbarJoinedGroupOrders.size()%></span> <i --%>
+						class="badge badge-danger navbar-badge"><%=navbarJoinedGroupOrders == null? 0 : navbarJoinedGroupOrders.size()%></span> <i
 						class="fa-solid fa-cart-shopping"></i> <span
 						class="badge badge-danger navbar-badge">2</span>
 				</a>
 					<ul class="dropdown-menu dropdown-menu-end"
 						aria-labelledby="groupCartDropdown">
-<%-- 						<% --%>
-// 						if (navbarJoinedGroupOrders != null) {
-// 							for (HashMap groupOrder : navbarJoinedGroupOrders) {
-<%-- 						%> --%>
-<%-- 						<li><a class="dropdown-item d-inline" href="#!"><%=groupOrder.get("dinerName")%> --%>
+						<%
+						if (navbarJoinedGroupOrders != null) {
+							for (HashMap groupOrder : navbarJoinedGroupOrders) {
+						%>
+						<li><a class="dropdown-item d-inline" href="#!"><%=groupOrder.get("dinerName")%>
 								|
 								<button class="btn btn-outline-dark" data-bs-toggle="offcanvas"
 									data-bs-target="#shoppingCart" aria-controls="shoppingCart">
 									<i class="bi-cart-fill me-1"></i> 購物車 <span
 										class="badge bg-dark text-white ms-1 rounded-pill">1</span>
 								</button> </a></li>
-<%-- 						<% --%>
-// 						}
-// 						}
-<%-- 						%> --%>
+						<%
+						}
+						}
+						%>
 
-<!-- 						<li><a class="dropdown-item d-inline" href="#!">餐廳1 | -->
-<!-- 								<button class="btn btn-outline-dark" data-bs-toggle="offcanvas" -->
-<!-- 									data-bs-target="#shoppingCart" aria-controls="shoppingCart"> -->
-<!-- 									<i class="bi-cart-fill me-1"></i> 購物車 <span -->
-<!-- 										class="badge bg-dark text-white ms-1 rounded-pill">1</span> -->
-<!-- 								</button> -->
-<!-- 						</a></li> -->
-<!-- 						<li><a class="dropdown-item d-inline" href="#!">餐廳2 | -->
-<!-- 								<button class="btn btn-outline-dark" disabled -->
-<!-- 									data-bs-toggle="offcanvas" data-bs-target="#shoppingCart2" -->
-<!-- 									aria-controls="shoppingCart2" disabled> -->
-<!-- 									<i class="bi-cart-fill me-1"></i> 購物車 <span -->
-<!-- 										class="badge bg-dark text-white ms-1 rounded-pill">0</span> -->
-<!-- 								</button> -->
-<!-- 						</a></li> -->
-<!-- 						<li><a class="dropdown-item d-inline" href="#!">餐廳3 | -->
-<!-- 								<button class="btn btn-outline-dark" data-bs-toggle="offcanvas" -->
-<!-- 									data-bs-target="#shoppingCart3" aria-controls="shoppingCart3"> -->
-<!-- 									<i class="bi-cart-fill me-1"></i> 購物車 <span -->
-<!-- 										class="badge bg-dark text-white ms-1 rounded-pill">1</span> -->
-<!-- 								</button> -->
-<!-- 						</a></li> -->
+						<li><a class="dropdown-item d-inline" href="#!">餐廳1 |
+								<button class="btn btn-outline-dark" data-bs-toggle="offcanvas"
+									data-bs-target="#shoppingCart" aria-controls="shoppingCart">
+									<i class="bi-cart-fill me-1"></i> 購物車 <span
+										class="badge bg-dark text-white ms-1 rounded-pill">1</span>
+								</button>
+						</a></li>
+						<li><a class="dropdown-item d-inline" href="#!">餐廳2 |
+								<button class="btn btn-outline-dark" disabled
+									data-bs-toggle="offcanvas" data-bs-target="#shoppingCart2"
+									aria-controls="shoppingCart2" disabled>
+									<i class="bi-cart-fill me-1"></i> 購物車 <span
+										class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+								</button>
+						</a></li>
+						<li><a class="dropdown-item d-inline" href="#!">餐廳3 |
+								<button class="btn btn-outline-dark" data-bs-toggle="offcanvas"
+									data-bs-target="#shoppingCart3" aria-controls="shoppingCart3">
+									<i class="bi-cart-fill me-1"></i> 購物車 <span
+										class="badge bg-dark text-white ms-1 rounded-pill">1</span>
+								</button>
+						</a></li>
 					</ul></li>
 
 				<li class="nav-item dropdown"><a class="nav-link dropdown"

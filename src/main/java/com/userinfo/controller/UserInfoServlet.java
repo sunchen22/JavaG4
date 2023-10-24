@@ -13,15 +13,19 @@ import javax.servlet.http.*;
 import com.buildinginfo.entity.BuildingInfo;
 import com.userinfo.entity.UserInfo;
 import com.userinfo.service.UserInfoService;
+import com.grouporder.service.GroupOrderServiceImpl;
+
 
 @WebServlet("/user.do")
 @MultipartConfig(maxFileSize = 1073741824)
 public class UserInfoServlet extends HttpServlet {
 	private UserInfoService userInfoService;
+	private GroupOrderServiceImpl groupOrderServiceImpl;
 
 	@Override
 	public void init() throws ServletException {
 		userInfoService = new UserInfoService();
+		groupOrderServiceImpl = new GroupOrderServiceImpl();
 	}
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -161,6 +165,11 @@ public class UserInfoServlet extends HttpServlet {
 			HttpSession session = req.getSession();
 			session.setAttribute("loginUserInfo", newUserInfo);
 
+			// Also need to set this attribute in action=join of GroupOrderServlet.java
+    		// so that the joined group orders data can be updated from Redis upon user joining a new group order
+			ArrayList<Map<String, Object>> navbarJoinedGroupOrders = (ArrayList<Map<String, Object>>) groupOrderServiceImpl.navbarJoinedGroupOrders(newUserInfo);
+    		req.getSession().setAttribute("navbarJoinedGroupOrders", navbarJoinedGroupOrders);
+			
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			String defaultURL = "/consumer/index.jsp";
 			String contextPath = req.getContextPath(); // 取得當前應用的 context path
