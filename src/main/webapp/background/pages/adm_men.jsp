@@ -231,20 +231,6 @@ pageContext.setAttribute("list", list);
  <!-- 引入selfjs -->
 <%@ include  file="pagejs.file" %>
 	
-<!-- 停權 -->
-	<script>
-   
-    $("#suspendbtn").click(function(){
-    	console.log(123);
-    	$("#modifybtn").attr("disabled",true);
-    	$("#modifybtn2").attr("disabled",true);
-    	$("#modifybtn3").attr("disabled",true);
-    })
-   
-</script>
-
-
-
 
 </body>
 
