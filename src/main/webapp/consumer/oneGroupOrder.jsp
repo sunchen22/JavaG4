@@ -3,11 +3,11 @@
 <%@ page import="java.util.LinkedHashMap"%>
 <%@ page import="java.util.HashMap"%>
 <%@ page import="java.util.List"%>
-<%
-// HashMap<String, Object> groupOrderData = (HashMap<String, Object>) request.getAttribute("groupOrderData");
-// LinkedHashMap<String, List<HashMap<String, Object>>> menuData = (LinkedHashMap<String, List<HashMap<String, Object>>>) request
-// 		.getAttribute("menuData");
-%>
+
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:formatDate value="${groupOrderData.groupOrderSubmitTime}" pattern="yyyy-MM-dd HH:mm:ss" var="groupOrderSubmitTimeFormatted" />
+
+
 <%@ include file="components/head.jsp"%>
 <%-- Import CSS for this page below (if any) --%>
 
@@ -47,7 +47,7 @@
 							<li class="list-inline-item">成團條件：${groupOrderData.dinerOrderThreshold}元
 							</li>
 							<li class="list-inline-item">成團狀態：${groupOrderData.orderStatus=='1'? '未達成團條件' : '已達成團條件'}</li>
-							<li>付款截止時間：${groupOrderData.groupOrderSubmitTime}</li>
+							<li>付款截止時間：${groupOrderSubmitTimeFormatted}</li>
 							<li>
 								<div class="progress">
 									<div class="progress-bar bg-dark" role="progressbar"
@@ -57,11 +57,27 @@
 							</li>
 						</ul>
 						<div class="d-grid gap-2 d-flex justify-content-end">
-							<a class="btn btn-dark">加入此大樓揪團</a><a class="btn btn-dark">點餐</a><a
-								class="btn btn-dark">付款</a>
+							<c:choose>
+							    <c:when test="${empty sessionScope.loginUserInfo}">
+							        <!-- User is not logged in -->
+							        <span>登入並加入此大樓揪團後才可點餐</span><a class="btn btn-dark">登入</a>
+							    </c:when>
+							    <c:otherwise>
+							        <c:choose>
+							            <c:when test="${not sessionScope.userIsGroupMember}">
+							                <!-- User is logged in but doesn't belong to the group -->
+							                <span>加入此大樓揪團後才可點餐</span><a class="btn btn-dark" href="${pageContext.request.contextPath}/GroupOrder.do?action=join&groupOrderID=${groupOrderData.groupOrderID}&dinerName=${groupOrderData.dinerName}">加入此大樓揪團</a>
+							            </c:when>
+							            <c:otherwise>
+							                <!-- User is logged in and belongs to the group -->
+							                <a class="btn btn-outline-dark disabled">已加入此大樓揪團</a>
+							            </c:otherwise>
+							        </c:choose>
+							    </c:otherwise>
+							</c:choose>
 						</div>
-						<i
-							class="fa-solid fa-share-from-square fs-4 position-absolute top-0 end-0 m-3"></i>
+						<a href="#" class="btn position-absolute top-0 end-0 m-3" id="share_link_button"><i
+							class="fa-solid fa-share-from-square fs-4"></i></a>
 					</div>
 				</div>
 			</div>
@@ -75,11 +91,23 @@
 			<div class="mdl-card__supporting-text">
 
 				<div class="mdl-stepper-horizontal-alternative">
-					<div class="mdl-stepper-step">
-						<div class="mdl-stepper-circle">
-							<span>1</span>
-						</div>
-						<div class="mdl-stepper-title">加入此大樓揪團</div>
+					<c:choose>
+						<c:when test="${not sessionScope.userIsGroupMember}">
+							<div class="mdl-stepper-step">
+								<div class="mdl-stepper-circle">
+									<span>1</span>
+								</div>
+								<div class="mdl-stepper-title">加入此大樓揪團</div>						
+						</c:when>
+						<c:otherwise>
+							<div class="mdl-stepper-step active-step">
+								<div class="mdl-stepper-circle">
+									<span>1</span>
+								</div>
+								<div class="mdl-stepper-title">已加入此大樓揪團</div>	
+						</c:otherwise>
+					</c:choose>
+						
 						<div class="mdl-stepper-bar-left"></div>
 						<div class="mdl-stepper-bar-right"></div>
 					</div>
@@ -155,7 +183,7 @@
 						<div class="card product">
 							<div>
 								<img
-									src="${pageContext.request.contextPath}/GroupOrderDinerImage?entity=Product&id=${product.productID}"
+									src="${pageContext.request.contextPath}/GroupOrderDinerImage?entity=Product&id=${product.productID}&no=1"
 									class="card-img-top" alt="...">
 							</div>
 							<div>
@@ -187,26 +215,26 @@
 					<div id="carouselExampleIndicators" class="carousel carousel-orderdetail slide my-3 mx-auto" data-bs-ride="carousel">
 						<div class="carousel-indicators">
 							<button type="button" data-bs-target="#carouselExampleIndicators"
-								data-bs-slide-to="0" class=""></button>
+								data-bs-slide-to="0" class="active"></button>
 							<button type="button" data-bs-target="#carouselExampleIndicators"
-								data-bs-slide-to="1" class="active" aria-current="true"></button>
+								data-bs-slide-to="1" class="" aria-current="true"></button>
 							<button type="button" data-bs-target="#carouselExampleIndicators"
 								data-bs-slide-to="2" class=""></button>
 						</div>
 						<div class="carousel-inner mx-auto">
-							<div class="carousel-item carousel-item-orderdetail" id="modal_product_img_1">
+							<div class="carousel-item carousel-item-orderdetail active" id="modal_product_img_1">
 								<img
 									src=""
 									class="d-block w-100" alt="餐點圖">
 							</div>
-							<div class="carousel-item carousel-item-orderdetail active">
+							<div class="carousel-item carousel-item-orderdetail" id="modal_product_img_2">
 								<img
-									src="https://pic.616pic.com/ys_bnew_img/00/28/05/7NPYpgndQS.jpg"
+									src=""
 									class="d-block w-100" alt="餐點圖">
 							</div>
-							<div class="carousel-item carousel-item-orderdetail">
+							<div class="carousel-item carousel-item-orderdetail" id="modal_product_img_3">
 								<img
-									src="https://pic.616pic.com/ys_bnew_img/00/27/71/Nc5vgPgVuL.jpg"
+									src=""
 									class="d-block w-100" alt="餐點圖">
 							</div>
 						</div>
@@ -264,8 +292,37 @@
 			
 				<div class="modal-footer">
 					<!-- 取消 加到購物車 -->
-						<button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">取消</button>
-						<button type="button" class="btn btn-dark">加到購物車</button>
+					<c:choose>
+					    <c:when test="${empty sessionScope.loginUserInfo}">
+					        <!-- User is not logged in -->
+					        <p>登入並加入此大樓揪團後才可點餐</p>
+					        <div>
+					        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">取消</button>
+							<button type="button" class="btn btn-dark">登入</button>
+							</div>
+					    </c:when>
+					    <c:otherwise>
+					        <c:choose>
+					            <c:when test="${not sessionScope.userIsGroupMember}">
+					                <!-- User is logged in but doesn't belong to the group -->
+					                <p>加入此大樓揪團後才可點餐</p>
+					                <div>
+					                <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">取消</button>
+					                <a class="btn btn-dark" href="${pageContext.request.contextPath}/GroupOrder.do?action=join&groupOrderID=${groupOrderData.groupOrderID}">加入此大樓揪團</a>
+					                </div>
+					            </c:when>
+					            <c:otherwise>
+					                <!-- User is logged in and belongs to the group -->
+					                <div>
+									<button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">取消</button>
+									<button type="button" class="btn btn-dark">加到購物車</button>
+									</div>
+					            </c:otherwise>
+					        </c:choose>
+					    </c:otherwise>
+					</c:choose>
+					
+
 				</div>
 			</div>
 		</div>

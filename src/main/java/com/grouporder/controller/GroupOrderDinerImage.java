@@ -17,15 +17,17 @@ public class GroupOrderDinerImage extends HttpServlet {
 		ServletOutputStream out = res.getOutputStream();
 
 		try {
+			// EL: <img	src="${pageContext.request.contextPath}/GroupOrderDinerImage?entity=yyy&id=x&no=z>
 			String entity = req.getParameter("entity").trim();
 			int id = Integer.parseInt(req.getParameter("id").trim());
-			byte[] imageData;
 			
-			// EL: <img	src="${pageContext.request.contextPath}/GroupOrderDinerImage?entity=yyy&id=x >
+			byte[] imageData;
+
 			if (entity.equals("GroupOrder")){
 				imageData = new GroupOrderServiceImpl().getGroupOrderDinerImage(id);
 			}else if (entity.equals("Product")) {
-				imageData = new GroupOrderServiceImpl().getGroupOrderProductImage(id);
+				int no = Integer.parseInt(req.getParameter("no").trim());
+				imageData = new GroupOrderServiceImpl().getGroupOrderProductImage(id, no);
 			}else {
 				imageData = null;
 			}
