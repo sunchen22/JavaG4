@@ -297,7 +297,7 @@
         </nav>
         <!-- /.sidebar-menu -->
       </div>
-      <!-- /.sidebar -->
+      
     </aside>
 
 
@@ -315,7 +315,7 @@
       </section>
 
       <!-- Main content -->
-
+		
       <div class="container-fluid">
         <div class="row">
           <div class="col-10">
@@ -332,7 +332,7 @@
               </div>
               <div id="interactive" style="height: 10px;"></div>
 
-              <!-- <div class="col-md-3"> -->
+              
               
               <%
 				
@@ -347,134 +347,140 @@
               
               
               
-              
-              
-              
-              <form action="" style="padding:10px;">
-              
-
-
-                <span>
-                  <label>品牌名稱：</label>
+ 			
+				<span>
+                  <label>&nbsp;品牌名稱：</label>
                   <input type="text" value ="<%= dif.getDinerName() %>" class="border border-warning" style="width :50%">
                 </span>
-                <br>
+                
 
                 <span>
-                  <label>地址：&ensp;&ensp;&ensp;&ensp;</label>
+                  <label>&nbsp;地址：&ensp;&ensp;&ensp;&ensp;</label>
                   <input type="text" value ="<%= dif.getDinerAddress() %>" class="border border-warning" style="width :50%">
                 </span>
-                <br>
+                
                 <span>
-                  <label>姓名：&ensp;&ensp;&ensp;&ensp;</label>
+                  <label>&nbsp;姓名：&ensp;&ensp;&ensp;&ensp;</label>
                   <input type="text" value ="<%= dif.getDinerContact() %>"class="border border-warning" style="width :50%">
                 </span>
-                <br>
+                
                 <span>
-                  <label>統編：&ensp;&ensp;&ensp;&ensp;</label>
+                  <label>&nbsp;統編：&ensp;&ensp;&ensp;&ensp;</label>
                   <input type="text" value ="<%= dif.getDinerTaxID()%>" class="border border-warning" style="width :50%">
                 </span>
-                <br>
+                
                 <span>
-                  <label>e-mail ：&emsp;</label>
+                  <label>&nbsp;e-mail ：&emsp;</label>
                   <input type="text" value ="<%= dif.getDinerEmail() %>" class="border border-warning" style="width :50%">
                 </span>
-                <br>
+                
                 <span>
-                  <label>密碼：&ensp;&ensp;&ensp;&ensp;</label>
+                  <label>&nbsp;密碼：&ensp;&ensp;&ensp;&ensp;</label>
                   <input type="text" value ="<%= dif.getDinerPassword() %>" class="border border-warning" style="width :50%">
                 </span>
-                <br>
+                
                 <span>
-                  <label>銀行代號：</label>
+                  <label>&nbsp;銀行代號：</label>
                   <input type="text" value ="<%= dif.getDinerBank() %>" class="border border-warning" style="width :50%">
                 </span>
-                <br>
+                
                 <span>
-                  <label>銀行帳號：</label>
+                  <label>&nbsp;銀行帳號：</label>
                   <input type="text" value ="<%= dif.getDinerAccount() %>" class="border border-warning" style="width :50%">
                 </span>
-                <br>
+                
                 <span>
-                  <label>戶名：&ensp;&ensp;&ensp;&ensp;</label>
+                  <label>&nbsp;戶名：&ensp;&ensp;&ensp;&ensp;</label>
                   <input type="text" value ="<%= dif.getDinerAccountName() %>" class="border border-warning" style="width :50%">
                 </span>
-                <br>
+                
                 <span>
-                  <label>電話：&ensp;&ensp;&ensp;&ensp;</label>
+                  <label>&nbsp;電話：&ensp;&ensp;&ensp;&ensp;</label>
                   <input type="text" value ="<%= dif.getDinerPhone() %>" class="border border-warning" style="width :50%">
                 </span>
                 <br>
-                <br>
 
 
 
+  <div align="right" style="margin-right: 10px; margin-bottom: 15px; display: flex; justify-content: flex-end;">
+ 	<form method="post" action ="difs.do" style="margin-left: 5px;">
+  <button type="submit" class="btn btn-warning" style="font-weight: bold; margin-left: 5px;">
+    停權</button>
+  	<input type="hidden" name="action" value="go_for_deactivated">
+    <input type="hidden" name="dinerID" value="<%= dif.getDinerID()%>">
+  </form>
+  
+  
+  <form method="post" action="pdsc.do" style="margin-left: 5px;">
+    <button type="submit" class="btn btn-warning" style="font-weight: bold;">
+    商品審核</button>
+    <input type="hidden" name="action" value="go_for_product_check">
+    <input type="hidden" name="dinerID" value="<%= dif.getDinerID()%>">
+  </form>
+  
+  
+  <form  method="post" action ="difs.do">
+  <button type="submit" id="payment" class="btn btn-warning" style="font-weight: bold; margin-left: 5px;">
+    金流報表</button>
+  	<input type="hidden" name="action" value="go_for_payment">
+    <input type="hidden" name="dinerID" value="<%= dif.getDinerID()%>">
+  </form>
+</div>
 
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
 
+<!--                   Modal -->
+<!--                   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" -->
+<!--                     aria-hidden="true"> -->
+<!--                     <div class="modal-dialog"> -->
+<!--                       <div class="modal-content"> -->
+<!--                         <div class="modal-header"> -->
+<!--                           <h5 class="modal-title" id="exampleModalLabel">提示</h5> -->
+<!--                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+<!--                         </div> -->
+<!--                         <div class="modal-body"> -->
+<!--                           <p style="text-align: center; font-size: 20px;">確定要停權商家嗎</p> -->
+<!--                         </div> -->
+<!--                         <div class="modal-footer"> -->
+<!--                           <button type="button" id="stop1" class="btn btn-warning" data-bs-dismiss="modal">確定</button> -->
+<!--                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button> -->
 
-                <div align="right" style="margin-right: 20px;">
-                  <!-- <button type = "button" id="stop" class="btn btn-warning" style="font-weight :bold">停權</button> -->
+<!--                         </div> -->
+<!--                       </div> -->
+<!--                     </div> -->
+<!--                   </div> -->
+            
+            
 
-
-
-
-
-                  <!-- Button trigger modal -->
-                  <button type="button" id="stop" class="btn btn-warning" style="font-weight :bold"
-                    data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    停權
-                  </button>
-
-                  <button type="button" id="product" class="btn btn-warning" style="font-weight :bold">商品審核</button>
-                  <button type ="button" id="payment" class="btn btn-warning" style="font-weight :bold">金流報表</button>
-
-                  <!-- Modal -->
-                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">提示</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                          <p style="text-align: center; font-size: 20px;">確定要停權商家嗎</p>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" id="stop1" class="btn btn-warning" data-bs-dismiss="modal">確定</button>
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-
-              </form>
-
-
-            </div>
-            <!-- </div> -->
-
-            <div id="interactive" style="height: 20px;"></div>
+       
           </div>
-          <!-- /.card-body-->
+          
         </div>
-        <!-- /.card -->
+        
 
       </div>
-      <!-- /.col -->
+      
     </div>
-    <!-- /.row -->
-    <div class="table-responsive"></div>
-    </section>
+    
+    
+    
 
   </div>
 
 
-  <!-- </section> 這裡結束-->
+  
 
-
+<div>
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-warning">
     <!-- Control sidebar content goes here -->

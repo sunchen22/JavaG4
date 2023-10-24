@@ -22,4 +22,5 @@ public interface UserInfo2DAO {
 	List<UserInfo> getAll(int currentPage);
 	
 	long getTotal();
+
 }

@@ -73,8 +73,14 @@
 		    <artifactId>gson</artifactId>
 		    <version>2.10.1</version>
 		</dependency>
-<!-- ============================== -->		
 		
+				<!-- Gson added by Ciou -->
+		<dependency>
+	        <groupId>org.jfree</groupId>
+	        <artifactId>jfreechart</artifactId>
+	        <version>1.0.19</version> <!-- 使用最新版本 -->
+    	</dependency>
+
 	</dependencies>
 
 	<build>

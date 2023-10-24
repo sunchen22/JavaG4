@@ -339,7 +339,7 @@
                                 
 <%
 DinerInfo dif = (DinerInfo)request.getAttribute("dif");
-dif.getDinerID();
+
 
 // DinerRatingComment drc = (DinerRatingComment)request.getAttribute("drc");
 
@@ -404,7 +404,7 @@ pageContext.setAttribute("list", list);
                     <!-- /.row -->
 
                     <div class="table-responsive">
-                        <table class="table card-table table-vcenter text-nowrap">
+                        <table id = "table" class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th class="w-1">評論編號</th>
@@ -415,7 +415,7 @@ pageContext.setAttribute("list", list);
                                     <th>星數</th>
                                     <th>商家回覆內容</th>
                                     <th>商家回覆時間</th>
-                                    
+                                    <th></th>
                                     
                                 </tr>
                             </thead>
@@ -432,11 +432,14 @@ pageContext.setAttribute("list", list);
                                     <td>${dinerratingcomment.dinerReplyTime}</td>
                                     
                                     <td>
-                                        <button type="button" id="stop" class="btn btn-warning" style="font-weight :bold"
-                                        data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    	<form method = post action = "drcs.do">
+                                    	<input type="hidden" name="commentID"  value="${dinerratingcomment.commentID}">
+                                    	<input type="hidden" name="dinerID"  value="${dinerratingcomment.dinerInfo.dinerID}">    
+					      		  		<input type="hidden" name="action" value="go_for_delete">
+                                        <button type="submit" class="btn btn-warning" style="font-weight :bold">
                                         刪除
                                       </button>
-
+										</form>
                                     </td>
   
 
@@ -447,35 +450,35 @@ pageContext.setAttribute("list", list);
                             </tbody>
                         </table>
 
-                         <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">提示</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
+<!--                          Modal -->
+<!--   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
+<!--     <div class="modal-dialog"> -->
+<!--       <div class="modal-content"> -->
+<!--         <div class="modal-header"> -->
+<!--           <h5 class="modal-title" id="exampleModalLabel">提示</h5> -->
+<!--           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+<!--         </div> -->
 
-        <div class="modal-body">
-          <p style="text-align: center; font-size: 20px;">確定要刪除嗎</p>
+<!--         <div class="modal-body"> -->
+<!--           <p style="text-align: center; font-size: 20px;">確定要刪除嗎</p> -->
           
-            <div align="center">
-                <input type="text" placeholder="欲拒絕請輸入原因:" id="msg"
-                    style="width: 80%">
+<!--             <div align="center"> -->
+<!--                 <input type="text" placeholder="欲拒絕請輸入原因:" id="msg" -->
+<!--                     style="width: 80%"> -->
             
-        </div>
+<!--         </div> -->
 
-        <div class="modal-body">
+<!--         <div class="modal-body"> -->
             
            
-        <div class="modal-footer">
-          <button type="button" id = "stop1" class="btn btn-warning" data-bs-dismiss="modal">確定</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+<!--         <div class="modal-footer"> -->
+<!--           <button type="button" id = "stop1" class="btn btn-warning" data-bs-dismiss="modal">確定</button> -->
+<!--           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button> -->
           
-        </div>
-      </div>
-    </div>
-  </div>
+<!--         </div> -->
+<!--       </div> -->
+<!--     </div> -->
+<!--   </div> -->
                     </div>
             </section>
 
@@ -538,10 +541,44 @@ pageContext.setAttribute("list", list);
     <script src="./assets/js/require.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
-    <script>
+    <%@ include file="included-fragment.file" %>
+		<script src="https://code.jquery.com/jquery-3.5.1.js"></script>                                    <!-- ●●js  for jquery datatables 用 -->
+		<script	src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>              <!-- ●●js  for jquery datatables 用 -->
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.jqueryui.min.css" /> <!-- ●●css for jquery datatables 用 -->
+      <script>
+      $(document).ready(function() {
+  		$('#table').DataTable({
+  			"lengthMenu": [5],
+  			"searching": true,  //搜尋功能, 預設是開啟
+  		    "paging": true,     //分頁功能, 預設是開啟
+  		    "ordering": true,   //排序功能, 預設是開啟
+  		    "language": {
+  		        "processing": "處理中...",
+  		        "loadingRecords": "載入中...",
+  		        "lengthMenu": "顯示 _MENU_ 筆結果",
+  		        "zeroRecords": "沒有符合的結果",
+  		        "info": "顯示第 _START_ 至 _END_ 筆結果，共<font color=red> _TOTAL_ </font>筆",
+  		        "infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
+  		        "infoFiltered": "(從 _MAX_ 筆結果中過濾)",
+  		        "infoPostFix": "",
+  		        "search": "搜尋:",
+  		        "paginate": {
+  		            "first": "第一頁",
+  		            "previous": "上一頁",
+  		            "next": "下一頁",
+  		            "last": "最後一頁"
+  		        },
+  		        "aria": {
+  		            "sortAscending":  ": 升冪排列",
+  		            "sortDescending": ": 降冪排列"
+  		        }
+  		    }
+  		});
+  	});
+        
 
         
-    </script>
+  </script>
 
 
 

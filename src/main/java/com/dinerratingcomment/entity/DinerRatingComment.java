@@ -48,7 +48,10 @@ public class DinerRatingComment {
 	
 	@Column(name = "dinerReplyTime")
 	private Timestamp dinerReplyTime;
-
+	
+	@Column(name = "dinerRatingCommentStatus")
+		private Integer dinerRatingCommentStatus ;
+	
 	public DinerRatingComment() {
 		super(); 
 	}
@@ -115,6 +118,17 @@ public class DinerRatingComment {
 
 	public void setDinerReplyTime(Timestamp dinerReplyTime) {
 		this.dinerReplyTime = dinerReplyTime;
+	}
+	
+	
+	
+	
+	public Integer getDinerRatingCommentStatus() {
+		return dinerRatingCommentStatus;
+	}
+
+	public void setDinerRatingCommentStatus(Integer dinerRatingCommentStatus) {
+		this.dinerRatingCommentStatus = dinerRatingCommentStatus;
 	}
 
 	@Override

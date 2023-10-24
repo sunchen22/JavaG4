@@ -24,11 +24,10 @@ public class UserInfo2ServiceImpl implements UserInfo2Service {
 	}
 	
 	@Override
-	public UserInfo updateUserInfo(UserInfo userInfo) {
+	public void updateUserInfo(UserInfo userInfo) {
 		dao.update(userInfo);
-		return null;
 	}
-
+	
 	@Override
 	public void deleteUserInfo(Integer empno) {
 		// TODO Auto-generated method stub
@@ -41,6 +40,10 @@ public class UserInfo2ServiceImpl implements UserInfo2Service {
 //		return null;
 		return dao.getById(userID);
 	}
+
+	public List<UserInfo> getAllUserInfo() {
+		return dao.getAll();
+	}
 	
 	@Override
 	public List<UserInfo> getAllUserInfo(int currentPage) {
@@ -50,12 +53,13 @@ public class UserInfo2ServiceImpl implements UserInfo2Service {
 	@Override
 	public byte[] getImage(int userID){
 		UserInfo userinfo = dao.getById(userID);
-		System.out.println("dao.getById(userID) : "+ dao.getById(userID));
+		System.out.println("dao.getById(userID) :   "+ dao.getById(userID));
 		if(userinfo != null) {
 			byte[] userimg = userinfo.getUserBlob();
 			System.out.println("userimg " +userimg);
 			return userimg;
 		}else {
+			System.out.println("取照片失敗 ");
 			return null;
 		}
 	}

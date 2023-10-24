@@ -2,8 +2,16 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<html lang="en">
+<%@ page import="java.util.*"%>
+<%@ page import="com.userinfo.service.*" %>
+<%@ page import="com.userinfo.entity.*" %>
+<%
+	UserInfo2ServiceImpl  userSvc= new UserInfo2ServiceImpl();
+	List<UserInfo> userinfoList = userSvc.getAllUserInfo();
+	pageContext.setAttribute("userinfoList",userinfoList);
+%>
 
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,17 +29,8 @@
 <!-- Theme style -->
 <link rel="stylesheet" href="../dist/css/adminlte.min.css">
 
-
 </head>
-<!--
-`body` tag options:
 
-  Apply one or more of the following classes to to the body tag
-  to get the desired effect
-
-  * sidebar-collapse
-  * sidebar-mini
--->
 
 <body class="hold-transition sidebar-mini">
 	<div class="wrapper">
@@ -92,18 +91,9 @@
 				<nav class="mt-2">
 					<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
-<!-- 引入側邊欄 -->
+ <!-- 引入側邊欄 -->
 <%@ include  file="pageaside.file" %>
-							
-							<ul class="nav nav-pills nav-sidebar " data-accordion="false"
-								style="justify-content: flex-end">
-								<li class="col-sm-5">
-									<button id="logoutButton" type="button"
-										class="btn btn-block btn-outline-warning btn-sm">
-										<i class="fa fa-sign-out-alt  nav-icon"></i>登出
-									</button>
-								</li>
-							</ul>
+
 				</nav>
 				<!-- /.sidebar-menu -->
 			</div>
@@ -133,6 +123,15 @@
           					</div> -->
 
 									<div class="card-body">
+<%-- 錯誤表列 --%>
+<c:if test="${not empty errorMsgs}">
+	<font color='red'>請修正以下錯誤:</font>
+	<ul>
+		<c:forEach var="message" items="${errorMsgs}">
+			<li style="color:red">${message}</li>
+		</c:forEach>
+	</ul>
+</c:if>
 <!-- 		=======複合查詢======= -->
 										<form action="${pageContext.request.contextPath}/background/pages/user.do" method="post">
 											<div class="row">
@@ -174,7 +173,6 @@
 															<div class="form-group">
 																<input type="submit" class="btn btn-warning" value="搜尋">
 																<input type="hidden" name="action" value="compositeQuery">
-
 															</div>
 														</div>
 													</div>
@@ -223,7 +221,7 @@
 												action="${pageContext.request.contextPath}/background/pages/user.do" style="margin-bottom: 0px;" id="modifybtn">
 												<input type="submit" value="修改" class="btn btn-warning btn-sm"> 
 												<input type="hidden" name="userID" value="${user.userID}" >
-												<input type="hidden" name="action" value="modifyuserinfo" >
+												<input type="hidden" name="action" value="getOne_For_Update" >
 <%-- 												<input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>"> <!--送出本網頁的路徑給Controller--> --%>
 											</FORM>
 										</td>
@@ -295,30 +293,9 @@
 	<script src="../plugins/chart.js/Chart.min.js"></script>
 	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 	<!-- <script src="../dist/js/pages/dashboard3.js"></script> -->
-	<!-- 縮小時,登出按鈕消失 -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-	<!-- 縮小時,登出按鈕消失 -->
-	<script>
-		function toggleLogoutButton() {
-			var logoutButton = document.getElementById("logoutButton");
-			if (logoutButton.style.display === "none") {
-				logoutButton.style.display = "block";
-			} else {
-				logoutButton.style.display = "none";
-			}
-		}
-	</script>
 	
-	<!-- 點擊側邊的會員查詢時發動 -->
-	<script>
-        // 當按鈕被點擊時觸發此
-        document.getElementById("memBtn").addEventListener("click", function(event) {
-            event.preventDefault(); 
-            var url = "${pageContext.request.contextPath}/background/pages/user.do?action=getAll";
-            window.location.href = url;
-        });	
-    </script>
+ <!-- 引入selfjs -->
+<%@ include  file="pagejs.file" %>
     
 
 </body>

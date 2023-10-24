@@ -142,6 +142,7 @@
 									src="<%=request.getContextPath()%>/consumer/userDBGifReader?userID=${loginUserInfo.userID}"
 <%-- 									src="<%=!base64Image.isEmpty() ? "data:image/jpeg;base64," + base64Image : ""%>"  --%>
 									/>
+
 							</div>
 						</div>
 						<div class="d-grid">

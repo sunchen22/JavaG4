@@ -17,6 +17,8 @@ import org.hibernate.SessionFactory;
 
 import com.userinfo.entity.UserInfo;
 
+import util.HibernateUtil;
+
 public class UserInfo2DAOImpl implements UserInfo2DAO {
 	// SessionFactory 為 thread-safe，可宣告為屬性讓請求執行緒們共用，所以可設定成實體變數
 	private SessionFactory factory;
@@ -42,15 +44,12 @@ public class UserInfo2DAOImpl implements UserInfo2DAO {
 
 	@Override
 	public int update(UserInfo userInfo) {
-//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		System.out.println("我在update中 userInfo有抓到新的資料");
 		try {
-//			session.beginTransaction();
-			getSession().saveOrUpdate(userInfo);
-//			session.getTransaction().commit();
+			getSession().update(userInfo);
 			return 1;
 		} catch (Exception e) {
-//			session.getTransaction().rollback();
-			System.out.println("update失敗"); 
+			System.out.println("update失敗");
 			return -1;
 		}
 	}
@@ -72,10 +71,10 @@ public class UserInfo2DAOImpl implements UserInfo2DAO {
 	public UserInfo getById(Integer userid) {
 		try {
 			UserInfo userinfo = getSession().get(UserInfo.class, userid);
-//			System.out.println("userinfo "+ userinfo);
+//			System.out.println("getById成功");
 			return userinfo;
 		} catch (Exception e) {
-			System.out.println("getById失敗"); 
+			System.out.println("getById失敗");
 		}
 		return null;
 	}
@@ -107,10 +106,10 @@ public class UserInfo2DAOImpl implements UserInfo2DAO {
 			}
 
 			if ("useremail".equals(row.getKey())) {
-				predicates.add(builder.equal(root.get("userAccount"), row.getValue()));
+				predicates.add(builder.like(root.get("userAccount"), "%" + row.getValue() + "%"));
 			}
 			if ("userphone".equals(row.getKey())) {
-				predicates.add(builder.equal(root.get("userPhone"), row.getValue()));
+				predicates.add(builder.like(root.get("userPhone"), "%" + row.getValue() + "%"));
 			}
 		}
 
