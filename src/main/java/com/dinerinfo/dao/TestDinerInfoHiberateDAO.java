@@ -6,31 +6,38 @@ import com.dinerinfo.entity.DinerInfo;
 
 public class TestDinerInfoHiberateDAO {
 	public static void main(String[] args) {
-		DinerInfoDAO dao = new DinerInfoDAOHibernateImpl();
-	
-	DinerInfo dinerInfo1 = new DinerInfo();
+//		DinerInfoDAO dao = new DinerInfoDAOHibernateImpl();
+//	
+//		DinerInfo dinerInfo1 = new DinerInfo();
+//		DinerInfoDAOImplC dc = new DinerInfoDAOImplC();
+//		dc.update(31);
+		
+		
+		
+		
+		
 	//ID自動生成，不做新增設定
 	
 	//Timestamp的當前時間設置
-	Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+//	Timestamp currentTime = new Timestamp(System.currentTimeMillis());
 	
 	
-	dinerInfo1.setDinerName("測試新增店名6");
-	dinerInfo1.setDinerPassword("123Pssw0rd1416");
-	dinerInfo1.setDinerRegisterTime(currentTime);
-	dinerInfo1.setDinerTaxID("87653321");
-	dinerInfo1.setDinerContact("莊三富");
-	dinerInfo1.setDinerPhone("0912222157");
-	dinerInfo1.setDinerEmail("nsca3e1478@gmail.com");
-	dinerInfo1.setDinerAddress("台北市羅斯福路2段124巷7樓9號");
-	dinerInfo1.setDinerBank("002");
-	dinerInfo1.setDinerAccount("1234567890423556");
-	dinerInfo1.setDinerAccountName("莊三富");
-	dinerInfo1.setDinerType("M");
-	dinerInfo1.setDinerStatus("Active");
-	dinerInfo1.setDinerOrderThreshold(2000);
-	//照片傳入用另外的方式
-	dao.add(dinerInfo1);
+//	dinerInfo1.setDinerName("測試新增店名6");
+//	dinerInfo1.setDinerPassword("123Pssw0rd1416");
+//	dinerInfo1.setDinerRegisterTime(currentTime);
+//	dinerInfo1.setDinerTaxID("87653321");
+//	dinerInfo1.setDinerContact("莊三富");
+//	dinerInfo1.setDinerPhone("0912222157");
+//	dinerInfo1.setDinerEmail("nsca3e1478@gmail.com");
+//	dinerInfo1.setDinerAddress("台北市羅斯福路2段124巷7樓9號");
+//	dinerInfo1.setDinerBank("002");
+//	dinerInfo1.setDinerAccount("1234567890423556");
+//	dinerInfo1.setDinerAccountName("莊三富");
+//	dinerInfo1.setDinerType("M");
+//	dinerInfo1.setDinerStatus("Active");
+//	dinerInfo1.setDinerOrderThreshold(2000);
+//	//照片傳入用另外的方式
+//	dao.add(dinerInfo1);
 //
 //	// 修改
 //	時間轉換器   String → sql.Timestamp

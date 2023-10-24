@@ -12,6 +12,11 @@ List<BuildingInfo> buildingList = buildingInfoDAO.getAll();
 pageContext.setAttribute("buildingList", buildingList);
 %>
 
+<!-- userinfo資料 -->
+<%@ page import="com.userinfo.entity.*" %>
+<%
+UserInfo userinfo = (UserInfo) request.getAttribute("userinfo"); //EmpServlet.java (Concroller) 存入req的empVO物件 (包括幫忙取出的empVO, 也包括輸入資料錯誤時的empVO物件)
+%>
 <html lang="en">
 
 <head>
@@ -92,7 +97,7 @@ pageContext.setAttribute("buildingList", buildingList);
 		<!-- 有修改顏色 原本sidebar-dark-primary -->
 		<aside class="main-sidebar sidebar-light-warning elevation-4">
 			<!-- Brand Logo -->
-			<a href="../index3.html" class="brand-link"> <img
+			<a href="../index3.jsp" class="brand-link"> <img
 				src="../dist/img/Logo.png" alt="樓頂揪樓咖 Logo"
 				class="brand-image img-circle elevation-3" style="opacity: .8">
 				<span class="brand-text font-weight-normal">後台管理平台</span>
@@ -116,18 +121,9 @@ pageContext.setAttribute("buildingList", buildingList);
 					<ul class="nav nav-pills nav-sidebar flex-column"
 						data-widget="treeview" role="menu" data-accordion="false">
 
-<!-- 引入側邊欄 -->
+ <!-- 引入側邊欄 -->
 <%@ include  file="pageaside.file" %>
 
-							<ul class="nav nav-pills nav-sidebar " data-accordion="false"
-								style="justify-content: flex-end">
-								<li class="col-sm-5">
-									<button id="logoutButton" type="button"
-										class="btn btn-block btn-outline-warning btn-sm">
-										<i class="fa fa-sign-out-alt  nav-icon"></i>登出
-									</button>
-								</li>
-							</ul>
 				</nav>
 				<!-- /.sidebar-menu -->
 			</div>
@@ -159,6 +155,8 @@ pageContext.setAttribute("buildingList", buildingList);
 								<i class="fa fa-id-card"></i>&nbsp;修改會員資料
 							</h3>
 						</div>
+						<!-- /.card-header -->
+						
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
@@ -168,7 +166,6 @@ pageContext.setAttribute("buildingList", buildingList);
 		</c:forEach>
 	</ul>
 </c:if>
-						<!-- /.card-header -->
 						<FORM METHOD="post" ACTION="user.do" name="form1" enctype="multipart/form-data">
 							<div class="card-body" style="padding-bottom: 5px;">
 								<div class="row">
@@ -291,29 +288,9 @@ pageContext.setAttribute("buildingList", buildingList);
 	<script src="../plugins/chart.js/Chart.min.js"></script>
 	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 	<!-- <script src="../dist/js/pages/dashboard3.js"></script> -->
-	<!-- 縮小時,登出按鈕消失 -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-	<!-- 縮小時,登出按鈕消失 -->
-	<script>
-		function toggleLogoutButton() {
-			var logoutButton = document.getElementById("logoutButton");
-			if (logoutButton.style.display === "none") {
-				logoutButton.style.display = "block";
-			} else {
-				logoutButton.style.display = "none";
-			}
-		}
-	</script>
-	<!-- 點擊側邊的會員查詢時發動 -->
-	<script>
-        // 當按鈕被點擊時觸發此
-        document.getElementById("memBtn").addEventListener("click", function(event) {
-            event.preventDefault(); 
-            var url = "${pageContext.request.contextPath}/background/pages/user.do?action=getAll";
-            window.location.href = url;
-        });
-    </script>
+	
+ <!-- 引入selfjs -->
+<%@ include  file="pagejs.file" %>
     
     
     <!-- 員工圖片預覽圖 -->

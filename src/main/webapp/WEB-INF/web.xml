@@ -69,6 +69,20 @@
 
 <!-- ================2==================== -->
 
+	<servlet>
+		<servlet-name>DinerInfoServletD</servlet-name>
+		<servlet-class>com.dinerinfo.controller.DinerInfoServletD</servlet-class>
+	</servlet>
+
+
+	<servlet-mapping>
+		<servlet-name>DinerInfoServletD</servlet-name>
+
+		<url-pattern>/dinerbackground/pages/Team/register/dinerInfo.do</url-pattern>
+		<url-pattern>/dinerbackground/pages/Team/login/dinerInfo.do</url-pattern>
+		<url-pattern>/dinerbackground/pages/Team/dashboard/dinerInfo.do</url-pattern>
+	</servlet-mapping>
+	
 <!-- ================1==================== -->
 	<servlet>
 		<servlet-name>EmpjoServlet</servlet-name>
@@ -111,6 +125,7 @@
 	<servlet-mapping>
 		<servlet-name>bglogin</servlet-name>
 		<url-pattern>/background/bglogin</url-pattern>
+		<url-pattern>/background/pages/bglogin</url-pattern>
 	</servlet-mapping>	
 	
 	<!-- 查詢會員 -->

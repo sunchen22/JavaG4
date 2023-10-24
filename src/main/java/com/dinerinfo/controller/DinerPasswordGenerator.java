@@ -4,7 +4,7 @@ import java.security.SecureRandom;
 
 public class DinerPasswordGenerator {
 	
-//	 密碼遇設為6碼，由英文大小寫、數字、和@#*+.五個符號所組成的亂碼
+//	 密碼預設為6碼，由英文大小寫、數字、和@#*+.五個符號所組成的亂碼
 	
 	 private static final String CHARACTERS = 
 		        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#*+.";

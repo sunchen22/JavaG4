@@ -11,8 +11,25 @@
 <%@ page import="com.buildinginfo.entity.*"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.buildinginfo.dao.*"%>
+<<<<<<< HEAD
+<%
+BuildingInfoDAO buildingInfoDAO = new BuildingInfoDAOHibernateImpl();
+List<BuildingInfo> buildingList = buildingInfoDAO.getAll();
+pageContext.setAttribute("buildingList", buildingList);
+%>
+<!-- 先取出UserInfo userBlob以供顯示圖片使用 -->
+<%
+    UserInfo loginUserInfo = (UserInfo) session.getAttribute("loginUserInfo");
+    byte[] userBlobData = loginUserInfo.getUserBlob();
+    // 將byte[]轉換為Base64編碼的字符串
+    if(userBlobData != null) {
+    String base64Image = Base64.getEncoder().encodeToString(userBlobData);
+	} 
+%>
+=======
 
 
+>>>>>>> refs/heads/master
 
 
 <title>樓頂揪樓咖-消費者個人資訊</title>
@@ -73,7 +90,8 @@
 							<label for="userName" class="col-form-label col-md-3">姓名：</label>
 							<div class="col-md-9">
 								<input type="hidden" name="userID"
-									value="${loginUserInfo.userID}"> <input type="text"
+									value="${loginUserInfo.userID}"> 
+								<input type="text"
 									class="form-control" id="userName" maxlength="20"
 									value="${loginUserInfo.userName}" name="userName">
 							</div>
@@ -124,6 +142,11 @@
 								<input type="file" class="form-control" id="userBlob"
 									name="userBlob" placeholder="請上傳個人照片"
 									onchange="previewImage(event)">
+<<<<<<< HEAD
+								
+								<img id="previewBlob" alt="Image preview" style="margin-top: 10px; max-width: 200px;" 
+     src="${not empty base64Image ? 'data:image/jpeg;base64,' + base64Image : ''}" />
+=======
 								<%--  將byte[]轉換為Base64編碼的字符串--%>
 								<%
 								UserInfo loginUserInfo = (UserInfo) session.getAttribute("loginUserInfo");
@@ -138,6 +161,7 @@
 								<img id="previewBlob" alt="Image preview"
 									style="margin-top: 10px; max-width: 200px;"
 									src="<%=!base64Image.isEmpty() ? "data:image/jpeg;base64," + base64Image : ""%>" />
+>>>>>>> refs/heads/master
 							</div>
 						</div>
 						<div class="d-grid">

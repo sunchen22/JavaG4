@@ -1,4 +1,3 @@
-<%@page import="org.hibernate.internal.build.AllowSysOut"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.Map"%>
 <%@ page import="java.util.List"%>
@@ -153,7 +152,11 @@ if (session.getAttribute("loginUserInfo") == null) { // 如為 null, 代表此us
 							href="${pageContext.request.contextPath}/consumer/protected/UserInfo.jsp">最愛餐廳</a></li>
 						<li><a class="dropdown-item"
 							href="${pageContext.request.contextPath}/consumer/protected/ConsumerOrder.jsp">訂單</a></li>
-						<li><a class="dropdown-item" href="#!">登出</a></li>
+						<li><form action="${pageContext.request.contextPath}/user.do"
+								method="post">
+								<input type="hidden" name="action" value="logout" readonly>
+								<button type="submit" class="dropdown-item">登出</button>
+							</form></li>
 					</ul></li>
 
 

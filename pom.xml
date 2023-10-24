@@ -67,7 +67,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-				<!-- Gson added by Jane -->
+		<!-- Gson added by Jane -->
 		<dependency>
 		    <groupId>com.google.code.gson</groupId>
 		    <artifactId>gson</artifactId>
@@ -80,15 +80,18 @@
 		    <version>2.9.0</version>
 		</dependency>
 		<!-- Jedis connection pool added by Jane -->
-	<dependency>
-	    <groupId>org.apache.commons</groupId>
-	    <artifactId>commons-pool2</artifactId>
-	    <version>2.5.0</version>
-	</dependency>
+		<dependency>
+	 	   <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-pool2</artifactId>
+		    <version>2.5.0</version>
+		</dependency>
+		<!-- Jfree added by Ciou -->
+		<dependency>
+	        <groupId>org.jfree</groupId>
+	        <artifactId>jfreechart</artifactId>
+	        <version>1.0.19</version> <!-- 使用最新版本 -->
+    	</dependency>
 
-
-<!-- ============================== -->		
-		
 	</dependencies>
 
 	<build>

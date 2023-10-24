@@ -34,7 +34,7 @@
 				<p class="login-box-msg "
 					style="font-weight: bold; padding-bottom: 10px;">後台管理平台</p>
 				<p class="login-box-msg ">${account}歡迎回來</p>
-				<div id="timeBox"></div>
+				<div id="timeBox" style="text-align:center"></div>
 
 			</div>
 			<!-- /.login-card-body -->
@@ -53,10 +53,11 @@
 	<script>
 		var count = 3;
 		function countDown() {
-			document.getElementById("timeBox").innerHTML = count;
+			var str = '<span>秒後跳轉</span>';
+			document.getElementById("timeBox").innerHTML = count+str;
 			count -= 1;
 			if (count == 0) {
-				location.href = "<%=request.getContextPath()%>/background/index3.jsp";
+				location.href = "<%=request.getContextPath()%>/background/pages/index3.jsp";
 			}
 			setTimeout("countDown()", 1000); // 設定每秒執行1次
 		}

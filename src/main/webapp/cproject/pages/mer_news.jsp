@@ -1,5 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="utf-8"%>
-<html lang="en">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.webempadmin.model.*"%>
+<%@ page import="com.webempadmin.entity.*"%>
+<%@ page import="com.dinernews.dao.*"%>
+<%@ page import="com.dinernews.entity.*"%>
+
+<html>
 
 <head>
   <meta charset="utf-8">
@@ -245,13 +252,13 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="./pages/ord_query.jsp" class="nav-link">
+                  <a href="./ord_query.jsp" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>訂單查詢</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="./pages/ord_review.jsp" class="nav-link">
+                  <a href="./ord_review.jsp" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>評論管理</p>
                   </a>
@@ -289,6 +296,21 @@
       </div>
       <!-- /.sidebar -->
     </aside>
+    
+    
+    
+    <%
+    	WebempadminDAOImplC wic = new WebempadminDAOImplC();
+    	List<Webempadmin> list = wic.getAllEmp();
+    	pageContext.setAttribute("list", list);
+    	
+    	DinerNewsDAOHibernateImpl dndi = new DinerNewsDAOHibernateImpl();
+    	List<DinerNews> list1 = dndi.getAll();
+    	pageContext.setAttribute("list1", list1);
+    %>
+    
+    
+    
 
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
@@ -314,43 +336,65 @@
                 
 
                 <!-- <div class="col-md-3"> -->
-                <form action="" style="padding:10px;">
+                <form method = "post" action="dns.do" onsubmit="return validateForm()" style="padding:10px;">
                   <span>
                     <label>標題 :</label>
-                    <input type="text" placeholder="" class="border border-warning" style = "width: 85%">
+                    <input type="text" name = "news1" class="border border-warning" style = "width: 85%">
                   </span>
 
-                  <span>
-                    <button type="button" style="font-weight:bold" class="btn btn-warning">修改</button>
-                  </span>
+<!--                   <span> -->
+<!--                     <button type="button" style="font-weight:bold" class="btn btn-warning">修改</button> -->
+<!--                   </span> -->
                   <br><br>
 
                   <span>
                     <label>標題 :</label>
-                    <input type="text" placeholder="" class="border border-warning" style = "width: 85%" >
+                    <input type="text" name = "news2" class="border border-warning" style = "width: 85%" >
                   </span>
 
-                  <span>
-                    <button type="button" style="font-weight:bold" class="btn btn-warning">修改</button>
-                  </span>
+<!--                   <span> -->
+<!--                     <button type="button" style="font-weight:bold" class="btn btn-warning">修改</button> -->
+<!--                   </span> -->
                   <br><br>
 
                   <span>
                     <label>標題 :</label>
-                    <input type="text" placeholder="" class="border border-warning" style = "width: 85%">
+                    <input type="text" name = "news3" class="border border-warning" style = "width: 85%">
                   </span>
 
+				  
 
-                  <span>
-                    <button type="button" style="font-weight:bold" class="btn btn-warning">修改</button>
-                  </span>
+
+<!--                   <span> -->
+<!--                     <button type="button" style="font-weight:bold" class="btn btn-warning">修改</button> -->
+<!--                   </span> -->
 
                   <br>
                   <br>
+				  <input type="date" name="startDate" id="startDate" required>
+				   <span>~</span> 
+				   <input type="date" name="endDate" id="endDate" required>
+				  &ensp;
+				  
+				
+				
+				  <select name="emp" id = "emp">
+				  	<option>選擇員工</option>
+				  	<c:forEach var="emp" items="${list}">				  						
+					<option value="${emp.empID}">${emp.empName}</option>					
 
+					</c:forEach>
+				  </select>
+				  
+				  
+				
+				  
+				  
                   <div align = "right">
                   <span>
-                    <button type="button" style="font-weight:bold" class="btn btn-warning">送出</button>
+                  	
+                    <button type="submit" style="font-weight:bold" class="btn btn-warning">送出</button>
+                    
                   </span>
                   </div>
                   
@@ -373,11 +417,100 @@
           <!-- /.col -->
         </div>
         <!-- /.row -->
+        
+        
+        
+        <p style="color: red">廣告</p>
+        <div class="">
+          <table id = "table" class="table table-bordered">
+            <thead>
+            
+              <tr>
+              
+              	<th class="w-1">廣告編號</th>
+                <th>廣告內容</th>
+                <th>廣告內容</th>                      				                
+                <th>廣告內容</th>
+                <th>上架時間</th>
+                <th>下架時間</th>
+                <th>員工</th>
+                
+                
+
+              </tr>
+            </thead>
+            
+            <tbody>
+            <c:forEach var="dinerNews" items="${list1}">
+              <tr>
+                <td> ${dinerNews.dinerNewsID} </td>
+                <td>${dinerNews.dinerNewsContent1}</td>
+                <td>
+                 ${dinerNews.dinerNewsContent2}
+                </td>
+                
+                <td>
+                  ${dinerNews.dinerNewsContent3}
+                  
+                </td>
+                
+				<td>
+				  ${dinerNews.dinerNewsReleaseTime}
+				  
+				</td>
+				
+				<td>
+				  ${dinerNews.dinerNewsReviseTime}
+				</td>
+				<td>
+				  ${dinerNews.webempadmin.empName}
+				</td>
+				
+				
+				
+    
+
+              </tr>
+			  </c:forEach>
+			  
+            </tbody>
+          </table>
+          </div>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
         
         </section>
 
       </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -418,9 +551,86 @@
       <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
       <script src="./assets/js/require.min.js"></script>
-      <script>
-        
-
+      
+      <%@ include file="included-fragment.file" %>
+		<script src="https://code.jquery.com/jquery-3.5.1.js"></script>                                    <!-- ●●js  for jquery datatables 用 -->
+		<script	src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>              <!-- ●●js  for jquery datatables 用 -->
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.jqueryui.min.css" /> <!-- ●●css for jquery datatables 用 -->
+     
+     
+      
+      
+      
+      
+      
+       <script>
+       $(document).ready(function() {
+     		$('#table').DataTable({
+     			"lengthMenu": [3],
+     			"searching": true,  //搜尋功能, 預設是開啟
+     		    "paging": true,     //分頁功能, 預設是開啟
+     		    "ordering": true,   //排序功能, 預設是開啟
+     		    "language": {
+     		        "processing": "處理中...",
+     		        "loadingRecords": "載入中...",
+     		        "lengthMenu": "顯示 _MENU_ 筆結果",
+     		        "zeroRecords": "沒有符合的結果",
+     		        "info": "顯示第 _START_ 至 _END_ 筆結果，共<font color=red> _TOTAL_ </font>筆",
+     		        "infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
+     		        "infoFiltered": "(從 _MAX_ 筆結果中過濾)",
+     		        "infoPostFix": "",
+     		        "search": "搜尋:",
+     		        "paginate": {
+     		            "first": "第一頁",
+     		            "previous": "上一頁",
+     		            "next": "下一頁",
+     		            "last": "最後一頁"
+     		        },
+     		        "aria": {
+     		            "sortAscending":  ": 升冪排列",
+     		            "sortDescending": ": 降冪排列"
+     		        }
+     		    }
+     		});
+     	});
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       function validateForm() {
+     	    var selectedEmployee = document.getElementById("emp").value;
+     	    if (selectedEmployee === "選擇員工") {
+     	        alert("請選擇員工");
+    	        return false; // 阻止表單提交
+     	    }
+     	    return true; // 允許表單提交
+     	}
+			
+       
+       
+       window.onload = function() {
+           var startDateInput = document.getElementById('startDate');
+           var endDateInput = document.getElementById('endDate');
+           
+           
+           var currentDate = new Date().toISOString().split('T')[0];
+           
+          
+           startDateInput.setAttribute('min', currentDate);
+           
+           
+           startDateInput.addEventListener('change', function() {
+               var startDate = new Date(startDateInput.value);
+               var endDate = new Date(startDate);
+               endDate.setDate(startDate.getDate() + 7);
+               endDateInput.valueAsDate = endDate;
+           });
+       }
         
   </script>
 

@@ -7,11 +7,13 @@ import com.userinfo.entity.UserInfo;
 
 public interface UserInfo2Service {
 	
-	UserInfo updateUserInfo(UserInfo userInfo);
+	void  updateUserInfo(UserInfo userInfo);
 	
 	void deleteUserInfo(Integer userID);
 	
 	UserInfo getUserInfoByuserID(Integer userID);
+	
+	List<UserInfo> getAllUserInfo();
 	
 	List<UserInfo> getAllUserInfo(int currentPage);
 

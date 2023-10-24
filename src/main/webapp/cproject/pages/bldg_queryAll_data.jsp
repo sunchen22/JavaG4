@@ -388,12 +388,13 @@ pageContext.setAttribute("list", list);
 %>
 
 <div class="table-responsive">
-          <table class="table card-table table-vcenter text-nowrap">
+          <table id = "table" class="table table-bordered">
             <thead>
               <tr>
                 <th class="w-1">大樓編號</th>
                 <th>大樓名稱</th>
                 <th>地址</th>
+                <th></th>
                 
               
                 
@@ -407,16 +408,16 @@ pageContext.setAttribute("list", list);
                 <td>${buildingInfo.buildingAddress}</td>
                 
                 
-                <td>             
-                <form METHOD="get" ACTION="bis.do"  style="width: 0px ; height: 0px">
-                  <input type="hidden" name="buildingID"  value="${buildingInfo.buildingID}">    
-			      <input type="hidden" name="action" value="go_for_update">
-                  <button class ="btn btn-warning" style = "font-weight :bold " data-bs-toggle="modal" data-bs-target="#exampleModal">修改</button>
- 				  </form>
-				  </td>
+<!--                 <td>              -->
+<!--                 <form METHOD="get" ACTION="bis.do"> -->
+<%--                   <input type="hidden" name="buildingID"  value="${buildingInfo.buildingID}">     --%>
+<!-- 			      <input type="hidden" name="action" value="go_for_update"> -->
+<!--                   <button class ="btn btn-warning" style = "font-weight :bold " data-bs-toggle="modal" data-bs-target="#exampleModal">修改</button> -->
+<!--  				  </form> -->
+<!-- 				  </td> -->
                   
                   <td>
-                  <form METHOD="get" ACTION="bis.do" style="width: 15px ; height: 15px">             
+                  <form METHOD="get" ACTION="bis.do">             
                   <input type="hidden" name="buildingID"  value="${buildingInfo.buildingID}">    
 			      <input type="hidden" name="action" value="delete">
 			      <button type="submit" value ="送出" class ="btn btn-warning" style = "font-weight :bold " data-bs-toggle="modal" data-bs-target="#exampleModal">刪除</button>
@@ -510,8 +511,42 @@ pageContext.setAttribute("list", list);
       <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
       
+      <%@ include file="included-fragment.file" %>
+		<script src="https://code.jquery.com/jquery-3.5.1.js"></script>                                    <!-- ●●js  for jquery datatables 用 -->
+		<script	src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>              <!-- ●●js  for jquery datatables 用 -->
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.jqueryui.min.css" /> <!-- ●●css for jquery datatables 用 -->
       <script>
+      $(document).ready(function() {
+  		$('#table').DataTable({
+  			"lengthMenu": [5],
+  			"searching": true,  //搜尋功能, 預設是開啟
+  		    "paging": true,     //分頁功能, 預設是開啟
+  		    "ordering": true,   //排序功能, 預設是開啟
+  		    "language": {
+  		        "processing": "處理中...",
+  		        "loadingRecords": "載入中...",
+  		        "lengthMenu": "顯示 _MENU_ 筆結果",
+  		        "zeroRecords": "沒有符合的結果",
+  		        "info": "顯示第 _START_ 至 _END_ 筆結果，共<font color=red> _TOTAL_ </font>筆",
+  		        "infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
+  		        "infoFiltered": "(從 _MAX_ 筆結果中過濾)",
+  		        "infoPostFix": "",
+  		        "search": "搜尋:",
+  		        "paginate": {
+  		            "first": "第一頁",
+  		            "previous": "上一頁",
+  		            "next": "下一頁",
+  		            "last": "最後一頁"
+  		        },
+  		        "aria": {
+  		            "sortAscending":  ": 升冪排列",
+  		            "sortDescending": ": 降冪排列"
+  		        }
+  		    }
+  		});
+  	});
         
+
         
   </script>
 

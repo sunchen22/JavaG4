@@ -6,5 +6,5 @@ import com.product.entity.Product;
 
 public interface ProductDAOC {
 	List<Product> getAll(Integer dinerID);
-	int down(Integer dinerID);
+	Product down(Integer ProductID);
 }
