@@ -29,7 +29,7 @@
 	<!-- 個別商家資訊 -->
 
 	<%
-	Integer dinerID = (Integer) 1;
+	Integer dinerID = Integer.parseInt(request.getParameter("dinerID"));
 	String dayOfWeek = "Monday";
 	DinerInfo dinerInfo = new DinerInfo();
 	dinerInfo = new DinerInfoDAOImplC().findByPK(dinerID);
