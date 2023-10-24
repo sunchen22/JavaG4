@@ -37,12 +37,12 @@ function search(requestData) {
 									${item.dinerType == 'M' ? '<i class="fa-solid fa-utensils"></i>' : (item.dinerType=='D' ? '<i class="fa-solid fa-mug-saucer"></i>' : '<i class="fa-solid fa-utensils"></i><i class="fa-solid fa-mug-saucer"></i>')}
 									</span>
 									</li>
-									<li class="list-inline-item"><span class="badge fs-6 rounded-pill bg-secondary"><i class="fa-solid fa-star"></i>${item.dinerRating}</span>
+									<li class="list-inline-item"><span class="badge fs-6 rounded-pill bg-secondary"><i class="fa-solid fa-star"></i>${item.dinerRating.toFixed(1)}</span>
 									</li><li>主揪：${item.userNickName}</li>
 									<li class="list-inline-item">成團條件：${item.dinerOrderThreshold}元 </li>
 									<li class="list-inline-item">成團狀態：${item.orderStatus=='1'? '未達成團條件' : '已達成團條件'}</li>
 									<li>付款截止時間：${item.groupOrderSubmitTime}</li>
-									<div class="d-flex justify-content-end"><a class="btn btn-dark" href="http://localhost:8081/JavaG4/GroupOrder.do?action=getOne&groupOrderID=${item.groupOrderID}">加入此大樓揪團</a>
+									<div class="d-flex justify-content-end"><a class="btn btn-dark" href=${contextPath}/GroupOrder.do?action=getOne&groupOrderID=${item.groupOrderID}>查看大樓揪團詳情</a>
 									</div>
 								</ul>
 							</div>
