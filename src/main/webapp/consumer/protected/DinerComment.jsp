@@ -59,6 +59,7 @@
 
 			//平均評分
 			Double averageRating = new DinerRatingCommentDAO().getAverageRatingByDinerIDWithCriteria(dinerID);
+			pageContext.setAttribute("averageRating", averageRating);
 			%>
 			<img
 				src="https://pic.616pic.com/photoone/00/05/67/618e256d3d3368237.jpg!/fw/1120"
@@ -122,14 +123,14 @@
 					class="form-control mb-3"></textarea>
 				<div class="star_block">
 					<!-- 我們使用data-star屬性來設定每顆星的值 -->
-					<span class="star" data-star="1"><i class="fas fa-star"></i></span>
-					<span class="star" data-star="2"><i class="fas fa-star"></i></span>
-					<span class="star" data-star="3"><i class="fas fa-star"></i></span>
-					<span class="star" data-star="4"><i class="fas fa-star"></i></span>
-					<span class="star" data-star="5"><i class="fas fa-star"></i></span>
+					<span class="star -on" data-star="1"><i class="fas fa-star"></i></span>
+					<span class="star -on" data-star="2"><i class="fas fa-star"></i></span>
+					<span class="star -on" data-star="3"><i class="fas fa-star"></i></span>
+					<span class="star -on" data-star="4"><i class="fas fa-star"></i></span>
+					<span class="star -on" data-star="5"><i class="fas fa-star"></i></span>
 				</div>
 				
-				<input type="hidden" id="star-rating" name="dinerRating">
+				<input type="hidden" id="star-rating" name="dinerRating" value="5">
 				<input type="hidden" name="userID" value="${loginUserInfo.userID}">
 				<input type="hidden" name="dinerID" value= <%= dinerID %>>
 				<input type="hidden" name="action" value="insertComment">

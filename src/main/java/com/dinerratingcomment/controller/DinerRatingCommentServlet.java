@@ -99,13 +99,17 @@ public class DinerRatingCommentServlet extends HttpServlet {
 			try {
 				dinerRatingCommentDAO.insert(dinerRatingComment);
 			} catch (Exception e) {
+				// FIXME DB有問題時沒有處理
 				errorMsgs.add("Database error: " + e.getMessage());
 			}
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			String url = "/consumer/protected/DinerComment.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);
-			successView.forward(req, res);
+			String cp = req.getContextPath();
+			res.sendRedirect(cp + url);
+			
+//			RequestDispatcher successView = req.getRequestDispatcher(url);
+//			successView.forward(req, res);
 		}
 
 	}
