@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.businesshours.entity.BusinessHours;
 import com.dinerinfo.dao.DinerInfoDAO;
 import com.dinerinfo.dao.DinerInfoDAOHibernateImpl;
 import com.dinerinfo.entity.DinerInfo;
@@ -163,6 +164,12 @@ public class DinerInfoServiceImpl implements DinerInfoService {
 		return dinerInfo;
 	}
 	
+	// 用來查廣告
+	@Override
+	public Set<BusinessHours> getBusinessHoursByDinerID(DinerInfo dinerInfo) {
+		int dinerID = dinerInfo.getDinerID();
+		return dao.getBusinessHoursByDinerID(dinerID);
+	}
 
 	@Override
 	public List<DinerInfo> getAllDinerInfos(int currentPage) {

@@ -1,9 +1,10 @@
 package com.dinerinfo.dao;
 
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import com.businesshours.entity.BusinessHours;
 import com.dinerinfo.entity.DinerInfo;
 
 
@@ -69,9 +70,9 @@ public interface DinerInfoDAO {
 //  List<DinerInfo> getAll(Map<String, String[]> map); 
 
 //  查詢某商家的營業時間(一對多)(回傳 Set)	
-//  Set<BusinessHours> getBusinessHoursByDinerID(Integer dinerID);
+  Set<BusinessHours> getBusinessHoursByDinerID(Integer dinerID);
 
-//  查詢某商家的廣告(一對多)(回傳 Set)	
+////  查詢某商家的廣告(一對多)(回傳 Set)	
 //  Set<Advertisement> getAdvertisementByDinerID(Integer dinerID);
 
 //	查詢某商家的商店評分(一對多)(回傳 Set)	

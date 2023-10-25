@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
-import com.advertisement.entity.Advertisement;
+import com.businesshours.entity.BusinessHours;
 
 
 @Entity
@@ -72,6 +72,10 @@ public class DinerInfo {
 	
 	@Column(name="dinerUpdate")
 	private String dinerUpdate;
+	
+	@OneToMany(mappedBy = "dinerInfo",cascade = CascadeType.ALL)
+	@OrderBy("dinerOpenHoursID asc")
+	private Set<BusinessHours> businessHours;
 	
 	
 //	@OneToMany(mappedBy = "advertisement",cascade = CascadeType.ALL)
@@ -222,8 +226,15 @@ public class DinerInfo {
 //		this.advertisements = advertisements;
 //	}
 
+	public Set<BusinessHours> getBusinessHours() {
+		return businessHours;
+	}
+
+	public void setBusinessHours(Set<BusinessHours> businessHours) {
+		this.businessHours = businessHours;
+	}
+
 	public DinerInfo() {
-		super();
 	}
 
 public DinerInfo(Integer dinerID, String dinerName, String dinerPassword, Timestamp dinerRegisterTime,

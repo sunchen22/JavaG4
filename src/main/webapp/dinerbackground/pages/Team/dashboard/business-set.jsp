@@ -4,6 +4,8 @@
 <%@ page import="com.dinerinfo.service.*"%>
 <%@ page import="com.businesshours.entity.*"%>
 <%@ page import="com.businesshours.service.*"%>
+<%@ page import="java.util.*"%>
+
 
 <%
 // 	DinerInfoServiceImpl dinerSvc = new DinerInfoServiceImpl();
@@ -13,6 +15,9 @@
 DinerInfo account = (DinerInfo) session.getAttribute("account");
 // String dinerStatus = account.getDinerStatus();
 //這是login之後傳進來的account，代表已登錄後才能看到的資料
+Integer dinerID = account.getDinerID();
+BuisnessHoursServiceImpl bh = new BuisnessHoursServiceImpl();
+List<BusinessHours> businessHours = bh.getBusinessHoursByDinerID(dinerID);
 %>
 
 <html lang="zh-Hant">
@@ -264,47 +269,93 @@ DinerInfo account = (DinerInfo) session.getAttribute("account");
 				<div class="container-fluid">
 
 					<!-- 營業時間設定 -->
-					<form action="<%=request.getContextPath()%>/businessHours.do"
-						method="post">
-						<div>
-							<lable>
-							<h6>營業時間 :</h6>
-							</lable>
-						</div>
-						<div class="card collapsed-card">
 
-							<div class="card-header">
+					<div class="card collapsed-card">
+
+						<div class="card-header">
+							<div>
+								<label> <%
+ 									// 檢查 businessHours 是否為空，並根據情況顯示適當的訊息
+ 									if (businessHours == null || businessHours.isEmpty()) {
+ 									out.print("營業時間 : 您目前還沒有設定");
+									 } else {
+ 									out.print("營業時間 :");
+									 }
+										 %>
+								</label>
+							</div>
 
 
+
+							<form action="<%=request.getContextPath()%>/businessHours.do"
+								method="post">
 								<%
-								String[] days = {"星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"};
-								for (String day : days) {
+								Map<String, String> dayMap = new HashMap<>();
+								dayMap.put("Monday", "星期一");
+								dayMap.put("Tuesday", "星期二");
+								dayMap.put("Wednesday", "星期三");
+								dayMap.put("Thursday", "星期四");
+								dayMap.put("Friday", "星期五");
+								dayMap.put("Saturday", "星期六");
+								dayMap.put("Sunday", "星期日");
+
+								String[] daysInEnglish = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+								for (String dayInEnglish : daysInEnglish) {
+									String dayInChinese = dayMap.get(dayInEnglish);
+									boolean found = false; // 用於追踪是否找到了對應的營業日
+									for (BusinessHours hours : businessHours) {
+										if (hours.getDayOfWeek().equals(dayInEnglish)) { // 確認該 BusinessHours 物件的營業日是否與當前迭代的 day 相匹配
 								%>
+								<input type="checkbox" name="dayOfWeek[<%=dayInEnglish%>]"
+									id="open<%=dayInEnglish%>" data-bootstrap-switch
+									data-rendered="true"
+									<%="Open".equals(hours.getOpenStatus()) ? "checked" : ""%>
+									onchange="confirmStatusChange('<%=dayInEnglish%>', '<%=dayInChinese%>', this, this.form);">
+								<label for="open<%=dayInEnglish%>" class="inline"><h5><%=dayInChinese%></h5></label>&ensp;&ensp;&ensp;
 
-								<input type="checkbox" name="dayOfWeek[<%=day%>]" value="open"
-									id="open<%=day%>" data-bootstrap-switch> <label
-									for="open<%=day%>" class="inline"><h5><%=day%></h5></label>&ensp;&ensp;&ensp;
+								<!-- 隱藏的 input 用於儲存狀態 -->
+								<input type="hidden" name="dayOfWeekStatus[<%=dayInEnglish%>]"
+									id="hiddenInput<%=dayInEnglish%>"
+									value="<%=hours.getOpenStatus()%>"> <span>開店時間 :<%=hours.getOpenTime()%></span>&ensp;&ensp;&ensp;
+								<span>關店時間 : <%=hours.getCloseTime()%></span> <br>
+								<%
+								found = true; // 標記已找到匹配的營業日
+								break; // 找到匹配的 BusinessHours 物件後，終止內部迴圈
+								}
+								}
 
+								if (!found) { // 如果沒有找到匹配的營業日，則顯示預設的消息或空白
+								%>
+								<span></span>
 								<%
 								}
+								}
 								%>
+							</form>
 
 
 
-								<div class="card-tools">
-									<!-- Collapse Button -->
-									<button type="button" class="btn btn-tool"
-										data-card-widget="collapse">
-										<i class="fas fa-plus"></i>
-									</button>
-								</div>
-								<!-- /.card-tools -->
+
+
+
+							<div class="card-tools">
+								<!-- Collapse Button -->
+								<button type="button" class="btn btn-tool"
+									data-card-widget="collapse">
+									<i class="fas fa-plus"></i>
+								</button>
 							</div>
-							<!-- /.card-header -->
-							<div class="card-body">
-								<label for="openTimeSetting" class="inline">
-									<h5>營業時間設定</h5>
-								</label> <br>
+							<!-- /.card-tools -->
+						</div>
+						<!-- /.card-header -->
+						<div class="card-body">
+							<label for="openTimeSetting" class="inline">
+								<h5>營業時間設定</h5>
+							</label> <br>
+
+							<form action="<%=request.getContextPath()%>/businessHours.do"
+								method="post">
+
 								<div class="form-group row form-inline">
 									<div class="col">
 										<span>營業日 :</span> <select name="dayOfWeek" id="dayOfWeek"
@@ -384,11 +435,10 @@ DinerInfo account = (DinerInfo) session.getAttribute("account");
 										<button class="btn btn-primary w-80">變更</button>
 									</div>
 								</div>
-
-							</div>
-							<!-- /.card-body -->
 						</div>
-						<!-- /.card -->
+						<!-- /.card-body -->
+					</div>
+					<!-- /.card -->
 					</form>
 
 					<form
@@ -504,7 +554,8 @@ DinerInfo account = (DinerInfo) session.getAttribute("account");
 								<div id="errorMsgSection" style="display: none;">
 									<ul id="errorList"></ul>
 								</div>
-								
+
+
 							</ul>
 						</c:if>
 
@@ -591,6 +642,37 @@ DinerInfo account = (DinerInfo) session.getAttribute("account");
 	<script src="../../../plugins/select2/js/select2.full.min.js"></script>
 
 	<script>
+		//控制開關店按鈕
+
+		function confirmStatusChange(dayInEnglish, dayInChinese,
+				checkboxElement, formElement) {
+			// 檢查此input是否是渲染的資料
+			if (checkboxElement.getAttribute('data-rendered')) {
+				checkboxElement.removeAttribute('data-rendered');
+				return; // 不觸發確認框
+			}
+
+			var action = checkboxElement.checked ? "開啟" : "關閉";
+			var confirmMessage = "您確定要" + action + dayInChinese + "的營業日嗎?";
+
+			if (confirm(confirmMessage)) {
+				updateHiddenInput(dayInEnglish, checkboxElement, formElement);
+			} else {
+				// 使用者選擇"取消"，所以我們需要還原checkbox的狀態
+				checkboxElement.checked = !checkboxElement.checked;
+			}
+		}
+
+		function updateHiddenInput(day, checkboxElement, formElement) {
+			var hiddenInput = document.getElementById('hiddenInput' + day);
+			if (checkboxElement.checked) {
+				hiddenInput.value = 'Open';
+			} else {
+				hiddenInput.value = 'Close';
+			}
+			formElement.submit(); // 新增的程式碼：提交表單
+		}
+
 		// 確保在點擊確認訂單金額的按鈕時，會從輸入框中取得金額，然後更新到模態框中
 		$(document).ready(
 				function() {
@@ -631,10 +713,13 @@ DinerInfo account = (DinerInfo) session.getAttribute("account");
 
 			if (!hasFile) {
 				// 如果用戶沒有選擇圖片，添加錯誤消息並阻止模態框彈出
-				var errorList = document.createElement("ul");
+				// 				var errorList = document.createElement("ul");
+				// 				errorList.innerHTML = "<li style='color: red'>您還沒增加任何圖片</li>";
+				var errorList = document.getElementById("errorList");
 				errorList.innerHTML = "<li style='color: red'>您還沒增加任何圖片</li>";
+				errorMsgSection.style.display = "block"; // 讓錯誤信息可見
 				var errorMsgSection = document
-						.querySelector("[dinerBloberrorMsgs]");
+						.querySelector("#errorMsgSection");
 				if (errorMsgSection) {
 					errorMsgSection.appendChild(errorList);
 				} else {

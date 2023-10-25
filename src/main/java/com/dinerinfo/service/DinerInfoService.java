@@ -3,9 +3,11 @@ package com.dinerinfo.service;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.businesshours.entity.BusinessHours;
 import com.dinerinfo.entity.DinerInfo;
 
 public interface DinerInfoService {
@@ -61,6 +63,9 @@ public interface DinerInfoService {
 	
 	// 用來新增圖片的方法
 	DinerInfo setDinerBlob(byte[] dinerBlob , Integer dinerID);
+	
+	// 用來查廣告
+	Set<BusinessHours> getBusinessHoursByDinerID(DinerInfo dinerInfo);
 	
 	List<DinerInfo> getAllDinerInfos(int currentPage);
 
