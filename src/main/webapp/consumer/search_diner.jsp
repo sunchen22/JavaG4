@@ -115,7 +115,7 @@
 									<div class="row g-0 align-items-center">
 										<div class="col-5 ">
 											<img
-												src="https://images.pexels.com/photos/2725744/pexels-photo-2725744.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1260&amp;h=750&amp;dpr=1"
+												src="<%=request.getContextPath()%>/consumer/dinerDBGifReader?dinerID=<%= diner.getDinerID() %>"
 												class="card-img" alt="...">
 										</div>
 										<div class="col-7">
