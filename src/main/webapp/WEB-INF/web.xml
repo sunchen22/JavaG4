@@ -148,4 +148,5 @@
 		<url-pattern>/background/pages/UserImage</url-pattern>
 	</servlet-mapping>	
 
+
 </web-app>

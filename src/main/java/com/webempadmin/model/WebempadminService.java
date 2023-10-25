@@ -58,6 +58,11 @@ public class WebempadminService {
 	public void deleteEmp(Integer empno) {
 		dao.delete(empno);
 	}
+	
+	//停權
+	public void suspendEmp(Integer empno) {
+		dao.suspend(empno);
+	}
 
 	public WebempadminVO getOneEmp(Integer empID) {
 		return dao.findByPrimaryKey(empID);
@@ -65,6 +70,10 @@ public class WebempadminService {
 
 	public Map<String,String> getOnePassword(String empAccound) {
 		return dao.findAccoundPassword(empAccound);
+	}
+	
+	public Map<String,Integer> getOneStatus(String empAccound) {
+		return dao.findEmpStatus(empAccound);
 	}
 	
 	public List<WebempadminVO> getAll() {

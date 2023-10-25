@@ -206,7 +206,7 @@
 									<th>會員姓名</th>
 									<th>會員電話</th>
 									<th>修改</th>
-									<th>停權</th>
+<!-- 									<th>停權</th> -->
 								</tr>
 							</thead>
 							<tbody>
@@ -225,14 +225,14 @@
 <%-- 												<input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>"> <!--送出本網頁的路徑給Controller--> --%>
 											</FORM>
 										</td>
-										<td>
-											<FORM METHOD="post" style="margin-bottom: 0px;"
-												id="suspendbtn" >
-												<input type="submit" value="停權"class="btn btn-danger btn-sm"> 
-												<input type="hidden" name="action" value="">												
-												<input type="hidden" name="empID" value="${user.userID}">
-											</FORM>
-										</td>
+<!-- 										<td> -->
+<!-- 											<FORM METHOD="post" style="margin-bottom: 0px;" -->
+<!-- 												id="suspendbtn" > -->
+<!-- 												<input type="submit" value="停權"class="btn btn-danger btn-sm">  -->
+<!-- 												<input type="hidden" name="action" value="">												 -->
+<%-- 												<input type="hidden" name="empID" value="${user.userID}"> --%>
+<!-- 											</FORM> -->
+<!-- 										</td> -->
 									</tr>
 								</c:forEach>
 
