@@ -19,7 +19,7 @@
       </div>
       <div class="card-body">
         <p>進入後開始點餐吧！</p>
-        <form action="user.do" method="post">
+        <form action="${pageContext.request.contextPath}/user.do" method="post">
           <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="請輸入帳號Email" name="userAccount">
             <div class="input-group-append">

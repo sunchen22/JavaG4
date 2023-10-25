@@ -1,5 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="utf-8"%>
-<html lang="en">
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.*"%>
+<%@ page import="com.dinerinfo.dao.*"%>
+<%@ page import="com.dinerinfo.entity.*"%>
+<html>
 
 <head>
     <meta charset="utf-8">
@@ -328,6 +332,14 @@
                                 <!-- <div class="col-md-3"> -->
 
                                 <!-- </div> -->
+                                
+                                <%
+                                	DinerInfo dif = (DinerInfo)request.getAttribute("dif");
+	                 			
+                                %>
+                                
+                                
+                                
 
 
 
@@ -346,21 +358,19 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td><span class="text-muted">1</span></td>
-                                                <td><a href="invoice.html" class="text-inherit">54321</a></td>
+                                                <td><span class="text-muted"><%= dif.getDinerID() %></span></td>
+                                                <td><a href="invoice.html" class="text-inherit"><%= dif.getDinerTaxID() %></a></td>
+                                                
                                                 <td>
-                                                    吉野家烤肉飯
-                                                </td>
-                                                <td>
-                                                    88880000
-                                                </td>
-                                                <td>
-                                                    xxxxxxxxxxxxxx
+                                                    <%=dif.getDinerName() %>
                                                 </td>
 
                                                 <td>
-                                                    xxxxxxxxxxxxxxXXXXXXXXXXXX
+                                                    <%= dif.getDinerPhone() %>
                                                 </td>
+                                                
+                                                <td><%= dif.getDinerEmail() %></td>
+                                                <td><%= dif.getDinerAddress() %></td>
 
                                             </tr>
 
@@ -383,33 +393,38 @@
                     <!-- /.row -->
 
                     <div class="table-responsive">
+                    
+                    <img src= "chart.do?dinerID=<%=dif.getDinerID() %>">
+                    
+                    
+                    </div>
 
   
             
             
-                        <div class="col-md-6">
-                            <!-- LINE CHART -->
-                            <div class="card card-info">
-                              <div class="card-header">
-                                <h3 class="card-title">Line Chart</h3>
+<!--                         <div class="col-md-6"> -->
+<!--                             LINE CHART -->
+<!--                             <div class="card card-info"> -->
+<!--                               <div class="card-header"> -->
+<!--                                 <h3 class="card-title">Line Chart</h3> -->
                 
-                                <div class="card-tools">
-                                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                    <i class="fas fa-minus"></i>
-                                  </button>
-                                  <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                    <i class="fas fa-times"></i>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="card-body">
-                                <div class="chart">
-                                  <canvas id="lineChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                                </div>
-                              </div>
-                              <!-- /.card-body -->
-                            </div>
-                            <!-- /.card -->
+<!--                                 <div class="card-tools"> -->
+<!--                                   <button type="button" class="btn btn-tool" data-card-widget="collapse"> -->
+<!--                                     <i class="fas fa-minus"></i> -->
+<!--                                   </button> -->
+<!--                                   <button type="button" class="btn btn-tool" data-card-widget="remove"> -->
+<!--                                     <i class="fas fa-times"></i> -->
+<!--                                   </button> -->
+<!--                                 </div> -->
+<!--                               </div> -->
+<!--                               <div class="card-body"> -->
+<!--                                 <div class="chart"> -->
+<%--                                   <canvas id="lineChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas> --%>
+<!--                                 </div> -->
+<!--                               </div> -->
+<!--                               /.card-body -->
+<!--                             </div> -->
+<!--                             /.card -->
 
                         
 
@@ -417,7 +432,7 @@
                         
 
 
-                    </div>
+                    
             </section>
 
         </div>
@@ -495,7 +510,7 @@ $(function () {
 
       // Get context with jQuery - using jQuery's .get() method.
       var lineChartData = {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul','Aug','Sep','Oct','Nov','Dec'],
         datasets: [
           {
             label: 'Digital Goods',
@@ -506,7 +521,7 @@ $(function () {
             pointStrokeColor: 'rgba(60,141,188,1)',
             pointHighlightFill: '#fff',
             pointHighlightStroke: 'rgba(60,141,188,1)',
-            data: [28, 48, 40, 19, 86, 27, 90]
+            data: [10000, 10000, 10000, 10000, 10000, 10000, 10000]
             // 前七天數據要放這
           },
           {
@@ -518,7 +533,7 @@ $(function () {
             pointStrokeColor: '#c1c7d1',
             pointHighlightFill: '#fff',
             pointHighlightStroke: 'rgba(220,220,220,1)',
-            data: [65, 59, 80, 81, 56, 55, 40]
+            data: [1000, 1500, 2000, 2500, 3000, 3500, 4000]
           },
         ]
       }
@@ -565,27 +580,10 @@ $(function () {
 
     
 
+
+    </script>
+
     
-
-
-
-
-
-
-
-
-
-
-
-    </script>
-
-    <script>
-
-
-    </script>
-
-
-
 
 
 </body>

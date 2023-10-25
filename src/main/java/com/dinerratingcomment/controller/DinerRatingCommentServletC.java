@@ -55,6 +55,34 @@ public class DinerRatingCommentServletC extends HttpServlet {
 			
 		}
 		
+		if("go_for_delete".equals(action)) {
+			String str = req.getParameter("commentID");
+			Integer commentID = Integer.valueOf(str);
+			
+			String str1 = req.getParameter("dinerID");
+			Integer dinerID = Integer.valueOf(str1);
+			DinerInfoDAOImplC didi = new DinerInfoDAOImplC();
+			DinerInfo  dif =didi.findByPK(dinerID);
+			req.setAttribute("dif",dif);
+			
+			
+			
+			DinerRatingCommentDAOImplC drcoi = new DinerRatingCommentDAOImplC();
+			drcoi.delete(commentID);
+			
+			
+			
+			
+			String url = "/cproject/pages/order_review_data.jsp";	
+			
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			
+			successView.forward(req, res);
+			
+			return;			
+			
+		}
+		
 		
 }
 }

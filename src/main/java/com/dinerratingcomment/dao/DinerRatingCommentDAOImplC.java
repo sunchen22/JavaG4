@@ -20,8 +20,8 @@ public class DinerRatingCommentDAOImplC implements DinerRatingCommentDAOC {
 //			session.beginTransaction();
 			DinerRatingComment drc = session.get(DinerRatingComment.class , commentID);
 			if(drc != null) {
-			
-			session.delete(drc);
+			drc.setDinerRatingCommentStatus(2);
+			//session.delete(drc);
 			}
 //			session.getTransaction().commit();	
 		
@@ -95,8 +95,9 @@ public class DinerRatingCommentDAOImplC implements DinerRatingCommentDAOC {
 //																		
 //		List<DinerRatingComment> list = query.list();
 		
-		List<DinerRatingComment> list = session.createQuery("from DinerRatingComment where dinerid = ?0 ", DinerRatingComment.class)
+		List<DinerRatingComment> list = session.createQuery("from DinerRatingComment where dinerid = ?0 and dinerratingcommentstatus = ?1 ", DinerRatingComment.class)
 		.setParameter(0, dinerID)
+		.setParameter(1,1)
 		.list();
 		
 		

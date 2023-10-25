@@ -1,6 +1,8 @@
 package com.dinerinfo.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.dinerinfo.dao.DinerInfoDAOImplC;
 import com.dinerinfo.entity.DinerInfo;
+import com.google.gson.JsonObject;
 
 @WebServlet("/cproject/pages/difs.do")
 public class DinerInfoServletC extends HttpServlet {
@@ -60,7 +63,124 @@ public class DinerInfoServletC extends HttpServlet {
 			return;			
 			
 		}
-	
+		
+		
+		if("go_for_check_changed".equals(action)) {
+			String str = req.getParameter("dinerID");
+			Integer dinerID = Integer.valueOf(str);
+			DinerInfoDAOImplC didi = new DinerInfoDAOImplC();
+			DinerInfo  dif =didi.findByPK(dinerID);
+			req.setAttribute("dif",dif);
+			
+			
+//			String str1 = req.getParameter("action1");
+//			String str2 = req.getParameter("action2");
+//			String str3 = req.getParameter("action3");
+//			String str4 = req.getParameter("action4");
+//			String str5 = req.getParameter("action5");
+//			String str6 = req.getParameter("action6");
+//			String str7 = req.getParameter("action7");
+//			String str8 = req.getParameter("action8");
+//			String str9 = req.getParameter("action9");
+//			String str10 = req.getParameter("action10");
+			
+			
+			
+			
+			
+			
+//			List list = new ArrayList();
+//			list.add(req.getParameter("action1"));
+//			list.add(str2);
+//			list.add(str3);
+//			list.add(str4);
+//			list.add(str5);
+//			list.add(str6);
+//			list.add(str7);
+//			list.add(str8);
+//			list.add(str9);
+//			list.add(str10);
+//			
+//			System.out.println(list);
+//			req.setAttribute("list", list);
+//			
+//			System.out.println("AAAAAAAA");
+			
+			String url = "/cproject/pages/mer_details_check.jsp";	
+			
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			
+			successView.forward(req, res);
+			
+			return;
+		
+		}
+		
+		if("go_for_payment".equals(action)) {
+			
+			String str = req.getParameter("dinerID");
+			Integer dinerID = Integer.valueOf(str);
+			
+			DinerInfoDAOImplC didi = new DinerInfoDAOImplC();
+			DinerInfo  dif =didi.findByPK(dinerID);
+			req.setAttribute("dif",dif);
+			
+			String url = "/cproject/pages/mer_payment_data.jsp";	
+			
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			
+			successView.forward(req, res);
+			
+			return;			
+			
+		}
+		
+		if("go_for_deactivated".equals(action)) {
+			
+			String str = req.getParameter("dinerID");
+			Integer dinerID = Integer.valueOf(str);
+			
+			DinerInfoDAOImplC didi = new DinerInfoDAOImplC();
+			DinerInfo dif = didi.DeactivatedByPK(dinerID);
+			if(dif!=null) {
+				
+				dif.setDinerStatus("Deactivated");
+				
+				
+			}
+			String url = "/cproject/pages/mer_list.jsp";	
+			
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			
+			successView.forward(req, res);
+			
+		}
+		
+		
+		if("go_for_active".equals(action)) {
+			
+			
+			String str = req.getParameter("dinerID");
+			Integer dinerID = Integer.valueOf(str);
+			
+			DinerInfoDAOImplC didi = new DinerInfoDAOImplC();
+			DinerInfo dif = didi.ActiveByPK(dinerID);
+			if(dif!=null) {
+				
+				dif.setDinerStatus("Active");
+				
+				
+			}
+			String url = "/cproject/pages/mer_application.jsp";	
+			
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			
+			successView.forward(req, res);
+			
+			
+		}
+		
+		
 	
 	
 	}

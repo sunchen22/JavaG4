@@ -21,8 +21,10 @@ public class BgLoginHandler extends HttpServlet {
 	protected boolean allowUser(String account, String password) {
 		WebempadminService empSvc = new WebempadminService();
 		Map<String, String> map = empSvc.getOnePassword(account);
+		Map<String, Integer> mapstatus = empSvc.getOneStatus(account);
 
-		if (map.containsKey(account)) {
+		if (map.containsKey(account) && mapstatus.get(account)==0) {
+			System.out.println(mapstatus.get(account));
 			String bgpassword = (String) map.get(account);
 			if (bgpassword.equals(password)) {
 				return true;
@@ -39,31 +41,43 @@ public class BgLoginHandler extends HttpServlet {
 
 		String account = req.getParameter("account");
 		String password = req.getParameter("password");
+		String action = req.getParameter("action");
 		System.out.println(account);
 		System.out.println(password);
 
 // 【檢查該帳號 , 密碼是否有效】
+		if (action.equals("login")) {
+			if (!allowUser(account, password)) { // 【帳號 , 密碼無效時】// 重新登入頁面
+				res.sendRedirect(req.getContextPath() + "/background/login_failed.jsp");
+				return;
+			} else { // 【帳號 , 密碼有效時, 才做以下工作】
 
-		if (!allowUser(account, password)) { // 【帳號 , 密碼無效時】// 重新登入頁面
-			res.sendRedirect(req.getContextPath() + "/background/login_failed.jsp");
-			return;
-		} else { // 【帳號 , 密碼有效時, 才做以下工作】
-			HttpSession session = req.getSession();
-			session.setAttribute("account", account); // *工作1: 才在session內做已經登入過的標識
-
-			try {
-				String location = (String) session.getAttribute("location");
-				if (location != null) {
-					session.removeAttribute("location"); // *工作2: 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
-					System.out.println(location);
-					res.sendRedirect(location);
-					return;
+				
+				HttpSession session = req.getSession();
+				session.setAttribute("account", account); // *工作1: 才在session內做已經登入過的標識
+				
+				try {
+					String location = (String) session.getAttribute("location");
+					
+					if (location != null) {
+						session.removeAttribute("location"); // *工作2: 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
+						System.out.println(location);
+						res.sendRedirect(location);
+						return;
+					}
+				} catch (Exception ignored) {
 				}
-			} catch (Exception ignored) {
+				res.sendRedirect(req.getContextPath() + "/background/login_succss.jsp");
 			}
-
-			res.sendRedirect(req.getContextPath() + "/background/login_succss.jsp");
 		}
+//			======== 登出功能 ========
+		if ("signout".equals(action)) {
+			System.out.println("我有再signout這");
+			HttpSession session = req.getSession();
+			session.removeAttribute(account);
+			res.sendRedirect(req.getContextPath() + "/background/signout.jsp");
+		}
+
 	}
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

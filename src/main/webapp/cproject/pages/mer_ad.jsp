@@ -1,4 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="utf-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.*"%>
+<%@ page import="com.dinerinfo.dao.*"%>
+<%@ page import="com.dinerinfo.entity.*"%>
+<%@ page import="com.advertisement.entity.*"%>
+<%@ page import="com.advertisement.dao.*"%>
+
 <html>
 
 <head>
@@ -289,147 +296,188 @@
       </div>
       <!-- /.sidebar -->
     </aside>
+    
+    <%
+				
+
+// 				DinerInfoDAOImplC didi = new DinerInfoDAOImplC();
+// 				List<DinerInfo> list = didi.getAllAD();
+// 				pageContext.setAttribute("list", list);
+				
+				AdvertisementDAOHibernateImplC ac = new AdvertisementDAOHibernateImplC();
+				List<Advertisement> list = ac.getAllApprovedAD();
+				pageContext.setAttribute("list", list);
+				
+				List<Advertisement> list1 = ac.getAllSubmittedAD();
+				pageContext.setAttribute("list1", list1);
+ 			%>
+    
 
 
-
+	
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1> </h1>
+              
             </div>
 
           </div>
-        </div><!-- /.container-fluid -->
-      </section>
-
-      <!-- Main content -->
-      <section class="content">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-10">
-              <!-- interactive chart -->
-              <div class="card card-warning card-outline">
-                <div class="card-header">
-                  <h3 class="card-title">
-                    <i class="fa fa-search fa-sm"></i>
-                  </h3>
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    </button>
-                  </div>
-                </div>
-                <div id="interactive" style="height: 10px;"></div>
-
-                <!-- <div class="col-md-3"> -->
-                <form action="" style="padding:10px;">
-
-                  <span>
-                    <label>商家帳號(統編)：</label>
-                    <input type="search" placeholder="請輸入商家帳號" class="border border-warning">
-                  </span>
-
-
-                  <span>
-                    <label>商家名稱：</label>
-                    <input type="search" placeholder="請輸入商家名稱" class="border border-warning">
-                  </span>
-
-                  <span>
-                    <button type="submit" style="font-weight:bold" class="btn btn-warning">查詢</button>
-                  </span>
-                </form>
-                <!-- </div> -->
-
-
-
-                <div id="interactive" style="height: 20px;"></div>
-              </div>
-
-
-
-
-              <!-- /.card-body-->
-            </div>
-            <!-- /.card -->
-
-          </div>
-          <!-- /.col -->
         </div>
-        <!-- /.row -->
-
-        <div class="table-responsive">
-          <table class="table card-table table-vcenter text-nowrap">
+        
+        
+        
+        
+        <p style="color: red">已審核</p>
+        <div class="">
+          <table id = "table" class="table table-bordered">
             <thead>
+            
               <tr>
-                <th class="w-1">商家編號</th>
+              
+              	<th class="w-1">商家編號</th>
                 <th>商家帳號</th>
-                <th>商家名稱</th>
-                <th>商家電話</th>
-                <th>廣告申請</th>
+                <th>商家名稱</th>                      				                
                 <th>審核狀態</th>
-
-                <th> </th>
+                <th>廣告名稱</th>
+                <th>上架時間</th>
+                <th>下架時間</th>
+                <th>圖片</th>
+                
 
               </tr>
             </thead>
+            
             <tbody>
+            <c:forEach var="advertisement" items="${list}">
               <tr>
-                <td><span class="text-muted">1</span></td>
-                <td><a href="invoice.html" class="text-inherit">54321</a></td>
+                <td><span class="text-muted">${advertisement.dinerid.dinerID}</span></td>
+                <td><a href="invoice.html" class="text-inherit">${advertisement.dinerid.dinerTaxID}</a></td>
                 <td>
-                  吉野家烤肉飯
+                  ${advertisement.dinerid.dinerName}
                 </td>
+                
                 <td>
-                  88880000
+                  ${advertisement.advertisementStatus}
                 </td>
-                <td>
-                  申請中
-                </td>
-                <td>
-                  未審核
-                </td>
-                <td>
-                  <button id="check" class="btn btn-warning" style="font-weight :bold">審核</button>
-                </td>
-
-              <tr>
-                <td><span class="text-muted">2</span></td>
-                <td><a href="invoice.html" class="text-inherit">12345</a></td>
-                <td>
-                  三商巧福
-                </td>
-                <td>
-                  00008888
-                </td>
-                <td>
-                  申請完成
-                </td>
-                <td>
-                  已審核
-                </td>
-                <td>
-                  <!-- <button id = "edit" class ="btn btn-warning" style = "font-weight :bold">金流報表</button> -->
-                </td>
-
+                
+				<td>
+				  ${advertisement.advertisementName}
+				</td>
+				
+				<td>
+				  ${advertisement.advertisementUpTime}
+				</td>
+				<td>
+				  ${advertisement.advertisementDownTime}
+				</td>
+				
+				<td>
+				</td>
+				
+    
 
               </tr>
-
+			  </c:forEach>
+			  
             </tbody>
           </table>
+          </div>
+          
+          <br>
+          
+          
+          <p style="color: red">待審核</p>
+          <div class="">
+          <table id = "table1" class="table table-bordered">
+            <thead>
+            
+              <tr>
+              
+              	<th class="w-1">商家編號</th>
+                <th>商家帳號</th>
+                <th>商家名稱</th>                      				                
+                <th>審核狀態</th>
+                <th>廣告名稱</th>
+                <th>上架時間</th>
+                <th>下架時間</th>
+                <th>圖片</th>
+                
+				<th></th>
+				<th></th>
+              </tr>
+            </thead>
+            
+            <tbody>
+            <c:forEach var="advertisement" items="${list1}">
+              <tr>
+                <td><span class="text-muted">${advertisement.dinerid.dinerID}</span></td>
+                <td><a href="invoice.html" class="text-inherit">${advertisement.dinerid.dinerTaxID}</a></td>
+                <td>
+                  ${advertisement.dinerid.dinerName}
+                </td>
+                
+                <td>
+                  ${advertisement.advertisementStatus}
+                </td>
+                <td>
+                	${advertisement.advertisementName}
+                </td>
+				 <td>
+				 ${advertisement.advertisementUpTime}
+                </td>
+                 <td>
+                 ${advertisement.advertisementDownTime}
+                </td>
+                <td></td>
+                
+                
+				
+				<td>
+				<form method = "get" action = "ads.do">
+				<input type="hidden" name="action" value = "go_for_check">
+				<input type="hidden" name="check" value = "${advertisement.advertisementID}">
+				<button type = "submit" class="btn btn-warning" style="font-weight :bold">審核</button>
+				</form>
+				</td>
+				
+				<td>
+				<form method = "get" action = "ads.do">
+				<input type="hidden" name="action" value = "go_for_rejected">
+				<input type="hidden" name="check" value = "${advertisement.dinerid.dinerID}">
+				<button type = "submit" class="btn btn-warning" style="font-weight :bold">拒絕</button>
+				</form>
+				</td>
+    
+
+              </tr>
+			  </c:forEach>
+			  
+            </tbody>
+          </table>
+          </div>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          </section>
         </div>
-      </section>
-
-    </div>
-
-
-
-
-
-
-
+        
+        
+   
+    
+    
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-warning">
       <!-- Control sidebar content goes here -->
@@ -456,7 +504,7 @@
   <!-- AdminLTE -->
   <script src="../dist/js/adminlte.js"></script>
   <!-- OPTIONAL SCRIPTS -->
-  <script src="../plugins/chart.js/Chart.min.js"></script>
+  
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
   <script src="../dist/js/pages/dashboard3.js"></script>
   <!-- AdminLTE App -->
@@ -465,14 +513,79 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
-  <script src="./assets/js/require.min.js"></script>
-  <script>
-    $("#check").on("click",function(){
-      window.location.href = "mer_ad_check.jsp";
-    });
-
-
-  </script>
+  
+  <%@ include file="included-fragment.file" %>
+		<script src="https://code.jquery.com/jquery-3.5.1.js"></script>                                    <!-- ●●js  for jquery datatables 用 -->
+		<script	src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>              <!-- ●●js  for jquery datatables 用 -->
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.jqueryui.min.css" /> <!-- ●●css for jquery datatables 用 -->
+      <script>
+      $(document).ready(function() {
+  		$('#table').DataTable({
+  			"lengthMenu": [3],
+  			"searching": true,  //搜尋功能, 預設是開啟
+  		    "paging": true,     //分頁功能, 預設是開啟
+  		    "ordering": true,   //排序功能, 預設是開啟
+  		    "language": {
+  		        "processing": "處理中...",
+  		        "loadingRecords": "載入中...",
+  		        "lengthMenu": "顯示 _MENU_ 筆結果",
+  		        "zeroRecords": "沒有符合的結果",
+  		        "info": "顯示第 _START_ 至 _END_ 筆結果，共<font color=red> _TOTAL_ </font>筆",
+  		        "infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
+  		        "infoFiltered": "(從 _MAX_ 筆結果中過濾)",
+  		        "infoPostFix": "",
+  		        "search": "搜尋:",
+  		        "paginate": {
+  		            "first": "第一頁",
+  		            "previous": "上一頁",
+  		            "next": "下一頁",
+  		            "last": "最後一頁"
+  		        },
+  		        "aria": {
+  		            "sortAscending":  ": 升冪排列",
+  		            "sortDescending": ": 降冪排列"
+  		        }
+  		    }
+  		});
+  	});
+      
+      
+      
+      $(document).ready(function() {
+    		$('#table1').DataTable({
+    			"lengthMenu": [3],
+    			"searching": true,  //搜尋功能, 預設是開啟
+    		    "paging": true,     //分頁功能, 預設是開啟
+    		    "ordering": true,   //排序功能, 預設是開啟
+    		    "language": {
+    		        "processing": "處理中...",
+    		        "loadingRecords": "載入中...",
+    		        "lengthMenu": "顯示 _MENU_ 筆結果",
+    		        "zeroRecords": "沒有符合的結果",
+    		        "info": "顯示第 _START_ 至 _END_ 筆結果，共<font color=red> _TOTAL_ </font>筆",
+    		        "infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
+    		        "infoFiltered": "(從 _MAX_ 筆結果中過濾)",
+    		        "infoPostFix": "",
+    		        "search": "搜尋:",
+    		        "paginate": {
+    		            "first": "第一頁",
+    		            "previous": "上一頁",
+    		            "next": "下一頁",
+    		            "last": "最後一頁"
+    		        },
+    		        "aria": {
+    		            "sortAscending":  ": 升冪排列",
+    		            "sortDescending": ": 降冪排列"
+    		        }
+    		    }
+    		});
+    	});
+      
+      
+      
+      
+      
+      </script>
 
 </body>
 

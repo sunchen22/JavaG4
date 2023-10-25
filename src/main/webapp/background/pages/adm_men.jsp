@@ -37,15 +37,6 @@ pageContext.setAttribute("list", list);
 </style>
 
 </head>
-<!--
-`body` tag options:
-
-  Apply one or more of the following classes to to the body tag
-  to get the desired effect
-
-  * sidebar-collapse
-  * sidebar-mini
--->
 
 <body class="hold-transition sidebar-mini">
 	<div class="wrapper">
@@ -105,167 +96,10 @@ pageContext.setAttribute("list", list);
 				<nav class="mt-2">
 					<ul class="nav nav-pills nav-sidebar flex-column"
 						data-widget="treeview" role="menu" data-accordion="false">
-						<!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
+						
+ <!-- 引入側邊欄 -->
+<%@ include  file="pageaside.file" %>
 
-						<!-- 側邊欄主標要打開用class="nav-item menu-open" -->
-						<li class="nav-item menu-open">
-							<!-- 若要自動打開設定<a href="#" class="nav-link active"></a> --> <a
-							href="#" class="nav-link active"> <i
-								class="nav-icon fas fa-book"></i>
-								<p>
-									管理者管理 <i class="right fas fa-angle-left"></i>
-								</p>
-						</a>
-							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="./adm_sales.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>銷售狀況</p>
-								</a></li>
-								<li class="nav-item"><a href="./adm_people.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>線上會員人數</p>
-								</a></li>
-								<!-- 側邊欄次標要打開用class="nav-link active" -->
-								<li class="nav-item"><a href="./adm_men.jsp"
-									class="nav-link active"> <i class="far fa-circle nav-icon"></i>
-										<p>管理者帳號管理</p>
-								</a></li>
-							</ul>
-						</li>
-
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="nav-icon fas fa-user"></i>
-								<p>
-									會員管理 <i class="fas fa-angle-left right"></i>
-									<!-- 可省略/側邊欄的綠色標示提醒 -->
-									<!-- <span class="badge badge-info right">6</span> -->
-								</p>
-						</a>
-							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="./mem_account.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>會員資料查詢</p>
-								</a></li>
-								<li class="nav-item"><a href="./mem_profile.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>會員資料與權限變更</p>
-								</a></li>
-								<li class="nav-item"><a href="./mem_news.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>會員最新消息</p>
-								</a></li>
-
-							</ul></li>
-
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="nav-icon fas fa-briefcase"></i>
-								<p>
-									商家管理 <i class="fas fa-angle-left right"></i>
-								</p>
-						</a>
-
-							<ul class="nav nav-treeview">
-								<!-- <li class="nav-header">商家列表查詢</li> -->
-								<li class="nav-item"><a href="./pages/mer_list.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>商家列表查詢</p>
-								</a></li>
-								<li class="nav-item"><a href="./pages/mer_application.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>商家申請審核</p>
-								</a></li>
-								<li class="nav-item"><a href="./pages/mer_details.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>商家資料異動</p>
-								</a></li>
-
-								<li class="nav-item"><a href="./pages/mer_product.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>商品審核</p>
-								</a></li>
-								<li class="nav-item"><a href="./pages/mer_payment.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>金流報表</p>
-								</a></li>
-								<li class="nav-item"><a href="./pages/mer_ad.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>商家廣告審核</p>
-								</a></li>
-								<li class="nav-item"><a href="./pages/mer_news.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>給商家最新消息</p>
-								</a></li>
-
-							</ul></li>
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="nav-icon fas fa-edit"></i>
-								<p>
-									大樓資料管理 <i class="fas fa-angle-left right"></i>
-								</p>
-						</a>
-							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="./bldg_query.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>大樓資料查詢</p>
-								</a></li>
-								<li class="nav-item"><a href="./bldg_create.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>建立新大樓</p>
-								</a></li>
-								<li class="nav-item"><a href="./bldg_modify.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>修改/刪除大樓資訊</p>
-								</a></li>
-							</ul></li>
-						<li class="nav-item"><a href="#" class="nav-link"> <i
-								class="nav-icon fas fa-table"></i>
-								<p>
-									訂單管理 <i class="fas fa-angle-left right"></i>
-								</p>
-						</a>
-							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="./pages/ord_query.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>訂單查詢</p>
-								</a></li>
-								<li class="nav-item"><a href="./pages/ord_review.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>評論管理</p>
-								</a></li>
-
-							</ul></li>
-
-						<li class="nav-item"><a href="#" class="nav-link"> <!-- <i class="nav-icon fas fa-book"></i> -->
-								<i class="nav-icon fas fa-comment"></i>
-								<p>
-									客服系統 <i class="fas fa-angle-left right"></i>
-								</p>
-						</a>
-							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="./FAQ_Page.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>FAQ頁面管理</p>
-								</a></li>
-								<li class="nav-item"><a href="./svr_mem_msg.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>系統留言管理</p>
-								</a></li>
-								<li class="nav-item"><a href="./svr_cust.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>線上客服訊息管理</p>
-								</a></li>
-							</ul>
-							<ul class="nav nav-pills nav-sidebar " data-accordion="false"
-								style="justify-content: flex-end">
-								<li class="col-sm-5">
-									<button id="logoutButton" type="button"
-										class="btn btn-block btn-outline-warning btn-sm">
-										<i class="fa fa-sign-out-alt  nav-icon"></i>登出
-									</button>
-								</li>
-							</ul>
-					</ul>
 				</nav>
 				<!-- /.sidebar-menu -->
 			</div>
@@ -339,12 +173,11 @@ pageContext.setAttribute("list", list);
 												<div>
 											</td>
 											<td>
-<%-- 刪除	 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/background/pages/emp.do" style="margin-bottom: 0px;"> --%>
-												<FORM METHOD="post" style="margin-bottom: 0px;" id="suspendbtn">
+
+												<FORM METHOD="post"  ACTION="<%=request.getContextPath()%>/background/pages/emp.do" style="margin-bottom: 0px;" id="suspendbtn">
 													<input type="submit" value="已離職" class="btn btn-danger btn-sm" > 
 													<input type="hidden" name="empID" value="${empIDVO.empID}" >
-<!-- 刪除	 <input type="hidden" name="action" value="delete"> -->
-
+													<input type="hidden" name="action" value="suspend">
 												</FORM>
 											</td>
 										</tr>
@@ -394,35 +227,10 @@ pageContext.setAttribute("list", list);
 	<script src="../dist/js/pages/dashboard3.js"></script>
 	<!-- AdminLTE App -->
 	<!-- <script src="../dist/js/adminlte.min.js"></script> -->
-	<!-- 縮小時,登出按鈕消失 -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-	<!-- 縮小時,登出按鈕消失 -->
-	<script>
-		function toggleLogoutButton() {
-			var logoutButton = document.getElementById("logoutButton");
-			if (logoutButton.style.display === "none") {
-				logoutButton.style.display = "block";
-			} else {
-				logoutButton.style.display = "none";
-			}
-		}
-	</script>
 	
-<!-- 停權 -->
-	<script>
-   
-    $("#suspendbtn").click(function(){
-    	console.log(123);
-    	$("#modifybtn").attr("disabled",true);
-    	$("#modifybtn2").attr("disabled",true);
-    	$("#modifybtn3").attr("disabled",true);
-    })
-   
-</script>
-
-
-
+ <!-- 引入selfjs -->
+<%@ include  file="pagejs.file" %>
+	
 
 </body>
 

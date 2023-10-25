@@ -3,13 +3,11 @@
 <%@ page import="java.util.LinkedHashMap"%>
 <%@ page import="java.util.HashMap"%>
 <%@ page import="java.util.List"%>
-<%
-HashMap<String, Object> groupOrderData = (HashMap<String, Object>) request.getAttribute("groupOrderData");
-LinkedHashMap<String, List<HashMap<String, Object>>> menuData = (LinkedHashMap<String, List<HashMap<String, Object>>>) request
-		.getAttribute("menuData");
-System.out.println(groupOrderData);
-System.out.println(menuData);
-%>
+
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:formatDate value="${groupOrderData.groupOrderSubmitTime}" pattern="yyyy-MM-dd HH:mm:ss" var="groupOrderSubmitTimeFormatted" />
+
+
 <%@ include file="components/head.jsp"%>
 <%-- Import CSS for this page below (if any) --%>
 
@@ -49,7 +47,7 @@ System.out.println(menuData);
 							<li class="list-inline-item">成團條件：${groupOrderData.dinerOrderThreshold}元
 							</li>
 							<li class="list-inline-item">成團狀態：${groupOrderData.orderStatus=='1'? '未達成團條件' : '已達成團條件'}</li>
-							<li>付款截止時間：${groupOrderData.groupOrderSubmitTime}</li>
+							<li>付款截止時間：${groupOrderSubmitTimeFormatted}</li>
 							<li>
 								<div class="progress">
 									<div class="progress-bar bg-dark" role="progressbar"
@@ -59,11 +57,28 @@ System.out.println(menuData);
 							</li>
 						</ul>
 						<div class="d-grid gap-2 d-flex justify-content-end">
-							<a class="btn btn-dark">加入此大樓揪團</a><a class="btn btn-dark">點餐</a><a
-								class="btn btn-dark">付款</a>
+							<c:choose>
+							    <c:when test="${empty sessionScope.loginUserInfo}">
+							        <!-- User is not logged in -->
+							        <span>登入並加入此大樓揪團後才可點餐</span>
+							        <a class="btn btn-dark" href="${pageContext.request.contextPath}/GroupOrder.do?action=join&groupOrderID=${groupOrderData.groupOrderID}">登入</a>
+							    </c:when>
+							    <c:otherwise>
+							        <c:choose>
+							            <c:when test="${not sessionScope.userIsGroupMember}">
+							                <!-- User is logged in but doesn't belong to the group -->
+							                <span>加入此大樓揪團後才可點餐</span><a class="btn btn-dark" href="${pageContext.request.contextPath}/GroupOrder.do?action=join&groupOrderID=${groupOrderData.groupOrderID}&dinerName=${groupOrderData.dinerName}">加入此大樓揪團</a>
+							            </c:when>
+							            <c:otherwise>
+							                <!-- User is logged in and belongs to the group -->
+							                <a class="btn btn-outline-dark disabled">已加入此大樓揪團</a>
+							            </c:otherwise>
+							        </c:choose>
+							    </c:otherwise>
+							</c:choose>
 						</div>
-						<i
-							class="fa-solid fa-share-from-square fs-4 position-absolute top-0 end-0 m-3"></i>
+						<a href="#" class="btn position-absolute top-0 end-0 m-3" id="share_link_button"><i
+							class="fa-solid fa-share-from-square fs-4"></i></a>
 					</div>
 				</div>
 			</div>
@@ -77,11 +92,23 @@ System.out.println(menuData);
 			<div class="mdl-card__supporting-text">
 
 				<div class="mdl-stepper-horizontal-alternative">
-					<div class="mdl-stepper-step">
-						<div class="mdl-stepper-circle">
-							<span>1</span>
-						</div>
-						<div class="mdl-stepper-title">加入此大樓揪團</div>
+					<c:choose>
+						<c:when test="${not sessionScope.userIsGroupMember}">
+							<div class="mdl-stepper-step">
+								<div class="mdl-stepper-circle">
+									<span>1</span>
+								</div>
+								<div class="mdl-stepper-title">加入此大樓揪團</div>						
+						</c:when>
+						<c:otherwise>
+							<div class="mdl-stepper-step active-step">
+								<div class="mdl-stepper-circle">
+									<span>1</span>
+								</div>
+								<div class="mdl-stepper-title">已加入此大樓揪團</div>	
+						</c:otherwise>
+					</c:choose>
+						
 						<div class="mdl-stepper-bar-left"></div>
 						<div class="mdl-stepper-bar-right"></div>
 					</div>
@@ -154,10 +181,10 @@ System.out.println(menuData);
 				<div class="row mt-2">
 						</c:if>
 					<div class="col-4">
-						<div class="card">
+						<div class="card product">
 							<div>
 								<img
-									src="${pageContext.request.contextPath}/GroupOrderDinerImage?entity=Product&id=${product.productID}"
+									src="${pageContext.request.contextPath}/GroupOrderDinerImage?entity=Product&id=${product.productID}&no=1"
 									class="card-img-top" alt="...">
 							</div>
 							<div>
@@ -166,7 +193,7 @@ System.out.println(menuData);
 									<ul class="list-unstyled card-text my-0">
 										<li>價格：NT$<span class="mealPrice">${product.productPrice}</span></li>
 									</ul>
-									<a class="stretched-link .invisible" href="#" data-bs-toggle="modal" data-bs-target="#order_detail_modal"></a>
+									<a class="stretched-link .invisible" href="#" data-bs-toggle="modal" data-bs-target="#order_detail_modal" data-productid="${product.productID}"></a>
 								</div>
 							</div>
 						</div>
@@ -181,31 +208,35 @@ System.out.println(menuData);
 		style="display: none;">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<div class="modal-header p-0">
+				<form id="modal_form" method="post" action="${pageContext.request.contextPath}/GroupOrder.do?action=addToCart">
+				<div class="modal-header">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body pt-0 px-0">
 					<!-- 餐點圖片 可輪播 -->
 					<div id="carouselExampleIndicators" class="carousel carousel-orderdetail slide my-3 mx-auto" data-bs-ride="carousel">
 						<div class="carousel-indicators">
 							<button type="button" data-bs-target="#carouselExampleIndicators"
-								data-bs-slide-to="0" class=""></button>
+								data-bs-slide-to="0" class="active"></button>
 							<button type="button" data-bs-target="#carouselExampleIndicators"
-								data-bs-slide-to="1" class="active" aria-current="true"></button>
+								data-bs-slide-to="1" class="" aria-current="true"></button>
 							<button type="button" data-bs-target="#carouselExampleIndicators"
 								data-bs-slide-to="2" class=""></button>
 						</div>
 						<div class="carousel-inner mx-auto">
-							<div class="carousel-item carousel-item-orderdetail">
+							<div class="carousel-item carousel-item-orderdetail active" id="modal_product_img_1">
 								<img
-									src="https://images.pexels.com/photos/5692293/pexels-photo-5692293.jpeg"
+									src=""
 									class="d-block w-100" alt="餐點圖">
 							</div>
-							<div class="carousel-item carousel-item-orderdetail active">
+							<div class="carousel-item carousel-item-orderdetail" id="modal_product_img_2">
 								<img
-									src="https://pic.616pic.com/ys_bnew_img/00/28/05/7NPYpgndQS.jpg"
+									src=""
 									class="d-block w-100" alt="餐點圖">
 							</div>
-							<div class="carousel-item carousel-item-orderdetail">
+							<div class="carousel-item carousel-item-orderdetail" id="modal_product_img_3">
 								<img
-									src="https://pic.616pic.com/ys_bnew_img/00/27/71/Nc5vgPgVuL.jpg"
+									src=""
 									class="d-block w-100" alt="餐點圖">
 							</div>
 						</div>
@@ -218,60 +249,87 @@ System.out.println(menuData);
 							<span class="carousel-control-next-icon" aria-hidden="true"></span>
 						</button>
 					</div>
-				</div>
-				<div class="modal-body mx-2">
-					<!-- 餐點名稱 -->
-					<h2 class="mealName">排骨飯</h2>
+					<div class="px-4" id="modal_product_varies">
+						<!-- 餐點名稱 -->
+						<input type="hidden" id="modal_productID" name="productID" value="0" data-productid="0"></span>
+						<input type="hidden" id="modal_group_orderID" name="groupOrderID" value="${groupOrderData.groupOrderID}"></span>
+						<h2 id="modal_product_name"></h2>
 	
-					<!-- 餐點簡介段落 -->
-					<p class="mealDes">溫體豬製成</p>
+						<!-- 餐點簡介段落 -->
+						<p id="modal_product_remark"></p>
 	
-					<!--  -->
-					<div class="d-flex justify-content-between">
-						<span>價格:</span> <span> <span id="price">150</span> <span>元</span>
-						</span>
-					</div>
+						<!--  -->
+						<div class="d-flex justify-content-between">
+							<span>價格:</span> <span> <span id="modal_product_price"></span> <span>元</span>
+							</span>
+						</div>
 	
-					<!-- 餐點選項區塊 -->
-					<div class="my-2">
-						<input type="checkbox" class="form-check-input" id="rice">
-						<label class="form-check-label" for="rice">加白飯 0元</label>
-					</div>
-					<div class="my-2">
-						<input type="checkbox" class="form-check-input" id="egg"> <label
-							class="form-check-label" for="egg">加荷包蛋 10元</label>
-					</div>
-	
-					<!-- 份數:下拉選單 -->
-					<div class="my-2">
-						<label for="quantity">份數:</label> <select class="form-select"
-							id="quantity">
-							<option selected="" value="1">1份</option>
-							<option value="2">2份</option>
-							<option value="3">3份</option>
-							<option value="4">4份</option>
-						</select>
-					</div>
-	
-	
-					<!-- 後續補充js -->
-	
-					<div class="d-flex justify-content-between mt-3">
-						<label for="subtotal">小計:</label> <span id="subtotal">160</span>
+						<!-- 餐點選項區塊 -->
+						<div class="my-2">
+							<div id="modal_vary_types">
+								<%-- HTML inside this div will be generated by AJAX request --%>
+							</div>
+							
+						</div>
+		
+						<!-- 份數:下拉選單 -->
+						<div class="my-2 modal_product_quantity">
+							<div class="form-outline">
+								<span>份數:</span> 
+							    <input type="number" id="modal_product_quantity" class="form-control" name="quantity" value="1" step="1" min="1" max="99">
+							</div>
+						</div>
+			
+						<div class="d-flex justify-content-between mt-3">
+							<span>小計:</span> 
+							<div>
+								<span id="modal_subtotal"><%-- Text inside this span will be generated by AJAX request --%></span>
+								<span>元</span>
+							</div>
+						</div>
+						
 					</div>
 				</div>
 			
 				<div class="modal-footer">
 					<!-- 取消 加到購物車 -->
-					<div class="d-flex justify-content-between mt-3">
-						<button type="button" class="btn btn-outline-danger">取消</button>
-						<button type="button" class="btn btn-primary">加到購物車</button>
-					</div>
+					<c:choose>
+					    <c:when test="${empty sessionScope.loginUserInfo}">
+					        <!-- User is not logged in -->
+					        <p>登入並加入此大樓揪團後才可點餐</p>
+					        <div>
+					        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">取消</button>
+							<a class="btn btn-dark" href="${pageContext.request.contextPath}/GroupOrder.do?action=join&groupOrderID=${groupOrderData.groupOrderID}">登入</a>
+							</div>
+					    </c:when>
+					    <c:otherwise>
+					        <c:choose>
+					            <c:when test="${not sessionScope.userIsGroupMember}">
+					                <!-- User is logged in but doesn't belong to the group -->
+					                <p>加入此大樓揪團後才可點餐</p>
+					                <div>
+					                <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">取消</button>
+					                <a class="btn btn-dark" href="${pageContext.request.contextPath}/GroupOrder.do?action=join&groupOrderID=${groupOrderData.groupOrderID}&dinerName=${groupOrderData.dinerName}">加入此大樓揪團</a>
+					                </div>
+					            </c:when>
+					            <c:otherwise>
+					                <!-- User is logged in and belongs to the group -->
+					                <div>
+									<button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">取消</button>
+									<button type="submit" class="btn btn-dark" id="add_to_cart">加到購物車</button>
+									</div>
+					            </c:otherwise>
+					        </c:choose>
+					    </c:otherwise>
+					</c:choose>
+
 				</div>
+			</form>
 			</div>
 		</div>
 	</div>
-
+	
+	
 	<%-- Page content end --%>
 
 
@@ -281,6 +339,7 @@ System.out.println(menuData);
 
 	<%@ include file="./components/tail.jsp"%>
 	<%-- Import JS for this page below (if any) --%>
+	<script src="${pageContext.request.contextPath}/consumer/js/orderDetailModal.js"></script>
 
 </body>
 </html>

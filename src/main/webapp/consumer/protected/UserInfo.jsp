@@ -11,18 +11,8 @@
 <%@ page import="com.buildinginfo.entity.*"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.buildinginfo.dao.*"%>
-<%
-BuildingInfoDAO buildingInfoDAO = new BuildingInfoDAOHibernateImpl();
-List<BuildingInfo> buildingList = buildingInfoDAO.getAll();
-pageContext.setAttribute("buildingList", buildingList);
-%>
-<!-- 先取出UserInfo userBlob以供顯示圖片使用 -->
-<%
-    UserInfo loginUserInfo = (UserInfo) session.getAttribute("loginUserInfo");
-    byte[] userBlobData = loginUserInfo.getUserBlob();
-    // 將byte[]轉換為Base64編碼的字符串
-    String base64Image = Base64.getEncoder().encodeToString(userBlobData);
-%>
+
+
 
 
 <title>樓頂揪樓咖-消費者個人資訊</title>
@@ -47,28 +37,31 @@ pageContext.setAttribute("buildingList", buildingList);
 
 					<!-- tab部分 -->
 					<ul class="nav flex-column nav-pills" id="v-pills-tab">
-						
-						<li class="nav-item"><a class="nav-link active" id="v-pills-info-tab" 
-						data-bs-toggle="pill" href="#v-pills-info">基本資訊</a>
+
+						<li class="nav-item"><a class="nav-link active"
+							id="v-pills-info-tab" data-bs-toggle="pill" href="#v-pills-info">基本資訊</a>
 						</li>
 						<li class="nav-item"><a class="nav-link" id="v-pills-pwd-tab"
 							data-bs-toggle="pill" href="#v-pills-pwd">密碼修改</a></li>
-						<li class="nav-item"><a class="nav-link"
-							id="v-pills-favor-tab" data-bs-toggle="pill"
-							href="#v-pills-favor">最愛餐廳</a></li>
+<!-- 							最愛餐廳先隱藏 -->
+<!-- 						<li class="nav-item"><a class="nav-link" -->
+<!-- 							id="v-pills-favor-tab" data-bs-toggle="pill" -->
+<!-- 							href="#v-pills-favor">最愛餐廳</a></li> -->
 					</ul>
 				</div>
 			</div>
 			<!-- 內容面板 -->
 			<div class="tab-content col-9" id="v-pills-tabContent">
 				<div class="tab-pane fade show active" id="v-pills-info">
-				<!--檢查是否更新成功 -->
-				<%if (request.getAttribute("isUpdate") != null) {%>
-				<div class="alert alert-primary" role="alert">
-				  更新成功！ 
-				</div>
-				<%}%>
-					<form method="post" action="user.do" enctype="multipart/form-data">
+					<!--檢查是否更新成功 -->
+					<%
+					if (request.getAttribute("isUpdate") != null) {
+					%>
+					<div class="alert alert-primary" role="alert">更新成功！</div>
+					<%
+					}
+					%>
+					<form method="post" action="${pageContext.request.contextPath}/user.do" enctype="multipart/form-data">
 						<div class="row mb-3">
 							<label for="userAccount" class="col-form-label col-md-3">帳號：</label>
 							<div class="col-md-9">
@@ -81,7 +74,8 @@ pageContext.setAttribute("buildingList", buildingList);
 							<label for="userName" class="col-form-label col-md-3">姓名：</label>
 							<div class="col-md-9">
 								<input type="hidden" name="userID"
-									value="${loginUserInfo.userID}"> <input type="text"
+									value="${loginUserInfo.userID}"> 
+								<input type="text"
 									class="form-control" id="userName" maxlength="20"
 									value="${loginUserInfo.userName}" name="userName">
 							</div>
@@ -107,9 +101,14 @@ pageContext.setAttribute("buildingList", buildingList);
 							<div class="col-md-9">
 
 								<select class="form-control" id="buildingID" name="buildingID">
-<%-- 									<option value="${loginUserInfo.buildinginfo.buildingID}">${loginUserInfo.buildinginfo.buildingName}</option> --%>
+									<%
+									BuildingInfoDAO buildingInfoDAO = new BuildingInfoDAOHibernateImpl();
+									List<BuildingInfo> buildingList = buildingInfoDAO.getAll();
+									pageContext.setAttribute("buildingList", buildingList);
+									%>
 									<c:forEach var="building" items="${buildingList}">
-										<option value="${building.buildingID}" ${(loginUserInfo.buildinginfo.buildingID == building.buildingID)? 'selected':''} >${building.buildingName}</option>
+										<option value="${building.buildingID}"
+											${(loginUserInfo.buildinginfo.buildingID == building.buildingID)? 'selected':''}>${building.buildingName}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -126,10 +125,24 @@ pageContext.setAttribute("buildingList", buildingList);
 							<div class="col-md-9">
 								<input type="file" class="form-control" id="userBlob"
 									name="userBlob" placeholder="請上傳個人照片"
-									onchange="previewImage(event)"> 
-								<img id="previewBlob"
-									src="data:image/jpeg;base64, <%= base64Image %>" alt="Image preview"
-									style="margin-top: 10px; max-width: 200px;">
+									onchange="previewImage(event)">
+<%-- 								 將byte[]轉換為Base64編碼的字符串 --%>
+								<% 
+// 								UserInfo loginUserInfo = (UserInfo) session.getAttribute("loginUserInfo");
+// 								String base64Image = "";
+// 								if (loginUserInfo != null) {
+// 									byte[] userBlobData = loginUserInfo.getUserBlob();
+// 									if (userBlobData != null) {
+// 										base64Image = Base64.getEncoder().encodeToString(userBlobData);
+// 									}
+// 								}
+ 								%> 
+								<img id="previewBlob" alt="Image preview"
+									style="margin-top: 10px; max-width: 200px;"
+									src="<%=request.getContextPath()%>/consumer/userDBGifReader?userID=${loginUserInfo.userID}"
+<%-- 									src="<%=!base64Image.isEmpty() ? "data:image/jpeg;base64," + base64Image : ""%>"  --%>
+									/>
+
 							</div>
 						</div>
 						<div class="d-grid">
@@ -138,10 +151,10 @@ pageContext.setAttribute("buildingList", buildingList);
 						</div>
 					</form>
 				</div>
-				
-				
+
+
 				<div class="tab-pane fade" id="v-pills-pwd">
-					<form>
+					<form method="post" action="user.do">
 						<div class="row mb-3">
 							<label for="oldPwd" class="col-form-label col-md-4">舊密碼：</label>
 							<div class="col-md-8">
@@ -170,8 +183,8 @@ pageContext.setAttribute("buildingList", buildingList);
 						</div>
 					</form>
 				</div>
-				
-				
+
+
 				<div class="tab-pane fade" id="v-pills-favor">
 					<section class="container">
 
@@ -312,7 +325,7 @@ pageContext.setAttribute("buildingList", buildingList);
 
 	<%@ include file="../components/tail.jsp"%>
 	<%-- Import JS for this page below (if any) --%>
-	<script src="./vendor/bootstrap-5.3.1-dist/js/bootstrap.bundle.min.js"></script>
+	
 	<script>
 		function previewImage(event) {
 			var reader = new FileReader();
