@@ -1,16 +1,19 @@
 package com.businesshours.dao;
 
 import java.sql.Time;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 
 import com.businesshours.entity.BusinessHours;
 import com.dinerinfo.entity.DinerInfo;
+
+import util.HibernateUtil;
 
 public class BusinessHoursDAOImpl implements BusinessHoursDAO {
 	// SessionFactory 為 thread-safe，可宣告為屬性讓請求執行緒們共用
@@ -85,6 +88,7 @@ public class BusinessHoursDAOImpl implements BusinessHoursDAO {
 
 	@Override
 	public DinerInfo findByPKJoinDinerInfo(Integer dinerOpenHoursID) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			DinerInfo dinerInfo = getSession().get(BusinessHours.class, dinerOpenHoursID).getDinerInfo();
 			return dinerInfo;
@@ -102,10 +106,23 @@ public class BusinessHoursDAOImpl implements BusinessHoursDAO {
 	// 用 dinerID 去查詢該店家所有的營業時間
 	@Override
 	public List<BusinessHours> getBusinessHoursByDinerID(Integer dinerID) {
-		String hql = "From BusinessHours WHERE dinerInfo.dinerID = :dinerID ORDER BY dayOfWeek";
-		Query query = getSession().createQuery(hql);
+
+		try {
+			 
+		String hql = "FROM BusinessHours b WHERE b.dinerInfo.dinerID = :dinerID";
+
+//		String hql = "FROM OrdersVO AS o WHERE o.publisherVO.pubID = :pubID";
+		Query<BusinessHours> query = getSession().createQuery(hql , BusinessHours.class);
 		query.setParameter("dinerID", dinerID);
-		return query.list();
+		List<BusinessHours> businessHoursList = query.getResultList();
+		return businessHoursList; 
+
+		}catch(Exception e) {
+			e.printStackTrace();
+
+			}
+		 return Collections.emptyList(); // 如果查詢失敗或沒有結果，則返回空列表
+
 	}
 
 	// 把每天的營業時間變成 星期幾:營業時間
@@ -118,6 +135,8 @@ public class BusinessHoursDAOImpl implements BusinessHoursDAO {
 		}
 		return businessHoursByDay;
 	}
+	
+	
 
 	@Override
 	public String isExistDayOfWeek(Integer dinerID, String dayOfWeek) {
