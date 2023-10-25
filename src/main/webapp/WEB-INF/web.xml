@@ -36,6 +36,11 @@
 	    <url-pattern>/consumer/protected/*</url-pattern>
 	</filter-mapping>
 	
+	<filter-mapping>
+	    <filter-name>UserLoginFilter</filter-name>
+	    <url-pattern>/GroupOrder.do</url-pattern>
+	</filter-mapping>
+	
 <!-- ================15==================== -->
 	<servlet>
 		<servlet-name>VaryTypeServlet</servlet-name>

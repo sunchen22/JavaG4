@@ -45,7 +45,7 @@ public class DinerInfoServlet_Tz extends HttpServlet {
 
         
         
-        String url = "/consumer/search.jsp";
+        String url = "/consumer/search_diner.jsp";
 		RequestDispatcher successView = req.getRequestDispatcher(url); 
 		successView.forward(req, res);
 

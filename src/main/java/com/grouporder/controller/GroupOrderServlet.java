@@ -49,6 +49,9 @@ public class GroupOrderServlet extends HttpServlet {
 			case "join":
 				joinThisGroupOrder(req, res);
 				break;
+			case "addToCart":
+				addToCart(req, res);
+				break;
 			default:
 //				forwardPath = "/index.jsp";
 		}
@@ -106,7 +109,6 @@ public class GroupOrderServlet extends HttpServlet {
     	Integer groupOrderID = Integer.valueOf(req.getParameter("groupOrderID"));
     	// Call service to get the data needed and store it in request attribute
     	Map<String, Object> groupOrderData = groupOrderServiceImpl.getOneJoinGroupOrder(groupOrderID);
-    	System.out.println("~~~~~~" + groupOrderID);
     	req.setAttribute("groupOrderData", groupOrderData);
     	req.setAttribute("menuData", groupOrderData.get("menuData"));
    
@@ -178,7 +180,6 @@ public class GroupOrderServlet extends HttpServlet {
         		int productVaryID = element.getAsInt();
         		if (productVaryID != 0) {
 	        		int productVaryPrice = groupOrderServiceImpl.getProductVaryPrice(productVaryID);
-	        		System.out.println("ProductVaryPrice: " + productVaryPrice);
 	        		subtotal += productVaryPrice;
         		}
         	}
@@ -213,7 +214,12 @@ public class GroupOrderServlet extends HttpServlet {
     	
 		res.setContentType("text/html; charset=UTF-8");
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/GroupOrder.do?action=getOne&groupOrderID=" + String.valueOf(groupOrderID));		
-		System.out.println("~~~~~~~~~~~" + "/GroupOrder.do?action=getOne&groupOrderID=" + String.valueOf(groupOrderID));
 		dispatcher.forward(req, res);
+    }
+    
+    private void addToCart(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    	System.out.println("~~~~~~Add to cart");
+    	System.out.println(req.getParameterValues("加料"));
+    	
     }
 }
