@@ -26,7 +26,7 @@
 	<section class="container mt-5">
 		<!-- 1. Search bar start -->
 		<div class="search_bar">
-			<form action="${pageContext.request.contextPath}/diner.search" method="get">
+			<form action="*" method="get">
 				<div class="row col-11 mx-auto mb-3">
 					<div class="col-3">
 
@@ -46,7 +46,7 @@
 								class="fa-solid fa-building"></i></a>
 						</div>
 					</div>
-					<button class="col-1 btn btn-dark" type="submit" id="btn_search">搜尋</button>
+					<button class="col-1 btn btn-dark" type="button" id="btn_search">搜尋</button>
 				</div>
 			</form>
 		</div>
@@ -56,183 +56,170 @@
 		<div class="container mt-5">
 
 			<!-- 2.1 Tabs start -->
-			<nav>
-				<div class="nav nav-tabs" id="nav_tab" role="tablist">
-					<button class="nav-link active" id="nav_searchgrouporder_tab"
-						data-bs-toggle="tab" data-bs-target="#nav_searchgrouporder"
-						type="button" role="tab" aria-controls="nav_searchgrouporder"
-						aria-selected="true">搜尋大樓揪團</button>
-					<button class="nav-link" id="nav_searchdiner_tab"
-						data-bs-toggle="tab" data-bs-target="#nav_searchdiner"
-						type="button" role="tab" aria-controls="nav_searchdiner"
-						aria-selected="false" tabindex="-1">搜尋商家</button>
+<!-- 			<nav> -->
+<!-- 				<div class="nav nav-tabs" id="nav_tab" role="tablist"> -->
+<!-- 					<button class="nav-link active" id="nav_searchgrouporder_tab" -->
+<!-- 						data-bs-toggle="tab" data-bs-target="#nav_searchgrouporder" -->
+<!-- 						type="button" role="tab" aria-controls="nav_searchgrouporder" -->
+<!-- 						aria-selected="true">搜尋大樓揪團</button> -->
+<!-- 					<button class="nav-link" id="nav_searchdiner_tab" -->
+<!-- 						data-bs-toggle="tab" data-bs-target="#nav_searchdiner" -->
+<!-- 						type="button" role="tab" aria-controls="nav_searchdiner" -->
+<!-- 						aria-selected="false" tabindex="-1">搜尋商家</button> -->
 
-				</div>
-			</nav>
+<!-- 				</div> -->
+<!-- 			</nav> -->
 			<!-- 2.1 Tabs end -->
 
 			<!-- 2.2 Contents start -->
-			<div class="tab-content" id="nav_tab_content">
-
-				<!-- 2.2.1 Group order start -->
-				<div class="mt-4 tab-pane fade show active"
-					id="nav_searchgrouporder" role="tabpanel"
-					aria-labelledby="nav_searchgrouporder_tab">
-
-					<!-- 2.2.1.1 Search result area start -->
-					搜尋大樓揪團
-					<div class="row">
-						<!-- 2.2.1.1.1 Left content start -->
-						<div class="col-3">
-							<ul class="list-group filter_by">
-								<li class="list-group-item d-flex justify-content-center">
-									<a class="btn btn-dark"><i
-										class="fa-solid fa-map-location-dot"></i>在地圖中顯示</a>
-								</li>
-								<li class="list-group-item">
-									<h5>篩選</h5>
-									<div class="form-check">
-										<input class="form-check-input my_building_only"
-											type="checkbox" id="g_my_building_only"> <label
-											class="form-check-label" for="g_my_building_only">只顯示我的常用大樓</label>
-									</div>
-									<div class="form-check">
-										<input class="form-check-input achived_only" type="checkbox"
-											value="" id="achived_only"> <label
-											class="form-check-label" for="achived_only">只顯示成團條件已達成</label>
-									</div>
-								</li>
-								<li class="list-group-item">
-									<h5>商家分類</h5>
-									<div class="form-check">
-										<input class="form-check-input type_food" type="checkbox"
-											id="g_type_food"> <label class="form-check-label"
-											for="g_type_food"> <i class="fa-solid fa-utensils"></i>餐點
-										</label>
-									</div>
-									<div class="form-check">
-										<input class="form-check-input type_drinks" type="checkbox"
-											id="g_type_drinks"> <label class="form-check-label"
-											for="g_type_drinks"> <i
-											class="fa-solid fa-mug-saucer"></i>飲料
-										</label>
-									</div>
-									<div class="form-check">
-										<input class="form-check-input type_mixed" type="checkbox"
-											id="g_type_mixed"> <label class="form-check-label"
-											for="g_type_mixed"> <i class="fa-solid fa-utensils"></i><i
-											class="fa-solid fa-mug-saucer"></i>複合式
-										</label>
-									</div>
-								</li>
-							</ul>
-						</div>
-						<!-- 2.2.1.1.1 Left content end -->
-
-						<!-- 2.2.1.1.2 Right content start-->
-						<div class="col-9">
-
-							<!-- Count and sort start -->
-							<div class="d-flex align-items-center justify-content-between">
-
-								<!-- Count of results start -->
-								<div class="num_of_results">
-									<span class="d-inline-block">1382筆結果</span>
+<!-- 			<div class="tab-content" id="nav_tab_content"> -->
+				<!-- 2.2.1.1 Search result area start -->
+				搜尋大樓揪團
+				<div class="row">
+					<!-- 2.2.1.1.1 Left content start -->
+					<div class="col-3">
+						<ul class="list-group filter_by">
+							<li class="list-group-item d-flex justify-content-center">
+								<a class="btn btn-dark"><i
+									class="fa-solid fa-map-location-dot"></i>在地圖中顯示</a>
+							</li>
+							<li class="list-group-item">
+								<h5>篩選</h5>
+								<div class="form-check">
+									<input class="form-check-input my_building_only"
+										type="checkbox" id="g_my_building_only"> <label
+										class="form-check-label" for="g_my_building_only">只顯示我的常用大樓</label>
 								</div>
-								<!-- Count of results end -->
-
-								<!-- Sort start -->
-								<div class="order_by">
-									<span class="d-inline-block">排序依：</span>
-									<div class="d-inline-block">
-										<select name="group_order_order_by" class="form-select">
-											<option value="distance">距離</option>
-											<option value="rating">評分</option>
-											<option value="threshold">成團條件金額</option>
-											<option value="progress">成團條件達成進度</option>
-											<option value="deadline">付款截止時間</option>
-										</select>
-									</div>
+								<div class="form-check">
+									<input class="form-check-input achived_only" type="checkbox"
+										value="" id="achived_only"> <label
+										class="form-check-label" for="achived_only">只顯示成團條件已達成</label>
 								</div>
-								<!-- Sort end -->
+							</li>
+							<li class="list-group-item">
+								<h5>商家分類</h5>
+								<div class="form-check">
+									<input class="form-check-input type_food" type="checkbox"
+										id="g_type_food"> <label class="form-check-label"
+										for="g_type_food"> <i class="fa-solid fa-utensils"></i>餐點
+									</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input type_drinks" type="checkbox"
+										id="g_type_drinks"> <label class="form-check-label"
+										for="g_type_drinks"> <i
+										class="fa-solid fa-mug-saucer"></i>飲料
+									</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input type_mixed" type="checkbox"
+										id="g_type_mixed"> <label class="form-check-label"
+										for="g_type_mixed"> <i class="fa-solid fa-utensils"></i><i
+										class="fa-solid fa-mug-saucer"></i>複合式
+									</label>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<!-- 2.2.1.1.1 Left content end -->
 
+					<!-- 2.2.1.1.2 Right content start-->
+					<div class="col-9">
+
+						<!-- Count and sort start -->
+						<div class="d-flex align-items-center justify-content-between">
+
+							<!-- Count of results start -->
+							<div class="num_of_results">
+								<span class="d-inline-block">1382筆結果</span>
 							</div>
-							<!-- Count and sort end -->
+							<!-- Count of results end -->
 
-							<!-- Cards start -->
-							<div class="mt-3" id="group_order_results">
-								<!-- Card start -->
+							<!-- Sort start -->
+							<div class="order_by">
+								<span class="d-inline-block">排序依：</span>
+								<div class="d-inline-block">
+									<select name="group_order_order_by" class="form-select">
+										<option value="distance">距離</option>
+										<option value="rating">評分</option>
+										<option value="threshold">成團條件金額</option>
+										<option value="progress">成團條件達成進度</option>
+										<option value="deadline">付款截止時間</option>
+									</select>
+								</div>
+							</div>
+							<!-- Sort end -->
 
-								<c:forEach var="groupOrderVO" items="${list}">
-									<div class="card">
-										<div class="row g-0 align-items-center">
-											<div class="col-4 ">
-												<img
-													src="https://images.pexels.com/photos/2725744/pexels-photo-2725744.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1260&amp;h=750&amp;dpr=1"
-													class="card-img" alt="...">
-											</div>
-											<div class="col-8">
-												<div class="card-body">
-													<h5 class="card-title">buildingID:
-														${groupOrderVO.buildingID}</h5>
-													<ul class="list-unstyled card-text">
-														<li>大樓地址：台北市中山區南京東路三段219號</li>
-														<li>dinerID: ${groupOrderVO.dinerID}</li>
-														<li class="list-inline-item"><span
-															class="badge fs-6 rounded-pill bg-secondary"><i
-																class="fa-solid fa-utensils"></i></span></li>
-														<li class="list-inline-item"><span
-															class="badge fs-6 rounded-pill bg-secondary"><i
-																class="fa-solid fa-star"></i>4.5</span></li>
-														<li>holderID: ${groupOrderVO.holderID}</li>
-														<li class="list-inline-item">成團條件：1500元</li>
-														<li class="list-inline-item">成團狀態：尚未達成</li>
-														<li>付款截止時間：今日11:30</li>
-														<div class="d-flex justify-content-end">
-															<a class="btn btn-dark">加入此大樓揪團</a>
-														</div>
-													</ul>
-												</div>
+						</div>
+						<!-- Count and sort end -->
+
+						<!-- Cards start -->
+						<div class="mt-3" id="group_order_results">
+							<!-- Card start -->
+
+							<c:forEach var="groupOrderVO" items="${list}">
+								<div class="card">
+									<div class="row g-0 align-items-center">
+										<div class="col-4 ">
+											<img
+												src="https://images.pexels.com/photos/2725744/pexels-photo-2725744.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1260&amp;h=750&amp;dpr=1"
+												class="card-img" alt="...">
+										</div>
+										<div class="col-8">
+											<div class="card-body">
+												<h5 class="card-title">buildingID:
+													${groupOrderVO.buildingID}</h5>
+												<ul class="list-unstyled card-text">
+													<li>大樓地址：台北市中山區南京東路三段219號</li>
+													<li>dinerID: ${groupOrderVO.dinerID}</li>
+													<li class="list-inline-item"><span
+														class="badge fs-6 rounded-pill bg-secondary"><i
+															class="fa-solid fa-utensils"></i></span></li>
+													<li class="list-inline-item"><span
+														class="badge fs-6 rounded-pill bg-secondary"><i
+															class="fa-solid fa-star"></i>4.5</span></li>
+													<li>holderID: ${groupOrderVO.holderID}</li>
+													<li class="list-inline-item">成團條件：1500元</li>
+													<li class="list-inline-item">成團狀態：尚未達成</li>
+													<li>付款截止時間：今日11:30</li>
+													<div class="d-flex justify-content-end">
+														<a class="btn btn-dark">加入此大樓揪團</a>
+													</div>
+												</ul>
 											</div>
 										</div>
 									</div>
-								</c:forEach>
-								<!-- Card end -->
-
-							</div>
-							<!-- Cards end -->
+								</div>
+							</c:forEach>
+							<!-- Card end -->
 
 						</div>
-						<!-- 2.2.1.1.2 Right content end -->
+						<!-- Cards end -->
 
 					</div>
-					<!-- 2.2.1.1 Search result area end -->
-
-					<!-- 2.2.1.2 Pagination Start  -->
-					<div class="mt-3 d-flex justify-content-center">
-						<nav aria-label="Page navigation example">
-							<ul class="pagination justify-content-start">
-								<li class="page-item disabled"><a class="page-link"
-									href="#"><i class="fa-solid fa-angle-left"></i></a></li>
-								<li class="page-item active"><a class="page-link" href="#">01</a></li>
-								<li class="page-item"><a class="page-link" href="#">02</a></li>
-								<li class="page-item"><a class="page-link" href="#">03</a></li>
-								<li class="page-item"><a class="page-link" href="#"><i
-										class="fa-solid fa-angle-right"></i></a></li>
-							</ul>
-						</nav>
-					</div>
-					<!-- 2.2.1.2 Pagination End  -->
+					<!-- 2.2.1.1.2 Right content end -->
 
 				</div>
-				<!-- 2.2.1 Group order end -->
+				<!-- 2.2.1.1 Search result area end -->
 
-				<!-- 2.2.2 diner start -->
-				<%@ include file="./search_diner.jsp"%>
-				
-				<!-- 2.2.2 diner end -->
+				<!-- 2.2.1.2 Pagination Start  -->
+				<div class="mt-3 d-flex justify-content-center">
+					<nav aria-label="Page navigation example">
+						<ul class="pagination justify-content-start">
+							<li class="page-item disabled"><a class="page-link"
+								href="#"><i class="fa-solid fa-angle-left"></i></a></li>
+							<li class="page-item active"><a class="page-link" href="#">01</a></li>
+							<li class="page-item"><a class="page-link" href="#">02</a></li>
+							<li class="page-item"><a class="page-link" href="#">03</a></li>
+							<li class="page-item"><a class="page-link" href="#"><i
+									class="fa-solid fa-angle-right"></i></a></li>
+						</ul>
+					</nav>
+				</div>
+				<!-- 2.2.1.2 Pagination End  -->
+			<!-- 2.2.1 Group order end -->
 
-			</div>
+<!-- 			</div> -->
 			<!-- 2.2 Contents end -->
 		</div>
 		<!-- 2. Tabs end -->

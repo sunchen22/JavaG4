@@ -13,23 +13,12 @@ import javax.persistence.Table;
 
 import com.dinerinfo.entity.DinerInfo;
 
-@Entity
-@Table(name = "product")
-public class Product {
+public class ProductVO {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "productID", updatable = false)
 	private Integer productID;
 
-//	@Column(name = "dinerID")
-//	private Integer dinerID;
+	private Integer dinerID;
 	
-	@ManyToOne
-	@JoinColumn(name = "dinerID" , referencedColumnName = "dinerID")
-	private DinerInfo dinerinfo;
-	
-
 	@Column(name = "productName")
 	private String productName;
 
@@ -60,20 +49,19 @@ public class Product {
 	@Column(name = "productStatus")
 	private String productStatus;
 
-	public Product() {
+	public ProductVO() {
 		super();
 	}
 
 
 
 
-	public Product(Integer productID, DinerInfo dinerid, String productName, Integer productPrice,
+	public ProductVO(Integer productID, DinerInfo dinerid, String productName, Integer productPrice,
 			Integer productTypeID, Integer productDailyStock, Timestamp productReleaseTime, byte[] productBlob1,
-			byte[] productBlob2, byte[] productBlob3, String productRemark, String productStatus , DinerInfo dinerinfo) {
+			byte[] productBlob2, byte[] productBlob3, String productRemark, String productStatus ) {
 
 		super();
 		this.productID = productID;
-		this.dinerinfo = dinerinfo;
 		this.productName = productName;
 		this.productPrice = productPrice;
 		this.productTypeID = productTypeID;
@@ -95,21 +83,21 @@ public class Product {
 		this.productID = productID;
 	}
 
-
-
-
-	public DinerInfo getDinerinfo() {
-		return dinerinfo;
-
-	}
-
-
-
-
-	public void setDinerinfo(DinerInfo dinerinfo) {
-		this.dinerinfo = dinerinfo;
-	}
 	
+
+	public Integer getDinerID() {
+		return dinerID;
+	}
+
+
+
+
+	public void setDinerID(Integer dinerID) {
+		this.dinerID = dinerID;
+	}
+
+
+
 
 	public String getProductName() {
 		return productName;

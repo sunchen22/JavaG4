@@ -1,5 +1,5 @@
 input[disabled]{
-  background-color: #000000;
+  background-color: rgb(255, 255, 255);
   cursor: not-allowed;
 }
 #drop_zone{
@@ -110,4 +110,7 @@ input.autocreat{
   width: 100px;
  
 }
+
+
+
 

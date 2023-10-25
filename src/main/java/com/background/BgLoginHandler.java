@@ -21,8 +21,10 @@ public class BgLoginHandler extends HttpServlet {
 	protected boolean allowUser(String account, String password) {
 		WebempadminService empSvc = new WebempadminService();
 		Map<String, String> map = empSvc.getOnePassword(account);
+		Map<String, Integer> mapstatus = empSvc.getOneStatus(account);
 
-		if (map.containsKey(account)) {
+		if (map.containsKey(account) && mapstatus.get(account)==0) {
+			System.out.println(mapstatus.get(account));
 			String bgpassword = (String) map.get(account);
 			if (bgpassword.equals(password)) {
 				return true;
@@ -49,8 +51,11 @@ public class BgLoginHandler extends HttpServlet {
 				res.sendRedirect(req.getContextPath() + "/background/login_failed.jsp");
 				return;
 			} else { // 【帳號 , 密碼有效時, 才做以下工作】
+
+				
 				HttpSession session = req.getSession();
 				session.setAttribute("account", account); // *工作1: 才在session內做已經登入過的標識
+				
 				try {
 					String location = (String) session.getAttribute("location");
 					

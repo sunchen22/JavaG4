@@ -1,7 +1,58 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-	<div class="mt-4 tab-pane fade" id="nav_searchdiner" role="tabpanel"
-					aria-labelledby="nav_searchdiner_tab">
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.grouporder.dao.GroupOrderDAO"%>
+<%@ page import="com.grouporder.dao.GroupOrderDAOHibernateImpl"%>
+<%@ page import="java.util.*"%>
+<%@ page import="java.util.List"%>
+<%@ page import="com.grouporder.entity.GroupOrder"%>
+<%@ page import="com.userorderdetail.entity.UserOrderDetail"%>
+<%@ page import="com.userorderdetailvary.entity.UserOrderDetailVary"%>
 
+
+<%@ include file="components/head.jsp"%>
+<%-- Import CSS for this page below (if any) --%>
+
+<%-- Remember to edit the page title --%>
+<title>樓頂揪樓咖-搜尋商家</title>
+</head>
+
+<body>
+
+	<%-- The navigation bar --%>
+	<jsp:include page="./components/nav.jsp"></jsp:include>
+
+	<%-- Page content start --%>
+	<section class="container mt-5">
+		<!-- 1. Search bar start -->
+		<div class="search_bar">
+			<form action="${pageContext.request.contextPath}/diner.search" method="get">
+				<div class="row col-11 mx-auto mb-3">
+					<div class="col-3">
+
+						<input type="text" class="form-control input_keyword"
+							name="keyword" placeholder="輸入關鍵字">
+
+					</div>
+					<div class="col-8">
+						<div class="input-group">
+							<input type="text" class="form-control input_address"
+								name="address" placeholder="輸入地址"> <a
+								class="btn btn-outline-secondary" title="清除"><i
+								class="fa-solid fa-xmark"></i></a> <a
+								class="btn btn-outline-secondary" title="使用我的定位"><i
+								class="fa-solid fa-location-dot"></i></a> <a
+								class="btn btn-outline-secondary" title="使用我的常用大樓"><i
+								class="fa-solid fa-building"></i></a>
+						</div>
+					</div>
+					<button class="col-1 btn btn-dark" type="submit" id="btn_search">搜尋</button>
+				</div>
+			</form>
+		</div>
+		<!-- 1. Search bar end -->
+
+		<!-- 2. Tabs and contents start -->
+		<div class="container mt-5">
 					<!-- 2.2.2.1 Search result area start -->
 					搜尋商家
 					<div class="row">
@@ -179,3 +230,23 @@
 <!-- 					</div> -->
 					<!-- 2.2.2.2 Pagination End  -->
 				</div>
+				<!-- 2.2.2 diner end -->
+
+
+			<!-- 2.2 Contents end -->
+		</div>
+		<!-- 2. Tabs end -->
+	</section>
+
+	<%-- Page content end --%>
+
+	<jsp:include page="./components/footer.jsp"></jsp:include>
+	<%-- The footer --%>
+
+
+
+	<%@ include file="./components/tail.jsp"%>
+	<%-- Import JS for this page below (if any) --%>
+
+</body>
+</html>

@@ -102,22 +102,15 @@ public class EmpjoServlet extends HttpServlet {
 				WebempadminVO empVO = empSvc.getOneEmp(empID);
 								
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
-//				String param = "?empID="  +empVO.getEmpID()+
-//						       "&empName="  +empVO.getEmpName()+
-//						       "&empPassword="    +empVO.getEmpPassword()+
-//						       "&empArriveDate="+empVO.getEmpArriveDate()+
-//						       "&empAdminAuthorization="    +empVO.getEmpAdminAuthorization()+
-//						       "&empBlob=" +empVO.getEmpBlob();
-//				String url = "/emp/update_emp_input.jsp"+param;
 				
 				req.setAttribute("empVO", empVO); 
 				String url = "/background/pages/adm_men_modify.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);// ���\��� update_emp_input.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 		}
 		
 		
-		if ("update".equals(action)) { // 來自update_emp_input.jsp的請求
+		if ("update".equals(action)) { // 來自adm_mem.jsp的請求
 			
 			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -218,15 +211,7 @@ String empPassword = req.getParameter("empPassword").trim();
 				}
 				
 				java.sql.Date empArriveDate = null;
-				//System.out.println(req.getParameter("empArriveDate")); //10/06/2023
-//				try {
-//empArriveDate = java.sql.Date.valueOf(req.getParameter("empArriveDate").trim());
-//				} catch (IllegalArgumentException e) {
-//					errorMsgs.put("empArriveDate","請輸入入職日期");
-//				}
-				
-				
-				
+			
 				//日期轉換			
 				String empArriveDateStr = req.getParameter("empArriveDate");
 //				java.sql.Date empArriveDate = null;
@@ -244,8 +229,7 @@ String empAdminAuthorization = req.getParameter("empAdminAuthorization").trim();
 				if (empAdminAuthorization == null || empAdminAuthorization.trim().length() == 0) {
 					errorMsgs.put("empAdminAuthorization","權限請勿空白");
 				}
-
-				
+			
 				// 照片
 				InputStream in =req.getPart("empBlob").getInputStream();
 				byte[] empBlob = null;
@@ -288,7 +272,7 @@ req.setAttribute("empVO", empVO);
 		}
 		
 		//只要做停權動作
-		if ("delete".equals(action)) { // 來自listAllEmp.jsp
+		if ("suspend".equals(action)) {  // 來自adm_mem.jsp
 
 			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -296,13 +280,13 @@ req.setAttribute("empVO", empVO);
 				/***************************1.接收請求參數***************************************/
 				Integer empID = Integer.valueOf(req.getParameter("empID"));
 				
-				/***************************2.開始刪除資料**************************************/
+				/***************************2.開始停權，轉換狀態**************************************/
 				WebempadminService empSvc = new WebempadminService();
-				empSvc.deleteEmp(empID);
+				empSvc.suspendEmp(empID);
 				
-				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
+				/***************************3.停權完成,準備轉交(Send the Success view)***********/								
 				String url = "/background/pages/adm_men.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);// �R�����\��,���^�e�X�R�����ӷ�����
+				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 		}
 	}

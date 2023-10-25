@@ -4,10 +4,18 @@
 <%@ page import="com.varytype.dao.*"%>
 <%@ page import="com.varytype.entity.*"%>
 <%@ page import="com.varytype.service.*"%>
+<%@ page import="com.productvary.dao.*"%>
+<%@ page import="com.productvary.entity.*"%>
+<%@ page import="com.productvary.service.*"%>
 <%
     VaryTypeService VTSvc = new VaryTypeService();
     List <VaryType> VTList= VTSvc.getAll();
-    pageContext.setAttribute("list",VTList);
+    pageContext.setAttribute("VTlist",VTList);
+%>
+<%
+	ProductVaryService PVSvc = new ProductVaryService();
+	List<ProductVary> PVlist = PVSvc.getAll();
+	pageContext.setAttribute("PVlist", PVlist);
 %>
 <!DOCTYPE html>
 <html lang="zh-Hant">
@@ -462,7 +470,7 @@
                               <!-- ==============頁籤標頭===================== -->
                               <div class="nav nav-tabs" id="product-tab" role="tablist">
                               
-                            <c:forEach var="varyTypeVO" items="${list}">
+                            <c:forEach var="varyTypeVO" items="${VTlist}">
 
 							  <a class="nav-item nav-link " id="product-revenue-tab" data-toggle="tab"
                                   href="#product-${varyTypeVO.varyTypeID}" role="tab" aria-controls="product-revenue" aria-selected="true">
@@ -486,7 +494,7 @@
         
                             <!-- 標籤 ======商品 銷售量==== 內容 -->
                             
-                         <c:forEach var="varyTypeVO" items="${list}">  
+                         <c:forEach var="varyTypeVO" items="${VTlist}">  
                             <div class="tab-pane fade" id="product-${varyTypeVO.varyTypeID}" role="tabpanel" aria-labelledby="product-volume-tab">
                               <div class="card-body table-responsive p-0" style="height: 300px;">
                                     <td>
@@ -502,31 +510,84 @@
 
                                     <article class="task_container">
                                       
-                                      <button type="button" class="btn_empty">清空</button>
-                                      <h1 class="title1">${varyTypeVO.varyType}</h1>
-                                
                                      
-                                        <input type="text" class="task_name" placeholder="大辣" >
-                                       
-                                        <font size="5.8">+</font>
-                                        <input type="number" class="task_name2" placeholder="0" >  
-                                        <font size="4">元</font>          
-                                        <button type="button" class="task_add">新增</button>
-                                      
-                                
-                                      <div class="task_list_parent">
-                                        <ul class="task_list">
-                                        </ul>
-                                      </div>
-                                    </article>
-                                   
-                                   
-                                   
-                                   
-                                </table>
+                                      <h1 class="title1">${varyTypeVO.varyType}</h1>
+                                        <table id="example1" class="table table-bordered table-striped">
+                                        
+                                        
+                                        
+                                        
+        <thead>
+        <tr  align="center">
+       	<th>商品名稱</th>
+       	<th>客製類型</th>  
+        <th>客製名稱</th>
+        <th>客製價格</th>           
+   		<th>編輯</th>
+   		<th>刪除</th>
+        
+        </tr>
+        </thead>
+        <tbody>
+
+
+	
+
+
+	<c:forEach var="productVaryVO" items="${PVlist}" >
+		
+		<tr align="center">
+		
+			<td>${productVaryVO.productID}</td>
+			<td>${productVaryVO.varyTypeID}</td>
+			<td>${productVaryVO.productVaryDes}</td>
+			<td>${productVaryVO.productVaryPrice}</td>			
+		
+			
+
+
+			<td>
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/dinerbackground/pages/Team/shelve/productVary.do" style="margin-bottom: 0px;">
+			     <input type="submit" value="編輯">
+			     <input type="hidden" name="productVaryID"  value="${productVaryVO.productVaryID}">
+			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+			</td>
+
+
+			<td>
+				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/dinerbackground/pages/Team/shelve/productVary.do"
+					style="margin-bottom: 0px;">
+					<input type="submit" value="刪除"> <input type="hidden"	name="productVaryID" value="${productVaryVO.productVaryID}">
+					<input type="hidden" name="action" value="delete">
+				</FORM>
+			</td>
+
+			
+		</tr>
+	</c:forEach>
+
+       
+    
+ 
+    
+
+        </tbody>
+       
+        </table>
+
+
+
+
+
+
+
+
+
+
+                                    </article>                                   
+                                </table>                               
                               </div>
-                            </div>
-                          
+                            </div>                          
        					</c:forEach>
                          
                           
@@ -542,322 +603,7 @@
                
                
                
-        
-        
-        
-        
-        
-        
-
-          
-        
-        <script>
-        
-        
-        var user_id = "jo15";
-        function init(){
-        
-          $("ul.task_list").html('<li style="text-align: center;"><i class="fas fa-spinner fa-spin fa-3x"></i></li>');
-          fetch('https://notes.webmix.cc/ajax/teach/api/list.php?user_id=' + user_id).then(function(response) {
-            //console.log(response);
-            return response.json();
-          }).then(function(data) {
-         
-            let list_html = '';
-            $.each(data, function(index, item){
-        
-              list_html += '<li data-id="' + item.item_id + '" data-star="' + item.star + '" data-sort="' + item.sort + '">';
-              list_html +=   '<div class="item_flex">';
-              list_html +=     '<div class="left_block">';
-              list_html +=       '<div class="btn_flex">';
-              list_html +=         '<button type="button" class="btn_up">∧</button>';
-              list_html +=         '<button type="button" class="btn_down">∨</button>';
-              list_html +=       '</div>';
-              list_html +=     '</div>';
-              list_html +=     '<div class="middle_block">';
-              list_html +=       '<p class="para">' + data.name +'+'+data.name2 +'元'+ '</p>';
-              list_html +=       '<input type="text" class="task_name_update -none" placeholder="客製化內容" value="' + item.name + '">';
-              list_html +=         '<font size="5.8" class="task_name3_update -none" >+</font>'
-              list_html +=       '<input type="text" class="task_name2_update -none" placeholder="金額" value="' + item.name2 + '">';
-              list_html +=         '<font size="5.8" class="task_name3_update -none" >元</font>'
-              list_html +=     '</div>';
-              list_html +=     '<div class="right_block">';
-              list_html +=       '<div class="btn_flex">';
-              list_html +=         '<button type="button" class="btn_update">更新</button>';
-              list_html +=         '<button type="button" class="btn_delete">移除</button>';
-              list_html +=       '</div>';
-              list_html +=     '</div>';
-              list_html +=   '</div>';
-              list_html += '</li>';
-            });
-            $("ul.task_list").html(list_html);
-          });
-        
-        }
-        
-        // 更新整體的排序
-        function reload_sort(){
-          let formData = new FormData();
-          let sort_item = [];
-          $("ul.task_list").children("li").each(function(i, item){
-            $(this).attr("data-sort", (i + 1));
-        
-        
-            formData.append("data["+i+"][item_id]", $(this).attr("data-id"))
-            formData.append("data["+i+"][sort]", $(this).attr("data-sort"))
-          });
-
-        
-          formData.append("user_id", user_id);
-        
-          $("article.task_container").append("<div class='temp_loading'><span><i class='fas fa-spinner fa-spin fa-5x'></i></span></div>");
-        
-          fetch("https://notes.webmix.cc/ajax/teach/api/patch_sort.php", {
-            method: "PATCH",
-            body: new URLSearchParams(formData)
-          }).then(function(response){
-            return response.json();
-          }).then(function(data){
-            console.log(data);
-            $("article.task_container").children("div.temp_loading").remove();
-          });
-        
-        
-        }
-        
-        $(function(){
-        
-          init();
-        
-          
-        
-          // ==== text 欄位新增待辦事項 ===== //
-          $("input.task_name").on("keyup", function(e){
-            if(e.which == 13){ // 按下 Enter 鍵
-              $("button.task_add").click();
-            }
-          });
-          // 按下新增按鈕
-          $("button.task_add").on("click", function(){
-            let task_text = ($("input.task_name").val()).trim();
-            let task_text2 = ($("input.task_name2").val()).trim();
-            if(task_text != ""&task_text2 != ""){
-        
-              let form_data = new FormData();
-              form_data.append("user_id", user_id);
-              form_data.append("name", task_text);
-              form_data.append("name2", task_text2);
-        
-              /*
-              let form_data = {
-                "user_id": user_id,
-                "name": task_text
-              };
-              */
-              $("button.task_add").addClass("-disabled");
-        
-              fetch("https://notes.webmix.cc/ajax/teach/api/add.php", {
-                method: "POST",
-                //body: new URLSearchParams(form_data)
-                body: form_data
-              }).then(function(response){
-                console.log(response);
-                return response.json();
-              }).then(function(data){
-                console.log(data);
-        
-                let list_html = "";
-        
-                list_html += '<li data-id="' + data.item_id + '" data-star="' + data.star + '" data-sort="' + data.sort + '">';
-                list_html +=   '<div class="item_flex">';
-                list_html +=     '<div class="left_block">';
-                list_html +=       '<div class="btn_flex">';
-                list_html +=         '<button type="button" class="btn_up">∧</button>';
-                list_html +=         '<button type="button" class="btn_down">∨</button>';
-                list_html +=       '</div>';
-                list_html +=     '</div>';
-                list_html +=     '<div class="middle_block">';
-                list_html +=       '<p class="para">' + data.name +'+'+data.name2 +'元'+ '</p>';
-                list_html +=       '<input type="text" class="task_name_update -none" placeholder="更新客製選項" value="' + data.name + '">';
-                list_html +=         '<font size="5.8" class="task_name3_update -none" >+</font>'
-                list_html +=       '<input type="text" class="task_name2_update -none" placeholder="更新金額" value="' + data.name2 + '">';
-                list_html +=         '<font size="5.8" class="task_name3_update -none" >元</font>'
-                list_html +=     '</div>';
-                list_html +=     '<div class="right_block">';
-                list_html +=       '<div class="btn_flex">';
-                list_html +=         '<button type="button" class="btn_update">更新</button>';
-                list_html +=         '<button type="button" class="btn_delete">移除</button>';
-                list_html +=       '</div>';
-                list_html +=     '</div>';
-                list_html +=   '</div>';
-                list_html += '</li>';
-        
-                $("ul.task_list").prepend(list_html);
-                $("input.task_name").val("");
-                $("input.task_name2").val("");
-                reload_sort();
-              });
-        
-        
-            }
-          });
-        });
-        
-        // ==== 移除待辦事項 ===== //
-        $("ul.task_list").on("click", "button.btn_delete", function(){
-          let r = confirm("確認移除？")
-          if (r){
-            let item_id = $(this).closest("li").attr("data-id");
-            let that = this;
-        
-            let form_data = new FormData();
-            form_data.append("user_id", user_id);
-            form_data.append("item_id", item_id);
-            fetch("https://notes.webmix.cc/ajax/teach/api/delete_item.php", {
-              method: "DELETE",
-              body: new URLSearchParams(form_data)
-            }).then(function(response){
-              console.log(response);
-              if(response.ok){
-                return response.json();
-              }
-            }).then(function(data){
-              console.log(data);
-              $(that).closest("li").animate({
-                "opacity": 0
-              }, 1000, "swing", function(){
-                $(this).remove();
-                reload_sort();
-              });
-            });
-        
-          }
-        });
-        $("button.btn_empty").on("click", function(){
-          let r = confirm("確認清空？")
-          if (r){
-        
-            let form_data = new FormData();
-            form_data.append("user_id", user_id);
-            fetch("https://notes.webmix.cc/ajax/teach/api/delete_all.php", {
-              method: "DELETE",
-              body: new URLSearchParams(form_data)
-            }).then(function(response){
-              if(response.ok){
-                return response.json();
-              }
-            }).then(function(data){
-              console.log(data);
-        
-              if(data.msg == "delete all success"){
-                $("ul.task_list").children("li").animate({
-                  "opacity": 0
-                }, 1000, "swing", function(){
-                  $(this).remove();
-                });
-              }
-            }).catch(function(error){
-              console.log("error");
-              console.log(error);
-            });
-        
-        
-          }
-        });
-        
-        // ==== 更新待辦事項 ===== //
-        $("ul.task_list").on("click", "button.btn_update", function(){
-          //console.log($(this).attr("data-edit"));
-          if($(this).attr("data-updating") == "true"){ // 有 data-updating 就代表 ajax 正在傳輸中，資料正在更新中
-            alert("資料更新中");
-            return;
-          }
-        
-          if($(this).attr("data-edit") == undefined){ // 進入編輯狀態
-            $(this).attr("data-edit", true);
-            $(this).closest("li").find("p.para").toggleClass("-none");
-            $(this).closest("li").find("input.task_name_update").toggleClass("-none");
-            $(this).closest("li").find("input.task_name2_update").toggleClass("-none");
-            $(this).closest("li").find("font.task_name3_update").toggleClass("-none");
-          }else{ // 進入檢視狀態
-            let update_task_name = ($(this).closest("li").find("input.task_name_update").val()).trim();
-            let update_task_name2 = ($(this).closest("li").find("input.task_name2_update").val()).trim();
-            if(update_task_name == ""){
-              alert("請輸入待辦事項");
-            }else{
-        
-              $(this).attr("data-updating", true).html('<i class="fas fa-spinner fa-spin"></i>');
-              let closest_li = $(this).closest("li");
-              let that = this;
-        
-              let form_data = new FormData();
-              form_data.append("user_id", user_id);
-              form_data.append("item_id", $(closest_li).attr("data-id"));
-              form_data.append("name", update_task_name);
-              form_data.append("name2", update_task_name2);
-              form_data.append("star", $(closest_li).attr("data-star"));
-              form_data.append("sort", $(closest_li).attr("data-sort"));
-        
-              fetch("https://notes.webmix.cc/ajax/teach/api/update_item.php", {
-                method: "PUT",
-                body: new URLSearchParams(form_data)
-              }).then(function(response){
-                if(response.ok){
-                  return response.json();
-                }
-              }).then(function(data){
-                console.log(data);
-        
-                if(data.msg == "item update success"){
-                  $(closest_li).find("p.para").html(update_task_name).toggleClass("-none");
-                  $(closest_li).find("p.para").html(update_task_name2).toggleClass("-none");
-                  $(closest_li).find("input.task_name_update").val(update_task_name).toggleClass("-none");
-                  $(closest_li).find("input.task_name2_update").val(update_task_name2).toggleClass("-none");
-                  $(that).removeAttr("data-updating").removeAttr("data-edit").html("更新");
-                  alert("更新成功");
-                }else{
-                  alert(data.msg);
-                }
-              }).catch(function(error){
-                console.log(error);
-              });
-        
-            }
-          }
-        
-        });
-        
-        // ==== 排序 ===== //
-        $("ul.task_list").on("click", "button.btn_up, button.btn_down", function(){
-        
-          // 往上
-          if($(this).hasClass("btn_up") && !$(this).closest("li").is(':first-child')){
-            let clone_html = $(this).closest("li").clone();
-            $(this).closest("li").prev().before(clone_html);
-            $(this).closest("li").remove();
-            reload_sort();
-          }
-        
-          // 往下
-          if($(this).hasClass("btn_down") && !$(this).closest("li").is(':last-child')){
-            let clone_html = $(this).closest("li").clone();
-            $(this).closest("li").next().after(clone_html);
-            $(this).closest("li").remove();
-            reload_sort();
-          }
-        
-        
-        });
-        
-        
-        
-        </script>
-
-
-
-
-
-
+     
 
 
 </div><!--/. container-fluid -->

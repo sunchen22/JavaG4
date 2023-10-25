@@ -224,7 +224,6 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 		ProductVary productVary = dao.findByPKProductVary(productVaryID);
 		if (productVary != null) {
 			int productVaryPrice = productVary.getProductVaryPrice();
-			System.out.println("PRODUCTVARYPRICE: " + productVaryPrice);
 			return productVaryPrice;
 		} else {
 			return null;

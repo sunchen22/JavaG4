@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.product.entity.Product;
+import com.product.service.ProductService;
 import com.productvary.entity.ProductVary;
 import com.productvary.service.ProductVaryService;
 import com.varytype.service.VaryTypeService;
@@ -42,10 +44,39 @@ public class ProductVaryServlet extends HttpServlet {
 			PVSvc.addProductVary(productID, productVaryDes, productVaryPrice, varyTypeID);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/dinerbackground/pages/Team/shelve/type_setting.jsp";
+			String url = "/dinerbackground/pages/Team/p_list/p_list.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);
 
+		}
+		
+		if ("getOne_For_Update".equals(action)) { // 來自p_list.jsp的請求
+
+			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			/*************************** 1.接收請求參數 ****************************************/
+			Integer productVaryID = Integer.valueOf(req.getParameter("productVaryID"));
+		
+
+			/*************************** 2.開始查詢資料 ****************************************/
+			ProductVaryService PVSvc = new ProductVaryService();
+			ProductVary productVary = PVSvc.getOneProductVary(productVaryID);
+
+			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+			String param =  
+							"?&productVaryID=" + productVary.getProductVaryID() +
+							"&productID=" + productVary.getProductID() +
+							"&productVaryDes=" + productVary.getProductVaryDes() +
+							"&productVaryPrice=" + productVary.getProductVaryPrice() +
+							"&varyTypeID=" + productVary.getVaryTypeID();
+			
+			System.out.println(productVaryID);
+
+				
+			String url = "/dinerbackground/pages/Team/shelve/update_shelve_PV.jsp" + param;
+			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_product.jsp
+			successView.forward(req, res);
 		}
 
 		if ("update".equals(action)) { // 來自update_emp_input.jsp的請求
@@ -56,6 +87,9 @@ public class ProductVaryServlet extends HttpServlet {
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			Integer productVaryID = Integer.valueOf(req.getParameter("productVaryID").trim());
 
+			System.out.println(productVaryID);
+
+			
 			Integer productID = Integer.valueOf(req.getParameter("productID").trim());
 			String productVaryDes = req.getParameter("productVaryDes");
 			Integer productVaryPrice = Integer.valueOf(req.getParameter("productVaryPrice").trim());
@@ -64,7 +98,7 @@ public class ProductVaryServlet extends HttpServlet {
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/dinerbackground/pages/Team/shelve/type_setting.jsp");
+						.getRequestDispatcher("/dinerbackground/pages/Team/shelve/update_shelve_PV.jsp");
 				failureView.forward(req, res);
 				return; // 程式中斷
 			}
