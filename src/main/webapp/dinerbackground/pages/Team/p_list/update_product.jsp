@@ -1,3 +1,29 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.producttype.dao.*"%>
+<%@ page import="com.producttype.entity.*"%>
+<%@ page import="com.producttype.service.*"%>
+<%@ page import="com.varytype.dao.*"%>
+<%@ page import="com.varytype.entity.*"%>
+<%@ page import="com.varytype.service.*"%>
+<%@ page import="com.product.entity.*"%>
+<%@ page import="com.product.service.*"%>
+<%
+    ProductTypeService PTSvc = new ProductTypeService();
+    List<ProductType> PTlist = PTSvc.getAll();
+    pageContext.setAttribute("list",PTlist);
+%>
+<%
+	VaryTypeService VTSvc = new VaryTypeService();
+	List<VaryType> VTList = VTSvc.getAll();
+	pageContext.setAttribute("VTlist", VTList);
+%>
+<%
+    ProductService PSvc = new ProductService();
+    List <Product> PList= PSvc.getAll();
+    pageContext.setAttribute("Plist",PList);
+%>
 <!DOCTYPE html>
 <html lang="zh-Hant">
 
@@ -410,14 +436,18 @@
       <!-- /.sidebar -->
     </aside>
 
+
+
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
+    <section>
+    
       <!-- Content Header (Page header) -->
       <div class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">商品上架</h1>
+              <h1 class="m-0">商品編輯</h1>
             </div>
             <div class="col-sm-6">
               <!-- <ol class="breadcrumb float-sm-right">
@@ -461,296 +491,161 @@
 
       <div class="shelve">
 
-        <form action="simple-results.html" style="padding:10px;">
+  
+<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/dinerbackground/pages/Team/shelve/product.do" name="form1" enctype="multipart/form-data">
 
-          
+			<div class="col-sm-10">
+				<label>商品編號:</label>
+				<br>
+				<input type="TEXT" name="productID"	value="${param.productID}"class="form-control"  />			
+			</div>
+	
+	
+			<div class="col-sm-10">
+				<label>商家編號:</label>
+				<br>
+				<input type="TEXT" name="dinerID"	value="1${param.dinerID}"class="form-control"  />			
+			</div>
+			
+			
+			<div class="col-sm-10">
+				<label>商品名稱:</label>
+				<br>
+				<input type="TEXT" name="productName"  style="width:200px;display:inline" value="${param.productName}" class="form-control"  />
+				<span style="color:red;">${errorMsgs.productName}</span>
+			
+			</div>
 
-          <div>
-            <label>商品名稱：</label>
-            <input type="text" id="p_name">
-          </div>
-    
-          <div>
-            <label>商品價格：</label>
-            <input type="number" id="p_price">
-          </div>
-    
-          <div>
-            <label>每日庫存：</label>
-            <input type="number" id="p_price">
-          </div>
-    
-          <div>
-            <label>商品分類：</label>
-            <input type="text" id="p_type" list="p_typelist">
-            <datalist id="p_typelist">
-              <option value="飯類"></option>
-              <option value="麵類"></option>
-              <option value="飲料"></option>
-              <option value="甜點"></option>
-              <option value="炸物"></option>       
-            </datalist>
-          </div>
-    
-          <div>
-            <label>客製選項：</label>
-            <input type="text" id="varyType" list="varyTypelist" class="varyTypeName">
-            <datalist id="varyTypelist">
-              <option value="加辣"></option>
-              <option value="加飯"></option>
-              <option value="加麵"></option>
-              <option value="冰塊"></option>
-              <option value="份量"></option>       
-            </datalist>
-            <button  type="button" class="autocreat">新增</button>
-          </div>
-                  
-        
-          <div class="op">
+
+			<div class="col-sm-10">
+				<label>商品金額:</label>
+				<br>
+				<input type="TEXT" name="productPrice" style="width:200px;display:inline"value="${param.productPrice}" class="form-control" />
+				<span style="color:red;" >${errorMsgs.productPrice}</span>
+			</div>
+
+			
+			<div class="col-sm-10">
+				<label>商品類型:</label>
+				<br>
+				<select name="productTypeID" class="form-control" style="width:200px;display:inline">
+				<c:forEach var="productTypeVO" items="${list}">
+					<option value="${productTypeVO.productTypeID}" ${(param.productTypeID==productTypeVO.productTypeID)? 'selected':'' } >${productTypeVO.productTypeDes}
+				</c:forEach>
+				</select>
+			</div>
+			
+						
+			<div class="col-sm-10">
+				<label>每日庫存:</label>
+				<br>
+				<input type="TEXT" name="productDailyStock" style="width:200px;display:inline"value="${param.productDailyStock}" class="form-control" />
+				<span style="color:red;">${errorMsgs.productDailyStock}</span>
+			</div>
+			
+			
+
+		  <div class="col-sm-10">
+            <label >商品圖片:</label> 
+        	<br>
+            <input type="file" id="p_file" name="productBlob1" onclick="previewImage()"/>                     
             <br>
-              <div id="tag_area" class="col-sm-10" style=" height:auto ; overflow: auto;"></div>  
-
-            <br>       
-          </div> 
-          
-        
-          <div>
-            <label>商品圖片：</label>
-            <input type="file" id="p_file">
+            <input type="file" id="p_file" name="productBlob2" onclick="previewImage()"/>
+            <br>
+            <input type="file" id="p_file" name="productBlob3" onclick="previewImage()"/>
             
-            <hr>
+            <span style="color:red;">${errorMsgs.productBlob1}</span>
+            <br>
+            <br>
 
-            <div id="preview">
+           <div id="preview" class="col-sm-3">
               <span class="text">預覽圖</span>
             </div>
-            <div id="preview2">
+            <div id="preview2" class="col-sm-3">
               <span class="text">預覽圖2</span>
             </div>
-            <div id="preview3">
+            <div id="preview3" class="col-sm-3">
               <span class="text">預覽圖3</span>
             </div>
           </div>
     
        
+       
+       
           
-          <div class="form-group">
-            <label for="inputDescription">商品詳情：</label>
-            <textarea id="inputDescription" class="form-control" rows="10" style="width: 60%;"></textarea>
-           
+          <div class="col-sm-10">
+            <label >商品詳情：</label><span style="color:red;">${errorMsgs.productRemark}</span>
+            <textarea name="productRemark" id="productRemark" class="form-control" rows="10" style="width: 60%;">${param.productRemark}</textarea>
           </div>
-          
-       
-    
-          <hr>
-         <div class="parent">
-          <button type="reset" class="p_clear">清空資料</button>
-          <button type="submit" class="p_preview">預覽商品頁面</button>
-          <button type="submit" class="p_submit" id="btn_submit">送出資料</button>                    
-         </div>
-       
-        </div>
-                  <!-- 動態產生CheckBox -->
-    <script>
-              //綁定的物件改為item的父層元素$('#main')，若沒有父層可直接綁定$(document)即可
-        $('#tag_area').on('click', '.item', function(){
-            console.log('Clicked');
-        });
-        //點擊按鈕動態產生一個div方塊
-        $('button.autocreat').on('click', function(){
-          let task_varyTypeName = ($("input.varyTypeName").val()).trim();
-
-          
-          let item1 = "";
-                item1 += '<lable>可選'+ task_varyTypeName +'選項:</label> ';     
-                item1 += '<input type="checkbox" id="check_all"><label for="check_all">全選</label>';            
-                item1 += '<input type="checkbox" class="item" id="option1"> <label for="option1">大辣</label>';
-                item1 += '<input type="checkbox" class="item" id="option2"> <label for="option2">中辣</label>';
-                item1 += '<input type="checkbox" class="item" id="option3"> <label for="option3">小辣</label>';
-                item1 += '<br>';
-
-                if( task_varyTypeName != ""){
-
-                  $('#tag_area').append(item1);             
-                  $("input.varyTypeName").val("");
-
-                }
-              
            
            
-        });
-    </script>
-
-
-    
-   
-      
-
-
-    <script>
-      window.addEventListener("load", function(e){
-
-        
-
-
-
-        // =========================== 元素 ========================= //
-        var p_count_el = document.getElementById("p_count");
-        var p_count_value_el = document.getElementById("p_count_value");
-        var the_form = document.getElementById("the_form");        
-        var the_html = document.getElementById("the_html");
-        var fullscreen_enable_el = document.getElementById("fullscreen_enable");
-        var geolocation_enable_el = document.getElementById("geolocation_enable");
-        var lng_el = document.getElementById("lng");
-        var lat_el = document.getElementById("lat");
-        var drop_zone_el = document.getElementById("drop_zone");
-        var preview_el = document.getElementById("preview");
-        var p_file_el = document.getElementById("p_file");
-        var btn_submit_el = document.getElementById("p_submit");
-        var p_name_el = document.getElementById("p_name");
-
-
-
-        // =========================== 基本表單 ========================= //
-     
-       
-
-
-        
-     
-
-        // reset 按鈕按下去的時候，觸發
-        the_form.addEventListener("reset", function(){
-
-          p_count_value_el.innerHTML = "1";
-
-          // 以下三行在步驟一還不需要
-          check_geolocation_enabled();
-          preview_el.innerHTML = '<span class="text">預覽圖</span>';
-          sessionStorage.clear();
-
-        });
-
-     
-
-   
-
-        // =========================== Drag and Drop ========================= //
-        drop_zone_el.addEventListener("dragover", function(e){
-          e.preventDefault();
-          e.target.classList.add("-on");
-        });
-        drop_zone_el.addEventListener("dragleave", function(e){
-          e.target.classList.remove("-on");
-        });
-        drop_zone_el.addEventListener("drop", function(e){
-          e.preventDefault();
-
-          e.target.classList.remove("-on");
-
-          //console.log(e.dataTransfer.files); // 取得 files
-
-
-          preview_img(e.dataTransfer.files[0]);
-          p_file_el.value = ""; // 將 type="file" 那個清空
-        });
-
-        // =========================== 透過 File 取得預覽圖 ========================= //
-        var preview_img = function(file){
-
-          var reader = new FileReader(); // 用來讀取檔案
-          reader.readAsDataURL(file); // 讀取檔案
-          reader.addEventListener("load", function () {
-            //console.log(reader.result);
-            /*
-            let img_node = document.createElement("img"); // <img>
-            img_node.setAttribute("src", reader.result); // <img src="base64">
-            img_node.setAttribute("class", "preview_img"); // <img src="base64" class="preview_img">
-            preview_el.innerHTML = '';
-            preview_el.append(img_node);
-            */
-
-            let img_str = '<img src="' + reader.result + '" class="preview_img">';
-            preview_el.innerHTML = img_str;
-          });
-        };
-
-
-        p_file_el.addEventListener("change", function(e){
-          if(this.files.length > 0){
-            preview_img(this.files[0]);
-          }else{
-            preview_el.innerHTML = '<span class="text">預覽圖</span>';
-          }
-        });
-
-        // =========================== 資料送出 ========================= //
-        btn_submit_el.addEventListener("click", function(e){
-          e.preventDefault();
-
-          var send_data = {};
-
-          send_data.p_name = p_name_el.value;
-          send_data.p_count = p_count_el.value;
-
-          var img_base64_el = document.querySelector(".preview_img");
-          if(img_base64_el){
-            send_data.img_base64 = img_base64_el.getAttribute("src");
-          }
-
-          if(lng_el.value != ""){
-            send_data.position = {
-              lng: lng_el.value,
-              lat: lat_el.value
-            };
-          }
-          //console.log(send_data);
-
-          sessionStorage.setItem("form_data", JSON.stringify(send_data));
-          location.href = "./confirm.html";
-
-        });
-
-
-
-        // =========================== session 裡的資料回寫到表單中 ========================= //
-        var recovery_data = function(){
-
-
-          if(sessionStorage.getItem("form_data") != null){
-            var form_data = JSON.parse(sessionStorage.getItem("form_data"));
-            console.log(form_data);
-            p_name_el.value = form_data.p_name;
-            p_count_el.value = form_data.p_count;
-            p_count_value_el.innerHTML = form_data.p_count;
-            lng_el.value = form_data.position.lng;
-            lat_el.value = form_data.position.lat;
-            preview_el.innerHTML = "<img class='preview_img' src='" + form_data.img_base64 + "'>";
-          }
-
-        };
-
-        // =========================== 函式觸發 ========================= //
-       
+			<div>
+				<input type="hidden" name="action" value="update">
+					<input type="submit"  id="submit" value="確認修改">
+			</div>
+			
+			
+			
+			
+		
+	</FORM>
  
-        recovery_data();
-      });
-    </script>
+  
+    </div>
+     </div>
+     <script type="text/javascript">
+//清除提示信息
+function hideContent(d) {
+     document.getElementById(d).style.display = "none";
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//照片上傳-預覽用
+var filereader_support = typeof FileReader != 'undefined';
+if (!filereader_support) {
+	alert("No FileReader support");
+}
+acceptedTypes = {
+		'image/png' : true,
+		'image/jpeg' : true,
+		'image/gif' : true
+};
+function previewImage() {
+	var upfile1 = document.getElementById("p_file");
+	upfile1.addEventListener("change", function(event) {
+		var files = event.target.files || event.dataTransfer.files;
+		for (var i = 0; i < files.length; i++) {
+			previewfile(files[i])
+		}
+	}, false);
+}
+function previewfile(file) {
+	if (filereader_support === true && acceptedTypes[file.type] === true) {
+		var reader = new FileReader();
+		reader.onload = function(event) {
+			var image = new Image();
+			image.src = event.target.result;
+			image.width = 100;
+			image.height = 75;
+			image.border = 2;
+			if (blob_holder.hasChildNodes()) {
+				blob_holder.removeChild(blob_holder.childNodes[0]);
+			}
+			blob_holder.appendChild(image);
+		};
+		reader.readAsDataURL(file);
+		document.getElementById('submit').disabled = false;
+	} else {
+		blob_holder.innerHTML = "<div  style='text-align: left;'>" + "● filename: " + file.name
+				+ "<br>" + "● ContentTyp: " + file.type
+				+ "<br>" + "● size: " + file.size + "bytes"
+				+ "<br>" + "● 上傳ContentType限制: <b> <font color=red>image/png、image/jpeg、image/gif </font></b></div>";
+		document.getElementById('submit').disabled = true;
+	}
+}
+</script>
+     
+     
+     
 </div><!--/. container-fluid -->
 </section>
 <!-- /.content -->

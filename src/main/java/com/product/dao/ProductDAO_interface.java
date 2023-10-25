@@ -14,8 +14,14 @@ public interface ProductDAO_interface {
 
 	public Product findByPrimaryKey(Integer productID);
 
-	public List<Product> getAll();
+	public List<Product> getByType();
 
+	public Product findByPrimaryKeyType(Integer productTypeID);
+
+	void offshelve(Product product);
+
+	List<Product> getAll();
+ 
 //	// 萬用複合查詢(傳入參數型態Map)(回傳 List)
 //	public List<ProductVO> getAll(Map<String, String[]> map);
 }

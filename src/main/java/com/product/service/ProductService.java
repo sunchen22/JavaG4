@@ -16,7 +16,7 @@ public class ProductService {
 	}
 
 	public Product addProduct(Integer dinerID, String productName, Integer productPrice, Integer productTypeID,
-			Integer productDailyStock, String productRemark) {
+			Integer productDailyStock, String productRemark,byte[] productBlob1,byte[] productBlob2,byte[] productBlob3) {
 
 		Product product = new Product();
 
@@ -26,13 +26,16 @@ public class ProductService {
 		product.setProductTypeID(productTypeID);
 		product.setProductDailyStock(productDailyStock);
 		product.setProductRemark(productRemark);
+		product.setProductBlob1(productBlob1);
+		product.setProductBlob2(productBlob2);
+		product.setProductBlob3(productBlob3);
 		dao.insert(product);
 
 		return product;
 	}
 
 	public Product updateProduct(Integer productID, Integer dinerID, String productName, Integer productPrice,
-			Integer productTypeID, Integer productDailyStock, String productRemark) {
+			Integer productTypeID, Integer productDailyStock, String productRemark,byte[] productBlob1,byte[] productBlob2,byte[] productBlob3) {
 
 		Product product = new Product();
 
@@ -43,6 +46,10 @@ public class ProductService {
 		product.setProductTypeID(productTypeID);
 		product.setProductDailyStock(productDailyStock);
 		product.setProductRemark(productRemark);
+		product.setProductBlob1(productBlob1);
+		product.setProductBlob2(productBlob2);
+		product.setProductBlob3(productBlob3);
+
 		dao.update(product);
 
 		return dao.findByPrimaryKey(productID);
@@ -51,12 +58,34 @@ public class ProductService {
 	public void deleteProduct(Integer productID) {
 		dao.delete(productID);
 	}
+	
 
 	public Product getOneProduct(Integer productID) {
 		return dao.findByPrimaryKey(productID);
 	}
+	
+	//從類型找
+	public Product getOneProductByType(Integer productTypeID) {
+		return dao.findByPrimaryKey(productTypeID);
+	}
 
+	
 	public List<Product> getAll() {
 		return dao.getAll();
+	}
+	
+	public List<Product> getByType() {
+		return dao.getByType();
+	}
+	//下架
+	public void offShelveProduct(Integer productID,String productStatus) {
+		Product product = new Product();
+
+		product.setProductID(productID);
+
+		product.setProductStatus(productStatus);
+
+		dao.offshelve(product);
+
 	}
 }
