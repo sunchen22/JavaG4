@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.product.dao.ProductDAO;
 import com.product.dao.ProductDAO_interface;
-import com.product.entity.Product;
+import com.product.entity.ProductVO;
 
 public class ProductService {
 
@@ -15,10 +15,10 @@ public class ProductService {
 		dao = new ProductDAO();
 	}
 
-	public Product addProduct(Integer dinerID, String productName, Integer productPrice, Integer productTypeID,
+	public ProductVO addProduct(Integer dinerID, String productName, Integer productPrice, Integer productTypeID,
 			Integer productDailyStock, String productRemark,byte[] productBlob1,byte[] productBlob2,byte[] productBlob3) {
 
-		Product product = new Product();
+		ProductVO product = new ProductVO();
 
 		product.setDinerID(dinerID);
 		product.setProductName(productName);
@@ -34,10 +34,10 @@ public class ProductService {
 		return product;
 	}
 
-	public Product updateProduct(Integer productID, Integer dinerID, String productName, Integer productPrice,
+	public ProductVO updateProduct(Integer productID, Integer dinerID, String productName, Integer productPrice,
 			Integer productTypeID, Integer productDailyStock, String productRemark,byte[] productBlob1,byte[] productBlob2,byte[] productBlob3) {
 
-		Product product = new Product();
+		ProductVO product = new ProductVO();
 
 		product.setProductID(productID);
 		product.setDinerID(dinerID);
@@ -60,26 +60,26 @@ public class ProductService {
 	}
 	
 
-	public Product getOneProduct(Integer productID) {
+	public ProductVO getOneProduct(Integer productID) {
 		return dao.findByPrimaryKey(productID);
 	}
 	
 	//從類型找
-	public Product getOneProductByType(Integer productTypeID) {
+	public ProductVO getOneProductByType(Integer productTypeID) {
 		return dao.findByPrimaryKey(productTypeID);
 	}
 
 	
-	public List<Product> getAll() {
+	public List<ProductVO> getAll() {
 		return dao.getAll();
 	}
 	
-	public List<Product> getByType() {
+	public List<ProductVO> getByType() {
 		return dao.getByType();
 	}
 	//下架
 	public void offShelveProduct(Integer productID,String productStatus) {
-		Product product = new Product();
+		ProductVO product = new ProductVO();
 
 		product.setProductID(productID);
 

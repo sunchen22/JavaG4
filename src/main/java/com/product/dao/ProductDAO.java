@@ -12,7 +12,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import com.product.entity.Product;
+import com.product.entity.ProductVO;
 
 public class ProductDAO implements ProductDAO_interface {
 
@@ -36,7 +36,7 @@ public class ProductDAO implements ProductDAO_interface {
 	private static final String OFF_SHELVE = "UPDATE product set productStatus=?  where productID = ?";
 
 	@Override
-	public void insert(Product product) {
+	public void insert(ProductVO product) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -82,7 +82,7 @@ public class ProductDAO implements ProductDAO_interface {
 	}
 
 	@Override
-	public void update(Product product) {
+	public void update(ProductVO product) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -168,9 +168,9 @@ public class ProductDAO implements ProductDAO_interface {
 	}
 
 	@Override
-	public Product findByPrimaryKeyType(Integer productTypeID) {
+	public ProductVO findByPrimaryKeyType(Integer productTypeID) {
 
-		Product product = null;
+		ProductVO product = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -186,7 +186,7 @@ public class ProductDAO implements ProductDAO_interface {
 
 			while (rs.next()) {
 				// empVo 也稱為 Domain objects
-				product = new Product();
+				product = new ProductVO();
 				product.setProductID(rs.getInt("productID"));
 				product.setDinerID(rs.getInt("dinerID"));
 				product.setProductName(rs.getString("productName"));
@@ -234,9 +234,9 @@ public class ProductDAO implements ProductDAO_interface {
 	}
 
 	@Override
-	public Product findByPrimaryKey(Integer productID) {
+	public ProductVO findByPrimaryKey(Integer productID) {
 
-		Product product = null;
+		ProductVO product = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -252,7 +252,7 @@ public class ProductDAO implements ProductDAO_interface {
 
 			while (rs.next()) {
 				// empVo 也稱為 Domain objects
-				product = new Product();
+				product = new ProductVO();
 				product.setProductID(rs.getInt("productID"));
 				product.setDinerID(rs.getInt("dinerID"));
 				product.setProductName(rs.getString("productName"));
@@ -300,9 +300,9 @@ public class ProductDAO implements ProductDAO_interface {
 	}
 
 	@Override
-	public List<Product> getAll() {
-		List<Product> list = new ArrayList<Product>();
-		Product product = null;
+	public List<ProductVO> getAll() {
+		List<ProductVO> list = new ArrayList<ProductVO>();
+		ProductVO product = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -319,7 +319,7 @@ public class ProductDAO implements ProductDAO_interface {
 
 			while (rs.next()) {
 				// empVO 也稱為 Domain objects
-				product = new Product();
+				product = new ProductVO();
 				product.setProductID(rs.getInt("productID"));
 				product.setDinerID(rs.getInt("dinerID"));
 				product.setProductName(rs.getString("productName"));
@@ -368,9 +368,9 @@ public class ProductDAO implements ProductDAO_interface {
 	}
 
 	@Override
-	public List<Product> getByType() {
-		List<Product> list = new ArrayList<Product>();
-		Product product = null;
+	public List<ProductVO> getByType() {
+		List<ProductVO> list = new ArrayList<ProductVO>();
+		ProductVO product = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -384,7 +384,7 @@ public class ProductDAO implements ProductDAO_interface {
 
 			while (rs.next()) {
 				// empVO 也稱為 Domain objects
-				product = new Product();
+				product = new ProductVO();
 				product.setProductID(rs.getInt("productID"));
 				product.setDinerID(rs.getInt("dinerID"));
 				product.setProductName(rs.getString("productName"));
@@ -432,7 +432,7 @@ public class ProductDAO implements ProductDAO_interface {
 		return list;
 	}
 	@Override
-	public void offshelve(Product product) {
+	public void offshelve(ProductVO product) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;

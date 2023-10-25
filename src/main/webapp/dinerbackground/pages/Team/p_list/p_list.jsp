@@ -6,7 +6,7 @@
 <%@ page import="com.product.service.*"%>
 <%
     ProductService PSvc = new ProductService();
-    List <Product> PList= PSvc.getAll();
+    List <ProductVO> PList= PSvc.getAll();
     pageContext.setAttribute("list",PList);
 %>
  <%
