@@ -123,7 +123,7 @@
 									客服系統 <i class="fas fa-angle-left right"></i>
 								</p>
 						</a>
-							<ul class="nav nav-treeview">
+<!--							<ul class="nav nav-treeview">
 								<li class="nav-item"><a href="./FAQ_Page.html"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>FAQ頁面管理</p>
@@ -131,7 +131,7 @@
 								<li class="nav-item"><a href="./svr_mem_msg.html"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>系統留言管理</p>
-								</a></li>
+								</a></li>                          -->
 								<li class="nav-item"><a href="<%=request.getContextPath()%>/background/pages/svr_cust.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>線上客服訊息管理</p>
