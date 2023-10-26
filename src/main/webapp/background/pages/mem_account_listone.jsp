@@ -3,18 +3,17 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!-- userinfo資料 -->
-<%@ page import="com.userinfo.entity.*" %>>
+<%@ page import="com.userinfo.entity.*" %>
 
-<%UserInfo userinfo = (UserInfo) request.getAttribute("userinfo");
+<% UserInfo userinfo = (UserInfo) session.getAttribute("userinfo");
 System.out.println("我在JSP"+userinfo+"為何");
 %>
 
 <!-- 先取出BuildingInfo List以供常用大樓選單使用 -->
-<!-- 這個會壞掉 -->
-<%-- <%@ page import="com.buildinginfo.entity.*"%> --%>
-<%-- <% --%>
-// BuildingInfo buildingInfo = userinfo.getBuildinginfo();
-<%-- %>  --%>
+<%@ page import="com.buildinginfo.entity.*"%>
+<%
+BuildingInfo buildingInfo = userinfo.getBuildinginfo();
+%>
 
 <html lang="en">
 
@@ -126,7 +125,7 @@ System.out.println("我在JSP"+userinfo+"為何");
 			<!-- 以下預計放置搜尋出的畫面 -->
 			<div class="card">
 				<div class="card-body">
-				<p>成功更新會員資料!</p>
+				<p style=" text-align: center">成功更新會員資料!</p>
 						<table class="table table-bordered">
 							<thead>
 								<tr style="text-align: center;">
@@ -151,9 +150,8 @@ System.out.println("我在JSP"+userinfo+"為何");
 										<td>${userinfo.userNickName}</td>
 										<td>${userinfo.userRegisterTime}</td>
 										<td>${userinfo.userBirthday}</td>
-<%-- 										<td><%=buildingInfo.getBuildingID()%>【<%=buildingInfo.getBuildingName()%>】</td> --%>
-<%-- 										<td>${userinfo.buildingID}</td> --%>
-										<td>${userinfo.buildingID.buildingName}</td>
+<%-- 										<td>${userinfo.buildinginfo}</td> --%>
+										<td>${userinfo.buildinginfo.buildingID} ${userinfo.buildinginfo.buildingName}</td>
 										<td><img width="100" src="UserImage?userID=${userinfo.userID}" ></td>
 									</tr>
 							</tbody>

@@ -10,16 +10,13 @@
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="./adm_sales.html"
+								<li class="nav-item"><a href="<%=request.getContextPath()%>/background/pages/adm_sales.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>銷售狀況</p>
 								</a></li>
-								<li class="nav-item"><a href="./adm_people.html"
-									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>線上會員人數</p>
-								</a></li>
+								
 								<!-- 側邊欄次標要打開用class="nav-link active" -->
-								<li class="nav-item"><a href="./adm_men.jsp"
+								<li class="nav-item"><a href="<%=request.getContextPath()%>/background/pages/adm_men.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>管理者帳號管理</p>
 								</a></li>
@@ -38,13 +35,13 @@
 										<i class="far fa-circle nav-icon"></i>
 										<p>會員資料查詢與變更</p>
 								</a></li>
-								<li class="nav-item"><a href="./mem_news.html"
+								<li class="nav-item"><a href="./mem_news.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>會員最新消息</p>
 								</a></li>
 
 							</ul></li>
-
+	
 						<li class="nav-item"><a href="#" class="nav-link"> <i
 								class="nav-icon fas fa-briefcase"></i>
 								<p>
@@ -54,32 +51,32 @@
 
 							<ul class="nav nav-treeview">
 								<!-- <li class="nav-header">商家列表查詢</li> -->
-								<li class="nav-item"><a href="/JavaG4/cproject/pages/mer_list.jsp"
+								<li class="nav-item"><a href="<%=request.getContextPath()%>/cproject/pages/mer_list.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>商家列表查詢</p>
 								</a></li>
-								<li class="nav-item"><a href="/JavaG4/cproject/pages/mer_application.jsp"
+								<li class="nav-item"><a href="<%=request.getContextPath()%>/cproject/pages/mer_application.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>商家申請審核</p>
 								</a></li>
-								<li class="nav-item"><a href="/JavaG4/cproject/pages/mer_details.jsp"
+								<li class="nav-item"><a href="<%=request.getContextPath()%>/cproject/pages/mer_details.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>商家資料異動</p>
 								</a></li>
 
-								<li class="nav-item"><a href="/JavaG4/cproject/pages/mer_product.jsp"
+								<li class="nav-item"><a href="<%=request.getContextPath()%>/cproject/pages/mer_product.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>商品審核</p>
 								</a></li>
-								<li class="nav-item"><a href="/JavaG4/cproject/pages/mer_payment.jsp"
+								<li class="nav-item"><a href="<%=request.getContextPath()%>/cproject/pages/mer_payment.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>金流報表</p>
 								</a></li>
-								<li class="nav-item"><a href="/JavaG4/cproject/pages/mer_ad.jsp"
+								<li class="nav-item"><a href="<%=request.getContextPath()%>/cproject/pages/mer_ad.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>商家廣告審核</p>
 								</a></li>
-								<li class="nav-item"><a href="/JavaG4/cproject/pages/mer_news.jsp"
+								<li class="nav-item"><a href="<%=request.getContextPath()%>/cproject/pages/mer_news.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>給商家最新消息</p>
 								</a></li>
@@ -92,13 +89,13 @@
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="/JavaG4/cproject/pages/bldg_query.jsp"
+								<li class="nav-item"><a href="<%=request.getContextPath()%>/cproject/pages/bldg_query.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>大樓資料查詢</p>
 								</a></li>
-								<li class="nav-item"><a href="/JavaG4/cproject/pages/bldg_create.jsp"
+								<li class="nav-item"><a href="<%=request.getContextPath()%>/cproject/pages/bldg_create.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>建立新大樓</p>
+										<p>大樓地圖</p>
 								</a></li>
 								
 							</ul></li>
@@ -109,11 +106,11 @@
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="/JavaG4/cproject/pages/ord_query.jsp"
+								<li class="nav-item"><a href="<%=request.getContextPath()%>/cproject/pages/ord_query.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>訂單查詢</p>
 								</a></li>
-								<li class="nav-item"><a href="/JavaG4/cproject/pages/ord_review.jsp"
+								<li class="nav-item"><a href="<%=request.getContextPath()%>/cproject/pages/ord_review.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>評論管理</p>
 								</a></li>
@@ -127,15 +124,15 @@
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="./FAQ_Page.html"
+<!--								<li class="nav-item"><a href="./FAQ_Page.html"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>FAQ頁面管理</p>
 								</a></li>
 								<li class="nav-item"><a href="./svr_mem_msg.html"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>系統留言管理</p>
-								</a></li>
-								<li class="nav-item"><a href="./svr_cust.jsp"
+								</a></li>                           -->
+								<li class="nav-item"><a href="<%=request.getContextPath()%>/background/pages/svr_cust.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>線上客服訊息管理</p>
 								</a></li>

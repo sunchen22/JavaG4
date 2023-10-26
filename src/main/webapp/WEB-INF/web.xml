@@ -162,6 +162,15 @@
 		<servlet-name>UserImage</servlet-name>
 		<url-pattern>/background/pages/UserImage</url-pattern>
 	</servlet-mapping>
-
+	
+	<!-- 會員最新消息 -->
+	<servlet>
+		<servlet-name>UserNewsServlet</servlet-name>
+		<servlet-class>com.usernews.controller.UserNewsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UserNewsServlet</servlet-name>
+		<url-pattern>/background/pages/usernews.do</url-pattern>
+	</servlet-mapping>
 
 </web-app>
