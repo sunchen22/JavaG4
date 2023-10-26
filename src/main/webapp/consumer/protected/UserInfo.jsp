@@ -11,25 +11,8 @@
 <%@ page import="com.buildinginfo.entity.*"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.buildinginfo.dao.*"%>
-<<<<<<< HEAD
-<%
-BuildingInfoDAO buildingInfoDAO = new BuildingInfoDAOHibernateImpl();
-List<BuildingInfo> buildingList = buildingInfoDAO.getAll();
-pageContext.setAttribute("buildingList", buildingList);
-%>
-<!-- 先取出UserInfo userBlob以供顯示圖片使用 -->
-<%
-    UserInfo loginUserInfo = (UserInfo) session.getAttribute("loginUserInfo");
-    byte[] userBlobData = loginUserInfo.getUserBlob();
-    // 將byte[]轉換為Base64編碼的字符串
-    if(userBlobData != null) {
-    String base64Image = Base64.getEncoder().encodeToString(userBlobData);
-	} 
-%>
-=======
 
 
->>>>>>> refs/heads/master
 
 
 <title>樓頂揪樓咖-消費者個人資訊</title>
@@ -60,9 +43,10 @@ pageContext.setAttribute("buildingList", buildingList);
 						</li>
 						<li class="nav-item"><a class="nav-link" id="v-pills-pwd-tab"
 							data-bs-toggle="pill" href="#v-pills-pwd">密碼修改</a></li>
-						<li class="nav-item"><a class="nav-link"
-							id="v-pills-favor-tab" data-bs-toggle="pill"
-							href="#v-pills-favor">最愛餐廳</a></li>
+<!-- 							最愛餐廳先隱藏 -->
+<!-- 						<li class="nav-item"><a class="nav-link" -->
+<!-- 							id="v-pills-favor-tab" data-bs-toggle="pill" -->
+<!-- 							href="#v-pills-favor">最愛餐廳</a></li> -->
 					</ul>
 				</div>
 			</div>
@@ -142,26 +126,23 @@ pageContext.setAttribute("buildingList", buildingList);
 								<input type="file" class="form-control" id="userBlob"
 									name="userBlob" placeholder="請上傳個人照片"
 									onchange="previewImage(event)">
-<<<<<<< HEAD
-								
-								<img id="previewBlob" alt="Image preview" style="margin-top: 10px; max-width: 200px;" 
-     src="${not empty base64Image ? 'data:image/jpeg;base64,' + base64Image : ''}" />
-=======
-								<%--  將byte[]轉換為Base64編碼的字符串--%>
-								<%
-								UserInfo loginUserInfo = (UserInfo) session.getAttribute("loginUserInfo");
-								String base64Image = "";
-								if (loginUserInfo != null) {
-									byte[] userBlobData = loginUserInfo.getUserBlob();
-									if (userBlobData != null) {
-										base64Image = Base64.getEncoder().encodeToString(userBlobData);
-									}
-								}
-								%>
+<%-- 								 將byte[]轉換為Base64編碼的字符串 --%>
+								<% 
+// 								UserInfo loginUserInfo = (UserInfo) session.getAttribute("loginUserInfo");
+// 								String base64Image = "";
+// 								if (loginUserInfo != null) {
+// 									byte[] userBlobData = loginUserInfo.getUserBlob();
+// 									if (userBlobData != null) {
+// 										base64Image = Base64.getEncoder().encodeToString(userBlobData);
+// 									}
+// 								}
+ 								%> 
 								<img id="previewBlob" alt="Image preview"
 									style="margin-top: 10px; max-width: 200px;"
-									src="<%=!base64Image.isEmpty() ? "data:image/jpeg;base64," + base64Image : ""%>" />
->>>>>>> refs/heads/master
+									src="<%=request.getContextPath()%>/consumer/userDBGifReader?userID=${loginUserInfo.userID}"
+<%-- 									src="<%=!base64Image.isEmpty() ? "data:image/jpeg;base64," + base64Image : ""%>"  --%>
+									/>
+
 							</div>
 						</div>
 						<div class="d-grid">

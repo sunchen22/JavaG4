@@ -7,16 +7,22 @@
 <%@ page import="com.varytype.dao.*"%>
 <%@ page import="com.varytype.entity.*"%>
 <%@ page import="com.varytype.service.*"%>
+<%@ page import="com.product.entity.*"%>
+<%@ page import="com.product.service.*"%>
 <%
     ProductTypeService PTSvc = new ProductTypeService();
     List<ProductType> PTlist = PTSvc.getAll();
     pageContext.setAttribute("list",PTlist);
 %>
-
 <%
-VaryTypeService VTSvc = new VaryTypeService();
-List<VaryType> VTList = VTSvc.getAll();
-pageContext.setAttribute("VTlist", VTList);
+	VaryTypeService VTSvc = new VaryTypeService();
+	List<VaryType> VTList = VTSvc.getAll();
+	pageContext.setAttribute("VTlist", VTList);
+%>
+<%
+    ProductService PSvc = new ProductService();
+    List <Product> PList= PSvc.getAll();
+    pageContext.setAttribute("Plist",PList);
 %>
 <!DOCTYPE html>
 <html lang="zh-Hant">
@@ -432,9 +438,10 @@ pageContext.setAttribute("VTlist", VTList);
 
 
 
-
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
+    <section>
+    
       <!-- Content Header (Page header) -->
       <div class="content-header">
         <div class="container-fluid">
@@ -484,147 +491,156 @@ pageContext.setAttribute("VTlist", VTList);
 
       <div class="shelve">
 
-        <form action="simple-results.html" style="padding:10px;">
+  
+		<FORM METHOD="post" ACTION="product.do" name="form1" enctype="multipart/form-data">
+	
+			<div class="col-sm-10">
+				<label>商家編號:</label>
+				<br>
+				<input type="TEXT" name="dinerID"	value="1${param.dinerID}"class="form-control"  />			
+			</div>
+			
+			
+			<div class="col-sm-10">
+				<label>商品名稱:</label>
+				<br>
+				<input type="TEXT" name="productName" autocomplete="off" style="width:200px;display:inline" value="${param.productName}" class="form-control"  />
+				<span style="color:red;">${errorMsgs.productName}</span>
+			
+			</div>
 
-          
 
-          <div>
-            <label>商品名稱：</label>
-            <input type="text" id="p_name">
-          </div>
-    
-          <div>
-            <label>商品價格：</label>
-            <input type="number" id="p_price">
-          </div>
-    
-          <div>
-            <label>每日庫存：</label>
-            <input type="number" id="p_price">
-          </div>
-    
-          <div>
-            <label>商品分類：</label>
-            <input type="text" id="p_type" list="p_typelist" name="productTypeDes" autocomplete="off" value="${param.productTypeDes}">
-            <datalist id="p_typelist">
-	            <c:forEach var="productTypeVO" items="${list}">
-	              <option value="${productTypeVO.productTypeDes}"></option>
-	            </c:forEach>  
-            </datalist>
-            
-          </div>
-    
-          <div>
-            <label>客製選項：</label>
-            <input type="text" id="varyType" list="varyTypelist" class="varyTypeName" autocomplete="off">
-            <datalist id="varyTypelist">
-            
-             <c:forEach var="varyTypeVO" items="${VTlist}">
-            
-              <option value="${varyTypeVO.varyType}" ></option>
-            
-              
-              </c:forEach>     
-            </datalist>
-            <button  type="button" class="autocreat">新增</button>
-          </div>
-                  
-                  
-                  
-     
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-        
-          <div class="op">
+			<div class="col-sm-10">
+				<label>商品金額:</label>
+				<br>
+				<input type="TEXT" name="productPrice" autocomplete="off"style="width:200px;display:inline"value="${param.productPrice}" class="form-control" />
+				<span style="color:red;" >${errorMsgs.productPrice}</span>
+			</div>
+
+			
+			<div class="col-sm-10">
+				<label>商品類型:</label>
+				<br>
+				<select name="productTypeID" class="form-control" style="width:200px;display:inline">
+				<c:forEach var="productTypeVO" items="${list}">
+					<option value="${productTypeVO.productTypeID}" ${(param.productTypeID==productTypeVO.productTypeID)? 'selected':'' } >${productTypeVO.productTypeDes}
+				</c:forEach>
+				</select>
+			</div>
+			
+						
+			<div class="col-sm-10">
+				<label>每日庫存:</label>
+				<br>
+				<input type="TEXT" name="productDailyStock" autocomplete="off"style="width:200px;display:inline"value="${param.productDailyStock}" class="form-control" />
+				<span style="color:red;">${errorMsgs.productDailyStock}</span>
+			</div>
+			
+			
+
+		  <div class="col-sm-10">
+            <label >商品圖片:</label> 
+        	<br>
+            <input type="file" id="p_file" name="productBlob1" onclick="previewImage()"/>                     
             <br>
-              <div id="tag_area" class="col-sm-10" style=" height:auto ; overflow: auto;"></div>  
-
-            <br>       
-          </div> 
-          
-        
-          <div>
-            <label>商品圖片：</label>
-            <input type="file" id="p_file">
+            <input type="file" id="p_file" name="productBlob2" onclick="previewImage()"/>
+            <br>
+            <input type="file" id="p_file" name="productBlob3" onclick="previewImage()"/>
             
-            <hr>
+            
+            <br>
+            <br>
 
-            <div id="preview">
+           <div id="preview" class="col-sm-3">
               <span class="text">預覽圖</span>
             </div>
-            <div id="preview2">
+            <div id="preview2" class="col-sm-3">
               <span class="text">預覽圖2</span>
             </div>
-            <div id="preview3">
+            <div id="preview3" class="col-sm-3">
               <span class="text">預覽圖3</span>
             </div>
           </div>
     
        
+       
+       
           
-          <div class="form-group">
-            <label for="inputDescription">商品詳情：</label>
-            <textarea id="inputDescription" class="form-control" rows="10" style="width: 60%;"></textarea>
-           
+          <div class="col-sm-10">
+            <label >商品詳情：</label><span style="color:red;">${errorMsgs.productRemark}</span>
+            <textarea name="productRemark" id="productRemark" class="form-control" rows="10" style="width: 60%;">${param.productRemark}</textarea>
           </div>
-          
-       
-    
-          <hr>
-         <div class="parent">
-          <button type="reset" class="p_clear">清空資料</button>
-          <button type="submit" class="p_preview">預覽商品頁面</button>
-          <button type="submit" class="p_submit" id="btn_submit">送出資料</button>                    
-         </div>
-       
-        </div>
-                  <!-- 動態產生CheckBox -->
-    <script>
-              //綁定的物件改為item的父層元素$('#main')，若沒有父層可直接綁定$(document)即可
-        $('#tag_area').on('click', '.item', function(){
-            console.log('Clicked');
-        });
-        //點擊按鈕動態產生一個div方塊
-        $('button.autocreat').on('click', function(){
-          let task_varyTypeName = ($("input.varyTypeName").val()).trim();
-
-          
-          let item1 = "";
-                item1 += '<lable>可選'+ task_varyTypeName +'選項:</label> ';     
-                item1 += '<input type="checkbox" id="check_all"><label for="check_all">全選</label>';            
-                item1 += '<input type="checkbox" class="item" id="option1"> <label for="option1">大辣</label>';
-                item1 += '<input type="checkbox" class="item" id="option2"> <label for="option2">中辣</label>';
-                item1 += '<input type="checkbox" class="item" id="option3"> <label for="option3">小辣</label>';
-                item1 += '<br>';
-
-                if( task_varyTypeName != ""){
-
-                  $('#tag_area').append(item1);             
-                  $("input.varyTypeName").val("");
-
-                }
-              
            
            
-        });
-    </script>
-
-
-    
+			<div>
+				<input type="hidden" name="action" value="insert">				
+				<input type="submit"  id="submit" value="新增商品">
+			</div>
+			
+			
+			
+			
+		
+	</FORM>
+	
+	
  
+  
+    </div>
+     </div>
+     <script type="text/javascript">
+//清除提示信息
+function hideContent(d) {
+     document.getElementById(d).style.display = "none";
+}
 
-
+//照片上傳-預覽用
+var filereader_support = typeof FileReader != 'undefined';
+if (!filereader_support) {
+	alert("No FileReader support");
+}
+acceptedTypes = {
+		'image/png' : true,
+		'image/jpeg' : true,
+		'image/gif' : true
+};
+function previewImage() {
+	var upfile1 = document.getElementById("p_file");
+	upfile1.addEventListener("change", function(event) {
+		var files = event.target.files || event.dataTransfer.files;
+		for (var i = 0; i < files.length; i++) {
+			previewfile(files[i])
+		}
+	}, false);
+}
+function previewfile(file) {
+	if (filereader_support === true && acceptedTypes[file.type] === true) {
+		var reader = new FileReader();
+		reader.onload = function(event) {
+			var image = new Image();
+			image.src = event.target.result;
+			image.width = 100;
+			image.height = 75;
+			image.border = 2;
+			if (blob_holder.hasChildNodes()) {
+				blob_holder.removeChild(blob_holder.childNodes[0]);
+			}
+			blob_holder.appendChild(image);
+		};
+		reader.readAsDataURL(file);
+		document.getElementById('submit').disabled = false;
+	} else {
+		blob_holder.innerHTML = "<div  style='text-align: left;'>" + "● filename: " + file.name
+				+ "<br>" + "● ContentTyp: " + file.type
+				+ "<br>" + "● size: " + file.size + "bytes"
+				+ "<br>" + "● 上傳ContentType限制: <b> <font color=red>image/png、image/jpeg、image/gif </font></b></div>";
+		document.getElementById('submit').disabled = true;
+	}
+}
+</script>
+     
+     
+     
 </div><!--/. container-fluid -->
 </section>
 <!-- /.content -->

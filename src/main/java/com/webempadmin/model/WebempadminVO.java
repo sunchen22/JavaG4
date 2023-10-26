@@ -29,6 +29,7 @@ public class WebempadminVO implements java.io.Serializable{
 	private String empAdminAuthorization;
 	@Column(name = "empBlob", columnDefinition = "longblob")
 	private byte[] empBlob;
+	private Integer empStatus;
 	
 //	public Integer getEmpID() {
 //		return empID;
@@ -37,9 +38,7 @@ public class WebempadminVO implements java.io.Serializable{
 //		this.empID = empID;
 //	}
 	
-	
-	
-	
+
 	
 	public String getEmpName() {
 		return empName;
@@ -57,6 +56,16 @@ public class WebempadminVO implements java.io.Serializable{
 
 
 	
+
+
+	public Integer getEmpStatus() {
+		return empStatus;
+	}
+
+
+	public void setEmpStatus(Integer empStatus) {
+		this.empStatus = empStatus;
+	}
 
 
 	public void setEmpName(String empName) {

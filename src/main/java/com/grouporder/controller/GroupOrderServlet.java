@@ -3,16 +3,19 @@ package com.grouporder.controller;
 import java.io.*;
 import java.util.Map;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
+import javax.servlet.annotation.WebServlet;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.grouporder.entity.GroupOrder;
+
 import com.grouporder.service.GroupOrderServiceImpl;
 
 @WebServlet("/GroupOrder.do")
@@ -42,6 +45,12 @@ public class GroupOrderServlet extends HttpServlet {
 				break;
 			case "calculateSubtotal":
 				calculateSubtotal(req, res);
+				break;
+			case "join":
+				joinThisGroupOrder(req, res);
+				break;
+			case "addToCart":
+				addToCart(req, res);
 				break;
 			default:
 //				forwardPath = "/index.jsp";
@@ -96,14 +105,27 @@ public class GroupOrderServlet extends HttpServlet {
     }
     
     private void getOneGroupOrder(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-    	int groupOrderID = Integer.valueOf(req.getParameter("groupOrderID"));
+    	// JS: href=${contextPath}/GroupOrder.do?action=getOne&groupOrderID=${item.groupOrderID}
+    	Integer groupOrderID = Integer.valueOf(req.getParameter("groupOrderID"));
     	// Call service to get the data needed and store it in request attribute
     	Map<String, Object> groupOrderData = groupOrderServiceImpl.getOneJoinGroupOrder(groupOrderID);
     	req.setAttribute("groupOrderData", groupOrderData);
     	req.setAttribute("menuData", groupOrderData.get("menuData"));
    
+    	Object userInfo = req.getSession().getAttribute("loginUserInfo");
+    	if (userInfo != null) {
+    		Boolean userIsGroupMember = groupOrderServiceImpl.userIsGroupMember(userInfo, groupOrderID);
+    		req.getSession().setAttribute("userIsGroupMember", userIsGroupMember);
+	//    	
+	//    	if (isGroupMember) {
+	//    		groupOrderServiceImpl.getUserOrderDetail();
+	//    		req.setAttribute("userOrderDetail", userOrderDetail);
+	//    	}
+    		
+    	}
+    	
 		res.setContentType("text/html; charset=UTF-8");
-		RequestDispatcher dispatcher = req.getRequestDispatcher("consumer/oneGroupOrder.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("consumer/oneGroupOrder.jsp");		
 		dispatcher.forward(req, res);
     }
     
@@ -120,8 +142,8 @@ public class GroupOrderServlet extends HttpServlet {
             // Prepare the response and send it
         	String json = groupOrderServiceImpl.getProductAndVaryOptions(productID);
             if (json != null) {
-            	// Send a JSON response
-            	res.setContentType("application/json; charset=UTF-8"); // Set content type to JSON
+            	// Set content type to JSON
+            	res.setContentType("application/json; charset=UTF-8");
             	res.getWriter().write(json);
             }
         } catch (Exception e) {
@@ -158,7 +180,6 @@ public class GroupOrderServlet extends HttpServlet {
         		int productVaryID = element.getAsInt();
         		if (productVaryID != 0) {
 	        		int productVaryPrice = groupOrderServiceImpl.getProductVaryPrice(productVaryID);
-	        		System.out.println("ProductVaryPrice: " + productVaryPrice);
 	        		subtotal += productVaryPrice;
         		}
         	}
@@ -174,5 +195,31 @@ public class GroupOrderServlet extends HttpServlet {
             e.printStackTrace();
             res.setStatus(HttpServletResponse.SC_BAD_REQUEST); // Set 400 Bad Request status on error
         }
+    }
+    
+    private void joinThisGroupOrder(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    	// EL: href="${pageContext.request.contextPath}/GroupOrder.do?action=join&groupOrderID=${groupOrderData.groupOrderID}&dinerName=${groupOrderData.dinerName}"
+    	Integer groupOrderID = Integer.valueOf(req.getParameter("groupOrderID"));
+    	String dinerName = String.valueOf(req.getParameter("dinerName"));
+    	
+    	Object userInfo = req.getSession().getAttribute("loginUserInfo");
+    	if (userInfo != null && dinerName != null) {
+    		groupOrderServiceImpl.addUserToGroup(userInfo, groupOrderID, dinerName);
+    		
+    		// Also need to set this attribute in action=login of UserInfoServlet.java
+    		// so that the joined group orders data can be loaded from Redis upon user logging in
+    		ArrayList<Map<String, Object>> navbarJoinedGroupOrders = (ArrayList<Map<String, Object>>) groupOrderServiceImpl.navbarJoinedGroupOrders(userInfo);
+    		req.getSession().setAttribute("navbarJoinedGroupOrders", navbarJoinedGroupOrders);
+    	}
+    	
+		res.setContentType("text/html; charset=UTF-8");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/GroupOrder.do?action=getOne&groupOrderID=" + String.valueOf(groupOrderID));		
+		dispatcher.forward(req, res);
+    }
+    
+    private void addToCart(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    	System.out.println("~~~~~~Add to cart");
+    	System.out.println(req.getParameterValues("加料"));
+    	
     }
 }

@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.producttype.service.ProductTypeService;
 
@@ -21,6 +22,8 @@ public class ProductTypeServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		req.setCharacterEncoding("UTF-8");
+	    HttpSession session = req.getSession();
+
 		String action = req.getParameter("action");
 
 		if ("insert".equals(action)) { // 來自type_setting.jsp的請求
@@ -47,7 +50,7 @@ public class ProductTypeServlet extends HttpServlet {
 			productService.addProductType(productTypeDes);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/dinerbackground/pages/Team/shelve/shelve.jsp";
+			String url = "/dinerbackground/pages/Team/shelve/shelve_PT.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);
 

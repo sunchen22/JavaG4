@@ -403,20 +403,20 @@ pageContext.setAttribute("list", PTlist);
 				<!-- /.content -->
 
 				<FORM METHOD="post" ACTION="shelve.jsp" name="form1">
-					<div class="col-sm-4">
+					<div class="col-sm-4" >
 
 
 						<div class="form-group">
-							<label>選擇或新增商品分類</label> 
-							<select name="productTypeDes" class="custom-select" multiple >
+							<label>選擇商品分類</label> 
+							<select name="productTypeID" class="custom-select" multiple >
 								<c:forEach var="productTypeVO" items="${list}">
-									<option value="${productTypeVO.productTypeDes}">${productTypeVO.productTypeDes}</option>
+									<option value="${productTypeVO.productTypeID}">${productTypeVO.productTypeDes}</option>
 								</c:forEach>
 								
 							</select>
 							
-																	
-								<input type="submit" value="選擇商品分類">
+															
+								<input type="submit" value="選擇商品分類" >
 								
 							
 						</div>
@@ -430,11 +430,14 @@ pageContext.setAttribute("list", PTlist);
 
 				<FORM METHOD="post" ACTION="productType.do" name="form1">
 					<table>
+					<br>
+					<br>
+								<label>新增商品分類</label>	
 						<tr>
 							${errorMsgs.productTypeDes}
 							<td><input type="TEXT" name="productTypeDes" value="${param.productTypeDes}" /></td>
 							<td><input type="hidden" name="action" value="insert">
-								<input type="hidden" name="productTypeDes"	value="${productTypeVO.productTypeDes}"> 
+								<input type="hidden" name="productTypeID" value="${productTypeVO.productTypeID}"> 
 								<input type="submit" value="新增商品分類"></td>
 						</tr>
 					</table>

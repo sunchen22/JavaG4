@@ -29,7 +29,7 @@
 	<!-- 個別商家資訊 -->
 
 	<%
-	Integer dinerID = (Integer) 1;
+	Integer dinerID = Integer.parseInt(request.getParameter("dinerID"));
 	String dayOfWeek = "Monday";
 	DinerInfo dinerInfo = new DinerInfo();
 	dinerInfo = new DinerInfoDAOImplC().findByPK(dinerID);
@@ -65,7 +65,7 @@
 			<div class="row g-0 align-items-center">
 				<div class="col-4">
 					<img
-						src="https://images.pexels.com/photos/2725744/pexels-photo-2725744.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+						src="<%=request.getContextPath()%>/consumer/dinerDBGifReader?dinerID=<%= dinerID %>"
 						class="card-img" alt="...">
 				</div>
 				<div class="col-8">
@@ -107,7 +107,7 @@
 						<div class="row g-0 align-items-center">
 							<div class="col-4 ">
 								<img
-									src="https://images.pexels.com/photos/2725744/pexels-photo-2725744.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+									src="<%=request.getContextPath()%>/consumer/dinerDBGifReader?dinerID=<%= dinerID %>"
 									class="card-img" alt="...">
 							</div>
 							<div class="col-8">

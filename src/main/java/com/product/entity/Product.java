@@ -219,5 +219,14 @@ public class Product {
 				+ ", productBlob2=" + productBlob2 + ", productBlob3=" + productBlob3 + ", productRemark="
 				+ productRemark + ", productStatus=" + productStatus + "]";
 	}
+	
+
+    // for join productTypeDes from productTypeID
+    public com.producttype.entity.ProductType getProductType() {
+	    com.producttype.service.ProductTypeService PTSvc = new com.producttype.service.ProductTypeService();
+	    com.producttype.entity.ProductType productType = PTSvc.getOneProductType(productID);
+	    return productType;
+    }
+	
 
 }

@@ -44,6 +44,8 @@ public class ProductVaryService {
 
 		return dao.findByPrimaryKey(productVaryID);
 	}
+	
+	
 
 	public void deleteProductVary(Integer productVaryID) {
 		dao.delete(productVaryID);

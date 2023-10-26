@@ -2,6 +2,7 @@ package com.producttype.service;
 
 import java.util.List;
 
+
 import com.producttype.dao.ProductTypeDAO;
 import com.producttype.dao.ProductTypeDAO_interface;
 import com.producttype.entity.ProductType;
@@ -34,4 +35,7 @@ public class ProductTypeService {
 		return dao.getAll();
 	}
 
+	public ProductType getOneProductType(Integer productTypeID) {
+		return dao.findByPrimaryKey(productTypeID);
+	}
 }

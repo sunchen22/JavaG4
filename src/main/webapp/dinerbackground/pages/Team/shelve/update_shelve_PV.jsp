@@ -1,10 +1,36 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.producttype.dao.*"%>
+<%@ page import="com.producttype.entity.*"%>
+<%@ page import="com.producttype.service.*"%>
+<%@ page import="com.varytype.dao.*"%>
+<%@ page import="com.varytype.entity.*"%>
+<%@ page import="com.varytype.service.*"%>
+<%@ page import="com.product.entity.*"%>
+<%@ page import="com.product.service.*"%>
+<%
+    ProductTypeService PTSvc = new ProductTypeService();
+    List<ProductType> PTlist = PTSvc.getAll();
+    pageContext.setAttribute("list",PTlist);
+%>
+<%
+VaryTypeService VTSvc = new VaryTypeService();
+List<VaryType> VTList = VTSvc.getAll();
+pageContext.setAttribute("VTlist", VTList);
+%>
+<%
+    ProductService PSvc = new ProductService();
+    List <Product> PList= PSvc.getAll();
+    pageContext.setAttribute("Plist",PList);
+%>
 <!DOCTYPE html>
 <html lang="zh-Hant">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>樓頂揪樓咖 商品列表</title>
+  <title>樓頂揪樓咖 商品上架</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet"
@@ -18,10 +44,36 @@
   <link rel="stylesheet" href="../../../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../../../dist/css/adminlte.min.css">
-</head>
+  <link rel="stylesheet" href="shelve.css">
 
-<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
-  <div class="wrapper">
+  
+  <!-- REQUIRED SCRIPTS -->
+  <!-- jQuery -->
+  <script src="../../../plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="../../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- overlayScrollbars -->
+  <script src="../../../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="../../../dist/js/adminlte.js"></script>
+
+  <!-- PAGE PLUGINS -->
+  <!-- jQuery Mapael -->
+  <script src="../../../../plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
+  <script src="../../../../plugins/raphael/raphael.min.js"></script>
+  <script src="../../../../plugins/jquery-mapael/jquery.mapael.min.js"></script>
+  <script src="../../../../plugins/jquery-mapael/maps/usa_states.min.js"></script>
+  <!-- ChartJS -->
+  <script src="../../../../plugins/chart.js/Chart.min.js"></script>
+
+  <!-- AdminLTE for demo purposes -->
+  <script src="../../../../dist/js/demo.js"></script>
+  <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+  <script src="../../../../dist/js/pages/dashboard2.js"></script>
+  </head>
+
+  <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <div class="wrapper">
 
     <!-- Preloader -->
     <!-- <div class="preloader flex-column justify-content-center align-items-center">
@@ -384,14 +436,18 @@
       <!-- /.sidebar -->
     </aside>
 
+
+
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
+    <section>
+    
       <!-- Content Header (Page header) -->
       <div class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">商品列表</h1>
+              <h1 class="m-0">客製選項設定</h1>
             </div>
             <div class="col-sm-6">
               <!-- <ol class="breadcrumb float-sm-right">
@@ -405,226 +461,166 @@
       <!-- /.content-header -->
 
       <!-- Main content -->
-
-      <div class="card">
-        <div class="card-header">
-        <h3 class="card-title">商品列表</h3>
-        </div>
-        
-        <div class="card-body">
-        <table id="example1" class="table table-bordered table-striped">
-        <thead>
-        <tr>
-        <th>商品名稱</th>
-        <th>商品狀態</th>
-        <th>每日庫存</th>
-        <th>金額</th>
-        <th>編輯商品</th>
-        <th>下架商品</th>
-        <th>刪除商品</th>
-        <th>修改時間</th>
-        </tr>
-        </thead>
-        <tbody>
-
-
-        <tr>
-        <td>珍珠奶茶</td>
-        <td>上架中</td>
-        <td>50粉</td>
-        <td>120</td>
-        <td><button class="btn btn-primary">編輯商品</button></td>
-        <td><button class="btn btn-primary">下架商品</button></td>
-        <td><button class="btn btn-primary">刪除商品</button></td>
-        <th><b>2023-04-16</b>
-          <br>20:16<br/>
-          </th> 
-        </tr>
-
-
-        <tr>
-        <td>珍珠奶茶</td>
-        <td>上架中</td>
-        <td>50份</td>
-        <td>120</td>
-        <td><button class="btn btn-primary">編輯商品</button></td>
-        <td><button class="btn btn-primary">下架商品</button></td>
-        <td><button class="btn btn-primary">刪除商品</button></td>
-        <th><b>2023-04-16</b>
-          <br>20:16<br/>
-          </th> 
-        
-        </tr>
-       
-    
- 
-    
-
-        </tbody>
-        <tfoot>
-        <tr>
-          <th>商品名稱</th>
-          <th>商品狀態</th>
-          <th>每日庫存</th>
-          <th>金額</th>
-          <th>編輯商品</th>
-          <th>下架商品</th>
-          <th>刪除商品</th>
-          <th>修改時間</th>
-        </tr>
-        </tfoot>
-        </table>
-        </div>
-        
-        </div>
-        
-        </div>
-        
-        </div>
-        
-        </div>
-        
-        </section>
-        
-        </div>
-
-
-
-
-
-
       <section class="content">
         <div class="container-fluid">
-          <table width="100%" border="0" class="tableBodre">
-            <tr class="tableTr">
-              <td width="14%" align="center" class="tableTitle">商品名稱</td>
-              <td width="10%" align="center" class="tableTitle"><input type="search" placeholder="商品狀態"  list="orderStatus" size="14">
-                <datalist id="orderStatus">
-                  <option value="上架中"></option>
-                  <option value="已下架"></option>     
-                </datalist></td>
-              <td width="10%" align="center" class="tableTitle">每日庫存</td>
-              <td width="10%" align="center" class="tableTitle">金額</td>
-              <td width="10%" align="center" class="tableTitle">編輯商品</td>              
-              <td width="12%"align="center"  class="tableTitle">刪除商品</td>
-              <td width="12%"align="center"  class="tableTitle">修改時間</td>
-            </tr>
-            
-      
-            <tr class="tableContent Clear wareListbg1">
-              <td align="center" class="tableContent refund-id">珍珠奶茶</td>
-              <td align="center" class="tableContent">
-                <b><font color='blue'>上架中</font></b><br></td>
-              <td align="center" class="tableContent">
-                <b>50份</b></td>
-              <td class="tableContent">
-                <b>100</b></td>
-              <td align="right" class="tableContent refund-money"><font color="#009900">
-                <button>編輯商品</button></font></td>
-              <td align="center" class="tableContent refund-buyer">                  
-                <button>刪除商品</button></a>
-                <th><b>2023-04-16</b>
-                  <br>20:16<br/>
-                  </th>
-                <span
-                  class="pt-cnt"
-                  data-wareId="S2232802896"
-                  data-price="8000"
-                  data-type="1"
-                  data-buyer="729562"></span></td>
-              <td align="center" class="tableContent refund-new"></td>
 
-              <tr class="tableContent Clear wareListbg1">
-                <td align="center" class="tableContent refund-id">珍珠奶茶</td>
-                <td align="center" class="tableContent">
-                  <b><font color='blue'>上架中</font></b><br></td>
-                <td align="center" class="tableContent">
-                  <b>50份</b></td>
-                <td class="tableContent">
-                  <b>100</b></td>
-                <td align="right" class="tableContent refund-money"><font color="#009900">
-                  <button>編輯商品</button></font></td>
-                <td align="center" class="tableContent refund-buyer">                  
-                  <button>刪除商品</button></a>
-                  <th><b>2023-04-16</b>
-                    <br>20:16<br/>
-                    </th>
-                  <span
-                    class="pt-cnt"
-                    data-wareId="S2232802896"
-                    data-price="8000"
-                    data-type="1"
-                    data-buyer="729562"></span></td>
-                <td align="center" class="tableContent refund-new"></td>
-
-                <tr class="tableContent Clear wareListbg1">
-                  <td align="center" class="tableContent refund-id">珍珠奶茶</td>
-                  <td align="center" class="tableContent">
-                    <b><font color='blue'>上架中</font></b><br></td>
-                  <td align="center" class="tableContent">
-                    <b>50份</b></td>
-                  <td class="tableContent">
-                    <b>100</b></td>
-                  <td align="right" class="tableContent refund-money"><font color="#009900">
-                    <button>編輯商品</button></font></td>
-                  <td align="center" class="tableContent refund-buyer">                  
-                    <button>刪除商品</button></a>
-                    <th><b>2023-04-16</b>
-                      <br>20:16<br/>
-                      </th> 
-                      
-                    <span
-                      class="pt-cnt"
-                      data-wareId="S2232802896"
-                      data-price="8000"
-                      data-type="1"
-                      data-buyer="729562"></span></td>
-
-                      
-                  <td align="center" class="tableContent refund-new"></td>
-
-
-          
 
         </div><!--/. container-fluid -->
       </section>
       <!-- /.content -->
+   
+     
+
+      
+  
+    <div class="col-12">
+      <!-- interactive chart -->
+      <div class="card card-warning card-outline">
+        <div class="card-header">
+          <h3 class="card-title">
+            
+          </h3>
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            </button>
+          </div>
+        </div>
+        
+
+        <!-- <div class="col-md-3"> -->
+
+      <div class="shelve">
+
+  
+		<FORM METHOD="post" ACTION="productVary.do" name="form1" >
+	
+			<div class="col-sm-10">
+				<label>商品名稱:</label>
+				<br>
+				<select name="productID" class="form-control" style="width:200px;display:inline">
+				<c:forEach var="productVO" items="${Plist}">
+					<option value="${productVO.productID}"  ${(param.productID==productVO.productID)? 'selected':'' } >${productVO.productName}
+				</c:forEach>
+				</select>
+			</div>
+			測試商品id=
+	${param.productID}
+	
+	
+			<div class="col-sm-10">
+				<label>客製分類:</label>
+				<br>
+				<select name="varyTypeID" class="form-control" style="width:200px;display:inline">
+				<c:forEach var="varyTypeVO" items="${VTlist}">
+					<option value="${varyTypeVO.varyTypeID}"  ${(param.varyTypeID==varyTypeVO.varyTypeID)? 'selected':'' } >${varyTypeVO.varyType}
+				</c:forEach>
+				</select>
+			</div>
+				
+						
+			<div class="col-sm-10">
+				<label>客製選項:</label>
+				<br>
+				<input type="TEXT" name="productVaryDes"  style="width:200px;display:inline" value="${param.productVaryDes}" class="form-control"  />
+				<span style="color:red;">${errorMsgs.productVaryDes}</span>
+			
+			</div>
+
+
+			<div class="col-sm-10">
+				<label>客製金額:</label>
+				<br>
+				<input type="TEXT" name="productVaryPrice" autocomplete="off"style="width:200px;display:inline"value="${param.productVaryPrice}" class="form-control" />
+				<span style="color:red;" >${errorMsgs.productVaryPrice}</span>
+			</div>
+
+
+             測試 ${param.productVaryID}
+			<div>
+				<input type="hidden" name="productVaryID" value="${param.productVaryID}">			
+				<input type="hidden" name="action" value="update">
+				<input type="submit"  id="submit" value="確認修改">
+			</div>
+			
+			
+			
+			
+		
+	</FORM>
+ 
+  
     </div>
-    <!-- /.content-wrapper -->
+     </div>
+     <script type="text/javascript">
+//清除提示信息
+function hideContent(d) {
+     document.getElementById(d).style.display = "none";
+}
 
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-      <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
+//照片上傳-預覽用
+var filereader_support = typeof FileReader != 'undefined';
+if (!filereader_support) {
+	alert("No FileReader support");
+}
+acceptedTypes = {
+		'image/png' : true,
+		'image/jpeg' : true,
+		'image/gif' : true
+};
+function previewImage() {
+	var upfile1 = document.getElementById("p_file");
+	upfile1.addEventListener("change", function(event) {
+		var files = event.target.files || event.dataTransfer.files;
+		for (var i = 0; i < files.length; i++) {
+			previewfile(files[i])
+		}
+	}, false);
+}
+function previewfile(file) {
+	if (filereader_support === true && acceptedTypes[file.type] === true) {
+		var reader = new FileReader();
+		reader.onload = function(event) {
+			var image = new Image();
+			image.src = event.target.result;
+			image.width = 100;
+			image.height = 75;
+			image.border = 2;
+			if (blob_holder.hasChildNodes()) {
+				blob_holder.removeChild(blob_holder.childNodes[0]);
+			}
+			blob_holder.appendChild(image);
+		};
+		reader.readAsDataURL(file);
+		document.getElementById('submit').disabled = false;
+	} else {
+		blob_holder.innerHTML = "<div  style='text-align: left;'>" + "● filename: " + file.name
+				+ "<br>" + "● ContentTyp: " + file.type
+				+ "<br>" + "● size: " + file.size + "bytes"
+				+ "<br>" + "● 上傳ContentType限制: <b> <font color=red>image/png、image/jpeg、image/gif </font></b></div>";
+		document.getElementById('submit').disabled = true;
+	}
+}
+</script>
+     
+     
+     
+</div><!--/. container-fluid -->
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+<!-- Control sidebar content goes here -->
+</aside>
+<!-- /.control-sidebar -->
 
 
-  </div>
-  <!-- ./wrapper -->
+</div>
+<!-- ./wrapper -->
 
-  <!-- REQUIRED SCRIPTS -->
-  <!-- jQuery -->
-  <script src="../../../plugins/jquery/jquery.min.js"></script>
-  <!-- Bootstrap -->
-  <script src="../../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- overlayScrollbars -->
-  <script src="../../../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-  <!-- AdminLTE App -->
-  <script src="../../../dist/js/adminlte.js"></script>
 
-  <!-- PAGE PLUGINS -->
-  <!-- jQuery Mapael -->
-  <script src="../../../../plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
-  <script src="../../../../plugins/raphael/raphael.min.js"></script>
-  <script src="../../../../plugins/jquery-mapael/jquery.mapael.min.js"></script>
-  <script src="../../../../plugins/jquery-mapael/maps/usa_states.min.js"></script>
-  <!-- ChartJS -->
-  <script src="../../../../plugins/chart.js/Chart.min.js"></script>
-
-  <!-- AdminLTE for demo purposes -->
-  <script src="../../../../dist/js/demo.js"></script>
-  <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-  <script src="../../../../dist/js/pages/dashboard2.js"></script>
 </body>
 
 </html>

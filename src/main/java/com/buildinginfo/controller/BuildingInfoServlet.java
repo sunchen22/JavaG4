@@ -107,13 +107,14 @@ public class BuildingInfoServlet extends HttpServlet {
 		
 		String name = req.getParameter("name");
 	    String address = req.getParameter("address");
+	    if(name != "" && address != "") {
 
 	    BuildingInfoDAOHibernateImpl bi = new BuildingInfoDAOHibernateImpl();
 	    bi.add(name,address);
 	    
-	    
+	    }
 		
-	    
+	    return;
 		
 	}
 
