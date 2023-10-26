@@ -5,7 +5,7 @@
 <%@ page import="com.dinerratingcomment.dao.*"%>
 <%@ page import="com.dinerinfo.dao.*"%>
 <%@ page import="com.dinerinfo.entity.*"%>
-<html>
+<html> 
 
 <head>
   <meta charset="utf-8">
