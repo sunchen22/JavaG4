@@ -9,6 +9,7 @@ import java.util.Date;
 import com.dinernews.dao.DinerNewsDAO;
 import com.dinernews.dao.DinerNewsDAOHibernateImpl;
 import com.dinernews.entity.DinerNews;
+import com.webempadmin.model.WebempadminVO;
 
 import java.text.Format;
 
@@ -18,8 +19,10 @@ public class TestHibernateDinerNewsDAO {
 		DinerNews dns = new DinerNews();
 		
 		//新增
-		dns.setDinerNewsContent("AAAAAAAAAAAAAAAAA");
-		
+		dns.setDinerNewsContent1("AAAAAAAAAAAAAAAAA");
+		dns.setDinerNewsContent2("AAAAAAAAAAAAAAAAA");
+		dns.setDinerNewsContent3("AAAAAAAAAAAAAAAAA");
+//		dns.setWebempadminvo(null);
 		Date d = new Date();
 		java.sql.Timestamp timestamp = new java.sql.Timestamp(d.getTime());
 		dns.setDinerNewsReleaseTime(timestamp);

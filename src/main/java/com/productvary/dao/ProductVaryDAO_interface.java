@@ -16,4 +16,6 @@ public interface ProductVaryDAO_interface {
 	public ProductVary findByPrimaryKey(Integer productVaryID);
 
 	public List<ProductVary> getAll();
+
+	public List<ProductVary> getByType();
 }

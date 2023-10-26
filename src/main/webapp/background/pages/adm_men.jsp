@@ -96,22 +96,10 @@ pageContext.setAttribute("list", list);
 				<nav class="mt-2">
 					<ul class="nav nav-pills nav-sidebar flex-column"
 						data-widget="treeview" role="menu" data-accordion="false">
-						<!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-
-<!-- 引入側邊欄 -->
+						
+ <!-- 引入側邊欄 -->
 <%@ include  file="pageaside.file" %>
 
-							<ul class="nav nav-pills nav-sidebar " data-accordion="false"
-								style="justify-content: flex-end">
-								<li class="col-sm-5">
-									<button id="logoutButton" type="button"
-										class="btn btn-block btn-outline-warning btn-sm">
-										<i class="fa fa-sign-out-alt  nav-icon"></i>登出
-									</button>
-								</li>
-							</ul>
-					</ul>
 				</nav>
 				<!-- /.sidebar-menu -->
 			</div>
@@ -185,12 +173,11 @@ pageContext.setAttribute("list", list);
 												<div>
 											</td>
 											<td>
-<%-- 刪除	 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/background/pages/emp.do" style="margin-bottom: 0px;"> --%>
-												<FORM METHOD="post" style="margin-bottom: 0px;" id="suspendbtn">
+
+												<FORM METHOD="post"  ACTION="<%=request.getContextPath()%>/background/pages/emp.do" style="margin-bottom: 0px;" id="suspendbtn">
 													<input type="submit" value="已離職" class="btn btn-danger btn-sm" > 
 													<input type="hidden" name="empID" value="${empIDVO.empID}" >
-<!-- 刪除	 <input type="hidden" name="action" value="delete"> -->
-
+													<input type="hidden" name="action" value="suspend">
 												</FORM>
 											</td>
 										</tr>
@@ -240,35 +227,10 @@ pageContext.setAttribute("list", list);
 	<script src="../dist/js/pages/dashboard3.js"></script>
 	<!-- AdminLTE App -->
 	<!-- <script src="../dist/js/adminlte.min.js"></script> -->
-	<!-- 縮小時,登出按鈕消失 -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-	<!-- 縮小時,登出按鈕消失 -->
-	<script>
-		function toggleLogoutButton() {
-			var logoutButton = document.getElementById("logoutButton");
-			if (logoutButton.style.display === "none") {
-				logoutButton.style.display = "block";
-			} else {
-				logoutButton.style.display = "none";
-			}
-		}
-	</script>
 	
-<!-- 停權 -->
-	<script>
-   
-    $("#suspendbtn").click(function(){
-    	console.log(123);
-    	$("#modifybtn").attr("disabled",true);
-    	$("#modifybtn2").attr("disabled",true);
-    	$("#modifybtn3").attr("disabled",true);
-    })
-   
-</script>
-
-
-
+ <!-- 引入selfjs -->
+<%@ include  file="pagejs.file" %>
+	
 
 </body>
 

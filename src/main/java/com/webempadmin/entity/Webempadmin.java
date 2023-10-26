@@ -1,13 +1,19 @@
 package com.webempadmin.entity;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.dinernews.entity.DinerNews;
+import com.usernews.entity.UserNews;
 
 @Entity
 @Table(name = "webempadmin")
@@ -16,6 +22,9 @@ public class Webempadmin {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "empID", updatable = false)
 	private Integer empID;
+	
+	@OneToMany(mappedBy = "webempadmin" , cascade = CascadeType.ALL)
+	private Set<DinerNews> webempadmin;
 	
 	@Column(name = "empName")
 	private String empName;
@@ -32,14 +41,19 @@ public class Webempadmin {
 	@Column(name = "empBlob" , columnDefinition = "longblob")
 	private byte[] empBlob;
 
-	@Column(name = "empDeactivate")
-	private boolean empDeactivate;
+	@Column(name = "empStatus")
+	private boolean empStatus;
 
+	
+	@OneToMany(mappedBy = "webempadmin" , cascade = CascadeType.ALL)
+	private Set<UserNews> webempadmin1;
+	
+	
 	public Webempadmin() {
 		super();
 	}
 
-	public Webempadmin(Integer empID, String empName, String empPassword, Date empArriveDate, String empAdminAuthorization, byte[] empBlob, boolean empDeactivate) {
+	public Webempadmin(Integer empID, String empName, String empPassword, Date empArriveDate, String empAdminAuthorization, byte[] empBlob, boolean empStatus , Set<DinerNews> webempadmin) {
 		super();
 		this.empID = empID;
 		this.empName = empName;
@@ -47,8 +61,18 @@ public class Webempadmin {
 		this.empArriveDate = empArriveDate;
 		this.empAdminAuthorization = empAdminAuthorization;
 		this.empBlob = empBlob;
-		this.empDeactivate = empDeactivate;
-		
+		this.empStatus = empStatus;
+		this.webempadmin = webempadmin;
+	}
+	
+	
+
+	public Set<DinerNews> getWebempadmin() {
+		return webempadmin;
+	}
+
+	public void setWebempadmin(Set<DinerNews> webempadmin) {
+		this.webempadmin = webempadmin;
 	}
 
 	public Integer getEmpID() {
@@ -89,14 +113,25 @@ public class Webempadmin {
 	}
 
 
-	public boolean getEmpDeactivate() {
-		return empDeactivate;
+
+	public boolean getEmpStatus() {
+		return empStatus;
+	}
+	public void setEmpStatus(boolean empStatus) {
+		this.empStatus = empStatus;
+
 	}
 
-	public void setEmpDeactivate(boolean empDeactivate) {
-		this.empDeactivate = empDeactivate;
-	}
+
 	
+	public Set<UserNews> getWebempadmin1() {
+		return webempadmin1;
+	}
+
+	public void setWebempadmin1(Set<UserNews> webempadmin1) {
+		this.webempadmin1 = webempadmin1;
+	}
+
 	@Override
 	public String toString() {
 		return "Webempadmin [empID=" + empID + ", empName=" + empName + ", empPassword=" + empPassword + ", empArriveDate=" + empArriveDate + ",empAdminAuthorization =" +empAdminAuthorization+"]";

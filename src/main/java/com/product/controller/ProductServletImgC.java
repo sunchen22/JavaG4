@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.product.dao.ProductDAOImplC;
 @WebServlet("/cproject/pages/psimg.do")
+
 public class ProductServletImgC extends HttpServlet {
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -28,15 +29,13 @@ public class ProductServletImgC extends HttpServlet {
 		Integer productID = Integer.parseInt(req.getParameter("productID"));
 		
 		
-		List<byte[]> b = new ProductDAOImplC().getImg(productID);
+		byte[] b = new ProductDAOImplC().getImg(productID);
 		
-		byte[] a = b.get(0);
-//		byte[] c = b.get(1);
-//		byte[] d = b.get(2);		
 		
-		out.write(a);
-//		out.write(c);
-//		out.write(d);
+		
+		
+		out.write(b);
+	
 		
 		
 }

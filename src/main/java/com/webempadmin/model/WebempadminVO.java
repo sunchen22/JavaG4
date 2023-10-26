@@ -19,8 +19,8 @@ public class WebempadminVO implements java.io.Serializable{
 	@Column(name = "empID")
 	private Integer empID;
 	
-	@OneToMany(mappedBy = "webempadminvo" , cascade = CascadeType.ALL)
-	private Set<DinerNews> webempadminvo;
+//	@OneToMany(mappedBy = "webempadmin" , cascade = CascadeType.ALL)
+//	private Set<DinerNews> webempadmin;
 
 	
 	private String empName;
@@ -29,6 +29,7 @@ public class WebempadminVO implements java.io.Serializable{
 	private String empAdminAuthorization;
 	@Column(name = "empBlob", columnDefinition = "longblob")
 	private byte[] empBlob;
+	private Integer empStatus;
 	
 //	public Integer getEmpID() {
 //		return empID;
@@ -37,9 +38,7 @@ public class WebempadminVO implements java.io.Serializable{
 //		this.empID = empID;
 //	}
 	
-	
-	
-	
+
 	
 	public String getEmpName() {
 		return empName;
@@ -59,16 +58,13 @@ public class WebempadminVO implements java.io.Serializable{
 	
 
 
-	
-
-
-	public Set<DinerNews> getWebempadminvo() {
-		return webempadminvo;
+	public Integer getEmpStatus() {
+		return empStatus;
 	}
 
 
-	public void setWebempadminvo(Set<DinerNews> webempadminvo) {
-		this.webempadminvo = webempadminvo;
+	public void setEmpStatus(Integer empStatus) {
+		this.empStatus = empStatus;
 	}
 
 

@@ -23,15 +23,6 @@
 
 
 </head>
-<!--
-`body` tag options:
-
-  Apply one or more of the following classes to to the body tag
-  to get the desired effect
-
-  * sidebar-collapse
-  * sidebar-mini
--->
 
 <body class="hold-transition sidebar-mini">
 	<div class="wrapper">
@@ -91,21 +82,10 @@
 				<nav class="mt-2">
 					<ul class="nav nav-pills nav-sidebar flex-column"
 						data-widget="treeview" role="menu" data-accordion="false">
-						<!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
 
-<!-- 引入側邊欄 -->
+ <!-- 引入側邊欄 -->
 <%@ include  file="pageaside.file" %>
 
-							<ul class="nav nav-pills nav-sidebar " data-accordion="false"
-								style="justify-content: flex-end">
-								<li class="col-sm-5">
-									<button id="logoutButton" type="button"
-										class="btn btn-block btn-outline-warning btn-sm">
-										<i class="fa fa-sign-out-alt  nav-icon"></i>登出
-									</button>
-								</li>
-							</ul>
 				</nav>
 				<!-- /.sidebar-menu -->
 			</div>
@@ -194,7 +174,7 @@
 			<!-- 以下預計放置搜尋出的畫面 -->
 			<div class="card">
 				<div class="card-body">
-				<p>這頁是results!!!!</p>
+				<p>這頁是複合查詢的results!!!!</p>
 <!-- 						<ul class="pagination justify-content-left "> -->
 <%-- 							<c:if test="${empPageQty > 0}"> --%>
 <%-- 						  		<b><font >第${currentPage}/${empPageQty}頁</font></b> --%>
@@ -208,12 +188,11 @@
 									<th>會員姓名</th>
 									<th>會員電話</th>
 									<th>修改</th>
-									<th>停權</th>
+<!-- 									<th>停權</th> -->
 								</tr>
 							</thead>
 							
 							<tbody>
-
 								<c:forEach var="user" items="${userinfoList}">
 									<tr>
 										<td>${user.userID}</td>
@@ -225,15 +204,15 @@
 												action="${pageContext.request.contextPath}/background/pages/user.do" style="margin-bottom: 0px;" id="modifybtn">
 												<input type="submit" value="修改" class="btn btn-warning btn-sm"> 
 													<input type="hidden" name="userID" value="${user.userID}" >
-													<input type="hidden" name="action" value="modifyuserinfo" >
+													<input type="hidden" name="action" value="getOne_For_Update" >
 											</FORM>
 										</td>
-										<td>
+<!-- 										<td> -->
 <!-- 											<FORM METHOD="post" style="margin-bottom: 0px;" -->
 <!-- 												id="suspendbtn" > -->
-													<input type="submit" value="停權" class="btn btn-danger btn-sm"> <input type="hidden" name="empID" value="${user.userID}">
+<%-- 													<input type="submit" value="停權" class="btn btn-danger btn-sm"> <input type="hidden" name="empID" value="${user.userID}"> --%>
 <!-- 											</FORM> -->
-										</td>
+<!-- 										</td> -->
 									</tr>
 								</c:forEach>
 
@@ -244,18 +223,6 @@
 <!-- ======= 底部頁數/頁碼 ======= -->
 <div class="card-footer bg-transparent ">
 	<ul class="pagination justify-content-center ">
-	<c:if test="${currentPage > 1}">
-		<a href="${pageContext.request.contextPath}/background/pages/user.do?action=update&page=1">至第一頁</a>&nbsp;
-	</c:if>
-	<c:if test="${currentPage - 1 != 0}">
-		<a href="${pageContext.request.contextPath}/background/pages/user.do?action=update&page=${currentPage - 1}">上一頁</a>&nbsp;
-	</c:if>
-	<c:if test="${currentPage + 1 <= empPageQty}">
-		<a href="${pageContext.request.contextPath}/background/pages/user.do?action=update&page=${currentPage + 1}">下一頁</a>&nbsp;
-	</c:if>
-	<c:if test="${currentPage != empPageQty}">
-		<a href="${pageContext.request.contextPath}/background/pages/user.do?action=update&page=${empPageQty}">至最後一頁</a>&nbsp;
-	</c:if>
 
 	</ul>
 </div>
@@ -294,30 +261,9 @@
 	<script src="../plugins/chart.js/Chart.min.js"></script>
 	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 	<!-- <script src="../dist/js/pages/dashboard3.js"></script> -->
-	<!-- 縮小時,登出按鈕消失 -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-	<!-- 縮小時,登出按鈕消失 -->
-	<script>
-		function toggleLogoutButton() {
-			var logoutButton = document.getElementById("logoutButton");
-			if (logoutButton.style.display === "none") {
-				logoutButton.style.display = "block";
-			} else {
-				logoutButton.style.display = "none";
-			}
-		}
-	</script>
 	
-	<!-- 點擊側邊的會員查詢時發動 -->
-	<script>
-        // 當按鈕被點擊時觸發此
-        document.getElementById("memBtn").addEventListener("click", function(event) {
-            event.preventDefault(); 
-            var url = "${pageContext.request.contextPath}/background/pages/user.do?action=getAll";
-            window.location.href = url;
-        });
-    </script>
+ <!-- 引入selfjs -->
+<%@ include  file="pagejs.file" %>
 
 </body>
 

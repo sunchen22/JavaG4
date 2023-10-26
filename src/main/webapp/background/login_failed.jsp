@@ -65,6 +65,7 @@
 						<!-- /.col -->
 				          <div class="col-4">
 				          	<input type="submit" value="登入" class="btn btn-warning btn-block" style="font-weight:bold">
+				          	<input type="hidden" name="action" value="login">
 				          </div>
 						<!-- /.col -->
 					</div>

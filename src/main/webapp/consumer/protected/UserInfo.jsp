@@ -43,9 +43,10 @@
 						</li>
 						<li class="nav-item"><a class="nav-link" id="v-pills-pwd-tab"
 							data-bs-toggle="pill" href="#v-pills-pwd">密碼修改</a></li>
-						<li class="nav-item"><a class="nav-link"
-							id="v-pills-favor-tab" data-bs-toggle="pill"
-							href="#v-pills-favor">最愛餐廳</a></li>
+<!-- 							最愛餐廳先隱藏 -->
+<!-- 						<li class="nav-item"><a class="nav-link" -->
+<!-- 							id="v-pills-favor-tab" data-bs-toggle="pill" -->
+<!-- 							href="#v-pills-favor">最愛餐廳</a></li> -->
 					</ul>
 				</div>
 			</div>
@@ -73,7 +74,8 @@
 							<label for="userName" class="col-form-label col-md-3">姓名：</label>
 							<div class="col-md-9">
 								<input type="hidden" name="userID"
-									value="${loginUserInfo.userID}"> <input type="text"
+									value="${loginUserInfo.userID}"> 
+								<input type="text"
 									class="form-control" id="userName" maxlength="20"
 									value="${loginUserInfo.userName}" name="userName">
 							</div>
@@ -124,20 +126,23 @@
 								<input type="file" class="form-control" id="userBlob"
 									name="userBlob" placeholder="請上傳個人照片"
 									onchange="previewImage(event)">
-								<%--  將byte[]轉換為Base64編碼的字符串--%>
-								<%
-								UserInfo loginUserInfo = (UserInfo) session.getAttribute("loginUserInfo");
-								String base64Image = "";
-								if (loginUserInfo != null) {
-									byte[] userBlobData = loginUserInfo.getUserBlob();
-									if (userBlobData != null) {
-										base64Image = Base64.getEncoder().encodeToString(userBlobData);
-									}
-								}
-								%>
+<%-- 								 將byte[]轉換為Base64編碼的字符串 --%>
+								<% 
+// 								UserInfo loginUserInfo = (UserInfo) session.getAttribute("loginUserInfo");
+// 								String base64Image = "";
+// 								if (loginUserInfo != null) {
+// 									byte[] userBlobData = loginUserInfo.getUserBlob();
+// 									if (userBlobData != null) {
+// 										base64Image = Base64.getEncoder().encodeToString(userBlobData);
+// 									}
+// 								}
+ 								%> 
 								<img id="previewBlob" alt="Image preview"
 									style="margin-top: 10px; max-width: 200px;"
-									src="<%=!base64Image.isEmpty() ? "data:image/jpeg;base64," + base64Image : ""%>" />
+									src="<%=request.getContextPath()%>/consumer/userDBGifReader?userID=${loginUserInfo.userID}"
+<%-- 									src="<%=!base64Image.isEmpty() ? "data:image/jpeg;base64," + base64Image : ""%>"  --%>
+									/>
+
 							</div>
 						</div>
 						<div class="d-grid">

@@ -1,0 +1,147 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<!-- 側邊欄主標要打開用class="nav-item menu-open" -->
+						<li class="nav-item">
+							<!-- 若要自動打開設定<a href="#" class="nav-link active"></a> -->
+								<a href="#" class="nav-link"> <i class="nav-icon fas fa-book"></i>
+								<p>
+									管理者管理 <i class="right fas fa-angle-left"></i>
+								</p>
+						</a>
+							<ul class="nav nav-treeview">
+								<li class="nav-item"><a href="<%=request.getContextPath()%>/background/pages/adm_sales.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>銷售狀況</p>
+								</a></li>
+								
+								<!-- 側邊欄次標要打開用class="nav-link active" -->
+								<li class="nav-item"><a href="<%=request.getContextPath()%>/background/pages/adm_men.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>管理者帳號管理</p>
+								</a></li>
+							</ul>
+						</li>
+
+						<li class="nav-item"><a href="#"
+							class="nav-link"> <i class="nav-icon fas fa-user"></i>
+								<p>
+									會員管理 <i class="fas fa-angle-left right"></i>
+								</p>
+						</a>
+							<ul class="nav nav-treeview">
+								<li class="nav-item" id="memBtn">
+								<a href="./mem_account.jsp" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
+										<p>會員資料查詢與變更</p>
+								</a></li>
+								<li class="nav-item"><a href="./mem_news.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>會員最新消息</p>
+								</a></li>
+
+							</ul></li>
+	
+						<li class="nav-item"><a href="#" class="nav-link"> <i
+								class="nav-icon fas fa-briefcase"></i>
+								<p>
+									商家管理 <i class="fas fa-angle-left right"></i>
+								</p>
+						</a>
+
+							<ul class="nav nav-treeview">
+								<!-- <li class="nav-header">商家列表查詢</li> -->
+								<li class="nav-item"><a href="<%=request.getContextPath()%>/cproject/pages/mer_list.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>商家列表查詢</p>
+								</a></li>
+								<li class="nav-item"><a href="<%=request.getContextPath()%>/cproject/pages/mer_application.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>商家申請審核</p>
+								</a></li>
+								<li class="nav-item"><a href="<%=request.getContextPath()%>/cproject/pages/mer_details.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>商家資料異動</p>
+								</a></li>
+
+								<li class="nav-item"><a href="<%=request.getContextPath()%>/cproject/pages/mer_product.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>商品審核</p>
+								</a></li>
+								<li class="nav-item"><a href="<%=request.getContextPath()%>/cproject/pages/mer_payment.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>金流報表</p>
+								</a></li>
+								<li class="nav-item"><a href="<%=request.getContextPath()%>/cproject/pages/mer_ad.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>商家廣告審核</p>
+								</a></li>
+								<li class="nav-item"><a href="<%=request.getContextPath()%>/cproject/pages/mer_news.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>給商家最新消息</p>
+								</a></li>
+
+							</ul></li>
+						<li class="nav-item"><a href="#" class="nav-link"> <i
+								class="nav-icon fas fa-edit"></i>
+								<p>
+									大樓資料管理 <i class="fas fa-angle-left right"></i>
+								</p>
+						</a>
+							<ul class="nav nav-treeview">
+								<li class="nav-item"><a href="<%=request.getContextPath()%>/cproject/pages/bldg_query.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>大樓資料查詢</p>
+								</a></li>
+								<li class="nav-item"><a href="<%=request.getContextPath()%>/cproject/pages/bldg_create.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>大樓地圖</p>
+								</a></li>
+								
+							</ul></li>
+						<li class="nav-item"><a href="#" class="nav-link"> <i
+								class="nav-icon fas fa-table"></i>
+								<p>
+									訂單管理 <i class="fas fa-angle-left right"></i>
+								</p>
+						</a>
+							<ul class="nav nav-treeview">
+								<li class="nav-item"><a href="<%=request.getContextPath()%>/cproject/pages/ord_query.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>訂單查詢</p>
+								</a></li>
+								<li class="nav-item"><a href="<%=request.getContextPath()%>/cproject/pages/ord_review.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>評論管理</p>
+								</a></li>
+
+							</ul></li>
+
+						<li class="nav-item"><a href="#" class="nav-link"> <!-- <i class="nav-icon fas fa-book"></i> -->
+								<i class="nav-icon fas fa-comment"></i>
+								<p>
+									客服系統 <i class="fas fa-angle-left right"></i>
+								</p>
+						</a>
+<!--							<ul class="nav nav-treeview">
+								<li class="nav-item"><a href="./FAQ_Page.html"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>FAQ頁面管理</p>
+								</a></li>
+								<li class="nav-item"><a href="./svr_mem_msg.html"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>系統留言管理</p>
+								</a></li>                          -->
+								<li class="nav-item"><a href="<%=request.getContextPath()%>/background/pages/svr_cust.jsp"
+									class="nav-link"> <i class="far fa-circle nav-icon"></i>
+										<p>線上客服訊息管理</p>
+								</a></li>
+							</ul></li>
+							 <ul class="nav nav-pills nav-sidebar " data-accordion="false" style="justify-content: flex-end">
+			                <li class="col-sm-5">
+			                 <form action="bglogin" method="post">
+			                  		<button id="logoutButton" type="submit"  class="btn btn-block btn-outline-warning btn-sm"> <i class="fa fa-sign-out-alt  nav-icon"></i>登出</button>
+			                  		<input type="hidden" name="action" value="signout" >
+			                 </form>
+			                </li>
+			              </ul>

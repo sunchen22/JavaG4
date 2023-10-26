@@ -22,15 +22,19 @@ public class WebempadminDAO implements WebempadminDAO_interface {
 	private static final String INSERT_STMT = 
 		"INSERT INTO webempadmin (empName,empPassword,empArriveDate,empAdminAuthorization,empBlob) VALUES ( ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
-		"SELECT empID,empName,empPassword,empArriveDate,empAdminAuthorization,empBlob FROM webempadmin order by empID";
+		"SELECT empID,empName,empPassword,empArriveDate,empAdminAuthorization,empBlob FROM webempadmin WHERE empStatus=0 order by empID";
 	private static final String GET_ONE_STMT = 
 		"SELECT empID,empName,empPassword,empArriveDate,empAdminAuthorization,empBlob FROM webempadmin where empID = ?";
 	private static final String DELETE = 
 		"DELETE FROM webempadmin where empID = ?";
+	private static final String SUSPEND = 
+		"UPDATE webempadmin set empStatus=?  where empID = ?";
 	private static final String UPDATE = 
 		"UPDATE webempadmin set empName=?, empPassword=?, empArriveDate=?, empAdminAuthorization=? ,empBlob=? where empID = ?";
 	private static final String GET_EMP_STMT = 
-			"SELECT empName,empPassword FROM webempadmin where empName = ?";
+		"SELECT empName,empPassword FROM webempadmin where empName = ?";
+	private static final String GET_EMPSTATUS_STMT = 
+		"SELECT empName,empStatus FROM webempadmin where empName = ?";
 
 	@Override
 	public void insert(WebempadminVO empVO) {
@@ -170,6 +174,47 @@ public class WebempadminDAO implements WebempadminDAO_interface {
 		}
 
 	}
+	
+	@Override //停權:改變status狀態
+	public void suspend(Integer empID) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(SUSPEND );
+			
+			pstmt.setInt(1, 1);
+			pstmt.setInt(2, empID);
+
+			pstmt.executeUpdate();
+
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
 
 	@Override
 	public WebempadminVO findByPrimaryKey(Integer empID) {
@@ -252,6 +297,63 @@ public class WebempadminDAO implements WebempadminDAO_interface {
 				empVO.setEmpName(rs.getString("empName"));
 				empVO.setEmpPassword(rs.getString("empPassword"));
 				emp.put(empVO.getEmpName(), empVO.getEmpPassword());
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return emp;
+	}
+	
+	@Override
+	public Map<String,Integer> findEmpStatus(String empName) {
+		WebempadminVO empVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Map<String, Integer> emp = new HashMap<>();
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_EMPSTATUS_STMT);
+			pstmt.setString(1, empName);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				empVO = new WebempadminVO();
+				empVO.setEmpName(rs.getString("empName"));
+				empVO.setEmpStatus(rs.getInt("empStatus"));
+				emp.put(empVO.getEmpName(), empVO.getEmpStatus());
 			}
 
 			// Handle any driver errors

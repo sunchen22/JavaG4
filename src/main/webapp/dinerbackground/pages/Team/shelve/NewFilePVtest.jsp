@@ -31,14 +31,15 @@ pageContext.setAttribute("list", PVlist);
 
 	<FORM METHOD="post" ACTION="productVary.do" name="form1">
 		<table>
-			<tr>
-			<tr>
+			
 			<tr>
 				<td>商品編號:</td>
 				<td><input type="TEXT" name="productID"
 					value="${param.productID}" size="45" /></td>
 				<td>${errorMsgs.productID}</td>
 			</tr>
+			
+			
 			<tr>
 				<td>客製項目:</td>
 				<td><input type="TEXT" name="productVaryDes"
@@ -46,22 +47,29 @@ pageContext.setAttribute("list", PVlist);
 				<td>${errorMsgs.productVaryDes}</td>
 			</tr>
 
+
 			<tr>
 				<td>客製金額:</td>
 				<td><input type="TEXT" name="productVaryPrice"
 					value="${param.productVaryPrice}" size="45" /></td>
 				<td>${errorMsgs.productVaryPrice}</td>
 			</tr>
+			
+			
 			<tr>
 				<td>客制分類:</td>
 				<td><input type="TEXT" name="varyTypeID"
 					value="${param.varyTypeID}" size="45" /></td>
 				<td>${errorMsgs.varyTypeID}</td>
 			</tr>
-
-				<td><input type="hidden" name="action" value="insert">
-					<input type="submit" value="新增客製選項"></td>
+			
+			
+			<tr>
+				<td><input type="hidden" name="action" value="insert"></td>
+				<td><input type="submit" value="新增客製選項"></td>
 			</tr>
+			
+			
 		</table>
 	</FORM>
 
@@ -75,6 +83,12 @@ pageContext.setAttribute("list", PVlist);
 			<tr>
 			<tr>
 				<td>商品編號:</td>
+				<td><input type="TEXT" name="productVaryID"
+					value="${param.productVaryID}" size="45" /></td>
+				<td>${errorMsgs.productID}</td>
+			</tr>
+			<tr>
+				<td>商品編號:</td>
 				<td><input type="TEXT" name="productID"
 					value="${param.productID}" size="45" /></td>
 				<td>${errorMsgs.productID}</td>
@@ -102,9 +116,8 @@ pageContext.setAttribute("list", PVlist);
 
 
 		</table>
-		<br> <input type="hidden" name="action" value="update"> <input
-			type="hidden" name="productVaryID" value="6"> <input
-			type="submit" value="送出修改">
+		<br> <input type="hidden" name="action" value="update"> 
+			 <input type="submit" value="送出修改">
 	</FORM>
 
 

@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.product.dao.ProductDAO;
 import com.product.dao.ProductDAO_interface;
-import com.product.entity.Product;
+import com.product.entity.ProductVO;
 
 public class ProductService {
 
@@ -15,10 +15,10 @@ public class ProductService {
 		dao = new ProductDAO();
 	}
 
-	public Product addProduct(Integer dinerID, String productName, Integer productPrice, Integer productTypeID,
-			Integer productDailyStock, String productRemark) {
+	public ProductVO addProduct(Integer dinerID, String productName, Integer productPrice, Integer productTypeID,
+			Integer productDailyStock, String productRemark,byte[] productBlob1,byte[] productBlob2,byte[] productBlob3) {
 
-		Product product = new Product();
+		ProductVO product = new ProductVO();
 
 		product.setDinerID(dinerID);
 		product.setProductName(productName);
@@ -26,15 +26,18 @@ public class ProductService {
 		product.setProductTypeID(productTypeID);
 		product.setProductDailyStock(productDailyStock);
 		product.setProductRemark(productRemark);
+		product.setProductBlob1(productBlob1);
+		product.setProductBlob2(productBlob2);
+		product.setProductBlob3(productBlob3);
 		dao.insert(product);
 
 		return product;
 	}
 
-	public Product updateProduct(Integer productID, Integer dinerID, String productName, Integer productPrice,
-			Integer productTypeID, Integer productDailyStock, String productRemark) {
+	public ProductVO updateProduct(Integer productID, Integer dinerID, String productName, Integer productPrice,
+			Integer productTypeID, Integer productDailyStock, String productRemark,byte[] productBlob1,byte[] productBlob2,byte[] productBlob3) {
 
-		Product product = new Product();
+		ProductVO product = new ProductVO();
 
 		product.setProductID(productID);
 		product.setDinerID(dinerID);
@@ -43,6 +46,10 @@ public class ProductService {
 		product.setProductTypeID(productTypeID);
 		product.setProductDailyStock(productDailyStock);
 		product.setProductRemark(productRemark);
+		product.setProductBlob1(productBlob1);
+		product.setProductBlob2(productBlob2);
+		product.setProductBlob3(productBlob3);
+
 		dao.update(product);
 
 		return dao.findByPrimaryKey(productID);
@@ -51,12 +58,34 @@ public class ProductService {
 	public void deleteProduct(Integer productID) {
 		dao.delete(productID);
 	}
+	
 
-	public Product getOneProduct(Integer productID) {
+	public ProductVO getOneProduct(Integer productID) {
 		return dao.findByPrimaryKey(productID);
 	}
+	
+	//從類型找
+	public ProductVO getOneProductByType(Integer productTypeID) {
+		return dao.findByPrimaryKey(productTypeID);
+	}
 
-	public List<Product> getAll() {
+	
+	public List<ProductVO> getAll() {
 		return dao.getAll();
+	}
+	
+	public List<ProductVO> getByType() {
+		return dao.getByType();
+	}
+	//下架
+	public void offShelveProduct(Integer productID,String productStatus) {
+		ProductVO product = new ProductVO();
+
+		product.setProductID(productID);
+
+		product.setProductStatus(productStatus);
+
+		dao.offshelve(product);
+
 	}
 }
