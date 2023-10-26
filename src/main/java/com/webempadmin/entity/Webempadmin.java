@@ -107,13 +107,17 @@ public class Webempadmin {
 	}
 
 
-	public void setEmpStatus(boolean empStatus) {
-		this.empStatus = empStatus;
-	}
 
 	public boolean getEmpStatus() {
 		return empStatus;
 	}
+	public void setEmpStatus(boolean empStatus) {
+		this.empStatus = empStatus;
+
+	}
+
+
+	
 	
 	@Override
 	public String toString() {

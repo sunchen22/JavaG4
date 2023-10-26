@@ -1,8 +1,6 @@
 package com.dinerinfo.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,7 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.dinerinfo.dao.DinerInfoDAOImplC;
 import com.dinerinfo.entity.DinerInfo;
-import com.google.gson.JsonObject;
+
+import test.MailService;
 
 @WebServlet("/cproject/pages/difs.do")
 public class DinerInfoServletC extends HttpServlet {
@@ -168,6 +167,11 @@ public class DinerInfoServletC extends HttpServlet {
 			if(dif!=null) {
 				
 				dif.setDinerStatus("Active");
+				System.out.println(dif.getDinerEmail()); 
+				MailService m = new MailService();
+				m.sendMail(dif.getDinerEmail(), "通知", "測試");
+				
+				
 				
 				
 			}

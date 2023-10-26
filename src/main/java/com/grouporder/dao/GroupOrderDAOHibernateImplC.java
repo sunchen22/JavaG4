@@ -15,7 +15,7 @@ import util.HibernateUtil;
 
 public class GroupOrderDAOHibernateImplC implements GroupOrderDAOC{
 
-	
+	@Override
 	public List<GroupOrder> getAll(Integer dinerID) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		
@@ -35,7 +35,7 @@ public class GroupOrderDAOHibernateImplC implements GroupOrderDAOC{
 		
 		return null;
 	}
-	
+	@Override
 	public byte[] getImg(Integer groupOrderID) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		

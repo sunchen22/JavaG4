@@ -21,10 +21,10 @@ public class GroupOrderServletImgC extends HttpServlet {
 		res.setContentType("image/gif");
 		ServletOutputStream out = res.getOutputStream();
 		
-		Integer groupID = Integer.parseInt(req.getParameter("groupID"));
+		Integer groupOrderID = Integer.parseInt(req.getParameter("groupOrderID"));
 		
 		
-		byte[] b = new GroupOrderDAOHibernateImplC().getImg(groupID);
+		byte[] b = new GroupOrderDAOHibernateImplC().getImg(groupOrderID);
 		
 		out.write(b);
 		
