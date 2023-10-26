@@ -9,7 +9,7 @@ import com.dinernews.entity.DinerNews;
 import util.HibernateUtil;
 
 public class DinerNewsDAOHibernateImpl implements DinerNewsDAO {
-	
+	@Override
 	public int add(DinerNews dns) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
@@ -26,7 +26,7 @@ public class DinerNewsDAOHibernateImpl implements DinerNewsDAO {
 		return -1;
 
 	}
-
+	@Override
 	public int update(DinerNews dns) {
 
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -42,7 +42,7 @@ public class DinerNewsDAOHibernateImpl implements DinerNewsDAO {
 		}
 		return -1;
 	}
-	
+	@Override
 	public int down(Integer dinerNewsID) {
 
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -61,7 +61,7 @@ public class DinerNewsDAOHibernateImpl implements DinerNewsDAO {
 		return -1;
 	}
 	
-	
+	@Override
 	public List<DinerNews> getAll() {
 
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();

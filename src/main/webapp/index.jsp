@@ -52,6 +52,9 @@
         </li>
 
       </ul>
+      
+      
+      
     </nav>
     <!-- /.navbar -->
 
@@ -95,218 +98,222 @@
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
 
-            <!-- 側邊欄主標要打開用class="nav-item menu-open" -->
-            <li class="nav-item">
-              <!-- 若要自動打開設定<a href="#" class="nav-link active"></a> -->
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-book"></i>
-                <p>
-                  管理者管理
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="./pages/adm_sales.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>銷售狀況</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="./pages/adm_people.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>線上會員人數</p>
-                  </a>
-                </li>
-                <!-- 側邊欄次標要打開用class="nav-link active" -->
-                <li class="nav-item">
-                  <a href="./pages/adm_men.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>管理者帳號管理</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
+<!--             側邊欄主標要打開用class="nav-item menu-open" -->
+<!--             <li class="nav-item"> -->
+<!--               若要自動打開設定<a href="#" class="nav-link active"></a> -->
+<!--               <a href="#" class="nav-link"> -->
+<!--                 <i class="nav-icon fas fa-book"></i> -->
+<!--                 <p> -->
+<!--                   管理者管理 -->
+<!--                   <i class="right fas fa-angle-left"></i> -->
+<!--                 </p> -->
+<!--               </a> -->
+<!--               <ul class="nav nav-treeview"> -->
+<!--                 <li class="nav-item"> -->
+<!--                   <a href="./pages/adm_sales.html" class="nav-link"> -->
+<!--                     <i class="far fa-circle nav-icon"></i> -->
+<!--                     <p>銷售狀況</p> -->
+<!--                   </a> -->
+<!--                 </li> -->
+<!--                 <li class="nav-item"> -->
+<!--                   <a href="./pages/adm_people.html" class="nav-link"> -->
+<!--                     <i class="far fa-circle nav-icon"></i> -->
+<!--                     <p>線上會員人數</p> -->
+<!--                   </a> -->
+<!--                 </li> -->
+<!--                 側邊欄次標要打開用class="nav-link active" -->
+<!--                 <li class="nav-item"> -->
+<!--                   <a href="./pages/adm_men.html" class="nav-link"> -->
+<!--                     <i class="far fa-circle nav-icon"></i> -->
+<!--                     <p>管理者帳號管理</p> -->
+<!--                   </a> -->
+<!--                 </li> -->
+<!--               </ul> -->
+<!--             </li> -->
 
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-user"></i>
-                <p>
-                  會員管理
-                  <i class="fas fa-angle-left right"></i>
-                  <!-- 可省略/側邊欄的綠色標示提醒 -->
-                  <!-- <span class="badge badge-info right">6</span> -->
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="./pages/mem_account.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>會員帳號查詢</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="./pages/mem_profile.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>會員資料與權限變更</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="./pages/mem_news.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>會員最新消息</p>
-                  </a>
-                </li>
+<!--             <li class="nav-item"> -->
+<!--               <a href="#" class="nav-link"> -->
+<!--                 <i class="nav-icon fas fa-user"></i> -->
+<!--                 <p> -->
+<!--                   會員管理 -->
+<!--                   <i class="fas fa-angle-left right"></i> -->
+<!--                   可省略/側邊欄的綠色標示提醒 -->
+<!--                   <span class="badge badge-info right">6</span> -->
+<!--                 </p> -->
+<!--               </a> -->
+<!--               <ul class="nav nav-treeview"> -->
+<!--                 <li class="nav-item"> -->
+<!--                   <a href="./pages/mem_account.html" class="nav-link"> -->
+<!--                     <i class="far fa-circle nav-icon"></i> -->
+<!--                     <p>會員帳號查詢</p> -->
+<!--                   </a> -->
+<!--                 </li> -->
+<!--                 <li class="nav-item"> -->
+<!--                   <a href="./pages/mem_profile.html" class="nav-link"> -->
+<!--                     <i class="far fa-circle nav-icon"></i> -->
+<!--                     <p>會員資料與權限變更</p> -->
+<!--                   </a> -->
+<!--                 </li> -->
+<!--                 <li class="nav-item"> -->
+<!--                   <a href="./pages/mem_news.html" class="nav-link"> -->
+<!--                     <i class="far fa-circle nav-icon"></i> -->
+<!--                     <p>會員最新消息</p> -->
+<!--                   </a> -->
+<!--                 </li> -->
 
-              </ul>
-            </li>
+<!--               </ul> -->
+<!--             </li> -->
 
 
 
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-briefcase"></i>
-                <p>
-                  商家管理
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-
-              
-
-              <ul class="nav nav-treeview">
-                <!-- <li class="nav-header">商家列表查詢</li> -->
-                <li class="nav-item">
-                  
-                  <a href="<%=request.getContextPath()%>/cproject/pages/mer_list.jsp" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>商家列表查詢</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="<%=request.getContextPath()%>/cproject/pages/mer_application.jsp" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>商家申請審核</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="<%=request.getContextPath()%>/cproject/pages/mer_details.jsp" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>商家資料異動</p>
-                  </a>
-                </li>
-                
-                <li class="nav-item">
-                  <a href="<%=request.getContextPath()%>/cproject/pages/mer_product.jsp" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>商品審核</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="<%=request.getContextPath()%>/cproject/pages/mer_payment.jsp" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>金流報表</p>
-                  </a>
-                  
-                </li>
+<!--             <li class="nav-item"> -->
+<!--               <a href="#" class="nav-link"> -->
+<!--                 <i class="nav-icon fas fa-briefcase"></i> -->
+<!--                 <p> -->
+<!--                   商家管理 -->
+<!--                   <i class="fas fa-angle-left right"></i> -->
+<!--                 </p> -->
+<!--               </a> -->
 
               
 
+<!--               <ul class="nav nav-treeview"> -->
+<!--                 <li class="nav-header">商家列表查詢</li> -->
+<!--                 <li class="nav-item"> -->
+                  
+<%--                   <a href="<%=request.getContextPath()%>/cproject/pages/mer_list.jsp" class="nav-link"> --%>
+<!--                     <i class="far fa-circle nav-icon"></i> -->
+<!--                     <p>商家列表查詢</p> -->
+<!--                   </a> -->
+<!--                 </li> -->
+<!--                 <li class="nav-item"> -->
+<%--                   <a href="<%=request.getContextPath()%>/cproject/pages/mer_application.jsp" class="nav-link"> --%>
+<!--                     <i class="far fa-circle nav-icon"></i> -->
+<!--                     <p>商家申請審核</p> -->
+<!--                   </a> -->
+<!--                 </li> -->
+<!--                 <li class="nav-item"> -->
+<%--                   <a href="<%=request.getContextPath()%>/cproject/pages/mer_details.jsp" class="nav-link"> --%>
+<!--                     <i class="far fa-circle nav-icon"></i> -->
+<!--                     <p>商家資料異動</p> -->
+<!--                   </a> -->
+<!--                 </li> -->
+                
+<!--                 <li class="nav-item"> -->
+<%--                   <a href="<%=request.getContextPath()%>/cproject/pages/mer_product.jsp" class="nav-link"> --%>
+<!--                     <i class="far fa-circle nav-icon"></i> -->
+<!--                     <p>商品審核</p> -->
+<!--                   </a> -->
+<!--                 </li> -->
+<!--                 <li class="nav-item"> -->
+<%--                   <a href="<%=request.getContextPath()%>/cproject/pages/mer_payment.jsp" class="nav-link"> --%>
+<!--                     <i class="far fa-circle nav-icon"></i> -->
+<!--                     <p>金流報表</p> -->
+<!--                   </a> -->
+                  
+<!--                 </li> -->
+
+              
+
                 
 
                 
-                <li class="nav-item">
-                  <a href="<%=request.getContextPath()%>/cproject/pages/mer_ad.jsp" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>商家廣告審核</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="<%=request.getContextPath()%>/cproject/pages/mer_news.jsp" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>給商家最新消息</p>
-                  </a>
-                </li>
+<!--                 <li class="nav-item"> -->
+<%--                   <a href="<%=request.getContextPath()%>/cproject/pages/mer_ad.jsp" class="nav-link"> --%>
+<!--                     <i class="far fa-circle nav-icon"></i> -->
+<!--                     <p>商家廣告審核</p> -->
+<!--                   </a> -->
+<!--                 </li> -->
+<!--                 <li class="nav-item"> -->
+<%--                   <a href="<%=request.getContextPath()%>/cproject/pages/mer_news.jsp" class="nav-link"> --%>
+<!--                     <i class="far fa-circle nav-icon"></i> -->
+<!--                     <p>給商家最新消息</p> -->
+<!--                   </a> -->
+<!--                 </li> -->
 
-              </ul>
-            </li>
-
-
+<!--               </ul> -->
+<!--             </li> -->
 
 
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-edit"></i>
-                <p>
-                  大樓資料管理
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="<%=request.getContextPath()%>/cproject/pages/bldg_query.jsp" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>大樓資料查詢</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="<%=request.getContextPath()%>/cproject/pages/bldg_create.jsp" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>建立新大樓</p>
-                  </a>
-                </li>
+
+
+<!--             <li class="nav-item"> -->
+<!--               <a href="#" class="nav-link"> -->
+<!--                 <i class="nav-icon fas fa-edit"></i> -->
+<!--                 <p> -->
+<!--                   大樓資料管理 -->
+<!--                   <i class="fas fa-angle-left right"></i> -->
+<!--                 </p> -->
+<!--               </a> -->
+<!--               <ul class="nav nav-treeview"> -->
+<!--                 <li class="nav-item"> -->
+<%--                   <a href="<%=request.getContextPath()%>/cproject/pages/bldg_query.jsp" class="nav-link"> --%>
+<!--                     <i class="far fa-circle nav-icon"></i> -->
+<!--                     <p>大樓資料查詢</p> -->
+<!--                   </a> -->
+<!--                 </li> -->
+<!--                 <li class="nav-item"> -->
+<%--                   <a href="<%=request.getContextPath()%>/cproject/pages/bldg_create.jsp" class="nav-link"> --%>
+<!--                     <i class="far fa-circle nav-icon"></i> -->
+<!--                     <p>建立新大樓</p> -->
+<!--                   </a> -->
+<!--                 </li> -->
                
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-table"></i>
-                <p>
-                  訂單管理
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="<%=request.getContextPath()%>/cproject/pages/ord_query.jsp" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>訂單查詢</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="<%=request.getContextPath()%>/cproject/pages/ord_review.jsp" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>評論管理</p>
-                  </a>
-                </li>
+<!--               </ul> -->
+<!--             </li> -->
+<!--             <li class="nav-item"> -->
+<!--               <a href="#" class="nav-link"> -->
+<!--                 <i class="nav-icon fas fa-table"></i> -->
+<!--                 <p> -->
+<!--                   訂單管理 -->
+<!--                   <i class="fas fa-angle-left right"></i> -->
+<!--                 </p> -->
+<!--               </a> -->
+<!--               <ul class="nav nav-treeview"> -->
+<!--                 <li class="nav-item"> -->
+<%--                   <a href="<%=request.getContextPath()%>/cproject/pages/ord_query.jsp" class="nav-link"> --%>
+<!--                     <i class="far fa-circle nav-icon"></i> -->
+<!--                     <p>訂單查詢</p> -->
+<!--                   </a> -->
+<!--                 </li> -->
+<!--                 <li class="nav-item"> -->
+<%--                   <a href="<%=request.getContextPath()%>/cproject/pages/ord_review.jsp" class="nav-link"> --%>
+<!--                     <i class="far fa-circle nav-icon"></i> -->
+<!--                     <p>評論管理</p> -->
+<!--                   </a> -->
+<!--                 </li> -->
 
-              </ul>
-            </li>
+<!--               </ul> -->
+<!--             </li> -->
 
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <!-- <i class="nav-icon fas fa-book"></i> -->
-                <i class="nav-icon fas fa-comment"></i>
-                <p>
-                  客服系統
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="./pages/FAQ_Page.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>FAQ頁面管理</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="./pages/svr_cust.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>訊息管理</p>
-                  </a>
-                </li>
+<!--             <li class="nav-item"> -->
+<!--               <a href="#" class="nav-link"> -->
+<!--                 <i class="nav-icon fas fa-book"></i> -->
+<!--                 <i class="nav-icon fas fa-comment"></i> -->
+<!--                 <p> -->
+<!--                   客服系統 -->
+<!--                   <i class="fas fa-angle-left right"></i> -->
+<!--                 </p> -->
+<!--               </a> -->
+<!--               <ul class="nav nav-treeview"> -->
+<!--                 <li class="nav-item"> -->
+<!--                   <a href="./pages/FAQ_Page.html" class="nav-link"> -->
+<!--                     <i class="far fa-circle nav-icon"></i> -->
+<!--                     <p>FAQ頁面管理</p> -->
+<!--                   </a> -->
+<!--                 </li> -->
+<!--                 <li class="nav-item"> -->
+<!--                   <a href="./pages/svr_cust.html" class="nav-link"> -->
+<!--                     <i class="far fa-circle nav-icon"></i> -->
+<!--                     <p>訊息管理</p> -->
+<!--                   </a> -->
+<!--                 </li> -->
 
-              </ul>
+<!--               </ul> -->
+              
+              
+              
+<%@ include  file="./background/pages/pageaside.file" %>            
         </nav>
         <!-- /.sidebar-menu -->
       </div>
@@ -366,6 +373,8 @@
   
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
   <script src="<%=request.getContextPath()%>/cproject/dist/js/pages/dashboard3.js"></script>
+  
+  <%@ include  file="/background/pages/pagejs.file" %>
 </body>
 
 </html>

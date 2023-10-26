@@ -67,54 +67,30 @@ public class MerchantSalesChartServlet extends HttpServlet {
     }
         
         
-//        List<Tuple> results = new GroupOrderDAOHibernateImplC().getAllOrderPrice(1);
-//        for (Tuple result : results) {
-////            Date orderDate = result.get("orderDate", Date.class);
-//            double totalSales = result.get("totalSales", BigDecimal.class).doubleValue();
-//
-////            System.out.println("Order Date: " + orderDate);
-//            System.out.println("Total Sales: " + totalSales);
-//        }
-//
-//        
-//    
-//        
-//        
-//        
-//        for (int i = 0 ; i < 7 ; i++) { // 从当前日期的前七天到前一天
-//            double sales = 5000 + Math.random() * 5000;            
-//            Date currentDate = calendar.getTime();
-//            SimpleDateFormat sdf = new SimpleDateFormat("MM-dd");
-//            String formattedDate = sdf.format(currentDate);           
-//            dataset.addValue(sales, "Sales", formattedDate);
-//            calendar.add(Calendar.DAY_OF_MONTH , 1);
-//        }
-//        
-//        return dataset;
-//    }
+//       
 
     private JFreeChart createChart(CategoryDataset dataset) {
         JFreeChart chart = ChartFactory.createLineChart(
-                "Chart", // 图表标题
-                "", // X轴标题
-                "", // Y轴标题
-                dataset, // 数据集
-                PlotOrientation.VERTICAL, // 图表方向
-                true, // 是否显示图例
-                true, // 是否生成工具
-                false // 是否生成URL链接
+                "Chart", 
+                "", 
+                "", 
+                dataset, 
+                PlotOrientation.VERTICAL, 
+                true, 
+                true, 
+                false
         );
 
         CategoryPlot plot = chart.getCategoryPlot();
-        plot.setBackgroundPaint(Color.WHITE); // 设置图表背景为白色
+        plot.setBackgroundPaint(Color.white); 
         plot.setRangeGridlinePaint(Color.white);
         plot.setRangeGridlineStroke(new BasicStroke(1.0f));
 
         LineAndShapeRenderer renderer = (LineAndShapeRenderer) plot.getRenderer();
         renderer.setBaseShapesVisible(true);
         renderer.setBaseShapesFilled(true);
-        renderer.setBaseSeriesVisible(true); // 使線條可見
-        renderer.setSeriesPaint(0, Color.BLUE); // 設定線條的顏色為藍色
+        renderer.setBaseSeriesVisible(true); 
+        renderer.setSeriesPaint(0, Color.blue); 
         renderer.setSeriesStroke(0, new BasicStroke(4.0f));
         renderer.setUseFillPaint(true);
         renderer.setBaseFillPaint(Color.white);

@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.product.dao.ProductDAOImplC;
-@WebServlet("/cproject/pages/psimg.do")
+@WebServlet("/cproject/pages/psimg2.do")
 
-public class ProductServletImgC extends HttpServlet {
+public class ProductServletImgC2 extends HttpServlet {
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
@@ -29,7 +29,7 @@ public class ProductServletImgC extends HttpServlet {
 		Integer productID = Integer.parseInt(req.getParameter("productID"));
 		
 		
-		byte[] b = new ProductDAOImplC().getImg(productID);
+		byte[] b = new ProductDAOImplC().getImg2(productID);
 		
 		
 		

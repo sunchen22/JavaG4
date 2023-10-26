@@ -1,4 +1,4 @@
-package com.product.controller;
+package com.advertisement.controller;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -11,10 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.advertisement.dao.AdvertisementDAOHibernateImplC;
 import com.product.dao.ProductDAOImplC;
-@WebServlet("/cproject/pages/psimg.do")
+@WebServlet("/cproject/pages/adc.do")
 
-public class ProductServletImgC extends HttpServlet {
+public class AdvertisementServletImgC extends HttpServlet {
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
@@ -26,10 +27,10 @@ public class ProductServletImgC extends HttpServlet {
 		ServletOutputStream out = res.getOutputStream();
 		
 		
-		Integer productID = Integer.parseInt(req.getParameter("productID"));
+		Integer advertisementID = Integer.parseInt(req.getParameter("advertisementID"));
 		
 		
-		byte[] b = new ProductDAOImplC().getImg(productID);
+		byte[] b = new AdvertisementDAOHibernateImplC().getImg(advertisementID);
 		
 		
 		

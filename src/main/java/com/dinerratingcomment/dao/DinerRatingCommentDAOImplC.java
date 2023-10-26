@@ -12,7 +12,7 @@ import com.dinerratingcomment.entity.DinerRatingComment;
 import util.HibernateUtil;
 
 public class DinerRatingCommentDAOImplC implements DinerRatingCommentDAOC {
-	
+	@Override
 	public int delete(Integer commentID) {
 		
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -36,7 +36,7 @@ public class DinerRatingCommentDAOImplC implements DinerRatingCommentDAOC {
 	}
 
 	
-	
+	@Override
 	public DinerRatingComment findByPK(Integer commentID) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
@@ -85,7 +85,7 @@ public class DinerRatingCommentDAOImplC implements DinerRatingCommentDAOC {
 //	}
 	
 	
-	
+	@Override
 	public List<DinerRatingComment> getAll(Integer dinerID){
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {

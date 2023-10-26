@@ -75,6 +75,14 @@
 		</dependency>
 		
 		
+		
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+		
+		
     
     
     <dependency>
@@ -83,6 +91,12 @@
         <version>1.0.19</version> <!-- 使用最新版本 -->
     </dependency>
 
+
+	<dependency>
+        <groupId>org.json</groupId>
+        <artifactId>json</artifactId>
+        <version>20210307</version>
+    </dependency>
 
 
 	</dependencies>

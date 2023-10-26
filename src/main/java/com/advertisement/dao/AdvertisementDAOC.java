@@ -19,5 +19,5 @@ public interface AdvertisementDAOC {
 //	List<Advertisement> getDinerInfoDeactivatedAD(Integer dinerID);
 	
 	Advertisement update(Integer advertisementID);
-	
+	byte[] getImg(Integer advertisementID);
 }

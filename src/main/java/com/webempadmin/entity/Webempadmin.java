@@ -40,14 +40,14 @@ public class Webempadmin {
 	@Column(name = "empBlob" , columnDefinition = "longblob")
 	private byte[] empBlob;
 
-	@Column(name = "empDeactivate")
-	private boolean empDeactivate;
+	@Column(name = "empStatus")
+	private boolean empStatus;
 
 	public Webempadmin() {
 		super();
 	}
 
-	public Webempadmin(Integer empID, String empName, String empPassword, Date empArriveDate, String empAdminAuthorization, byte[] empBlob, boolean empDeactivate , Set<DinerNews> webempadmin) {
+	public Webempadmin(Integer empID, String empName, String empPassword, Date empArriveDate, String empAdminAuthorization, byte[] empBlob, boolean empStatus , Set<DinerNews> webempadmin) {
 		super();
 		this.empID = empID;
 		this.empName = empName;
@@ -55,7 +55,7 @@ public class Webempadmin {
 		this.empArriveDate = empArriveDate;
 		this.empAdminAuthorization = empAdminAuthorization;
 		this.empBlob = empBlob;
-		this.empDeactivate = empDeactivate;
+		this.empStatus = empStatus;
 		this.webempadmin = webempadmin;
 	}
 	
@@ -107,12 +107,12 @@ public class Webempadmin {
 	}
 
 
-	public boolean getEmpDeactivate() {
-		return empDeactivate;
+	public boolean getEmpStatus() {
+		return empStatus;
 	}
 
-	public void setEmpDeactivate(boolean empDeactivate) {
-		this.empDeactivate = empDeactivate;
+	public void setEmpStatus(boolean empStatus) {
+		this.empStatus = empStatus;
 	}
 	
 	@Override
