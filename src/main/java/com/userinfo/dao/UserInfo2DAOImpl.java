@@ -46,9 +46,10 @@ public class UserInfo2DAOImpl implements UserInfo2DAO {
 	public int update(UserInfo userInfo) {
 		System.out.println("我在update中 userInfo有抓到新的資料");
 		try {
-			getSession().update(userInfo);
+			getSession().merge(userInfo);
 			return 1;
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println("update失敗");
 			return -1;
 		}

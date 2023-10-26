@@ -316,7 +316,7 @@ li::marker {
 
 	var statusOutput = document.getElementById("statusOutput");
 	var messagesArea = document.getElementById("messagesArea");
-// 	var self = '${userName}'; //這裡的username是誰
+// 	var self = '${userName}'; 
 	var self = 'cs';  //test
 	var webSocket;
 
@@ -360,17 +360,21 @@ li::marker {
 				}
 				messagesArea.scrollTop = messagesArea.scrollHeight;
 			} else if ("chat" === jsonObj.type) {       //預設
-				var li = document.createElement('li');
-						var div = document.createElement('div');
-				jsonObj.sender === self ? li.className += 'me' : li.className += 'friend';
-				jsonObj.sender  === self ? div.className += 'timedivme' : div.className += 'timedivfriend';
-				li.innerHTML = jsonObj.message;
-				console.log(li);
-// 						div.className +='timediv';
-						div.textContent = jsonObj.timestamp;
-						li.appendChild(div);
-				document.getElementById("area").appendChild(li);
-				messagesArea.scrollTop = messagesArea.scrollHeight;
+				//判斷收件是否是自己、對方是自己
+// 				if( jsonObj.sender === friend && jsonObj.receiver === self){
+// 					if( jsonObj.sender === friend ||  jsonObj.sender === self){
+						var li = document.createElement('li');
+								var div = document.createElement('div');
+						jsonObj.sender === self ? li.className += 'me' : li.className += 'friend';
+						jsonObj.sender  === self ? div.className += 'timedivme' : div.className += 'timedivfriend';
+						li.innerHTML = jsonObj.message;
+						console.log(li);
+		// 						div.className +='timediv';
+								div.textContent = jsonObj.timestamp;
+								li.appendChild(div);
+						document.getElementById("area").appendChild(li);
+						messagesArea.scrollTop = messagesArea.scrollHeight;
+// 				}
 			} else if ("close" === jsonObj.type) {
 				refreshFriendList(jsonObj);
 			}
@@ -412,7 +416,7 @@ li::marker {
 	}
 	
 	// 有好友上線或離線就更新列表
-	function refreshFriendList(jsonObj) {
+	function refreshFriendList(jsonObj) { 
 		var friends = jsonObj.users;
 		var frow = document.getElementById("frow");
 		frow.innerHTML = '';

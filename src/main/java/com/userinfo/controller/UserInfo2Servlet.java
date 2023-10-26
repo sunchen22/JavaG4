@@ -126,27 +126,11 @@ public class UserInfo2Servlet extends HttpServlet {
 			userinfo.setBuildinginfo(buildingInfo);
 
 			// 圖片
-//			byte[] userBlob = null;
-//			InputStream in = req.getPart("userBlob").getInputStream();
-//			if (in.available() == 0) {  // 取原本資料內的照片
-//				userBlob = new UserInfo2ServiceImpl().getImage(userID);
-//				System.out.println("原定要取原本的照片userBlob"+userBlob);
-//			} else {
-//				userBlob = new byte[in.available()];
-//				in.read(userBlob);
-//				in.close();
-//			}
-//			userinfo.setUserBlob(userBlob);
-
-			// 圖片
 			byte[] userBlob = null;
 			InputStream in = req.getPart("userBlob").getInputStream();
 			if (in.available() == 0) { // 取原本資料內的照片
-				System.out.println("要取原本照片的ID userIDuserIDuserIDuserIDuserID" + userID);
 				UserInfo userinfoorg = userinfoService.getUserInfoByuserID(userID);
-				System.out.println("userinfoorg取的到媽媽媽媽媽媽媽媽媽媽媽媽媽媽" + userinfoorg);
 				userBlob = userinfoorg.getUserBlob();
-				System.out.println("原定要取原本的照片userBlob" + userBlob);
 				userinfo.setUserBlob(userBlob);
 			} else {
 				userBlob = new byte[in.available()];
@@ -166,6 +150,7 @@ public class UserInfo2Servlet extends HttpServlet {
 			userinfoService.updateUserInfo(userinfo);
 			UserInfo userinfo2 = userinfoService.getUserInfoByuserID(userID);
 			req.getSession().setAttribute("userinfo", userinfo2);
+
 
 			// mem_account_results.jsp頁碼處理
 			String page = req.getParameter("page"); // 取得第幾頁
