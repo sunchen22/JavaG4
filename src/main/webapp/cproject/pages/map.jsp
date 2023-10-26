@@ -4,7 +4,7 @@
   <head>
     <title>Custom Info Windows</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9xCVRfjTJn4JaNOv0J9KKnySK0_Jc6D8&libraries=places,geometry&callback=initMap" async defer></script>
+    <script src="" async defer></script>
     <script>
       let map;
 

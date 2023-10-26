@@ -17,10 +17,7 @@
       }
     </style>
     
-    <script async
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9xCVRfjTJn4JaNOv0J9KKnySK0_Jc6D8libraries=places&callback=initMap">
-</script>
-<!--     <script src="https://maps.googleapis.com/maps/api/js?key=key=AIzaSyD9xCVRfjTJn4JaNOv0J9KKnySK0_Jc6D8&libraries=places&callback=initMap" async defer></script> -->
+    
 
     
     

@@ -92,6 +92,6 @@
 </head>
 <body>
     <div id="map"></div>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9xCVRfjTJn4JaNOv0J9KKnySK0_Jc6D8&libraries=places,geometry&callback=initMap" async defer></script>
+    
 </body>
 </html>
