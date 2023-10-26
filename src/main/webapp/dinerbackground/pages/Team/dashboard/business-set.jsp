@@ -17,7 +17,7 @@ DinerInfo account = (DinerInfo) session.getAttribute("account");
 String dinerStatus = account.getDinerStatus();
 //這是login之後傳進來的account，代表已登錄後才能看到的資料
 Integer dinerID = account.getDinerID();
-BuisnessHoursServiceImpl bh = new BuisnessHoursServiceImpl();
+BusinessHoursServiceImpl bh = new BusinessHoursServiceImpl();
 List<BusinessHours> businessHours = bh.getBusinessHoursByDinerID(dinerID);
 pageContext.setAttribute("businessHours", businessHours);
 
@@ -166,9 +166,19 @@ System.out.println("businessHours"+businessHours);
 								<label for="open<%=dayInEnglish%>" class="inline"><h5><%=dayInChinese%></h5></label>&ensp;&ensp;&ensp;
 
 								<!-- 隱藏的 input 用於儲存狀態 -->
-								<input type="hidden" name="dayOfWeekStatus[<%=dayInEnglish%>]"
+<%-- 								<input type="hidden" name="dayOfWeekStatus[<%=dayInEnglish%>]" --%>
+<%-- 									id="hiddenInput<%=dayInEnglish%>" --%>
+<%-- 									value="<%=hours.getOpenStatus()%>"> --%>
+
+									<input type="hidden" name="action" value="dayOfWeekStatus[<%=dayInEnglish%>]">
+
+								<input type="hidden" name="openStatus"
 									id="hiddenInput<%=dayInEnglish%>"
-									value="<%=hours.getOpenStatus()%>"> <span>開店時間 :<%=hours.getOpenTime()%></span>&ensp;&ensp;&ensp;
+									value="<%=hours.getOpenStatus()%>">
+									
+									<input type="hidden" name="dinerID" value="${account.dinerID}">
+									
+								<span>開店時間 :<%=hours.getOpenTime()%></span>&ensp;&ensp;&ensp;
 								<span>關店時間 : <%=hours.getCloseTime()%></span> <br>
 								<%
 								found = true; // 標記已找到匹配的營業日

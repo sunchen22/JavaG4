@@ -88,7 +88,7 @@ public class BusinessHoursDAOImpl implements BusinessHoursDAO {
 
 	@Override
 	public DinerInfo findByPKJoinDinerInfo(Integer dinerOpenHoursID) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+
 		try {
 			DinerInfo dinerInfo = getSession().get(BusinessHours.class, dinerOpenHoursID).getDinerInfo();
 			return dinerInfo;
@@ -97,6 +97,7 @@ public class BusinessHoursDAOImpl implements BusinessHoursDAO {
 		}
 		return null;
 	}
+
 
 	@Override
 	public List<BusinessHours> getAll() {
@@ -108,20 +109,19 @@ public class BusinessHoursDAOImpl implements BusinessHoursDAO {
 	public List<BusinessHours> getBusinessHoursByDinerID(Integer dinerID) {
 
 		try {
-			 
-		String hql = "FROM BusinessHours b WHERE b.dinerInfo.dinerID = :dinerID";
 
-//		String hql = "FROM OrdersVO AS o WHERE o.publisherVO.pubID = :pubID";
-		Query<BusinessHours> query = getSession().createQuery(hql , BusinessHours.class);
-		query.setParameter("dinerID", dinerID);
-		List<BusinessHours> businessHoursList = query.getResultList();
-		return businessHoursList; 
+			String hql = "FROM BusinessHours b WHERE b.dinerInfo.dinerID = :dinerID";
 
-		}catch(Exception e) {
+			Query<BusinessHours> query = getSession().createQuery(hql, BusinessHours.class);
+			query.setParameter("dinerID", dinerID);
+			List<BusinessHours> businessHoursList = query.getResultList();
+			return businessHoursList;
+
+		} catch (Exception e) {
 			e.printStackTrace();
 
-			}
-		 return Collections.emptyList(); // 如果查詢失敗或沒有結果，則返回空列表
+		}
+		return Collections.emptyList(); // 如果查詢失敗或沒有結果，則返回空列表
 
 	}
 
@@ -135,8 +135,6 @@ public class BusinessHoursDAOImpl implements BusinessHoursDAO {
 		}
 		return businessHoursByDay;
 	}
-	
-	
 
 	@Override
 	public String isExistDayOfWeek(Integer dinerID, String dayOfWeek) {
@@ -146,12 +144,12 @@ public class BusinessHoursDAOImpl implements BusinessHoursDAO {
 		// 檢查是否有指定的dayOfWeek
 		for (BusinessHours businessHours : businessHoursList) {
 			if (businessHours.getDayOfWeek().equalsIgnoreCase(dayOfWeek)) {
-				return dayOfWeek;  
-				//如果該店家本來就有設定該日的營業時間，就返回原值
+				return dayOfWeek;
+				// 如果該店家本來就有設定該日的營業時間，就返回原值
 			}
 		}
-		return null; 
-		//如果該店家尚未設定，返回null
+		return null;
+		// 如果該店家尚未設定，返回null
 	}
 
 	@Override
@@ -177,7 +175,5 @@ public class BusinessHoursDAOImpl implements BusinessHoursDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
 
 }

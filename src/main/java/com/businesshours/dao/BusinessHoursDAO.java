@@ -17,6 +17,7 @@ public interface BusinessHoursDAO {
 	
 	DinerInfo findByPKJoinDinerInfo(Integer dinerOpenHoursID);
 	
+
 	
 	int isValidBusinessHours(Time openTime , Time closeTime);
     
