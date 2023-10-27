@@ -1,6 +1,8 @@
 package com.usernews.controller;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,11 +13,11 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.usernews.entity.UserNews;
 import com.usernews.service.UserNewsService;
 import com.usernews.service.UserNewsServiceImpl;
+import com.webempadmin.entity.Webempadmin;
 
 @MultipartConfig(maxFileSize = 1073741824)
 
@@ -67,38 +69,46 @@ public class UserNewsServlet extends HttpServlet {
 				String url = "/background/pages/mem_news.jsp";
 				RequestDispatcher failView = req.getRequestDispatcher(url);
 				failView.forward(req, res);
+				return;
 			}
 		}
 
 //		============= 修改資料&送出修改	=============
 		if ("update".equals(action)) {
-			// 檢查可否編修的狀態
-			if (Integer.parseInt(req.getParameter("userNewsStatus").trim()) != 2) {
-				List<String> errorMsgs = new LinkedList<String>();
-				req.setAttribute("errorMsgs", errorMsgs);
-
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
 				Integer userNewsID = new Integer(req.getParameter("userNewsID").trim());
-				String userNewsContent = req.getParameter("userNewsContent").trim();
+				String userNewsContent = req.getParameter("userNewsContent");
+				System.out.println("死在這裡userNewsContent" + userNewsContent);
 				String usernewsReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_\s)]{2,30}$";
 				if (userNewsContent == null || userNewsContent.trim().length() == 0) {
 					errorMsgs.add("最新消息內容: 請勿空白");
-				} else if (!userNewsContent.trim().matches(usernewsReg)) { // 以下練習正則(規)表示式(regular-expression)
+				} else if (!userNewsContent.trim().matches(usernewsReg)) {
 					errorMsgs.add("最新消息內容: 只能是中、英文字母、數字和_ , 且長度必需在2到30之間");
 				}
-				// 自動加入存在session內的更新員工
-				String account = null;
-				HttpSession session = req.getSession();
-				session.getAttribute(account);
-				System.out.println("account : " + account);
+				Integer userNewsStatus = new Integer(req.getParameter("userNewsStatus").trim());
+				System.out.println("userNewsStatus" + userNewsStatus);
+//			String account = req.getParameter("account").trim(); // 自動加入存在session內的更新員工
+//			System.out.println("account"+account);
 
 				// 設定回傳資訊
 				UserNews usernews = new UserNews();
+//			Webempadmin emp = new Webempadmin();
 				usernews.setUserNewsID(userNewsID);
 				usernews.setUserNewsContent(userNewsContent);
 				java.util.Date date = new java.util.Date();
-				Calendar cal = Calendar.getInstance(); // 取得現在時間
-				cal.setTime(date);
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String dateStr = sdf.format(date);
+				try {
+					date = sdf.parse(dateStr);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
 				usernews.setUserNewsReviseTime(date);
+				usernews.setUserNewsStatus(userNewsStatus);
+//			emp.setEmpName(account);
+//			usernews.setWebempadmin(emp);
 
 				// 有錯誤提示的的話
 				if (!errorMsgs.isEmpty()) {
@@ -108,46 +118,125 @@ public class UserNewsServlet extends HttpServlet {
 					return; // 程式中斷
 				}
 
+//			if (usernewsService.getUserNewsByID(userNewsID).getUserNewsStatus() != 2) {
+				System.out.print("我有近來修改喔");
 				usernewsService.updateUserNews(usernews);
 				UserNews usernews2 = usernewsService.getUserNewsByID(userNewsID);
-				req.setAttribute("userNews", usernews2);
+				req.setAttribute("usernews", usernews2);
 
 				String url = "/background/pages/mem_news_listone.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功轉交
 				successView.forward(req, res);
-			} else {
-				String url = "/background/pages/mem_news.jsp";
-				RequestDispatcher failView = req.getRequestDispatcher(url); // 修改失敗轉交
-				failView.forward(req, res);
+//			} 
+			} catch (Exception e) {
+				errorMsgs.add(e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/background/pages/mem_news.jsp");
+				failureView.forward(req, res);
 			}
 		}
 
-		// ============= 修改:取消 =============
-//			if ("cancel".equals(action)) {			
-//				try {
-//					/*************************** 1.接收請求參數 ****************************************/
-//					Integer userNewsID= new Integer(req.getParameter("userNewsID"));
-////
-////					/*************************** 2.開始查詢資料 ****************************************/
-//					UserNews usernews = usernewsService.getUserNewsByID(userNewsID);
-////
-////					/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-//					req.setAttribute("usernews", usernews);
-//					String url = "/background/pages/mem_news.jsp";
-//					RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交
-//					successView.forward(req, res);
-//				} catch (Exception e) {
-//					String url = "/background/pages/mem_news.jsp";
-//					RequestDispatcher failView = req.getRequestDispatcher(url);
-//					failView.forward(req, res);
-//				}
-//			}
+		// ============= 新增=============
+		if ("insert".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				String userNewsContent = req.getParameter("userNewsContent");
+				String usernewsReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_\s)]{2,30}$";
+				if (userNewsContent == null || userNewsContent.trim().length() == 0) {
+					errorMsgs.add("最新消息內容: 請勿空白");
+				} else if (!userNewsContent.trim().matches(usernewsReg)) {
+					errorMsgs.add("最新消息內容: 只能是中、英文字母、數字和_ , 且長度必需在2到30之間");
+				}
 
-//			============= 下架	=============
-		if ("".equals(action)) {
-			// 檢查可否編修的狀態
-//			Integer.parseInt(req.getParameter("userNewsStatus").trim()) == 2);
+				Integer userNewsStatus = new Integer(req.getParameter("userNewsStatus"));
+
+				UserNews usernews = new UserNews();
+				usernews.setUserNewsContent(userNewsContent);
+
+				java.util.Date date = new java.util.Date();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String dateStr = sdf.format(date);
+				try {
+					date = sdf.parse(dateStr);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				usernews.setUserNewsReviseTime(date);
+				usernews.setUserNewsStatus(userNewsStatus);
+
+				// 員工先寫死
+				Webempadmin emp = new Webempadmin();
+				usernews.setWebempadmin(emp);
+				emp.setEmpID(1);
+
+				if (!errorMsgs.isEmpty()) {
+					req.setAttribute("usernews", usernews);
+					RequestDispatcher failureView = req.getRequestDispatcher("/background/pages/adm_men_add.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+
+				usernewsService.addUserNews(usernews);
+
+				String url = "/background/pages/mem_news.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交
+				successView.forward(req, res);
+
+			} catch (Exception e) {
+				errorMsgs.add(e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/background/pages/mem_news_add.jsp");
+				failureView.forward(req, res);
+			}
 		}
+
+//			============= 下架:在客戶頁面不會呈現	=============
+		if ("suspend".equals(action)) {
+			try {
+				Integer userNewsID = new Integer(req.getParameter("userNewsID").trim());
+				UserNews usernews = usernewsService.getUserNewsByID(userNewsID);
+				usernews.setUserNewsStatus(0);
+				usernewsService.updateUserNews(usernews);
+				UserNews usernews2 = usernewsService.getUserNewsByID(userNewsID);
+				req.setAttribute("usernews", usernews2);
+
+				String url = "/background/pages/mem_news.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交
+				successView.forward(req, res);
+
+			} catch (Exception e) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/background/pages/mem_news.jsp");
+				failureView.forward(req, res);
+			}
+		}
+
+//		============= 刪除	=============
+		if ("delete".equals(action)) {
+			try {
+				Integer userNewsID = new Integer(req.getParameter("userNewsID").trim());
+				UserNews usernews = usernewsService.getUserNewsByID(userNewsID);
+				usernews.setUserNewsStatus(2);
+				usernewsService.deleteUserNews(userNewsID);
+				UserNews usernews2 = usernewsService.getUserNewsByID(userNewsID);
+				req.setAttribute("usernews", usernews2);
+
+				String url = "/background/pages/mem_news.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交
+				successView.forward(req, res);
+
+			} catch (Exception e) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/background/pages/mem_news.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
+//		=============取消動作:回到usernews索引頁=============
+				if ("cancel".equals(action)) {
+						String url = "/background/pages/mem_news.jsp"; // 指定的頁面路徑
+			            RequestDispatcher dispatcher = req.getRequestDispatcher(url);
+			            dispatcher.forward(req, res);
+				}
+				
+		
 
 	}
 

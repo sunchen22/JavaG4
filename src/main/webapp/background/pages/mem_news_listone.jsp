@@ -6,7 +6,7 @@
 <%@ page import="com.usernews.entity.*" %>
 
 <%
-UserNews userNews = (UserNews) request.getAttribute("userNews"); 
+UserNews usernews = (UserNews) request.getAttribute("usernews"); 
 %>
 
 <html lang="en">
@@ -63,7 +63,7 @@ UserNews userNews = (UserNews) request.getAttribute("userNews");
       <ul class="navbar-nav ml-auto">
 
         <li class="nav-item">
-          <a class="nav-link" href="../index3.html" role="button">
+          <a class="nav-link" href="../index3.jsp" role="button">
             <i class="fas fa-home"></i>
           </a>
         </li>
@@ -92,7 +92,7 @@ UserNews userNews = (UserNews) request.getAttribute("userNews");
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
-            <img src="../dist/img/emp02.png" class="img-circle elevation-2" alt="emp01">
+            <img src="../dist/empimg/emp02.png" class="img-circle elevation-2" alt="emp01">
           </div>
           <div class="info">
             <a href="#" class="d-block">小丸子</a>
@@ -147,7 +147,7 @@ UserNews userNews = (UserNews) request.getAttribute("userNews");
 										<td>${userNews.userNewsContent}</td>
 										<td>${userNews.userNewsReviseTime}</td>
 										<td>${userNews.userNewsStatus}</td>
-										<td>${userNews.webempadmin.empID} ${userNews.webempadmin.empNames}</td>
+										<td>${userNews.webempadmin.empID} ${userNews.webempadmin.empName}</td>
 									</tr>
 							</tbody>
 						</table>
