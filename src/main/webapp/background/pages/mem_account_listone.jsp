@@ -158,13 +158,11 @@ BuildingInfo buildingInfo = userinfo.getBuildinginfo();
 						</table>
 				</div>
 
-<!-- ======= 底部頁數/頁碼 ======= -->
+<!-- ======= 底部連結 ======= -->
 <div class="card-footer bg-transparent ">
 	<ul class="pagination justify-content-center ">
 	<a href="${pageContext.request.contextPath}/background/pages/mem_account.jsp">回會員資料查詢頁</a>
 	</ul>
-	
-	
 </div>
 
 				</div>

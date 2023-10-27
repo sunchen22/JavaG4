@@ -3,7 +3,6 @@ package com.usernews.controller;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,11 +12,15 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.usernews.entity.UserNews;
 import com.usernews.service.UserNewsService;
 import com.usernews.service.UserNewsServiceImpl;
 import com.webempadmin.entity.Webempadmin;
+import com.webempadmin.model.WebempadminDAO;
+import com.webempadmin.model.WebempadminDAOImpl;
+import com.webempadmin.model.WebempadminDAO_hibernate;
 
 @MultipartConfig(maxFileSize = 1073741824)
 
@@ -80,21 +83,23 @@ public class UserNewsServlet extends HttpServlet {
 			try {
 				Integer userNewsID = new Integer(req.getParameter("userNewsID").trim());
 				String userNewsContent = req.getParameter("userNewsContent");
-				System.out.println("死在這裡userNewsContent" + userNewsContent);
 				String usernewsReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_\s)]{2,30}$";
 				if (userNewsContent == null || userNewsContent.trim().length() == 0) {
 					errorMsgs.add("最新消息內容: 請勿空白");
 				} else if (!userNewsContent.trim().matches(usernewsReg)) {
 					errorMsgs.add("最新消息內容: 只能是中、英文字母、數字和_ , 且長度必需在2到30之間");
 				}
+				
 				Integer userNewsStatus = new Integer(req.getParameter("userNewsStatus").trim());
-				System.out.println("userNewsStatus" + userNewsStatus);
-//			String account = req.getParameter("account").trim(); // 自動加入存在session內的更新員工
-//			System.out.println("account"+account);
+				HttpSession session = req.getSession();
+				String account = (String)session.getAttribute("account"); // 自動加入存在session內的更新員工
 
 				// 設定回傳資訊
-				UserNews usernews = new UserNews();
-//			Webempadmin emp = new Webempadmin();
+				UserNews usernews = usernewsService.getUserNewsByID(userNewsID); //找原先的usernews
+				Webempadmin emp = new Webempadmin();
+				WebempadminDAO_hibernate  empdao =new WebempadminDAOImpl();
+				emp = empdao.findByPrimaryKey(account);
+			
 				usernews.setUserNewsID(userNewsID);
 				usernews.setUserNewsContent(userNewsContent);
 				java.util.Date date = new java.util.Date();
@@ -107,9 +112,9 @@ public class UserNewsServlet extends HttpServlet {
 				}
 				usernews.setUserNewsReviseTime(date);
 				usernews.setUserNewsStatus(userNewsStatus);
-//			emp.setEmpName(account);
-//			usernews.setWebempadmin(emp);
-
+				emp.setEmpName(account);
+				usernews.setWebempadmin(emp);
+				
 				// 有錯誤提示的的話
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("usernews", usernews); // 含有輸入格式錯誤的empVO物件,也存入req
@@ -118,8 +123,6 @@ public class UserNewsServlet extends HttpServlet {
 					return; // 程式中斷
 				}
 
-//			if (usernewsService.getUserNewsByID(userNewsID).getUserNewsStatus() != 2) {
-				System.out.print("我有近來修改喔");
 				usernewsService.updateUserNews(usernews);
 				UserNews usernews2 = usernewsService.getUserNewsByID(userNewsID);
 				req.setAttribute("usernews", usernews2);
@@ -127,7 +130,7 @@ public class UserNewsServlet extends HttpServlet {
 				String url = "/background/pages/mem_news_listone.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功轉交
 				successView.forward(req, res);
-//			} 
+
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/background/pages/mem_news.jsp");
@@ -164,10 +167,12 @@ public class UserNewsServlet extends HttpServlet {
 				usernews.setUserNewsReviseTime(date);
 				usernews.setUserNewsStatus(userNewsStatus);
 
-				// 員工先寫死
+				HttpSession session = req.getSession();
+				String account = (String)session.getAttribute("account"); // 自動加入存在session內的更新員工
+				
 				Webempadmin emp = new Webempadmin();
 				usernews.setWebempadmin(emp);
-				emp.setEmpID(1);
+				emp.setEmpName(account);
 
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("usernews", usernews);

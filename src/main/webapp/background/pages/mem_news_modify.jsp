@@ -137,7 +137,8 @@ div.task_list_parent ul.task_list>li:last-child button.btn_down {
 						</div>
 
 						<div class="card-body">
-
+<FORM METHOD="post" ACTION="usernews.do" name="form1"
+								enctype="multipart/form-data">
 							<%-- 錯誤表列 --%>
 							<c:if test="${not empty errorMsgs}">
 								<font color='red'>請修正以下錯誤:</font>
@@ -154,12 +155,9 @@ div.task_list_parent ul.task_list>li:last-child button.btn_down {
 										<label>廣告編號：</label>
 											<input class="form-control " readonly="readonly" name="userNewsID" value="${usernews.userNewsID}">
 									</div>
-
-										<%
-										String userNewsContent;
-										%>
 									<div class="form-group col-4">
 										<label>最新消息：</label>
+<!-- 										<input type="text" class="form-control" name="userNewsContent"  value="1111"> -->
 										<input type="text" class="form-control" name="userNewsContent"  value="${usernews.userNewsContent}">
 <%-- 									<input type="text" class="form-control" name="userNewsContent" value="<%=usernews.getUserNewsContent()%>"> --%>
 									</div>
@@ -173,21 +171,22 @@ div.task_list_parent ul.task_list>li:last-child button.btn_down {
 								</div>
 
 							</div>
-						</div>
+<!-- 						</div> -->
 						<!-- /.card-body -->
 						<div class="form-inlinecard-footer"
 							style="text-align: center; padding-top: 5px; display: flex; justify-content: center; ">
-							<FORM METHOD="post" ACTION="usernews.do" name="form1"
-								enctype="multipart/form-data">
+							
 
 								<div style="text-align: center;  background: transparent ; margin:5px">
 									<input type="hidden" name="action" value="update">
 									<input type="hidden" name="userNewsID" value="${usernews.userNewsID}">
+									<input type="hidden" name="userNewsContent" value="123">
+									
 									<input type="submit" value="送出修改" class="btn btn-warning">
 								</div>
-							</FORM>
+						
 
-							<FORM METHOD="post" ACTION="usernews.do">
+<!-- 							<FORM METHOD="post" ACTION="usernews.do"> -->
 								<div style="text-align: center;  background: transparent ; margin:5px">
 									<input type="hidden" name="action" value="cancel"> <input
 										type="hidden" name="userNewsID" value="${usernews.userNewsID}">

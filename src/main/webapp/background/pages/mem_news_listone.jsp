@@ -61,7 +61,6 @@ UserNews usernews = (UserNews) request.getAttribute("usernews");
 
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
-
         <li class="nav-item">
           <a class="nav-link" href="../index3.jsp" role="button">
             <i class="fas fa-home"></i>
@@ -129,7 +128,7 @@ UserNews usernews = (UserNews) request.getAttribute("usernews");
 			<!-- 以下預計放置搜尋出的畫面 -->
 			<div class="card">
 				<div class="card-body">
-				<p style=" text-align: center">成功更新會員資料!</p>
+				<p style=" text-align: center">成功更新會員最新消息!</p>
 						<table class="table table-bordered">
 							<thead>
 								<tr style="text-align: center;">
@@ -143,17 +142,22 @@ UserNews usernews = (UserNews) request.getAttribute("usernews");
 							
 							<tbody>
 									<tr>
-										<td>${userNews.userNewsID}</td>
-										<td>${userNews.userNewsContent}</td>
-										<td>${userNews.userNewsReviseTime}</td>
-										<td>${userNews.userNewsStatus}</td>
-										<td>${userNews.webempadmin.empID} ${userNews.webempadmin.empName}</td>
+										<td>${usernews.userNewsID}</td>
+										<td>${usernews.userNewsContent}</td>
+										<td>${usernews.userNewsReviseTime}</td>
+										<td>${usernews.userNewsStatus}</td>
+										<td>${usernews.webempadmin.empID} ${userNews.webempadmin.empName}</td>
 									</tr>
 							</tbody>
 						</table>
 				</div>
      
-						
+<!-- ======= 底部連結 ======= -->
+<div class="card-footer bg-transparent ">
+	<ul class="pagination justify-content-center ">
+	<a href="${pageContext.request.contextPath}/background/pages/mem_new.jsp">回會員最新消息查詢頁</a>
+	</ul>
+</div>
         
 
 

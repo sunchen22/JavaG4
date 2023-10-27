@@ -95,4 +95,13 @@ public class UserNews {
 	public void setUserNewsStatus(Integer userNewsStatus) {
 		this.userNewsStatus = userNewsStatus;
 	}
+
+	@Override
+	public String toString() {
+		return "UserNews [userNewsID=" + userNewsID + ", userNewsContent=" + userNewsContent + ", webempadmin="
+				+ webempadmin + ", userNewsReleaseTime=" + userNewsReleaseTime + ", userNewsReviseTime="
+				+ userNewsReviseTime + ", userNewsStatus=" + userNewsStatus + "]";
+	}
+	
+	
 }

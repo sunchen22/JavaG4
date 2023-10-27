@@ -176,7 +176,7 @@ UserInfo userinfo = (UserInfo) request.getAttribute("userinfo"); //EmpServlet.ja
 
 									<div class="form-group col-4">
 										<label>會員帳號：</label> 
-										<input type="text" class="form-control" name="userAccount" value="${userinfo.userAccount}">
+										<input type="text" class="form-control" readonly="readonly"  name="userAccount" value="${userinfo.userAccount}">
 									</div>
 								
 									<div class="form-group col-4">

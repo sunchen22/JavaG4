@@ -108,7 +108,7 @@
                     <div id="row"></div>
          </div>
          
-		 <div class="card-body" >
+		 <div class="card-body"  style="height: 300px; overflow-y: scroll;">
 			<div id="messagesArea" class="direct-chat-messages" ></div>
 		 </div>
 
