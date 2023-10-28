@@ -26,9 +26,6 @@ public class UserOrderDetail {
 	@Column(name = "productID")
 	private	Integer	productID;
 	
-	
-	
-	
 	@Column(name = "productQuantity")
 	private	Integer	productQuantity;
 	
@@ -38,14 +35,12 @@ public class UserOrderDetail {
 	@Column(name = "userID")
 	private	Integer	userID;
 
-	@Column(name = "groupOrderID")
-	private	Integer	groupOrderID;
+//	@Column(name = "groupOrderID")
+//	private	Integer	groupOrderID;
 	
-//	@ManyToOne
-//	@JoinColumn(name = "groupOrderID" , referencedColumnName = "groupOrderID")
-//	private GroupOrder userOrderDetails;
-	
-	
+	@ManyToOne
+	@JoinColumn(name = "groupOrderID" , referencedColumnName = "groupOrderID")
+	private GroupOrder groupOrder;
 	
 	@Column(name = "userPaymentTime")
 	private	Timestamp userPaymentTime;
@@ -55,28 +50,16 @@ public class UserOrderDetail {
 	}
 
 	public UserOrderDetail(Integer userOrderItemID, Integer productID, Integer productQuantity, Integer userItemPrice,
-			Integer userID, Integer groupOrderID, Timestamp userPaymentTime /*, GroupOrder userOrderDetails*/) {
+			Integer userID, GroupOrder groupOrder, Timestamp userPaymentTime) {
 		super();
 		this.userOrderItemID = userOrderItemID;
 		this.productID = productID;
 		this.productQuantity = productQuantity;
 		this.userItemPrice = userItemPrice;
 		this.userID = userID;
-		this.groupOrderID = groupOrderID;
+		this.groupOrder = groupOrder;
 		this.userPaymentTime = userPaymentTime;
-//		this.userOrderDetails = userOrderDetails;
 	}
-
-	
-	
-	
-//	public GroupOrder getuserOrderDetails() {
-//		return userOrderDetails;
-//	}
-//
-//	public void setuserOrderDetails(GroupOrder userOrderDetails) {
-//		this.userOrderDetails = userOrderDetails;
-//	}
 
 	public Integer getUserOrderItemID() {
 		return userOrderItemID;
@@ -118,13 +101,13 @@ public class UserOrderDetail {
 		this.userID = userID;
 	}
 
-//	public Integer getGroupOrderID() {
-//		return groupOrderID;
-//	}
-//
-//	public void setGroupOrderID(Integer groupOrderID) {
-//		this.groupOrderID = groupOrderID;
-//	}
+	public GroupOrder getGroupOrder() {
+		return groupOrder;
+	}
+
+	public void setGroupOrder(GroupOrder groupOrder) {
+		this.groupOrder = groupOrder;
+	}
 
 	public Timestamp getUserPaymentTime() {
 		return userPaymentTime;
@@ -137,10 +120,8 @@ public class UserOrderDetail {
 	@Override
 	public String toString() {
 		return "UserOrderDetail [userOrderItemID=" + userOrderItemID + ", productID=" + productID + ", productQuantity="
-				+ productQuantity + ", userItemPrice=" + userItemPrice + ", userID=" + userID + ", userorderdetail="
-				+ productID + ", userPaymentTime=" + userPaymentTime + "]";
+				+ productQuantity + ", userItemPrice=" + userItemPrice + ", userID=" + userID + ", groupOrder="
+				+ groupOrder + ", userPaymentTime=" + userPaymentTime + "]";
 	}
-
-	
 		
 }

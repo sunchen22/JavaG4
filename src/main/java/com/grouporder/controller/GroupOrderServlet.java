@@ -3,6 +3,8 @@ package com.grouporder.controller;
 import java.io.*;
 import java.util.Map;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,6 +19,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import com.grouporder.service.GroupOrderServiceImpl;
+import com.userorderdetail.entity.UserOrderDetail;
 
 @WebServlet("/GroupOrder.do")
 public class GroupOrderServlet extends HttpServlet {
@@ -31,7 +34,6 @@ public class GroupOrderServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         String action = req.getParameter("action");
-		String forwardPath = "";
 		
 		switch (action) {
 			case "getAll":
@@ -49,8 +51,17 @@ public class GroupOrderServlet extends HttpServlet {
 			case "join":
 				joinThisGroupOrder(req, res);
 				break;
+			case "create":
+				createGroupOrder(req, res);
+				break;
 			case "addToCart":
 				addToCart(req, res);
+				break;
+			case "openCart":
+				openCart(req, res);
+				break;
+			case "checkout":
+				checkout(req, res);
 				break;
 			default:
 //				forwardPath = "/index.jsp";
@@ -106,27 +117,34 @@ public class GroupOrderServlet extends HttpServlet {
     
     private void getOneGroupOrder(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
     	// JS: href=${contextPath}/GroupOrder.do?action=getOne&groupOrderID=${item.groupOrderID}
-    	Integer groupOrderID = Integer.valueOf(req.getParameter("groupOrderID"));
-    	// Call service to get the data needed and store it in request attribute
-    	Map<String, Object> groupOrderData = groupOrderServiceImpl.getOneJoinGroupOrder(groupOrderID);
-    	req.setAttribute("groupOrderData", groupOrderData);
-    	req.setAttribute("menuData", groupOrderData.get("menuData"));
-   
-    	Object userInfo = req.getSession().getAttribute("loginUserInfo");
-    	if (userInfo != null) {
-    		Boolean userIsGroupMember = groupOrderServiceImpl.userIsGroupMember(userInfo, groupOrderID);
-    		req.getSession().setAttribute("userIsGroupMember", userIsGroupMember);
-	//    	
-	//    	if (isGroupMember) {
-	//    		groupOrderServiceImpl.getUserOrderDetail();
-	//    		req.setAttribute("userOrderDetail", userOrderDetail);
-	//    	}
-    		
-    	}
-    	
-		res.setContentType("text/html; charset=UTF-8");
-		RequestDispatcher dispatcher = req.getRequestDispatcher("consumer/oneGroupOrder.jsp");		
-		dispatcher.forward(req, res);
+    	try {
+	    	Integer groupOrderID = Integer.valueOf(req.getParameter("groupOrderID"));
+	    	// Call service to get the data needed and store it in request attribute
+	    	Map<String, Object> groupOrderData = groupOrderServiceImpl.getOneJoinGroupOrder(groupOrderID);
+	    	req.setAttribute("groupOrderData", groupOrderData);
+	    	req.setAttribute("menuData", groupOrderData.get("menuData"));
+	   
+	    	Object userInfo = req.getSession().getAttribute("loginUserInfo");
+	    	if (userInfo != null) {
+	    		Boolean userIsGroupMember = groupOrderServiceImpl.userIsGroupMember(userInfo, groupOrderID);
+	    		req.getSession().setAttribute("userIsGroupMember", userIsGroupMember);
+		    	
+		    	if (userIsGroupMember) {
+		    		 List<Map<String,Object>> userOrderDetailData = groupOrderServiceImpl.getUserOrderDetailOnThisGroupOrder(groupOrderID, userInfo);
+		    		if (userOrderDetailData != null) {
+		    			req.getSession().setAttribute("userOrderDetailData", userOrderDetailData);
+		    		}
+		    	}
+	    	}
+	    	
+			res.setContentType("text/html; charset=UTF-8");
+			RequestDispatcher dispatcher = req.getRequestDispatcher("consumer/oneGroupOrder.jsp");		
+			dispatcher.forward(req, res);
+		
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        res.setStatus(HttpServletResponse.SC_BAD_REQUEST); // Set 400 Bad Request status on error
+	    }
     }
     
     private void openOrderDetailModal(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -135,20 +153,15 @@ public class GroupOrderServlet extends HttpServlet {
     	// "contextPath" is a var declarared in <script></script> of oneGroupOrder.jsp
     	System.out.println("request action=openOrderDetailModal via AJAX comes in");
 
-        try {
-            // Process the request: get the productID parameter
-        	int productID = Integer.valueOf(req.getParameter("productID"));
+        // Process the request: get the productID parameter
+    	int productID = Integer.valueOf(req.getParameter("productID"));
 
-            // Prepare the response and send it
-        	String json = groupOrderServiceImpl.getProductAndVaryOptions(productID);
-            if (json != null) {
-            	// Set content type to JSON
-            	res.setContentType("application/json; charset=UTF-8");
-            	res.getWriter().write(json);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            res.setStatus(HttpServletResponse.SC_BAD_REQUEST); // Set 400 Bad Request status on error
+        // Prepare the response and send it
+    	String json = groupOrderServiceImpl.getProductAndVaryOptions(productID);
+        if (json != null) {
+        	// Set content type to JSON
+        	res.setContentType("application/json; charset=UTF-8");
+        	res.getWriter().write(json);
         }
     }
     
@@ -158,68 +171,165 @@ public class GroupOrderServlet extends HttpServlet {
     	// "contextPath" is a var declarared in <script></script> of oneGroupOrder.jsp
     	System.out.println("request action=calculateSubtotal via AJAX comes in");
 
-        try {
-        	// Process the request: get the JSON data from the request body
-            BufferedReader reader = req.getReader();
-            StringBuilder jsonBuilder = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                jsonBuilder.append(line);
-            }
-            reader.close();
-            String jsonStr = jsonBuilder.toString();
-            Gson gson = new GsonBuilder().create();
-            JsonObject jsonObject = gson.fromJson(jsonStr, JsonObject.class);
-    		int productID = jsonObject.get("productID").getAsInt();
-    		int quantity = jsonObject.get("quantity").getAsInt();
-    		JsonArray productVaryIDList = jsonObject.get("productVaryIDList").getAsJsonArray();
+    	// Process the request: get the JSON data from the request body
+        BufferedReader reader = req.getReader();
+        StringBuilder jsonBuilder = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            jsonBuilder.append(line);
+        }
+        reader.close();
+        String jsonStr = jsonBuilder.toString();
+        Gson gson = new GsonBuilder().create();
+        JsonObject jsonObject = gson.fromJson(jsonStr, JsonObject.class);
+        int productID = jsonObject.get("productID").getAsInt();
+        int quantity = jsonObject.get("quantity").getAsInt();
 
-            // Prepare the response and send it
-    		int subtotal = groupOrderServiceImpl.getProductPrice(productID);
-        	for (JsonElement element: productVaryIDList) {
-        		int productVaryID = element.getAsInt();
-        		if (productVaryID != 0) {
-	        		int productVaryPrice = groupOrderServiceImpl.getProductVaryPrice(productVaryID);
-	        		subtotal += productVaryPrice;
-        		}
-        	}
-        	subtotal = subtotal * quantity;
+        JsonArray productVaryIDList = jsonObject.get("productVaryIDList").getAsJsonArray();
+
+        // Convert JsonArray to List<Integer>
+        List<Integer> productVaryIDs = new ArrayList<>();
+        for (JsonElement element : productVaryIDList) {
+            productVaryIDs.add(element.getAsInt());
+        }
+
+        // Call the service layer method to calculate the subtotal
+        int subtotal = groupOrderServiceImpl.calculateSubtotal(productID, quantity, productVaryIDs);
+
+        String json = String.valueOf(subtotal);
+        if (json != null) {
+            // Send a JSON response
+            res.setContentType("application/json; charset=UTF-8"); // Set content type to JSON
+            res.getWriter().write(json);
+        }
         
-        	String json = String.valueOf(subtotal); 
-            if (json != null) {
-            	// Send a JSON response
-            	res.setContentType("application/json; charset=UTF-8"); // Set content type to JSON
-            	res.getWriter().write(json);
+    }
+    
+    private void joinThisGroupOrder(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    	// EL: href="${pageContext.request.contextPath}/GroupOrder.do?action=join&groupOrderID=${groupOrderData.groupOrderID}"
+	    try {
+    		Integer groupOrderID = Integer.valueOf(req.getParameter("groupOrderID"));
+	    	
+	    	Object userInfo = req.getSession().getAttribute("loginUserInfo");
+	    	if (userInfo != null && groupOrderID != null) {
+	    		groupOrderServiceImpl.addUserToGroup(userInfo, groupOrderID);
+	    		
+	    		// Also need to set this attribute in action=login of UserInfoServlet.java
+	    		// so that the joined group orders data can be loaded from Redis upon user logging in
+	    		ArrayList<Map<String, Object>> navbarJoinedGroupOrders = (ArrayList<Map<String, Object>>) groupOrderServiceImpl.navbarJoinedGroupOrders(userInfo);
+	    		req.getSession().setAttribute("navbarJoinedGroupOrders", navbarJoinedGroupOrders);
+	    		
+	    	}
+	    	res.setContentType("text/html; charset=UTF-8");
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/GroupOrder.do?action=getOne&groupOrderID=" + String.valueOf(groupOrderID));		
+			dispatcher.forward(req, res);
+		
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        res.setStatus(HttpServletResponse.SC_BAD_REQUEST); // Set 400 Bad Request status on error
+	    }
+    }
+    
+    private void createGroupOrder(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    	// EL: href="${pageContext.request.contextPath}/GroupOrder.do?action=create"
+    	
+    	
+    	
+    	Object userInfo = req.getSession().getAttribute("loginUserInfo");
+    	if (userInfo != null) {
+    		req.getParameter("dinerID");
+    		req.getParameter("buildingID");
+    		req.getParameter("groupOrderSubmitTime");
+    		
+    		System.out.println("~~~~~~~~create group ");
+    		System.out.println("~~~~~~~~userInfo " + userInfo);
+    		System.out.println("~~~~~~~~dinerID " + req.getParameter("dinerID"));
+    		System.out.println("~~~~~~~~buildingID " + req.getParameter("buildingID"));
+    		System.out.println("~~~~~~~~groupOrderSubmitTime " + req.getParameter("groupOrderSubmitTime"));
+    		
+    		
+    		// Also need to set this attribute in action=login of UserInfoServlet.java
+//    		// so that the joined group orders data can be loaded from Redis upon user logging in
+//    		ArrayList<Map<String, Object>> navbarJoinedGroupOrders = (ArrayList<Map<String, Object>>) groupOrderServiceImpl.navbarJoinedGroupOrders(userInfo);
+//    		req.getSession().setAttribute("navbarJoinedGroupOrders", navbarJoinedGroupOrders);
+
+    	}
+    	
+//		res.setContentType("text/html; charset=UTF-8");
+//		RequestDispatcher dispatcher = req.getRequestDispatcher("/GroupOrder.do?action=getOne&groupOrderID=" + String.valueOf(newGroupOrderID));		
+//		dispatcher.forward(req, res);
+    }
+    
+    private void addToCart(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    	// JavaScript AJAX request url: 
+    	// contextPath + "/GroupOrder.do?action=addToCart"
+    	
+    	// Get parameters from the request.
+        Object userInfo = req.getSession().getAttribute("loginUserInfo");
+        String groupOrderID = req.getParameter("groupOrderID");
+        String dinerID = req.getParameter("dinerID");
+        String productID = req.getParameter("productID");
+        List<String> varyTypeIDs = new ArrayList<>(); // Adjust the array size as needed
+        String quantity = req.getParameter("quantity");
+
+        // Collect the productVaryIDs from parameters that start with "productVaryCount"
+        for (int i = 1; i <= 4; i++) {
+            String paramName = "varyTypeCount" + i;
+            String varyTypeCount = req.getParameter(paramName);
+            if (varyTypeCount != null && !varyTypeCount.isEmpty()) {
+            	varyTypeIDs.add(varyTypeCount);
             }
-        } catch (Exception e) {
+        }
+
+        if (userInfo != null) {
+            groupOrderServiceImpl.addProductToCart(userInfo, groupOrderID, dinerID, productID, varyTypeIDs, quantity);
+            System.out.println("Added to cart: " + groupOrderID + ", " + dinerID + ", " + productID);
+        }
+    
+    }
+    
+    private void openCart(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    	// JavaScript AJAX request url: 
+    	// contextPath + "/GroupOrder.do?action=openCart&groupOrderID=" + groupOrderID + "&dinerID=" + dinerID
+    	System.out.println("request action=openCart via AJAX comes in");
+    	
+    	try {
+	    	Object userInfo = req.getSession().getAttribute("loginUserInfo");
+	    	if (userInfo != null) {
+	    		Integer groupOrderID = Integer.valueOf(req.getParameter("groupOrderID"));
+	    		Integer dinerID = Integer.valueOf(req.getParameter("dinerID"));
+	    		
+	    		// Prepare the response and send it
+	    		List<Map<String,Object>> cartData = groupOrderServiceImpl.getCart(userInfo, groupOrderID, dinerID);
+	    		if (cartData != null) {
+	    			Gson gson = new Gson();
+	    			String json = gson.toJson(cartData);
+	    			// Set content type to JSON
+	    			res.setContentType("application/json; charset=UTF-8");
+	    			res.getWriter().write(json);
+	            }
+	    	} 
+	    } catch (Exception e) {
             e.printStackTrace();
             res.setStatus(HttpServletResponse.SC_BAD_REQUEST); // Set 400 Bad Request status on error
         }
     }
     
-    private void joinThisGroupOrder(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-    	// EL: href="${pageContext.request.contextPath}/GroupOrder.do?action=join&groupOrderID=${groupOrderData.groupOrderID}&dinerName=${groupOrderData.dinerName}"
-    	Integer groupOrderID = Integer.valueOf(req.getParameter("groupOrderID"));
-    	String dinerName = String.valueOf(req.getParameter("dinerName"));
+    private void checkout(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    	// EL: href="${pageContext.request.contextPath}/GroupOrder.do?action=checkout"
+    	try {
+    		Object userInfo = req.getSession().getAttribute("loginUserInfo");
+    		Integer groupOrderID = Integer.valueOf(req.getParameter("groupOrderID"));
+    		Integer dinerID = Integer.valueOf(req.getParameter("dinerID"));
+    		groupOrderServiceImpl.checkoutCart(userInfo, groupOrderID, dinerID);
     	
-    	Object userInfo = req.getSession().getAttribute("loginUserInfo");
-    	if (userInfo != null && dinerName != null) {
-    		groupOrderServiceImpl.addUserToGroup(userInfo, groupOrderID, dinerName);
-    		
-    		// Also need to set this attribute in action=login of UserInfoServlet.java
-    		// so that the joined group orders data can be loaded from Redis upon user logging in
-    		ArrayList<Map<String, Object>> navbarJoinedGroupOrders = (ArrayList<Map<String, Object>>) groupOrderServiceImpl.navbarJoinedGroupOrders(userInfo);
-    		req.getSession().setAttribute("navbarJoinedGroupOrders", navbarJoinedGroupOrders);
+    		res.setContentType("text/html; charset=UTF-8");
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/GroupOrder.do?action=getOne&groupOrderID=" + groupOrderID.toString());		
+			dispatcher.forward(req, res);
+    	} catch (Exception e) {
+	        e.printStackTrace();
+	        res.setStatus(HttpServletResponse.SC_BAD_REQUEST); // Set 400 Bad Request status on error
     	}
-    	
-		res.setContentType("text/html; charset=UTF-8");
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/GroupOrder.do?action=getOne&groupOrderID=" + String.valueOf(groupOrderID));		
-		dispatcher.forward(req, res);
     }
     
-    private void addToCart(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-    	System.out.println("~~~~~~Add to cart");
-    	System.out.println(req.getParameterValues("加料"));
-    	
-    }
 }

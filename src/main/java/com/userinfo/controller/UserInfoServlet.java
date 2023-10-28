@@ -299,6 +299,7 @@ public class UserInfoServlet extends HttpServlet {
 		
 		if(action.equals("logout")) {
 			req.getSession().removeAttribute("loginUserInfo");
+			req.getSession().invalidate();  // Remove all session attributes
 			req.getRequestDispatcher("/consumer/index.jsp").forward(req, res);	
 		}
 	}
