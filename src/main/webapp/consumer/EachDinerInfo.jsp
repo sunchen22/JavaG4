@@ -106,7 +106,7 @@
 		<h2 class="text-center">現在揪團中的大樓</h2>
 	</c:when>
 	<c:otherwise>
-		<h2 class="text-center">現在揪團中的大樓:無</h2>
+		<h2 class="text-center">目前沒有揪團中的大樓，你要揪一個嗎?</h2>
 	</c:otherwise>
 </c:choose>
 		<div class="row row-cols-2">

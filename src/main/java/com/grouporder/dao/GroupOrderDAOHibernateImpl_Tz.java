@@ -24,4 +24,19 @@ public class GroupOrderDAOHibernateImpl_Tz {
 		}
 		return null;
 	}
+	
+	public List<GroupOrder> getAll() {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+//			getSession().beginTransaction();
+			List<GroupOrder> list = session.createQuery("from GroupOrder g where (g.orderStatus='1' or g.orderStatus='2') ", GroupOrder.class)
+					.getResultList();
+//			getSession().getTransaction().commit();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+//			getSession().getTransaction().rollback();
+		}
+		return null;
+	}
 }

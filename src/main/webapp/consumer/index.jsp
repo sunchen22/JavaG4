@@ -1,5 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="components/head.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.advertisement.dao.*"%>
+<%@ page import="com.advertisement.entity.*"%>
+<%@ page import="com.usernews.service.*"%>
+<%@ page import="com.usernews.entity.*"%>
+<%@ page import="com.grouporder.dao.*"%>
+<%@ page import="com.grouporder.entity.*"%>
 <%-- Import CSS for this page below (if any) --%>
 
 
@@ -26,22 +34,24 @@
 <!-- 				<button type="button" data-bs-target="#carouselExampleIndicators" -->
 <!-- 					data-bs-slide-to="2" aria-label="Slide 3"></button> -->
 <!-- 			</div> -->
+
 			<div class="carousel-inner">
-				<div class="carousel-item active">
+  <% 
+  AdvertisementDAO_Tz dao = new AdvertisementDAO_Tz();
+  List<Advertisement> adList = dao.getAllApprovedAD();
+  if (adList != null) {
+	  for (Advertisement ad : adList) { 
+		Integer adID = ad.getAdvertisementID(); 
+  %>
+				<div class="carousel-item <%=(adID.equals(adList.get(0).getAdvertisementID()) ? "active" : "")%>">
 					<img
-						src="https://images.pexels.com/photos/15792419/pexels-photo-15792419/free-photo-of-variety-of-food-on-wooden-table.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+						src="<%=request.getContextPath()%>/consumer/adDBGifReader?adID=<%= adID %>"
 						class="d-block w-100" alt="...">
 				</div>
-				<div class="carousel-item">
-					<img
-						src="https://images.pexels.com/photos/2725744/pexels-photo-2725744.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-						class="d-block w-100" alt="...">
-				</div>
-				<div class="carousel-item">
-					<img
-						src="https://upload.wikimedia.org/wikipedia/en/c/c4/Food_Platter_at_Bar_One_Cafe_Chenab_2022.jpg"
-						class="d-block w-100" alt="...">
-				</div>
+  <% 
+  	}
+  } 
+  %>
 			</div>
 			<button class="carousel-control-prev" type="button"
 				data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -60,28 +70,20 @@
 	<section class="">
 		<div class="container px-4 px-lg-5">
 			<div
-				class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-1 row-cols-xl-1 justify-content-center">
+				class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-1 row-cols-xl-1 justify-content-center mb-3">
+<% 
+UserNewsService newsServ = new UserNewsServiceImpl();
+List<UserNews> newsList = newsServ.getAllUserNews();
+for(UserNews news : newsList){
+%>
 				<div class="col mb-1">
 					<div class="card">
 						<div class="card-body">
-							<div class="text-left">最新消息：訴後已，交因最重個工受內異力間局上文、天都進境界食現林半，對我投特資得維質到的太。不了前滿員以產談半毛不管，也的小。</div>
+							<div class="text-left"><%= news.getUserNewsContent() %></div>
 						</div>
 					</div>
 				</div>
-				<div class="col mb-1">
-					<div class="card">
-						<div class="card-body">
-							<div class="text-left">最新消息：訴後已，交因最重個工受內異力間局上文、天都進境界食現林半，對我投特資得。</div>
-						</div>
-					</div>
-				</div>
-				<div class="col mb-1">
-					<div class="card">
-						<div class="card-body">
-							<div class="text-left">最新消息：訴後已，交因最重個工受內異力</div>
-						</div>
-					</div>
-				</div>
+<%} %>
 			</div>
 		</div>
 	</section>
@@ -89,28 +91,82 @@
 	<!-- Section-->
 	<section class="">
 		<div class="container px-4 px-md-5">
-
+<% 
+	//依據dinerID取得groupOrder List
+	GroupOrderDAOHibernateImpl_Tz groupDao = new GroupOrderDAOHibernateImpl_Tz();
+	List<GroupOrder> groupOrders = groupDao.getAll();
+%>
+<% if(groupOrders != null){ %>
 			<h1>現在揪團中</h1>
-
+<%
+	} else {
+%>	
+			<h1>現在揪團中: 沒有正在揪團中~趕快揪一個吧</h1>
+<%
+	}
+%>
 			<div class="row">
+<% 
+			for(GroupOrder order : groupOrders){
+%>
 				<div class="col">
 					<div class="card">
 						<div class="row g-0 align-items-center">
 							<div class="col-4 ">
 								<img
-									src="https://images.pexels.com/photos/2725744/pexels-photo-2725744.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+									src="<%=request.getContextPath()%>/consumer/dinerDBGifReader?dinerID=<%= order.getDinerInfo().getDinerID() %>"
 									class="card-img" alt="...">
 							</div>
 							<div class="col-8">
 								<div class="card-body">
-									<h5 class="card-title">宏春大樓</h5>
+									<h5 class="card-title"><%= order.getBuildingInfo().getBuildingName() %></h5>
 									<ul class="list-unstyled card-text">
-										<li><span>大樓地址：</span><span>台北市中山區南京東路三段219號</span></li>
-										<li>ONE GOOD烤肉飯</li>
-										<li>團主：會員暱稱</li>
-										<li class="list-inline-item">成團條件：1500元</li>
-										<li class="list-inline-item">成團狀態：尚未達成</li>
-										<li>付款截止時間：今日11:30</li>
+										<li><span>大樓地址：</span><span><%= order.getBuildingInfo().getBuildingAddress() %></span></li>
+										<li><%= order.getDinerInfo().getDinerName() %></li>
+										<li>團主：<%= order.getUserInfo().getUserName() %></li>
+										<li class="list-inline-item">成團條件：<%= order.getDinerInfo().getDinerOrderThreshold() %>元</li>
+<%
+  String statusText = "";
+  int status;
+  if (order.getOrderStatus() != null) {
+	    try {
+	      status = Integer.parseInt(order.getOrderStatus().toString());
+	    } catch (NumberFormatException e) {
+	      status = -1;  // 轉換失敗時設為-1或其他無效值
+	    }
+  switch (status) {
+    case 1:
+      statusText = "揪團已建立";
+      break;
+    case 2:
+      statusText = "成團條件達成";
+      break;
+    case 3:
+      statusText = "揪團成功";
+      break;
+    case 4:
+      statusText = "揪團失敗";
+      break;
+    case 5:
+      statusText = "餐點準備中";
+      break;
+    case 6:
+      statusText = "商家拒單";
+      break;
+    case 7:
+      statusText = "餐點送達";
+      break;
+    default:
+      statusText = "未知狀態";
+  }}
+%>
+										<li class="list-inline-item">成團狀態：<%= statusText%></li>
+<%
+  java.util.Date submitTime = order.getGroupOrderSubmitTime();
+  java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
+  String formattedSubmitTime = sdf.format(submitTime);
+%>
+										<li>付款截止時間：<%= formattedSubmitTime %></li>
 										<div class="d-flex justify-content-end">
 											<a class="btn btn-dark">加入此大樓揪團</a>
 										</div>
@@ -120,33 +176,10 @@
 						</div>
 					</div>
 				</div>
-				<div class="col">
-					<div class="card">
-						<div class="row g-0 align-items-center">
-							<div class="col-4 ">
-								<img
-									src="https://images.pexels.com/photos/2725744/pexels-photo-2725744.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-									class="card-img" alt="...">
-							</div>
-							<div class="col-8">
-								<div class="card-body">
-									<h5 class="card-title">宏春大樓</h5>
-									<ul class="list-unstyled card-text">
-										<li>大樓地址：台北市中山區南京東路三段219號</li>
-										<li>ONE GOOD烤肉飯</li>
-										<li>團主：會員暱稱</li>
-										<li class="list-inline-item">成團條件：1500元</li>
-										<li class="list-inline-item">成團狀態：尚未達成</li>
-										<li>付款截止時間：今日11:30</li>
-										<div class="d-flex justify-content-end">
-											<a class="btn btn-dark">加入此大樓揪團</a>
-										</div>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+<% 
+			}
+%>
+				
 			</div>
 		</div>
 
