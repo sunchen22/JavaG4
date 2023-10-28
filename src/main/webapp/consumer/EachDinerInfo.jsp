@@ -42,10 +42,11 @@
 	SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 	String formattedOpenTime = sdf.format(businessHours.getOpenTime());
 	String formattedCloseTime = sdf.format(businessHours.getCloseTime());
+	
 
 	//平均評分
 	Double averageRating = new DinerRatingCommentDAO().getAverageRatingByDinerIDWithCriteria(dinerID);
-
+	String formattedRating = String.format("%.1f", averageRating);
 	//依據dinerID取得groupOrder List
 	GroupOrderDAOHibernateImpl_Tz groupDao = new GroupOrderDAOHibernateImpl_Tz();
 	List<GroupOrder> groupOrders = groupDao.getAllbyDinerID(dinerID);
@@ -79,18 +80,19 @@
 									class="fa-solid fa-utensils"></i></span></li>
 							<li class="list-inline-item"><span
 								class="badge fs-6 rounded-pill bg-secondary"><i
-									class="fa-solid fa-star"></i><%=averageRating%></span></li>
+									class="fa-solid fa-star"></i><%= formattedRating %></span></li>
 							<li><span>可外送大樓：</span><span>宏春、揚昇金融</span></li>
 							<li><span>成團條件：</span><span>${dinerInfo.dinerOrderThreshold}</span></li>
 							<li>配送時間：營業時間內接單後1小時內送達</li>
 						</ul>
 						<div class="d-grid gap-2 d-flex justify-content-end">
-							<a class="btn btn-dark fs-6"><i
-								class="fa-solid fa-magnifying-glass"></i>現有揪團</a><a
-								class="btn btn-dark fs-6"><i class="fa-solid fa-users"></i>發起揪團</a>
+							<a class="btn btn-dark fs-6"><i class="fa-solid fa-magnifying-glass"></i>現有揪團</a>
+							<a class="btn btn-dark fs-6"><i class="fa-solid fa-users"></i>發起揪團</a>
+							<a class="btn btn-dark fs-6" href="<%=request.getContextPath()%>/consumer/protected/DinerComment.jsp?dinerID=<%= dinerID %>"><i class="fa-solid fa-comment"></i>觀看評論</a>
+								
 						</div>
-						<i type="button"
-							class="heartBtn fs-4 position-absolute top-0 end-0 m-3 fa-regular fa-heart"></i>
+<!-- 						<i type="button" -->
+<!-- 							class="heartBtn fs-4 position-absolute top-0 end-0 m-3 fa-regular fa-heart"></i> -->
 					</div>
 				</div>
 			</div>
@@ -142,7 +144,7 @@
 					<div class="card">
 						<div>
 							<img
-								src="https://images.pexels.com/photos/2725744/pexels-photo-2725744.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+								src="<%=request.getContextPath()%>/consumer/productDBGifReader?productID=${productL.productID}"
 								class="card-img" alt="...">
 						</div>
 						<div>
