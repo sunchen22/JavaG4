@@ -94,11 +94,11 @@ DinerInfo account = (DinerInfo) session.getAttribute("account");
 								<c:if test="${not empty alreadyApplyMsg}">
 									<font style="color: yellow">${alreadyApplyMsg}</font>
 								</c:if>
-								
+
 								<c:if test="${account.dinerStatus == 'changed'}">
-    								<div class="alert alert-warning">您已申請過變更資料，請靜待審核</div>
+									<div class="alert alert-warning">您已申請過變更資料，請靜待審核</div>
 								</c:if>
-								
+
 								<%-- 錯誤表列 --%>
 								<c:if test="${not empty errorMsgs}">
 									<font style="color: red">請修正以下錯誤:</font>
@@ -107,8 +107,8 @@ DinerInfo account = (DinerInfo) session.getAttribute("account");
 											<li style="color: red">${message}</li>
 										</c:forEach>
 									</ul>
-
 								</c:if>
+								
 								<%-- 申請成功、沒有變更 訊息 --%>
 								<c:if test="${not empty successMsg}">
 									<font style="color: green">${successMsg}</font>
@@ -118,7 +118,7 @@ DinerInfo account = (DinerInfo) session.getAttribute("account");
 								<form
 									action="<%=request.getContextPath()%>/dinerbackground/pages/Team/dashboard/dinerInfo.do"
 									method="post">
-
+									
 
 									<div class="row">
 										<!-- 商店名稱 -->
@@ -302,13 +302,13 @@ DinerInfo account = (DinerInfo) session.getAttribute("account");
 										<div class="col-4 mr-1">
 
 											<input type="hidden" name="dinerID"
-												value="${account.dinerID}"> 
-<!-- 											<input type="hidden" -->
-<%-- 												name="dinerUpdate" value="${account.dinerUpdate}">  --%>
-											<input
-												type="hidden" name="action" value="dinerInfoChange">
+												value="${account.dinerID}">
+											<!-- 											<input type="hidden" -->
+											<%-- 												name="dinerUpdate" value="${account.dinerUpdate}">  --%>
+											<input type="hidden" name="action" value="dinerInfoChange">
 											<!--這個隱藏格是為了再送出整個表單時有個錨定點 -->
-											<button type="submit" class="btn btn-primary btn-block" id="submitButton">確認修改</button>
+											<button type="submit" class="btn btn-primary btn-block"
+												id="submitButton">確認修改</button>
 											<!--                       <button type="submit" class="btn btn-primary btn-block" onclick="submitForm()">確認修改</button> -->
 
 										</div>
@@ -368,13 +368,13 @@ DinerInfo account = (DinerInfo) session.getAttribute("account");
 
 			<script>
 			document.getElementById('submitButton').addEventListener('click', function(event) {
-			    var dinerStatus = '<%= account.getDinerStatus()%>';
-			    if (dinerStatus === 'changed') {
-			        event.preventDefault();  // 阻止表單提交
-			        alert('管理員已在審核過程中，請勿二次提交');
-			    }
-			});
-
+			    var dinerStatus = '<%=account.getDinerStatus()%>
+				';
+							if (dinerStatus === 'changed') {
+								event.preventDefault(); // 阻止表單提交
+								alert('管理員已在審核過程中，請勿二次提交');
+							}
+						});
 			</script>
 </body>
 

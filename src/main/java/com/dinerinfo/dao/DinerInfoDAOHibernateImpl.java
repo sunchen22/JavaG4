@@ -1,13 +1,16 @@
 package com.dinerinfo.dao;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
+import com.businesshours.entity.BusinessHours;
 import com.dinerinfo.controller.DinerPasswordGenerator;
 import com.dinerinfo.entity.DinerInfo;
 import com.google.gson.Gson;
@@ -60,7 +63,6 @@ public class DinerInfoDAOHibernateImpl implements DinerInfoDAO {
 		return dinerInfo;
 	}
 
-
 	@Override
 	public DinerInfo update(DinerInfo dinerInfo) {
 		try {
@@ -85,7 +87,14 @@ public class DinerInfoDAOHibernateImpl implements DinerInfoDAO {
 
 	@Override
 	public DinerInfo findByPK(Integer dinerID) {
-		return getSession().get(DinerInfo.class, dinerID);
+		try {
+
+			return getSession().get(DinerInfo.class, dinerID);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
@@ -176,9 +185,9 @@ public class DinerInfoDAOHibernateImpl implements DinerInfoDAO {
 
 	// ===========================================================================================
 
-	
-	// ============ 專用於商家修改 : 以下三個方法用來比對資料庫不能重複的選項 ===================================
-	
+	// ============ 專用於商家修改 : 以下三個方法用來比對資料庫不能重複的選項
+	// ===================================
+
 	@Override
 	public String isExistTaxID(String dinerTaxID, Integer dinerID) {
 		try {
@@ -193,7 +202,7 @@ public class DinerInfoDAOHibernateImpl implements DinerInfoDAO {
 		}
 		return null;
 	}
-	
+
 	@Override
 	public String isExistEmail(String dinerEmail, Integer dinerID) {
 		try {
@@ -208,7 +217,7 @@ public class DinerInfoDAOHibernateImpl implements DinerInfoDAO {
 		}
 		return null;
 	}
-	
+
 	@Override
 	public String isExistPhone(String dinerPhone, Integer dinerID) {
 		try {
@@ -223,10 +232,8 @@ public class DinerInfoDAOHibernateImpl implements DinerInfoDAO {
 		}
 		return null;
 	}
-	
-	// =============================================================================================	
-	
 
+	// =============================================================================================
 
 	@Override
 	public String compare(DinerInfo oldInfo, DinerInfo newInfo) {
@@ -270,20 +277,43 @@ public class DinerInfoDAOHibernateImpl implements DinerInfoDAO {
 		// 使用 Gson 將 JsonObject 轉換成 String
 		Gson gson = new Gson();
 
-		// 確認商家確實有修改資訊，才返回JSON格式	
+		// 確認商家確實有修改資訊，才返回JSON格式
 		// 這裡不能用 != null 來判斷，因為她還是會返回{}符號
 		if (difference.size() > 0) {
-		    return gson.toJson(difference);
+			return gson.toJson(difference);
 		} else {
-		    return null;
+			return null;
 		}
 
 	}
+
+//	@Override
+//	public byte[] getBlob(Integer dinerID) {
+//		try {
+//			
+//			DinerInfo dinerInfo = getSession().get(DinerInfo.class, dinerID);
+//			byte[] dinerBlob = dinerInfo.getDinerBlob();
+//			
+//			}catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//			return null;
+//	}
 
 	@Override
 	public List<DinerInfo> getAll() {
 		return getSession().createQuery("FROM DinerInfo", DinerInfo.class).list();
 
+	}
+
+	@Override
+	public Set<BusinessHours> getBusinessHoursByDinerID(Integer dinerID) {
+		DinerInfo dinerInfo = (DinerInfo) getSession().createQuery("FROM DinerInfo WHERE dinerID = :dinerID")
+				.setParameter("dinerID", dinerID).uniqueResult();
+		if (dinerInfo != null) {
+			return dinerInfo.getBusinessHours();
+		}
+		return new HashSet<>(); // 返回一個空的Set
 	}
 
 	@Override

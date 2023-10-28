@@ -135,7 +135,7 @@
           			<div class="card-header">
 						<div class="card-title" style="align-items: center;">會員最新消息</div>
 						<div style="display: flex; justify-content: right;">
-							<a href="adm_men_add.jsp" class="btn btn-warning ">
+							<a href="mem_news_add.jsp" class="btn btn-warning ">
 							<i class="fa fa-plus-circle"></i>增加最新消息</a>
 						</div>
 					</div>
@@ -162,6 +162,7 @@
                     <th>狀態</th>
                     <th>修改</th>
                     <th>下架</th>
+                    <th>刪除</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -178,13 +179,21 @@
 												<input type="submit" value="修改" class="btn btn-warning btn-sm edit-button"> 
 												<input type="hidden" name="userNewsID" value="${usernews.userNewsID}" >
 												<input type="hidden" name="action" value="getOne_For_Update" >
+<%-- 												<input type="hidden" name="account" value="${sessionScope.account}" > --%>
 					</FORM>
 					</td>
 					<td>
 					<FORM METHOD="post"  ACTION="<%=request.getContextPath()%>/background/pages/usernews.do" style="margin-bottom: 0px;" >
-													<input type="submit" value="下架" class="btn btn-danger btn-sm delete-button" > 
+													<input type="submit" value="下架" class="btn btn-warning btn-sm edit-button"> 
 													<input type="hidden" name="userNewsID" value="${usernews.userNewsID}" >
 													<input type="hidden" name="action" value="suspend">
+					</FORM>
+                    </td>
+                    <td>
+					<FORM METHOD="post"  ACTION="<%=request.getContextPath()%>/background/pages/usernews.do" style="margin-bottom: 0px;" >
+													<input type="submit" value="刪除" class="btn btn-danger btn-sm delete-button" > 
+													<input type="hidden" name="userNewsID" value="${usernews.userNewsID}" >
+													<input type="hidden" name="action" value="delete">
 					</FORM>
                     </td>
                   </tr>
@@ -236,7 +245,7 @@
  <!-- 引入selfjs -->
 <%@ include  file="pagejs.file" %>
 	
-
+    
 </body>
 
 </html>

@@ -34,7 +34,8 @@ public class UserNews {
 	@Column(name = "userNewsReviseTime")
 	private Date userNewsReviseTime;
 	
-	@Column(name = "userNewsStatus")
+	
+	@Column(name = "userNewsStatus", columnDefinition = "int")
 	private Integer userNewsStatus;
 	
 	public UserNews() {

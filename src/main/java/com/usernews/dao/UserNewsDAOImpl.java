@@ -33,13 +33,20 @@ public class UserNewsDAOImpl implements UserNewsDAO {
 	@Override
 	public int insert(UserNews entity) {
 		// 回傳給 service 剛新增成功的自增主鍵值
-		return (Integer) getSession().save(entity);
+		try {
+			return (Integer) getSession().save(entity);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("UserNews insert失敗");
+			return -1;
+		}
 	}
 
 	@Override
 	public int update(UserNews userNews) {
 		try {
-			getSession().update(userNews);
+			System.out.println("UserNews 中的userNews"+userNews);
+			getSession().merge(userNews);
 			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -68,6 +75,7 @@ public class UserNewsDAOImpl implements UserNewsDAO {
 //			System.out.println("getById成功");
 			return usernews;
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println("getById失敗");
 		}
 		return null;
@@ -114,7 +122,6 @@ public class UserNewsDAOImpl implements UserNewsDAO {
 //		return query.getResultList();
 //	}
 
-	
 	@Override
 	public long getTotal() {
 		return getSession().createQuery("select count(*) from UserNews", Long.class).uniqueResult(); // 單筆查詢.uniqueResult()
