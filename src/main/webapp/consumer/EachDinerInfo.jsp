@@ -101,7 +101,14 @@
 
 	<!-- 該商家目前揪團 -->
 	<section class="container mt-5">
+<c:choose>
+	<c:when test="${not empty groupOrders}">
 		<h2 class="text-center">現在揪團中的大樓</h2>
+	</c:when>
+	<c:otherwise>
+		<h2 class="text-center">現在揪團中的大樓:無</h2>
+	</c:otherwise>
+</c:choose>
 		<div class="row row-cols-2">
 			<c:forEach var="groupOrder" items="${groupOrders}">
 				<div class="col mb-2">
@@ -120,7 +127,44 @@
 										<li>${dinerInfo.dinerName}</li>
 										<li>團主：${groupOrder.userInfo.userNickName}</li>
 										<li class="list-inline-item">成團條件：${dinerInfo.dinerOrderThreshold}</li>
-										<li class="list-inline-item">成團狀態：${groupOrder.orderStatus}</li>
+<c:set var="statusText" value="未知狀態"/>
+<c:set var="status" value="-1"/>
+<!-- 檢查 groupOrder.orderStatus 是否為 null，並轉換為整數 -->
+<c:if test="${not empty groupOrder.orderStatus}">
+    <c:catch var="numberFormatError">
+        <c:set var="status" value="${groupOrder.orderStatus}"/>
+    </c:catch>
+    <c:if test="${not empty numberFormatError}">
+        <c:set var="status" value="-1"/>
+    </c:if>
+</c:if>
+<c:choose>
+    <c:when test="${status == 1}">
+        <c:set var="statusText" value="揪團已建立"/>
+    </c:when>
+    <c:when test="${status == 2}">
+        <c:set var="statusText" value="成團條件達成"/>
+    </c:when>
+    <c:when test="${status == 3}">
+        <c:set var="statusText" value="揪團成功"/>
+    </c:when>
+    <c:when test="${status == 4}">
+        <c:set var="statusText" value="揪團失敗"/>
+    </c:when>
+    <c:when test="${status == 5}">
+        <c:set var="statusText" value="餐點準備中"/>
+    </c:when>
+    <c:when test="${status == 6}">
+        <c:set var="statusText" value="商家拒單"/>
+    </c:when>
+    <c:when test="${status == 7}">
+        <c:set var="statusText" value="餐點送達"/>
+    </c:when>
+    <c:otherwise>
+        <c:set var="statusText" value="未知狀態"/>
+    </c:otherwise>
+</c:choose>
+										<li class="list-inline-item">狀態：${statusText}</li>
 										<li>付款截止時間：${groupOrder.groupOrderSubmitTime}</li>
 										<div class="d-flex justify-content-end">
 											<a class="btn btn-dark">加入此大樓揪團</a>

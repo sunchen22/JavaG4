@@ -13,7 +13,7 @@ public class GroupOrderDAOHibernateImpl_Tz {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 //			getSession().beginTransaction();
-			List<GroupOrder> list = session.createQuery("from GroupOrder g where g.dinerInfo.dinerID = :dinerID", GroupOrder.class)
+			List<GroupOrder> list = session.createQuery("from GroupOrder g where g.dinerInfo.dinerID = :dinerID and (g.orderStatus='1' or g.orderStatus='2') ", GroupOrder.class)
 					.setParameter("dinerID", dinerID)
 					.getResultList();
 //			getSession().getTransaction().commit();

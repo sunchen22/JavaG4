@@ -60,22 +60,22 @@
 	<section class="">
 		<div class="container px-4 px-lg-5">
 			<div
-				class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-3 row-cols-xl-3 justify-content-center">
-				<div class="col mb-5">
+				class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-1 row-cols-xl-1 justify-content-center">
+				<div class="col mb-1">
 					<div class="card">
 						<div class="card-body">
 							<div class="text-left">最新消息：訴後已，交因最重個工受內異力間局上文、天都進境界食現林半，對我投特資得維質到的太。不了前滿員以產談半毛不管，也的小。</div>
 						</div>
 					</div>
 				</div>
-				<div class="col mb-5">
+				<div class="col mb-1">
 					<div class="card">
 						<div class="card-body">
 							<div class="text-left">最新消息：訴後已，交因最重個工受內異力間局上文、天都進境界食現林半，對我投特資得。</div>
 						</div>
 					</div>
 				</div>
-				<div class="col mb-5">
+				<div class="col mb-1">
 					<div class="card">
 						<div class="card-body">
 							<div class="text-left">最新消息：訴後已，交因最重個工受內異力</div>

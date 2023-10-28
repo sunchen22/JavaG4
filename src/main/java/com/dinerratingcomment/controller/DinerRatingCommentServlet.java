@@ -77,6 +77,7 @@ public class DinerRatingCommentServlet extends HttpServlet {
 
 			dinerRatingComment.setUserCommentTime(new java.sql.Timestamp(System.currentTimeMillis()));
 			dinerRatingComment.setUserCommentContent(userCommentContent);
+			dinerRatingComment.setDinerRatingCommentStatus((Integer) 1);
 
 			UserInfo userInfo = new UserInfo();
 			userInfo.setUserID(userID);

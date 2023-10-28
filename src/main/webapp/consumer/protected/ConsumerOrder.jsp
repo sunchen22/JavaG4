@@ -108,7 +108,7 @@ if (groupOrdersID != null) {
 			</div>
 
 			<div class="col d-flex align-items-center justify-content-center">
-			<%
+<%
   String statusText = "";
   int status;
   if (firstDetail[21] != null) {

@@ -99,7 +99,7 @@ public class DinerRatingCommentDAO implements DinerRatingCommentDAO_Interface {
 		try {
 //			session.beginTransaction();
 			List<DinerRatingComment> list = session
-					.createQuery("from DinerRatingComment d where d.dinerInfo.dinerID = :dinerID",
+					.createQuery("from DinerRatingComment d where d.dinerInfo.dinerID = :dinerID AND d.dinerRatingCommentStatus = 1",
 							DinerRatingComment.class)
 					.setParameter("dinerID", dinerID).list();
 //			session.getTransaction().commit();
@@ -120,7 +120,7 @@ public class DinerRatingCommentDAO implements DinerRatingCommentDAO_Interface {
 	public Double getAverageRatingByDinerIDWithCriteria(Integer dinerID) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
-			String hql = "SELECT AVG(drc.dinerRating) FROM DinerRatingComment drc WHERE drc.dinerInfo.dinerID = :dinerID";
+			String hql = "SELECT AVG(drc.dinerRating) FROM DinerRatingComment drc WHERE drc.dinerInfo.dinerID = :dinerID AND drc.dinerRatingCommentStatus = 1";
 	        Query query = session.createQuery(hql);
 	        query.setParameter("dinerID", dinerID);
 	        return (Double) query.uniqueResult();
