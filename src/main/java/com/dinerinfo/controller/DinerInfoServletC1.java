@@ -16,13 +16,6 @@ import com.dinerinfo.entity.DinerInfo;
 import com.google.gson.JsonObject;
 
 
-
-
-
-
-
-
-
 @WebServlet("/cproject/pages/difs1.do")
 public class DinerInfoServletC1 extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -34,46 +27,47 @@ public class DinerInfoServletC1 extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		
 	
-		String str = req.getParameter("dinerID");
-		Integer dinerID = Integer.valueOf(str);
+//		String str = req.getParameter("dinerID");
+//		Integer dinerID = Integer.valueOf(str);
 		DinerInfoDAOImplC didi = new DinerInfoDAOImplC();
-		DinerInfo  dif =didi.findByPK(dinerID);
+		DinerInfo  dif =didi.findByPK(1);
 		req.setAttribute("dif",dif);
 		
 		
 			
 			
 			
-//			String str1 = req.getParameter("action1");
-//			String str2 = req.getParameter("action2");
-//			String str3 = req.getParameter("action3");
-//			String str4 = req.getParameter("action4");
-//			String str5 = req.getParameter("action5");
-//			String str6 = req.getParameter("action6");
-//			String str7 = req.getParameter("action7");
-//			String str8 = req.getParameter("action8");
-//			String str9 = req.getParameter("action9");
-//			String str10 = req.getParameter("action10");
+			String str1 = req.getParameter("action1");
+			String str2 = req.getParameter("action2");
+			String str3 = req.getParameter("action3");
+			String str4 = req.getParameter("action4");
+			String str5 = req.getParameter("action5");
+			String str6 = req.getParameter("action6");
+			String str7 = req.getParameter("action7");
+			String str8 = req.getParameter("action8");
+			String str9 = req.getParameter("action9");
+			String str10 = req.getParameter("action10");
 //			
-//			JSONObject j = new JSONObject();
-//			
-//			j.put("a",str1);
-//			j.put("b",str2);
-//			j.put("c",str3);
-//			j.put("d",str4);
-//			j.put("e",str5);
-//			j.put("f",str6);
-//			j.put("g",str7);
-//			j.put("h",str8);
-//			j.put("i",str9);
-//			j.put("j",str10);
-//			
-//			
-//			
-//			didi.update(dinerID);
-//			if(didi!= null) {
-//				dif.setDinerUpdate(j.toString());
-//			}
+			JSONObject j = new JSONObject();
+			
+			j.put("dinerName",str1);
+			j.put("dinerPassword",str2);
+			j.put("dinerTaxID",str3);
+			j.put("dinerContact",str4);
+			j.put("dinerPhone",str5);
+			j.put("dinerEmail",str6);
+			j.put("dinerAddress",str7);
+			j.put("dinerBank",str8);
+			j.put("dinerAccount",str9);
+			j.put("dinerAccountName",str10);
+//			j.put("dinerType",str11);
+			
+			
+			
+			didi.update(1);
+			if(didi!= null) {
+				dif.setDinerUpdate(j.toString());
+			}
 			
 			
 			

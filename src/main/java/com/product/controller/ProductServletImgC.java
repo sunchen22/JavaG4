@@ -29,19 +29,13 @@ public class ProductServletImgC extends HttpServlet {
 		Integer productID = Integer.parseInt(req.getParameter("productID"));
 		
 		
-		List<byte[]> b = new ProductDAOImplC().getImg(productID);
-//		
-		byte[] a = b.get(0);
-//		System.out.println(a);
-//		byte[] c = b.get(1);
-//		byte[] d = b.get(2);
+		byte[] b = new ProductDAOImplC().getImg(productID);
 		
-		out.write(a);
-//		out.write(c);
-//		
-//		
-//		
-//		out.write(d);
+		
+		
+		
+		out.write(b);
+	
 		
 		
 }

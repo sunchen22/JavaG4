@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.dinernews.entity.DinerNews;
+import com.usernews.entity.UserNews;
 
 @Entity
 @Table(name = "webempadmin")
@@ -43,6 +44,11 @@ public class Webempadmin {
 	@Column(name = "empStatus")
 	private boolean empStatus;
 
+	
+	@OneToMany(mappedBy = "webempadmin" , cascade = CascadeType.ALL)
+	private Set<UserNews> webempadmin1;
+	
+	
 	public Webempadmin() {
 		super();
 	}
@@ -107,14 +113,25 @@ public class Webempadmin {
 	}
 
 
-	public void setEmpStatus(boolean empStatus) {
-		this.empStatus = empStatus;
-	}
 
 	public boolean getEmpStatus() {
 		return empStatus;
 	}
+	public void setEmpStatus(boolean empStatus) {
+		this.empStatus = empStatus;
+
+	}
+
+
 	
+	public Set<UserNews> getWebempadmin1() {
+		return webempadmin1;
+	}
+
+	public void setWebempadmin1(Set<UserNews> webempadmin1) {
+		this.webempadmin1 = webempadmin1;
+	}
+
 	@Override
 	public String toString() {
 		return "Webempadmin [empID=" + empID + ", empName=" + empName + ", empPassword=" + empPassword + ", empArriveDate=" + empArriveDate + ",empAdminAuthorization =" +empAdminAuthorization+"]";

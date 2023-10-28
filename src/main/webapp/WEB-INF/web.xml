@@ -87,6 +87,12 @@
 	<servlet>
 		<servlet-name>DinerInfoServletD</servlet-name>
 		<servlet-class>com.dinerinfo.controller.DinerInfoServletD</servlet-class>
+		 <multipart-config>
+        <!-- 配置上傳檔案大小的限制 -->
+        <max-file-size>10485760</max-file-size>  <!-- 10MB -->
+        <max-request-size>52428800</max-request-size>  <!-- 50MB -->
+        <file-size-threshold>2097152</file-size-threshold>  <!-- 2MB -->
+    </multipart-config>
 	</servlet>
 
 
@@ -162,6 +168,15 @@
 		<servlet-name>UserImage</servlet-name>
 		<url-pattern>/background/pages/UserImage</url-pattern>
 	</servlet-mapping>
-
+	
+	<!-- 會員最新消息 -->
+	<servlet>
+		<servlet-name>UserNewsServlet</servlet-name>
+		<servlet-class>com.usernews.controller.UserNewsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UserNewsServlet</servlet-name>
+		<url-pattern>/background/pages/usernews.do</url-pattern>
+	</servlet-mapping>
 
 </web-app>
