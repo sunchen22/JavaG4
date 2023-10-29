@@ -31,7 +31,7 @@ public class DinerInfoImg extends HttpServlet {
 		
 		try {
 			int id = Integer.parseInt(req.getParameter("id").trim());
-			System.out.println("這裡是servlet查到的========="+id);
+			
 			byte[] dinerBlob = dinerInfoServiceImpl.getDinerBlob(id);
 			
 			if (dinerBlob != null) {

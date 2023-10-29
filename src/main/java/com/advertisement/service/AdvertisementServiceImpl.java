@@ -8,8 +8,9 @@ import java.util.Map;
 import java.util.Set;
 
 import com.advertisement.dao.AdvertisementDAO;
-import com.advertisement.dao.AdvertisementDAOImpl;
+import com.advertisement.dao.AdvertisementDAOHibernateImpl;
 import com.advertisement.entity.Advertisement;
+import com.dinerinfo.entity.DinerInfo;
 
 import util.HibernateUtil;
 
@@ -21,14 +22,18 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 	private  AdvertisementDAO dao;
 
 	public AdvertisementServiceImpl() {
-		dao = new AdvertisementDAOImpl(HibernateUtil.getSessionFactory());
+		dao = new AdvertisementDAOHibernateImpl(HibernateUtil.getSessionFactory());
 	}
 	
 
 	@Override
-	public Advertisement addAdvertisement(Advertisement advertisement) {
-		// TODO Auto-generated method stub
-		return null;
+	public void addAdvertisement(Advertisement advertisement,Integer dinerID) {
+	 DinerInfo dinerInfo = dao.getDinerInfoByDinerID(dinerID);
+	 advertisement.setAdvertisementStatus("Submitted");
+	 advertisement.setDinerid(dinerInfo);
+	 dinerInfo.setDinerID(dinerID);
+	 dao.addAdvertisement(advertisement);
+		 
 	}
 
 	@Override
@@ -49,12 +54,18 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 		return null;
 	}
 
-//	@Override
-//	public List<Advertisement> getAllAdvertisements(int currentPage) {
-//		return dao.getAll(currentPage);
-//	}
+	
+	
+
 
 	
+	
+	@Override
+	public DinerInfo getDinerInfoByDinerID(Integer dinerID) {
+		return dao.getDinerInfoByDinerID(dinerID);
+	}
+
+
 	@Override
 	public List<Advertisement> getAdvertisementsByCompositeQuery(Map<String, String[]> map) {
 		Map<String, String> query = new HashMap<>();
@@ -80,6 +91,22 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 		return dao.getByCompositeQuery(query);
 	}
 	
+
+
+	@Override
+	public Advertisement setAdvertisementBlob(byte[] advertisementBlob, Integer dinerID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<Advertisement> getAdvertisementsByDinerID(Integer dinerID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 	@Override
 	public int getPageTotal() {
 		long total = dao.getTotal();
