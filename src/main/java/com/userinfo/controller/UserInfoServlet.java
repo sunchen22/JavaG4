@@ -177,12 +177,15 @@ public class UserInfoServlet extends HttpServlet {
 			Object locationObj = session.getAttribute("location");
 			String location = (locationObj != null) ? (String) locationObj : defaultURL;
 
-			if (location.startsWith(contextPath)) {
-			    location = location.substring(contextPath.length()); // 去除 context path
-			}
-			RequestDispatcher successView = req.getRequestDispatcher(location);
+//			if (location.startsWith(contextPath)) {
+//			    location = location.substring(contextPath.length()); // 去除 context path
+//			}
+			System.out.println(location);
 			session.removeAttribute("location");
-			successView.forward(req, res);
+			res.sendRedirect(location);
+//			RequestDispatcher successView = req.getRequestDispatcher(location);
+//			
+//			successView.forward(req, res);
 		}
 
 		// ======================================================

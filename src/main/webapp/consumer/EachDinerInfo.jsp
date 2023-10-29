@@ -42,10 +42,11 @@
 	SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 	String formattedOpenTime = sdf.format(businessHours.getOpenTime());
 	String formattedCloseTime = sdf.format(businessHours.getCloseTime());
+	
 
 	//平均評分
 	Double averageRating = new DinerRatingCommentDAO().getAverageRatingByDinerIDWithCriteria(dinerID);
-
+	String formattedRating = String.format("%.1f", averageRating);
 	//依據dinerID取得groupOrder List
 	GroupOrderDAOHibernateImpl_Tz groupDao = new GroupOrderDAOHibernateImpl_Tz();
 	List<GroupOrder> groupOrders = groupDao.getAllbyDinerID(dinerID);
@@ -77,9 +78,12 @@
 							<li class="list-inline-item"><span
 								class="badge fs-6 rounded-pill bg-secondary"><i
 									class="fa-solid fa-utensils"></i></span></li>
-							<li class="list-inline-item"><span
-								class="badge fs-6 rounded-pill bg-secondary"><i
-									class="fa-solid fa-star"></i><%=averageRating%></span></li>
+							<li class="list-inline-item">
+							<a href="<%=request.getContextPath()%>/consumer/protected/DinerComment.jsp?dinerID=<%= dinerID %>" 
+							class="text-decoration-underline">
+							<span
+								class="badge fs-6 rounded-pill bg-dark shadow"><i
+									class="fa-solid fa-star"></i><%= formattedRating %></span></a></li>
 							<li><span>可外送大樓：</span><span>宏春、揚昇金融</span></li>
 							<li><span>成團條件：</span><span>${dinerInfo.dinerOrderThreshold}</span></li>
 							<li>配送時間：營業時間內接單後1小時內送達</li>
@@ -94,9 +98,11 @@
 									<a class="btn btn-dark fs-6" data-bs-toggle="modal" data-bs-target="#create_group_modal"><i class="fa-solid fa-users"></i>發起大樓揪團</a>
     							</c:otherwise>
 							</c:choose>
+<%-- 								<a class="btn btn-dark fs-6" href="<%=request.getContextPath()%>/consumer/protected/DinerComment.jsp?dinerID=<%= dinerID %>"><i class="fa-solid fa-comment"></i>觀看評論</a> --%>
+
 						</div>
-						<i type="button"
-							class="heartBtn fs-4 position-absolute top-0 end-0 m-3 fa-regular fa-heart"></i>
+<!-- 						<i type="button" -->
+<!-- 							class="heartBtn fs-4 position-absolute top-0 end-0 m-3 fa-regular fa-heart"></i> -->
 					</div>
 				</div>
 			</div>
@@ -105,7 +111,14 @@
 
 	<!-- 該商家目前揪團 -->
 	<section class="container mt-5">
+<c:choose>
+	<c:when test="${not empty groupOrders}">
 		<h2 class="text-center">現在揪團中的大樓</h2>
+	</c:when>
+	<c:otherwise>
+		<h2 class="text-center">目前沒有揪團中的大樓，你要揪一個嗎?</h2>
+	</c:otherwise>
+</c:choose>
 		<div class="row row-cols-2">
 			<c:forEach var="groupOrder" items="${groupOrders}">
 				<div class="col mb-2">
@@ -124,7 +137,44 @@
 										<li>${dinerInfo.dinerName}</li>
 										<li>團主：${groupOrder.userInfo.userNickName}</li>
 										<li class="list-inline-item">成團條件：${dinerInfo.dinerOrderThreshold}</li>
-										<li class="list-inline-item">成團狀態：${groupOrder.orderStatus}</li>
+<c:set var="statusText" value="未知狀態"/>
+<c:set var="status" value="-1"/>
+<!-- 檢查 groupOrder.orderStatus 是否為 null，並轉換為整數 -->
+<c:if test="${not empty groupOrder.orderStatus}">
+    <c:catch var="numberFormatError">
+        <c:set var="status" value="${groupOrder.orderStatus}"/>
+    </c:catch>
+    <c:if test="${not empty numberFormatError}">
+        <c:set var="status" value="-1"/>
+    </c:if>
+</c:if>
+<c:choose>
+    <c:when test="${status == 1}">
+        <c:set var="statusText" value="揪團已建立"/>
+    </c:when>
+    <c:when test="${status == 2}">
+        <c:set var="statusText" value="成團條件達成"/>
+    </c:when>
+    <c:when test="${status == 3}">
+        <c:set var="statusText" value="揪團成功"/>
+    </c:when>
+    <c:when test="${status == 4}">
+        <c:set var="statusText" value="揪團失敗"/>
+    </c:when>
+    <c:when test="${status == 5}">
+        <c:set var="statusText" value="餐點準備中"/>
+    </c:when>
+    <c:when test="${status == 6}">
+        <c:set var="statusText" value="商家拒單"/>
+    </c:when>
+    <c:when test="${status == 7}">
+        <c:set var="statusText" value="餐點送達"/>
+    </c:when>
+    <c:otherwise>
+        <c:set var="statusText" value="未知狀態"/>
+    </c:otherwise>
+</c:choose>
+										<li class="list-inline-item">狀態：${statusText}</li>
 										<li>付款截止時間：${groupOrder.groupOrderSubmitTime}</li>
 										<div class="d-flex justify-content-end">
 											<a class="btn btn-dark">加入此大樓揪團</a>
@@ -148,7 +198,7 @@
 					<div class="card">
 						<div>
 							<img
-								src="https://images.pexels.com/photos/2725744/pexels-photo-2725744.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+								src="<%=request.getContextPath()%>/consumer/productDBGifReader?productID=${productL.productID}"
 								class="card-img" alt="...">
 						</div>
 						<div>

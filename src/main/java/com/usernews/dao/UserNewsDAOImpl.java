@@ -46,7 +46,7 @@ public class UserNewsDAOImpl implements UserNewsDAO {
 	public int update(UserNews userNews) {
 		try {
 			System.out.println("UserNews 中的userNews"+userNews);
-			getSession().merge(userNews);
+			getSession().saveOrUpdate(userNews);
 			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -126,5 +126,7 @@ public class UserNewsDAOImpl implements UserNewsDAO {
 	public long getTotal() {
 		return getSession().createQuery("select count(*) from UserNews", Long.class).uniqueResult(); // 單筆查詢.uniqueResult()
 	}
+	
+	
 
 }

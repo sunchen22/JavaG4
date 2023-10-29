@@ -75,6 +75,7 @@ public class UserInfo2DAOImpl implements UserInfo2DAO {
 //			System.out.println("getById成功");
 			return userinfo;
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println("getById失敗");
 		}
 		return null;

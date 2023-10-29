@@ -20,15 +20,15 @@
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 <!-- Font Awesome Icons -->
 <link rel="stylesheet"
-	href="../plugins/fontawesome-free/css/all.min.css">
+	href="${pageContext.request.contextPath}/background/plugins/fontawesome-free/css/all.min.css">
 <!-- IonIcons -->
 <link rel="stylesheet"
 	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 <!-- Theme style -->
-<link rel="stylesheet" href="../dist/css/adminlte.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/background/dist/css/adminlte.min.css">
 <!-- daterange picker -->
 <link rel="stylesheet"
-	href="../plugins/daterangepicker/daterangepicker.css">
+	href="${pageContext.request.contextPath}/background/plugins/daterangepicker/daterangepicker.css">
 
 
 <!-- iCheck for checkboxes and radio inputs -->
@@ -91,7 +91,7 @@
 			<!-- Right navbar links -->
 			<ul class="navbar-nav ml-auto">
 
-				<li class="nav-item"><a class="nav-link" href="../index3.html"
+				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/background/pages/index3.jsp" 
 					role="button"> <i class="fas fa-home"></i>
 				</a></li>
 
@@ -105,32 +105,6 @@
 		<!-- /.navbar -->
 
 		<!-- Main Sidebar Container -->
-		<!-- 有修改顏色 原本sidebar-dark-primary -->
-		<aside class="main-sidebar sidebar-light-warning elevation-4">
-			<!-- Brand Logo -->
-			<a href="../index3.html" class="brand-link"> <img
-				src="../dist/img/Logo.png" alt="樓頂揪樓咖 Logo"
-				class="brand-image img-circle elevation-3" style="opacity: .8">
-				<span class="brand-text font-weight-normal">後台管理平台</span>
-			</a>
-
-			<!-- Sidebar -->
-			<div class="sidebar">
-				<!-- Sidebar user panel (optional) -->
-				<div class="user-panel mt-3 pb-3 mb-3 d-flex">
-					<div class="image">
-						<img src="../dist/emgimg/emp02.png" class="img-circle elevation-2"
-							alt="emp01">
-					</div>
-					<div class="info">
-						<a href="#" class="d-block">小丸子</a>
-					</div>
-				</div>
-
-				<!-- Sidebar Menu -->
-				<nav class="mt-2">
-					<ul class="nav nav-pills nav-sidebar flex-column"
-						data-widget="treeview" role="menu" data-accordion="false">
 
  <!-- 引入側邊欄 -->
 <%@ include  file="pageaside.file" %>
@@ -263,29 +237,29 @@
 
 	<!-- REQUIRED SCRIPTS -->
 	<!-- jQuery -->
-	<script src="../plugins/jquery/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/background/plugins/jquery/jquery.min.js"></script>
 	<!-- Bootstrap 4 -->
-	<script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="${pageContext.request.contextPath}/background/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<!-- Select2 -->
-	<script src="../plugins/select2/js/select2.full.min.js"></script>
+	<script src="${pageContext.request.contextPath}/background/plugins/select2/js/select2.full.min.js"></script>
 	<!-- Bootstrap4 Duallistbox -->
 	<script
-		src="../plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+		src="${pageContext.request.contextPath}/background/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
 	<!-- InputMask -->
-	<script src="../plugins/moment/moment.min.js"></script>
-	<script src="../plugins/inputmask/jquery.inputmask.min.js"></script>
+	<script src="${pageContext.request.contextPath}/background/plugins/moment/moment.min.js"></script>
+	<script src="${pageContext.request.contextPath}/background/plugins/inputmask/jquery.inputmask.min.js"></script>
 	<!-- date-range-picker -->
-	<script src="../plugins/daterangepicker/daterangepicker.js"></script>
+	<script src="${pageContext.request.contextPath}/background/plugins/daterangepicker/daterangepicker.js"></script>
 	<!-- bootstrap color picker -->
 	<script
-		src="../plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+		src="${pageContext.request.contextPath}/background/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
 	<!-- Tempusdominus Bootstrap 4 -->
 	<script
-		src="../plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+		src="${pageContext.request.contextPath}/background/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 	<!-- Bootstrap Switch -->
-	<script src="../plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+	<script src="${pageContext.request.contextPath}/background/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 	<!-- AdminLTE App -->
-	<script src="../dist/js/adminlte.min.js"></script>
+	<script src="${pageContext.request.contextPath}/background/dist/js/adminlte.min.js"></script>
 	
  <!-- 引入selfjs -->
 <%@ include  file="pagejs.file" %>
