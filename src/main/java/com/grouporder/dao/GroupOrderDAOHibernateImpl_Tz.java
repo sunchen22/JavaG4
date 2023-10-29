@@ -39,4 +39,20 @@ public class GroupOrderDAOHibernateImpl_Tz {
 		}
 		return null;
 	}
+	
+	
+	//sun add
+	public int groupOrderPriceCount(){
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {	
+	        String sql = "SELECT SUM(groupTotalPrice) FROM grouporder WHERE orderStatus = 7 ";
+	        
+	        Long count = ((Number) session.createNativeQuery(sql).getSingleResult()).longValue();
+	        return count.intValue();
+
+	}catch(Exception e) {
+		e.printStackTrace();
+		return -1;
+		}
+	}
 }
