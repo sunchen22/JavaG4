@@ -24,7 +24,7 @@ function search(requestData) {
 					list_html += `<div class="card">
 					<div class="row g-0 align-items-center">
 						<div class="col-4 ">
-							<img src="/JavaG4/GroupOrderDinerImage?entity=GroupOrder&id=${item.groupOrderID}" class="card-img" alt="...">
+							<img src="${contextPath}/GroupOrderDinerImage?entity=GroupOrder&id=${item.groupOrderID}" class="card-img" alt="...">
 						</div>
 						<div class="col-8">
 							<div class="card-body">

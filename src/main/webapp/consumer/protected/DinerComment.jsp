@@ -50,7 +50,7 @@
 		<div class="restaurant-info mb-5">
 			<!-- 餐廳資訊 -->
 			<%
-			Integer dinerID = (Integer) 4;
+			Integer dinerID = Integer.parseInt(request.getParameter("dinerID"));
 			
 			DinerInfo dinerInfo = new DinerInfoDAOImplC().findByPK(dinerID);
 			if (dinerInfo != null) {
@@ -59,16 +59,17 @@
 
 			//平均評分
 			Double averageRating = new DinerRatingCommentDAO().getAverageRatingByDinerIDWithCriteria(dinerID);
+			String formattedRating = String.format("%.1f", averageRating);
 			pageContext.setAttribute("averageRating", averageRating);
 			%>
 			<img
-				src="https://pic.616pic.com/photoone/00/05/67/618e256d3d3368237.jpg!/fw/1120"
+				src="<%=request.getContextPath()%>/consumer/dinerDBGifReader?dinerID=<%= dinerID %>"
 				alt="餐廳照片" class="img-fluid rounded">
 			<h2 class="mt-3">${dinerInfo.dinerName}</h2>
 			<p>地址: ${dinerInfo.dinerAddress}</p>
 			<p>電話: ${dinerInfo.dinerPhone}</p>
 			<p>
-				平均評等: <span class="star_ed"><i class="fas fa-star"></i></span> <span>${averageRating}</span>
+				平均評等: <span class="star_ed"><i class="fas fa-star"></i></span> <span><%= formattedRating %></span>
 			</p>
 		</div>
 		<div class="reviews">
