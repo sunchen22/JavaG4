@@ -4,17 +4,12 @@
 <%@ page import="java.util.HashMap"%>
 <%@ page import="java.util.Map"%>
 <%@ page import="java.util.List"%>
+<%@ page import="com.userinfo.entity.UserInfo"%>
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:formatDate value="${groupOrderData.groupOrderSubmitTime}" pattern="yyyy-MM-dd HH:mm:ss" var="groupOrderSubmitTimeFormatted" />
 <%
 List<Map<String,Object>> cartData = (List<Map<String,Object>>) request.getAttribute("cartData");
-if (cartData != null) {
-	for (Map cartProduct : cartData) {
-		System.out.println(cartProduct);
-	}
-}
-
 %>
 <%@ include file="components/head.jsp"%>
 <%-- Import CSS for this page below (if any) --%>
@@ -43,7 +38,7 @@ if (cartData != null) {
 						<h5 class="card-title">${groupOrderData.buildingName}</h5>
 						<ul class="list-unstyled card-text">
 							<li>大樓地址：${groupOrderData.buildingAddress}</li>
-							<li><a href="${pageContext.request.contextPath}/consumer/EachDinerInfo.jsp?dinerID=1">${groupOrderData.dinerName}</a></li>
+							<li>商家：<a href="${pageContext.request.contextPath}/consumer/EachDinerInfo.jsp?dinerID=1">${groupOrderData.dinerName}</a></li>
 							<li class="list-inline-item"><span
 								class="badge fs-6 rounded-pill bg-secondary">
 									${groupOrderData.dinerType == 'M' ? '<i class="fa-solid fa-utensils"></i>' : (groupOrderData.dinerType=='D' ? '<i class="fa-solid fa-mug-saucer"></i>' : '<i class="fa-solid fa-utensils"></i><i class="fa-solid fa-mug-saucer"></i>')}</span>
@@ -52,6 +47,8 @@ if (cartData != null) {
 								class="badge fs-6 rounded-pill bg-secondary"><i
 									class="fa-solid fa-star"></i>${groupOrderData.dinerRating}</span></li>
 							<li>主揪：${groupOrderData.userNickName}</li>
+							<li class="list-inline-item">目前總金額：${groupOrderData.groupTotalPrice}元
+							</li>
 							<li class="list-inline-item">成團條件：${groupOrderData.dinerOrderThreshold}元
 							</li>
 							<li class="list-inline-item">成團狀態：${groupOrderData.orderStatus=='1'? '未達成團條件' : '已達成團條件'}</li>
@@ -147,31 +144,22 @@ if (cartData != null) {
 						<div class="mdl-stepper-bar-left"></div>
 						<div class="mdl-stepper-bar-right"></div>
 					</div>
-					<div class="mdl-stepper-step">
+					<div class="mdl-stepper-step <c:if test="${groupOrderData.orderStatus == 3 or groupOrderData.orderStatus == 5}">active-step</c:if>">
 						<div class="mdl-stepper-circle">
 							<span>3</span>
 						</div>
-						<div class="mdl-stepper-title">成團條件達成</div>
+						<div class="mdl-stepper-title">
+							付款截止時間到<br>若成團條件達成<br>將自動送出揪團訂單
+						</div>
 						<div class="mdl-stepper-optional"></div>
 						<div class="mdl-stepper-bar-left"></div>
 						<div class="mdl-stepper-bar-right"></div>
 					</div>
-					<div class="mdl-stepper-step">
+					<div class="mdl-stepper-step <c:if test="${groupOrderData.orderStatus == 5}">active-step</c:if>">
 						<div class="mdl-stepper-circle">
 							<span>4</span>
 						</div>
-						<div class="mdl-stepper-title">
-							付款期限到<br>自動送出訂單
-						</div>
-						<div class="mdl-stepper-optional"></div>
-						<div class="mdl-stepper-bar-left"></div>
-						<div class="mdl-stepper-bar-right"></div>
-					</div>
-					<div class="mdl-stepper-step">
-						<div class="mdl-stepper-circle">
-							<span>5</span>
-						</div>
-						<div class="mdl-stepper-title">餐點送達</div>
+						<div class="mdl-stepper-title">餐點準備中</div>
 						<div class="mdl-stepper-optional"></div>
 						<div class="mdl-stepper-bar-left"></div>
 						<div class="mdl-stepper-bar-right"></div>
@@ -193,7 +181,7 @@ if (cartData != null) {
 	        	<!-- Accordion head start -->
 	        	<h2 class="accordion-header" id="headingOne">
 	          		<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-	            		<div class="col-8">已付款訂購明細</div><div class="col-3 fw-bold text-end">總計：
+	            		<div class="col-8">您已付款的訂購明細</div><div class="col-3 fw-bold text-end">總計：
 	            		<% 
 	            			List<Map<String, Object>> userOrderDetailData = (List<Map<String, Object>>) session.getAttribute("userOrderDetailData");
 		            		int totalPrice = 0;

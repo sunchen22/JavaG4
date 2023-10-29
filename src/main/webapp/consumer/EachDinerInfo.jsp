@@ -168,7 +168,7 @@
 	<div class="modal modal-lg fade" id="create_group_modal" tabindex="-1" style="display: none;" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-            	<form action="${pageContext.request.contextPath}/GroupOrder.do?action=create&dinerID=${dinerInfo.dinerID}" method="post">
+            	<form action="${pageContext.request.contextPath}/GroupOrder.do?action=create" method="post">
 	                <div class="modal-header">
 	                    <h5 class="modal-title">發起大樓揪團</h5>
 	                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -186,14 +186,15 @@
 	                        </div>
 	                        <div class="row align-items-center mt-2">
 	                            <div class="col-3 text-end">
-	                                <span>外送大樓</span>
+	                                <span>選擇外送大樓</span>
 	                            </div>
 	                            <div class="col-9">
 	                                <select class="form-select form-select-sm" name="buildingID">
-	                                    <option value="-1" selected="">選擇外送大樓</option>
-	                                    <option value="1">宏春大樓 台北市中山區南京東路三段219號</option>
-	                                    <option value="2">揚昇金融 台北市松山區南京東路三段248號</option>
-	                                    <option value="3">Three</option>
+	                                    <option value="1">1號大樓 台北市中山區南京東路三段219號</option>
+	                                    <option value="2">2號大樓 台北市松山區南京東路三段248號</option>
+	                                    <option value="3">3號大樓 台北市松山區南京東路三段248號</option>
+	                                    <option value="4">4號大樓 台北市松山區南京東路三段248號</option>
+	                                    <option value="5">5號大樓 台北市松山區南京東路三段248號</option>
 	                                </select>
 	                            </div>
 	                        </div>
@@ -223,16 +224,16 @@
 	                        </div>
 	                        <div class="row align-items-center mt-2">
 	                            <div class="col-3 text-end">
-	                                <span>付款期限</span>
+	                                <span>選擇付款截止時間</span>
 	                            </div>
-	                            <div class="col-5">
-	                                <select class="form-select form-select-sm d-inline-flex">
-	                                    <option value="-1" selected="">選擇付款期限</option>
-	                                    <option value="1">今日11:00</option>
-	                                    <option value="2">今日11:30</option>
-	                                    <option value="3">今日12:00</option>
-	                                    <option value="3">今日12:30</option>
+	                            <div class="col-7">
+	                                <select class="form-select form-select-sm d-inline-flex" name="groupOrderSubmitTime">
+	                                    <option value="2023-10-29 11:00:00">今日11:00</option>
+	                                    <option value="2023-10-29 11:30:00">今日11:30</option>
+	                                    <option value="2023-10-29 12:00:00">今日12:00</option>
+	                                    <option value="2023-10-29 12:30:00">今日12:30</option>
 	                                </select>
+	                                <span>付款截止時間到，若成團條件達成，將自動送出揪團訂單</span>
 	                            </div>
 	                        </div>
 	                </div>
