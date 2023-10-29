@@ -9,6 +9,7 @@
 <%@ page import="com.userorderdetail.entity.UserOrderDetail"%>
 <%@ page import="com.userorderdetailvary.entity.UserOrderDetailVary"%>
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@ include file="components/head.jsp"%>
 <%-- Import CSS for this page below (if any) --%>
@@ -178,6 +179,7 @@
 													</li><li>主揪：${groupOrder.userNickName}</li>
 													<li class="list-inline-item">成團條件：${groupOrder.dinerOrderThreshold}元 </li>
 													<li class="list-inline-item">成團狀態：${groupOrder.orderStatus=='1'? '未達成團條件' : '已達成團條件'}</li>
+													<fmt:formatDate value="${groupOrder.groupOrderSubmitTime}" pattern="yyyy-MM-dd HH:mm:ss" var="groupOrderSubmitTimeFormatted" />
 													<li>付款截止時間：${groupOrder.groupOrderSubmitTime}</li>
 													<div class="d-flex justify-content-end"><a class="btn btn-dark" href="${pageContext.request.contextPath}/GroupOrder.do?action=getOne&groupOrderID=${groupOrder.groupOrderID}">查看大樓揪團詳情</a>
 													</div>

@@ -294,7 +294,7 @@ public class GroupOrderDAOHibernateImpl implements GroupOrderDAO {
 //			getSession().beginTransaction();
 			StringBuilder sql = new StringBuilder("SELECT go.groupOrderID, go.dinerID, go.buildingID, go.orderStatus, go.groupOrderCreateTime, go.groupOrderSubmitTime, go.holderID, go.groupTotalPrice, d.dinerName, d.dinerAddress, d.dinerType, d.dinerOrderThreshold, d.dinerStatus, "
 					+ "b.buildingName, b.buildingAddress, u.userNickName, "
-					+ "(SELECT ROUND(AVG(drc.dinerRating), 1) FROM DinerRatingComment drc WHERE drc.dinerID = go.dinerID) AS averageRating "
+					+ "(SELECT ROUND(AVG(drc.dinerRating), 1) FROM DinerRatingComment drc WHERE drc.dinerID = go.dinerID) AS dinerRating "
 					+ "FROM GroupOrder go "
 	                + "LEFT JOIN DinerInfo AS d ON go.dinerID = d.dinerID "
 	                + "LEFT JOIN BuildingInfo AS b on go.buildingID = b.buildingID "

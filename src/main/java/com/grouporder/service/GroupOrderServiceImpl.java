@@ -706,6 +706,7 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 	            groupOrderData.put("buildingName", row[13]);
 	            groupOrderData.put("buildingAddress", row[14]);
 	            groupOrderData.put("userNickName", row[15]);
+	            groupOrderData.put("dinerRating", row[16]);
 
 	            resultList.add(groupOrderData);
 	        }

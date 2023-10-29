@@ -38,7 +38,7 @@ List<Map<String,Object>> cartData = (List<Map<String,Object>>) request.getAttrib
 						<h5 class="card-title">${groupOrderData.buildingName}</h5>
 						<ul class="list-unstyled card-text">
 							<li>大樓地址：${groupOrderData.buildingAddress}</li>
-							<li>商家：<a href="${pageContext.request.contextPath}/consumer/EachDinerInfo.jsp?dinerID=1">${groupOrderData.dinerName}</a></li>
+							<li>商家：<a href="${pageContext.request.contextPath}/consumer/EachDinerInfo.jsp?dinerID=${groupOrderData.dinerID}">${groupOrderData.dinerName}</a></li>
 							<li class="list-inline-item"><span
 								class="badge fs-6 rounded-pill bg-secondary">
 									${groupOrderData.dinerType == 'M' ? '<i class="fa-solid fa-utensils"></i>' : (groupOrderData.dinerType=='D' ? '<i class="fa-solid fa-mug-saucer"></i>' : '<i class="fa-solid fa-utensils"></i><i class="fa-solid fa-mug-saucer"></i>')}</span>
@@ -51,7 +51,8 @@ List<Map<String,Object>> cartData = (List<Map<String,Object>>) request.getAttrib
 							</li>
 							<li class="list-inline-item">成團條件：${groupOrderData.dinerOrderThreshold}元
 							</li>
-							<li class="list-inline-item">成團狀態：${groupOrderData.orderStatus=='1'? '未達成團條件' : '已達成團條件'}</li>
+<%-- 							<li class="list-inline-item">成團狀態：${groupOrderData.orderStatus=='1'? '未達成團條件' : '已達成團條件'}</li> --%>
+							<li class="list-inline-item">成團狀態：<c:choose><c:when test="${groupOrderData.groupTotalPrice >= groupOrderData.dinerOrderThreshold}">已達成團條件</c:when><c:otherwise>未達成團條件</c:otherwise></c:choose></li>
 							<li>付款截止時間：${groupOrderSubmitTimeFormatted}</li>
 <!-- 							<li> -->
 <!-- 								<div class="progress"> -->
