@@ -18,7 +18,7 @@ public class DinerInfoDAOImpl_Tz {
 		try {
 //		session.beginTransaction();
 
-			StringBuilder sql = new StringBuilder("SELECT * FROM DinerInfo WHERE 1=1");
+			StringBuilder sql = new StringBuilder("SELECT * FROM DinerInfo WHERE dinerStatus = 'Active'");
 
 			nameKeyword = (nameKeyword != null) ? nameKeyword.trim() : null;
 			addressKeyword = (addressKeyword != null) ? addressKeyword.trim() : null;
