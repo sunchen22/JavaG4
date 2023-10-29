@@ -171,8 +171,9 @@ public class UserInfoServlet extends HttpServlet {
     		req.getSession().setAttribute("navbarJoinedGroupOrders", navbarJoinedGroupOrders);
 			
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String defaultURL = "/consumer/index.jsp";
-			String contextPath = req.getContextPath(); // 取得當前應用的 context path
+    		String contextPath = req.getContextPath(); // 取得當前應用的 context path
+    		String defaultURL = contextPath + "/consumer/index.jsp";
+			
 
 			Object locationObj = session.getAttribute("location");
 			String location = (locationObj != null) ? (String) locationObj : defaultURL;
