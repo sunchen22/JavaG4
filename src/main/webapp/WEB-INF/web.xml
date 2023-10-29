@@ -179,4 +179,13 @@
 		<url-pattern>/background/pages/usernews.do</url-pattern>
 	</servlet-mapping>
 
+		<!-- 平台經營:總數量、總營收 -->
+	<servlet>
+		<servlet-name>BgsalesServlet</servlet-name>
+		<servlet-class>com.background.BgsalesServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BgsalesServlet</servlet-name>
+		<url-pattern>/background/pages/BgsalesServlet</url-pattern>
+	</servlet-mapping>
 </web-app>

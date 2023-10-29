@@ -21,12 +21,12 @@ UserNews usernews = (UserNews) request.getAttribute("usernews");
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 <!-- Font Awesome Icons -->
 <link rel="stylesheet"
-	href="../plugins/fontawesome-free/css/all.min.css">
+	href="${pageContext.request.contextPath}/background/plugins/fontawesome-free/css/all.min.css">
 <!-- IonIcons -->
 <link rel="stylesheet"
 	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 <!-- Theme style -->
-<link rel="stylesheet" href="../dist/css/adminlte.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/background/dist/css/adminlte.min.css">
 
 <style>
 div.task_list_parent ul.task_list>li:first-child button.btn_up {
@@ -56,13 +56,13 @@ div.task_list_parent ul.task_list>li:last-child button.btn_down {
 						class="fas fa-bars"></i></a></li>
 
 				<li class="nav-item d-none d-sm-inline-block "><a
-					href="mem_news.html" class="nav-link">會員最新消息</a></li>
+					href="mem_news.jsp" class="nav-link">會員最新消息</a></li>
 			</ul>
 
 			<!-- Right navbar links -->
 			<ul class="navbar-nav ml-auto">
 
-				<li class="nav-item"><a class="nav-link" href="../index3.html"
+				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/background/pages/index3.jsp" 
 					role="button"> <i class="fas fa-home"></i>
 				</a></li>
 
@@ -76,34 +76,9 @@ div.task_list_parent ul.task_list>li:last-child button.btn_down {
 		<!-- /.navbar -->
 
 		<!-- Main Sidebar Container -->
-		<!-- 有修改顏色 原本sidebar-dark-primary -->
-		<aside class="main-sidebar sidebar-light-warning elevation-4">
-			<!-- Brand Logo -->
-			<a href="../index3.html" class="brand-link"> <img
-				src="../dist/img/Logo.png" alt="樓頂揪樓咖 Logo"
-				class="brand-image img-circle elevation-3" style="opacity: .8">
-				<span class="brand-text font-weight-normal">後台管理平台</span>
-			</a>
 
-			<!-- Sidebar -->
-			<div class="sidebar">
-				<!-- Sidebar user panel (optional) -->
-				<div class="user-panel mt-3 pb-3 mb-3 d-flex">
-					<div class="image">
-						<img src="../dist/img/emp02.png" class="img-circle elevation-2"
-							alt="emp01">
-					</div>
-					<div class="info">
-						<a href="#" class="d-block">小丸子</a>
-					</div>
-				</div>
-
-				<!-- Sidebar Menu -->
-				<nav class="mt-2">
-					<ul class="nav nav-pills nav-sidebar flex-column"
-						data-widget="treeview" role="menu" data-accordion="false">
-						<!-- 引入側邊欄 -->
-						<%@ include file="pageaside.file"%>
+<!-- 引入側邊欄 -->
+<%@ include file="pageaside.file"%>
 				</nav>
 				<!-- /.sidebar-menu -->
 			</div>
@@ -137,7 +112,8 @@ div.task_list_parent ul.task_list>li:last-child button.btn_down {
 						</div>
 
 						<div class="card-body">
-
+<FORM METHOD="post" ACTION="usernews.do" name="form1"
+								enctype="multipart/form-data">
 							<%-- 錯誤表列 --%>
 							<c:if test="${not empty errorMsgs}">
 								<font color='red'>請修正以下錯誤:</font>
@@ -154,12 +130,9 @@ div.task_list_parent ul.task_list>li:last-child button.btn_down {
 										<label>廣告編號：</label>
 											<input class="form-control " readonly="readonly" name="userNewsID" value="${usernews.userNewsID}">
 									</div>
-
-										<%
-										String userNewsContent;
-										%>
 									<div class="form-group col-4">
 										<label>最新消息：</label>
+<!-- 										<input type="text" class="form-control" name="userNewsContent"  value="1111"> -->
 										<input type="text" class="form-control" name="userNewsContent"  value="${usernews.userNewsContent}">
 <%-- 									<input type="text" class="form-control" name="userNewsContent" value="<%=usernews.getUserNewsContent()%>"> --%>
 									</div>
@@ -173,21 +146,21 @@ div.task_list_parent ul.task_list>li:last-child button.btn_down {
 								</div>
 
 							</div>
-						</div>
+<!-- 						</div> -->
 						<!-- /.card-body -->
 						<div class="form-inlinecard-footer"
 							style="text-align: center; padding-top: 5px; display: flex; justify-content: center; ">
-							<FORM METHOD="post" ACTION="usernews.do" name="form1"
-								enctype="multipart/form-data">
+							
 
 								<div style="text-align: center;  background: transparent ; margin:5px">
 									<input type="hidden" name="action" value="update">
 									<input type="hidden" name="userNewsID" value="${usernews.userNewsID}">
+									<input type="hidden" name="userNewsContent" value="123">
 									<input type="submit" value="送出修改" class="btn btn-warning">
 								</div>
-							</FORM>
+						
 
-							<FORM METHOD="post" ACTION="usernews.do">
+<!-- 							<FORM METHOD="post" ACTION="usernews.do"> -->
 								<div style="text-align: center;  background: transparent ; margin:5px">
 									<input type="hidden" name="action" value="cancel"> <input
 										type="hidden" name="userNewsID" value="${usernews.userNewsID}">
@@ -228,13 +201,13 @@ div.task_list_parent ul.task_list>li:last-child button.btn_down {
 	<!-- REQUIRED SCRIPTS -->
 
 	<!-- jQuery -->
-	<script src="../plugins/jquery/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/background/plugins/jquery/jquery.min.js"></script>
 	<!-- Bootstrap -->
-	<script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="${pageContext.request.contextPath}/background/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<!-- AdminLTE -->
-	<script src="../dist/js/adminlte.js"></script>
+	<script src="${pageContext.request.contextPath}/background/dist/js/adminlte.js"></script>
 	<!-- OPTIONAL SCRIPTS -->
-	<script src="../plugins/chart.js/Chart.min.js"></script>
+	<script src="${pageContext.request.contextPath}/background/plugins/chart.js/Chart.min.js"></script>
 
 	<!-- 引入selfjs -->
 	<%@ include file="pagejs.file"%>
