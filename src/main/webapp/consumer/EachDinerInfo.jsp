@@ -78,9 +78,12 @@
 							<li class="list-inline-item"><span
 								class="badge fs-6 rounded-pill bg-secondary"><i
 									class="fa-solid fa-utensils"></i></span></li>
-							<li class="list-inline-item"><span
-								class="badge fs-6 rounded-pill bg-secondary"><i
-									class="fa-solid fa-star"></i><%= formattedRating %></span></li>
+							<li class="list-inline-item">
+							<a href="<%=request.getContextPath()%>/consumer/protected/DinerComment.jsp?dinerID=<%= dinerID %>" 
+							class="text-decoration-underline">
+							<span
+								class="badge fs-6 rounded-pill bg-dark shadow"><i
+									class="fa-solid fa-star"></i><%= formattedRating %></span></a></li>
 							<li><span>可外送大樓：</span><span>宏春、揚昇金融</span></li>
 							<li><span>成團條件：</span><span>${dinerInfo.dinerOrderThreshold}</span></li>
 							<li>配送時間：營業時間內接單後1小時內送達</li>
@@ -95,7 +98,7 @@
 									<a class="btn btn-dark fs-6" data-bs-toggle="modal" data-bs-target="#create_group_modal"><i class="fa-solid fa-users"></i>發起大樓揪團</a>
     							</c:otherwise>
 							</c:choose>
-								<a class="btn btn-dark fs-6" href="<%=request.getContextPath()%>/consumer/protected/DinerComment.jsp?dinerID=<%= dinerID %>"><i class="fa-solid fa-comment"></i>觀看評論</a>
+<%-- 								<a class="btn btn-dark fs-6" href="<%=request.getContextPath()%>/consumer/protected/DinerComment.jsp?dinerID=<%= dinerID %>"><i class="fa-solid fa-comment"></i>觀看評論</a> --%>
 
 						</div>
 <!-- 						<i type="button" -->
