@@ -168,7 +168,7 @@ for(UserNews news : newsList){
 %>
 										<li>付款截止時間：<%= formattedSubmitTime %></li>
 										<div class="d-flex justify-content-end">
-											<a class="btn btn-dark">加入此大樓揪團</a>
+											<a class="btn btn-dark" href="${pageContext.request.contextPath}/GroupOrder.do?action=getOne&groupOrderID=<%=order.getGroupOrderID() %>">查看大樓揪團詳情</a>
 										</div>
 									</ul>
 								</div>
