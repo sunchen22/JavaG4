@@ -136,9 +136,30 @@
 	              	}
  					
 					
-// 					JSONObject j = new JSONObject(dif.getDinerUpdate());
+					JSONObject j = new JSONObject(dif.getDinerUpdate());
 					
-// 					j.get("a").toString() 下面的value
+					String dinerName = j.optString("dinerName", " ");
+					String dinerPassword = j.optString("dinerPassword", " ");
+					String dinerTaxID = j.optString("dinerTaxID", " ");
+					String dinerContact = j.optString("dinerContact", " ");
+					String dinerPhone = j.optString("dinerPhone", " ");
+					String dinerEmail = j.optString("dinerEmail", " ");
+					String dinerAddress = j.optString("dinerAddress", " ");
+					String dinerBank = j.optString("dinerBank", " ");
+					String dinerAccount = j.optString("dinerAccount", " ");
+					String dinerAccountName = j.optString("dinerAccountName", " ");
+					String dinerTypeJ = j.optString("dinerType", " ");
+					
+// 					j.get("a").toString()
+					
+					
+	              	if(dinerTypeJ.equals("M")){
+	              		dinerTypeJ = "單純餐點";
+	              	}else if(dinerTypeJ.equals("D")){
+	              		dinerTypeJ = "單純飲料";
+	              	}else{
+	              		dinerTypeJ = "複合";
+	              	}
 					
 					
 					
@@ -146,7 +167,7 @@
 
 
 
-                <form  method = "post" action="" style="padding:10px;">
+<!--                 <form  method = "post" action="" style="padding:10px;"> -->
 
 
                   <div style="display: flex">
@@ -242,121 +263,86 @@
                           <br>
                           <span>
                               <label>&ensp;</label>
-                              <input type="text" value = ""class="border border-warning" style="width :60%">
+                              <input type="text" value = "<%= dinerName %>" class="border border-warning" style="width :60%">
                           </span>
                           <br>
                           <span>
                               <label>&ensp;</label>
-                              <input type="text" class="border border-warning" style="width :60%">
+                              <input type="text" value = "<%= dinerPassword %>" class="border border-warning" style="width :60%">
                           </span>
                           <br>
                           <span>
                               <label>&ensp;</label>
-                              <input type="text" class="border border-warning" style="width :60%">
+                              <input type="text" value = "<%= dinerTaxID %>" class="border border-warning" style="width :60%">
                           </span>
                           <br>
                           <span>
                               <label>&ensp;</label>
-                              <input type="text" class="border border-warning" style="width :60%">
+                              <input type="text" value = "<%= dinerContact %>" class="border border-warning" style="width :60%">
                           </span>
                           <br>
                           <span>
                               <label>&ensp;</label>
-                              <input type="text" class="border border-warning" style="width :60%">
+                              <input type="text" value = "<%= dinerPhone %>" class="border border-warning" style="width :60%">
                           </span>
                           <br>
                           <span>
                               <label>&ensp;</label>
-                              <input type="text" class="border border-warning" style="width :60%">
+                              <input type="text" value = "<%= dinerEmail %>" class="border border-warning" style="width :60%">
                           </span>
                           <br>
                           <span>
                               <label>&ensp;</label>
-                              <input type="text" class="border border-warning" style="width :60%">
+                              <input type="text" value = "<%= dinerAddress %>" class="border border-warning" style="width :60%">
                           </span>
                           <br>
                           <span>
                               <label>&ensp;</label>
-                              <input type="text" class="border border-warning" style="width :60%">
+                              <input type="text" value = "<%= dinerBank %>" class="border border-warning" style="width :60%">
                           </span>
                           <br>
                           <span>
                               <label>&ensp;</label>
-                              <input type="text" class="border border-warning" style="width :60%">
+                              <input type="text" value = "<%= dinerAccount %>" class="border border-warning" style="width :60%">
                           </span>
                           <br>
                           <span>
                               <label>&ensp;</label>
-                              <input type="text" class="border border-warning" style="width :60%">
+                              <input type="text" value = "<%= dinerAccountName %>" class="border border-warning" style="width :60%">
                           </span>
                           <br>
                           <span>
                               <label>&ensp;</label>
-                              <input type="text" class="border border-warning" style="width :60%">
+                              <input type="text" value = "<%= dinerTypeJ %>" class="border border-warning" style="width :60%">
                           </span>
                           <br>
                           
+                          
                       </div>
+                      
+                      
+                      
+                      
                   </div>
-
-                  <div align="right" style="margin-right: 20px;">
-                   
-
-
-
-
-
-                     
-                      <button type="button" id="stop" class="btn btn-warning" style="font-weight :bold"
-                          data-bs-toggle="modal" data-bs-target="#exampleModal">
+					<div align="right" style=" margin-top: 20px ;margin-right: 10px ;">
+                   	  
+       					
+                      <button type="submit" id="click" class="btn btn-warning" style="font-weight :bold">
                           審核
                       </button>
-
-                      <button type="button" id="product" class="btn btn-warning" style="font-weight :bold"
-                          data-bs-toggle="modal" data-bs-target="#exampleModal">
+                      
+						&ensp;
+						
+                      <button type="submit" id="click2" class="btn btn-warning" style="font-weight :bold"                          >
+                      
                           拒絕
                       </button>
-
-                  </div>
-
-
-
+					
+                 	 </div>
+                  
 
 
-
-
-                 
-                  <div class="modal fade" id="exampleModal" tabindex="-1"
-                      aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog">
-                          <div class="modal-content">
-                              <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLabel">提示</h5>
-                                  <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                      aria-label="Close"></button>
-                              </div>
-                              <div class="modal-body">
-                                  <p style="text-align: center; font-size: 20px;">確定要審核/拒絕嗎</p>
-                                  <div align="center">
-                                      <input type="text" placeholder="欲拒絕請輸入原因:" id="msg"
-                                          style="width: 80%">
-                                  </div>
-                              </div>
-
-
-                              <div class="modal-footer">
-                                  <button type="button" id="stop1" class="btn btn-warning"
-                                      data-bs-dismiss="modal">確定</button>
-                                  <button type="button" class="btn btn-secondary"
-                                      data-bs-dismiss="modal">取消</button>
-
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-
-
-              </form>
+<!--               </form> -->
                
   
   
@@ -419,6 +405,189 @@
 <!--       <link rel="stylesheet" -->
 <!--         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext"> -->
 <!--       <script src="./assets/js/require.min.js"></script> -->
+
+<script>
+
+$("#click").on("click",function(){
+	
+var dinerID = "<%= dif.getDinerID() %>"
+var dinerName = "<%= dinerName %>";
+var dinerPassword = "<%= dinerPassword %>";
+var dinerTaxID = "<%= dinerTaxID %>";
+var dinerContact = "<%= dinerContact %>";
+var dinerPhone =  "<%= dinerPhone %>";
+var dinerEmail = "<%= dinerEmail %>";
+var dinerAddress = "<%= dinerAddress %>";
+var dinerBank = "<%= dinerBank %>";
+var dinerAccount = "<%= dinerAccount %>";
+var dinerAccountName = "<%= dinerAccountName %>";
+var dinerTypeJ = "<%= dinerTypeJ %>";
+
+
+
+var modifiedData = {};
+	
+	modifiedData.dinerID = '<%= dif.getDinerID() %>';
+
+if(dinerName === " "){
+	modifiedData.dinerName = '<%= dif.getDinerName() %>';
+}	
+else if(dinerName !==  '<%= dif.getDinerName() %>'){
+    modifiedData.dinerName = dinerName;
+
+}
+
+
+if(dinerPassword === " "){
+	modifiedData.dinerPassword = "<%= dif.getDinerPassword() %>";
+}	
+else if(dinerPassword !== '<%= dif.getDinerPassword() %>') {
+    modifiedData.dinerPassword = dinerPassword;
+
+}
+
+
+if(dinerTaxID === " "){
+	modifiedData.dinerTaxID = '<%= dif.getDinerTaxID() %>';
+}
+else if(dinerTaxID !== '<%= dif.getDinerTaxID() %>') {
+    modifiedData.dinerTaxID = dinerTaxID;
+}
+
+if(dinerContact === " "){
+	modifiedData.dinerContact = '<%= dif.getDinerContact() %>';
+}
+else if(dinerContact !== '<%= dif.getDinerContact() %>') {
+    modifiedData.dinerContact = dinerContact;
+}
+
+if(dinerPhone === " "){
+	modifiedData.dinerPhone = '<%= dif.getDinerPhone() %>';
+}
+else if(dinerPhone !== '<%= dif.getDinerPhone() %>') {
+    modifiedData.dinerPhone = dinerPhone;
+}
+
+
+if(dinerEmail === " "){
+	modifiedData.dinerPhone = '<%= dif.getDinerEmail() %>';
+	
+}
+else if(dinerEmail !== '<%= dif.getDinerEmail() %>') {
+    modifiedData.dinerEmail = dinerEmail;
+}
+
+
+if(dinerAddress === " "){
+	modifiedData.dinerAddress = '<%= dif.getDinerAddress() %>';
+}
+else if(dinerAddress !== '<%= dif.getDinerAddress() %>') {
+    modifiedData.dinerAddress = dinerAddress;
+}
+
+
+if(dinerBank === " "){
+	modifiedData.dinerBank = '<%= dif.getDinerBank() %>';
+}
+else if(dinerBank !== '<%= dif.getDinerBank() %>') {
+    modifiedData.dinerBank = dinerBank;
+}
+
+
+if(dinerAccount === " "){
+	modifiedData.dinerAccount = '<%= dif.getDinerAccount() %>';
+}
+else if(dinerAccount !== '<%= dif.getDinerAccount() %>') {
+    modifiedData.dinerAccount = dinerAccount;
+}
+
+
+if(dinerAccountName === " "){
+	modifiedData.dinerAccountName = '<%= dif.getDinerAccountName() %>';
+	
+}
+else if(dinerAccountName !== '<%= dif.getDinerAccountName() %>') {
+    modifiedData.dinerAccountName = dinerAccountName;
+}
+
+if(dinerTypeJ === " "){
+	if('<%= dif.getDinerType() %>' === "單純餐點"){
+		modifiedData.dinerTypeJ = 'M';
+	}else if('<%= dif.getDinerType() %>' === "單純飲料"){
+			modifiedData.dinerTypeJ = 'D';
+	}else{
+		modifiedData.dinerTypeJ = 'X';
+	}
+	
+}
+else if(dinerTypeJ !== '<%= dif.getDinerType() %>') {
+	if(dinerTypeJ === "單純餐點"){
+			modifiedData.dinerTypeJ = 'M';
+		}else if(dinerTypeJ === "單純飲料"){
+				modifiedData.dinerTypeJ = 'D';
+		}else{
+			modifiedData.dinerTypeJ = 'X';
+		}
+}
+
+console.log(modifiedData);
+
+var go = window.location.origin;
+$.ajax({
+    type: "POST",
+    url: go + "/JavaG4/cproject/pages/difs.do", // 
+    data: JSON.stringify(modifiedData), // 將JSON轉成String
+    contentType: "text/plain", 
+    success: function(response) {
+    	window.location.href = go + "/JavaG4/cproject/pages/mer_details.jsp";
+        console.log("成功：" + response);
+    },
+    error: function(xhr, status, error) {
+        
+        console.error("錯誤：" + error);
+    }
+});
+
+alert("已發送email");
+
+});
+
+$("#click2").on("click", function() {
+	var go = window.location.origin;
+    console.log("aaaa");
+    var dinerID = '<%= dif.getDinerID() %>';
+    var go_for_deactivatedJ = "go_for_deactivatedJ";
+    $.ajax({
+        type: "POST",
+        url: go + "/JavaG4/cproject/pages/difs.do",
+        data: {
+            dinerID: dinerID,
+            action: "go_for_deactivatedJ"
+        },
+        success: function(response) {
+            window.location.href = go + "/JavaG4/cproject/pages/mer_details.jsp";
+            console.log("成功：" + response);
+        },
+        error: function(xhr, status, error) {
+            console.error("錯誤：" + error);
+        }
+    });
+    
+    alert("已發送email");
+});
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
 
     
 

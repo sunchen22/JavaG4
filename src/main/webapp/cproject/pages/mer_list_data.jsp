@@ -211,7 +211,7 @@
 
   <div align="right" style="margin-right: 10px; margin-bottom: 15px; display: flex; justify-content: flex-end;">
  	<form method="post" action ="difs.do" style="margin-left: 5px;">
-  <button type="submit" class="btn btn-warning" style="font-weight: bold; margin-left: 5px;">
+  <button id = "click" type="submit" class="btn btn-warning" style="font-weight: bold; margin-left: 5px;">
     停權</button>
   	<input type="hidden" name="action" value="go_for_deactivated">
     <input type="hidden" name="dinerID" value="<%= dif.getDinerID()%>">
@@ -288,8 +288,17 @@
 <!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 <!--   <link rel="stylesheet" -->
 <!--     href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext"> -->
-<!--   <!-- <script src="./assets/js/require.min.js"></script> --> -->
- 
+<!--   <!-- <script src="./assets/js/require.min.js"></script> -->
+
+
+
+
+ <script>
+	$("#click").on("click",function(){
+		alert("已發送email");
+	});
+
+</script>
 
 </body>
 

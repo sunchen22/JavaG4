@@ -152,7 +152,7 @@ pageContext.setAttribute("list", list);
                                         <tbody>
                                             <tr>
                                                 <td><span class="text-muted"><%=dif.getDinerID() %></span></td>
-                                                <td><a href="invoice.html" class="text-inherit"><%=dif.getDinerID() %></a></td>
+                                                <td><%=dif.getDinerTaxID() %></td>
                                                 <td>
                                                  <%=dif.getDinerName() %>
                                                 </td>
@@ -210,7 +210,28 @@ pageContext.setAttribute("list", list);
                                     <td>${dinerratingcomment.userInfo.userName}</td>
                                     <td>${dinerratingcomment.userCommentContent}</td>
                                     <td>${dinerratingcomment.userCommentTime}</td>
-                                    <td>${dinerratingcomment.dinerRating}</td>
+                                    
+                                    
+                                    <td>
+                                    
+                                    
+<%--                                     ${dinerratingcomment.dinerRating} --%>
+
+									<c:forEach var="i" begin="1" end="5">
+								    <c:choose>
+								      <c:when test="${i <= dinerratingcomment.dinerRating}">
+								        <span class="star">&#9733;</span>
+								      </c:when>
+								      <c:otherwise>
+								        <span class="star">&#9734;</span>
+								      </c:otherwise>
+								    </c:choose>
+								  </c:forEach>
+
+                             
+                                    </td>
+                                    
+                                    
                                     <td>${dinerratingcomment.dinerReplyContent}</td>
                                     <td>${dinerratingcomment.dinerReplyTime}</td>
                                     
@@ -219,7 +240,7 @@ pageContext.setAttribute("list", list);
                                     	<input type="hidden" name="commentID"  value="${dinerratingcomment.commentID}">
                                     	<input type="hidden" name="dinerID"  value="${dinerratingcomment.dinerInfo.dinerID}">    
 					      		  		<input type="hidden" name="action" value="go_for_delete">
-                                        <button type="submit" class="btn btn-warning" style="font-weight :bold">
+                                        <button id = "click" type="submit" class="btn btn-warning" style="font-weight :bold">
                                         刪除
                                       </button>
 										</form>
@@ -313,6 +334,11 @@ pageContext.setAttribute("list", list);
   		        }
   		    }
   		});
+  		
+  		$("button[id^='click']").click(function() {
+  	        alert("已發送email");
+  	    });
+  		
   	});
         
 

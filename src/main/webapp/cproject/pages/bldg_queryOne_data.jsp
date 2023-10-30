@@ -190,7 +190,7 @@
 						<tbody>
 							<tr>
 								<td><span class="text-muted"><%=bif.getBuildingID() %></span></td>
-								<td><a href="invoice.html" class="text-inherit"><%=bif.getBuildingName() %></a></td>
+								<td><%=bif.getBuildingName() %></td>
 								<td><%=bif.getBuildingAddress() %></td>
 								
 								

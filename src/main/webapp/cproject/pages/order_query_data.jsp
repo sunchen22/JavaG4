@@ -130,7 +130,9 @@
                                 
      	
                                 	GroupOrderDAOHibernateImplC godhi = new GroupOrderDAOHibernateImplC();
-                                	List<GroupOrder> list = godhi.getAll(dinerinfo.getDinerID());
+//                                 	List<GroupOrder> list = godhi.getAll(dinerinfo.getDinerID());
+
+									List<Object[]> list = godhi.getOrderDetail(dinerinfo.getDinerID());
                                 	
           							pageContext.setAttribute("list", list);
           							
@@ -154,8 +156,8 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td><span class="text-muted">1</span></td>
-                                                <td><a href="invoice.html" class="text-inherit"><%= dinerinfo.getDinerID() %></a></td>
+                                                <td><span class="text-muted"><%= dinerinfo.getDinerID() %></span></td>
+                                                <td><%= dinerinfo.getDinerTaxID() %></td>
                                                 <td>
                                                     <%= dinerinfo.getDinerName() %>
                                                 </td>
@@ -192,7 +194,7 @@
                             <thead>
                                 <tr>
                                     <th class="w-1">訂單編號</th>
-                                    
+                                    <th>訂單明細</th>
                                                                      
                                     <th>訂單狀態</th>                                    
                                     <th>送達大樓</th>
@@ -202,19 +204,39 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <c:forEach var="grouporder" items="${list}">
+                            
+                            
+                            <c:forEach var="row" items="${list}">
                                 <tr>
-                                	<td>${grouporder.groupOrderID}</td>
+                                	<td>${row[0]}</td>
+                                	<td>
+                                	${row[1]} * 
+                                	${row[2]}<br>
+                                	${row[7]}<br>
+                                	${row[8]}<br>
+                                	${row[9]}<br>                              	
+                                	
+                                	
+                                	</td>
                                     
                                   
-                                    <td>${grouporder.orderStatus eq '1' ? '已送達' : '未送達'}</td>
-                                    <td>${grouporder.buildingInfo.buildingName}</td>
-                                    <td>${grouporder.groupTotalPrice}</td>
-                                    <td>${grouporder.groupOrderSubmitTime}</td>
+                                    <td>
+                                    ${row[3] eq '1' ? '揪團已建立' : 
+									  row[3] eq '2' ? '成團條件達成':
+									  row[3] eq '3' ? '揪團成功':
+									  row[3] eq '4' ? '揪團失敗':
+									  row[3] eq '5' ? '餐點準備中':
+									  row[3] eq '6' ? '商家拒單':
+									  row[3] eq '7' ? '餐點送達' : ''}
+                                  
+                                    </td>
+                                    <td>${row[4]}</td>
+                                    <td>${row[5]}</td>
+                                    <td>${row[6]}</td>
                                     
                                     <td>
                                     
-		                         	<img src = "gosimg.do?groupOrderID=${grouporder.groupOrderID}">
+		                         	<img src = "gosimg.do?groupOrderID=${row[0]}">
                                     </td>
                                     
 

@@ -154,7 +154,7 @@
                                         <tbody>
                                             <tr>
                                                 <td><span class="text-muted"><%= dif.getDinerID() %></span></td>
-                                                <td><a href="invoice.html" class="text-inherit"><%= dif.getDinerTaxID() %></a></td>
+                                                <td><%= dif.getDinerTaxID() %></td>
                                                 <td>
                                                     <%= dif.getDinerName() %>
                                                 </td>
@@ -198,6 +198,7 @@
                                     <th>圖片</th>
 									<th>圖片</th>
 									<th>圖片</th>
+									<th>商品描述</th>
 									<th></th>
 
                                 </tr>
@@ -224,7 +225,7 @@
                                     <img src = "psimg3.do?productID=${product.productID}">
                                     </td>
                                     	
-                                    	
+                                    <td>${product.productRemark}</td>	
                                     	
 									<td>
 									
@@ -240,7 +241,7 @@
 										<input type = "hidden" name = "dinerID" value = "${product.dinerinfo.dinerID}">
 										<input type = "hidden" name="action" value = "go_for_down">
 										
-										<button type = "submit" class ="btn btn-warning" style = "font-weight :bold">下架</button>
+										<button id = "click" type = "submit" class ="btn btn-warning" style = "font-weight :bold">下架</button>
 
 									  </form>
 									
@@ -310,7 +311,10 @@
       
 	
     <script>
-    	
+    	$("#click").on("click",function(){
+    		
+    		alert("已發送email");
+    	});
 
       $(document).ready(function() {
   		$('#table').DataTable({

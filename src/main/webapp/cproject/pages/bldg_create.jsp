@@ -26,9 +26,11 @@
 
 
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9xCVRfjTJn4JaNOv0J9KKnySK0_Jc6D8&libraries=places,geometry&callback=initMap" async defer></script>
     <script>
         let map;
-
+        
+        
         function initMap() {
             map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 15
@@ -94,7 +96,7 @@
 //                                     infowindow.setContent('<div><strong>' + customName + '</strong><br>' + place.vicinity + '</div>');
 //                                     infowindow.open(map, placeMarker);
 //                                 });
-                                
+                                 
                                 
                                 
                                 google.maps.event.addListener(placeMarker, "click", function () {
@@ -109,7 +111,7 @@
                                     infowindow.open(map, placeMarker);
                                     
                                     
-                                    
+//                                     
                                     
                                     
                                     
@@ -132,6 +134,10 @@
         
         
         function handleButtonClick() {
+        	
+        	
+        	
+        	
         	const infowindowContent = document.querySelector(".gm-style-iw");
             
             
@@ -183,9 +189,9 @@
     background-color: #007BFF; 
     color: #fff; 
     border: 2px solid #0056b3; 
-    padding: 5px 10px; /* 内边距，控制按钮大小 */
-    border-radius: 8px; /* 圆角边框 */
-    cursor: pointer; /* 鼠标指针形状 */
+    padding: 5px 10px; 
+    border-radius: 8px; 
+    cursor: pointer; 
 	}
 
 	

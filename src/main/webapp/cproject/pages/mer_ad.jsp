@@ -13,7 +13,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>樓頂揪樓咖後台管理</title>
 
-
+  
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
  
@@ -145,7 +145,7 @@
             <c:forEach var="advertisement" items="${list}">
               <tr>
                 <td><span class="text-muted">${advertisement.dinerid.dinerID}</span></td>
-                <td><a href="invoice.html" class="text-inherit">${advertisement.dinerid.dinerTaxID}</a></td>
+                <td>${advertisement.dinerid.dinerTaxID}</td>
                 <td>
                   ${advertisement.dinerid.dinerName}
                 </td>
@@ -211,7 +211,7 @@
             <c:forEach var="advertisement" items="${list1}">
               <tr>
                 <td><span class="text-muted">${advertisement.dinerid.dinerID}</span></td>
-                <td><a href="invoice.html" class="text-inherit">${advertisement.dinerid.dinerTaxID}</a></td>
+                <td>${advertisement.dinerid.dinerTaxID}</td>
                 <td>
                   ${advertisement.dinerid.dinerName}
                 </td>
@@ -241,7 +241,7 @@
 				<form method = "get" action = "ads.do">
 				<input type="hidden" name="action" value = "go_for_check">
 				<input type="hidden" name="check" value = "${advertisement.advertisementID}">
-				<button type = "submit" class="btn btn-warning" style="font-weight :bold">審核</button>
+				<button id = "click1" type = "submit" class="btn btn-warning" style="font-weight :bold">審核</button>
 				</form>
 				</td>
 				
@@ -249,7 +249,7 @@
 				<form method = "get" action = "ads.do">
 				<input type="hidden" name="action" value = "go_for_rejected">
 				<input type="hidden" name="check" value = "${advertisement.dinerid.dinerID}">
-				<button type = "submit" class="btn btn-warning" style="font-weight :bold">拒絕</button>
+				<button id = "click2 " type = "submit" class="btn btn-warning" style="font-weight :bold">拒絕</button>
 				</form>
 				</td>
     
@@ -301,7 +301,16 @@
 		<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.jqueryui.min.css" /> <!-- ●●css for jquery datatables 用 -->
 		
       <script>
-      $(document).ready(function() {
+             
+       
+      
+	  
+     
+      
+      
+      
+      $(document).ready(function() {   	  
+    	  
   		$('#table').DataTable({
   			"lengthMenu": [3],
   			"searching": true,  //搜尋功能, 預設是開啟
@@ -329,40 +338,64 @@
   		        }
   		    }
   		});
+  		
+  		
+  		
+  		
+  		$('#table1').DataTable({
+			"lengthMenu": [3],
+			"searching": true,  //搜尋功能, 預設是開啟
+		    "paging": true,     //分頁功能, 預設是開啟
+		    "ordering": true,   //排序功能, 預設是開啟
+		    "language": {
+		        "processing": "處理中...",
+		        "loadingRecords": "載入中...",
+		        "lengthMenu": "顯示 _MENU_ 筆結果",
+		        "zeroRecords": "沒有符合的結果",
+		        "info": "顯示第 _START_ 至 _END_ 筆結果，共<font color=red> _TOTAL_ </font>筆",
+		        "infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
+		        "infoFiltered": "(從 _MAX_ 筆結果中過濾)",
+		        "infoPostFix": "",
+		        "search": "搜尋:",
+		        "paginate": {
+		            "first": "第一頁",
+		            "previous": "上一頁",
+		            "next": "下一頁",
+		            "last": "最後一頁"
+		        },
+		        "aria": {
+		            "sortAscending":  ": 升冪排列",
+		            "sortDescending": ": 降冪排列"
+		        }
+		    }
+		});
+  		
+  		$("button[id^='click1']").click(function() {
+  	        alert("已發送email");
+  	    });
+  		
+  		$("button[id^='click2']").click(function() {
+  	        alert("已發送email");
+  	    });
+  		
+
+  		
+  		
   	});
       
       
       
-      $(document).ready(function() {
-    		$('#table1').DataTable({
-    			"lengthMenu": [3],
-    			"searching": true,  //搜尋功能, 預設是開啟
-    		    "paging": true,     //分頁功能, 預設是開啟
-    		    "ordering": true,   //排序功能, 預設是開啟
-    		    "language": {
-    		        "processing": "處理中...",
-    		        "loadingRecords": "載入中...",
-    		        "lengthMenu": "顯示 _MENU_ 筆結果",
-    		        "zeroRecords": "沒有符合的結果",
-    		        "info": "顯示第 _START_ 至 _END_ 筆結果，共<font color=red> _TOTAL_ </font>筆",
-    		        "infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
-    		        "infoFiltered": "(從 _MAX_ 筆結果中過濾)",
-    		        "infoPostFix": "",
-    		        "search": "搜尋:",
-    		        "paginate": {
-    		            "first": "第一頁",
-    		            "previous": "上一頁",
-    		            "next": "下一頁",
-    		            "last": "最後一頁"
-    		        },
-    		        "aria": {
-    		            "sortAscending":  ": 升冪排列",
-    		            "sortDescending": ": 降冪排列"
-    		        }
-    		    }
-    		});
-    	});
-
+//       $(document).ready(function() {
+    		
+    		
+    		
+    		
+    		
+    		
+//     	});
+		
+      
+      
       </script>
 
 </body>

@@ -185,7 +185,7 @@ pageContext.setAttribute("list", list);
             <c:forEach var="buildingInfo" items="${list}">
               <tr>
                 <td><span class="text-muted">${buildingInfo.buildingID}</span></td>
-                <td><a href="invoice.html" class="text-inherit">${buildingInfo.buildingName}</a></td>
+                <td>${buildingInfo.buildingName}</td>
                 <td>${buildingInfo.buildingAddress}</td>
                 
                 

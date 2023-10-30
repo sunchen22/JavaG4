@@ -154,7 +154,7 @@
                                         <tbody>
                                             <tr>
                                                 <td><span class="text-muted"><%= dif.getDinerID() %></span></td>
-                                                <td><a href="invoice.html" class="text-inherit"><%= dif.getDinerTaxID() %></a></td>
+                                                <td><%= dif.getDinerTaxID() %></td>
                                                 
                                                 <td>
                                                     <%=dif.getDinerName() %>

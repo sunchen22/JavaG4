@@ -125,7 +125,7 @@
                   <c:forEach var="dinerinfo" items="${list}">
                     <tr>
                       <td><span class="text-muted">${dinerinfo.dinerID}</span></td>
-                      <td><a href="invoice.html" class="text-inherit">${dinerinfo.dinerTaxID}</a></td>
+                      <td>${dinerinfo.dinerTaxID}</td>
                       <td>
                         ${dinerinfo.dinerName}
                       </td>
