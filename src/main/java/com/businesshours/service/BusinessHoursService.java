@@ -12,6 +12,8 @@ public interface BusinessHoursService {
 
 	List<BusinessHours> getBusinessHoursByDinerID(Integer dinerID);
 	
+	DinerInfo getDinerInfoByDinerID(Integer dinerID);
+	
 	BusinessHours setOpenStatus(Integer dinerID , String dayOfWeek , String openStatus);
 	
 //	void setBusinessHours(Integer dinerID, String dayOfWeek, Time openTime, Time closeTime);

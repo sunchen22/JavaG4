@@ -44,6 +44,15 @@ public class BusinessHoursDAOImpl implements BusinessHoursDAO {
 			return -1;
 		}
 	}
+//	@Override
+//	public BusinessHours update(BusinessHours dinerOpenHours) {
+//		try {
+//			getSession().update(dinerOpenHours);
+//			return 1;
+//		} catch (Exception e) {
+//			return -1;
+//		}
+//	}
 
 	@Override
 	public int delete(Integer dinerOpenHoursID) {
@@ -74,6 +83,96 @@ public class BusinessHoursDAOImpl implements BusinessHoursDAO {
 	@Override
 	public BusinessHours findByPK(Integer dinerOpenHoursID) {
 		return getSession().get(BusinessHours.class, dinerOpenHoursID);
+	}
+
+	
+	
+	@Override
+	public BusinessHours setOpenStatus(Integer dinerID, String dayOfWeek, String openStatus) {
+//		 Transaction transaction = null;
+		    BusinessHours result = null;
+//		    Session session = getSession();
+		    Session session = null;
+//		    org.hibernate.Transaction tx = null;
+		    try {
+		    	session = HibernateUtil.getSessionFactory().openSession();
+		    	session.beginTransaction();
+		        BusinessHours existingHours = findByDayAndDinerId(session,dayOfWeek, dinerID);
+//		        String checkedDayOfWeek = isExistDayOfWeek(dinerID, dayOfWeek);
+		        DinerInfo dinerInfo = getDinerInfoByDinerID(dinerID);
+
+		        if (existingHours != null) {
+		            existingHours.setOpenStatus(openStatus);
+		            result = existingHours;
+		            session.update(existingHours);
+		            
+		        } else {
+		            BusinessHours newBusinessHours = new BusinessHours();
+		            newBusinessHours.setDayOfWeek(dayOfWeek);
+		            newBusinessHours.setDinerInfo(dinerInfo);
+		            newBusinessHours.setOpenStatus(openStatus);
+		            session.save(newBusinessHours);
+		            
+		            result = newBusinessHours;			
+		        }
+		        
+		        session.getTransaction().commit();
+		        
+		    } catch (Exception e) {
+		    	e.printStackTrace();
+		    	session.getTransaction().rollback();
+		        if (session != null && session.isOpen()) {
+		        	 session.close();
+		        }
+		        throw e;  
+		    } 
+		    
+		    return result;
+	}
+
+	@Override
+	public BusinessHours findByDayAndDinerId(Session session,String dayOfWeek, Integer dinerID) {
+		
+		try {
+		    String hql = "FROM BusinessHours bh WHERE bh.dayOfWeek = :dayOfWeek AND bh.dinerInfo.dinerID = :dinerID";
+		    Query query = session.createQuery(hql,BusinessHours.class);
+		    query.setParameter("dayOfWeek", dayOfWeek);
+		    query.setParameter("dinerID", dinerID);
+		    return (BusinessHours) query.uniqueResult();  // 這會回傳null如果找不到結果
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+
+	@Override
+	public DinerInfo getDinerInfoByDinerID(Integer dinerID) {
+		DinerInfo dinerInfo = null;
+        Session session = null;
+        org.hibernate.Transaction tx = null;
+        try {
+            session = getSession();
+            tx = session.beginTransaction();
+
+            Query<DinerInfo> query = session.createQuery("from DinerInfo where dinerID=:dinerID", DinerInfo.class);
+            query.setParameter("dinerID", dinerID);
+            dinerInfo = query.getSingleResult();
+            
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+            // TODO: Add more detailed error logging or throw a custom exception
+        } 
+        finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+        return dinerInfo;
 	}
 
 	@Override
@@ -145,7 +244,7 @@ public class BusinessHoursDAOImpl implements BusinessHoursDAO {
 		for (BusinessHours businessHours : businessHoursList) {
 			if (businessHours.getDayOfWeek().equalsIgnoreCase(dayOfWeek)) {
 				return dayOfWeek;
-				// 如果該店家本來就有設定該日的營業時間，就返回原值
+				// 如果該店家本來就有設定該日的營業日，就返回原值
 			}
 		}
 		return null;

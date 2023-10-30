@@ -19,7 +19,9 @@ String dinerStatus = account.getDinerStatus();
 Integer dinerID = account.getDinerID();
 BusinessHoursServiceImpl bh = new BusinessHoursServiceImpl();
 List<BusinessHours> businessHours = bh.getBusinessHoursByDinerID(dinerID);
-pageContext.setAttribute("businessHours", businessHours);
+
+session.setAttribute("businessHours", businessHours);
+
 
 System.out.println("businessHours"+businessHours);
 
@@ -171,6 +173,7 @@ System.out.println("businessHours"+businessHours);
 <%-- 									value="<%=hours.getOpenStatus()%>"> --%>
 
 									<input type="hidden" name="action" value="dayOfWeekStatus[<%=dayInEnglish%>]">
+<%-- 									<input type="hidden" name="openStatus" value="<%=hours.getOpenStatus()%>"> --%>
 
 								<input type="hidden" name="openStatus"
 									id="hiddenInput<%=dayInEnglish%>"
