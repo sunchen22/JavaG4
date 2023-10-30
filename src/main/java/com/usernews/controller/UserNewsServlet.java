@@ -171,8 +171,12 @@ public class UserNewsServlet extends HttpServlet {
 				String account = (String)session.getAttribute("account"); // 自動加入存在session內的更新員工
 				
 				Webempadmin emp = new Webempadmin();
+				WebempadminDAO empdao =new WebempadminDAO();
+				int empID = empdao.findEmpID(account);	
+				System.out.println("empID : " +empID);
+				empdao.findByPrimaryKey(empID);
+				emp.setEmpID(empID);
 				usernews.setWebempadmin(emp);
-				emp.setEmpName(account);
 
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("usernews", usernews);
