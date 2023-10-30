@@ -9,6 +9,13 @@
 <%@ page import="com.varytype.service.*"%>
 <%@ page import="com.product.entity.*"%>
 <%@ page import="com.product.service.*"%>
+<%@ page import="com.dinerinfo.service.*"%>
+<%@ page import="com.dinerinfo.entity.*"%>
+<%
+
+	DinerInfo account = (DinerInfo) session.getAttribute("account");
+
+%>
 <%
     ProductTypeService PTSvc = new ProductTypeService();
     List<ProductType> PTlist = PTSvc.getAll();
@@ -21,7 +28,7 @@
 %>
 <%
     ProductService PSvc = new ProductService();
-    List <Product> PList= PSvc.getAll();
+    List <ProductVO> PList= PSvc.getAll();
     pageContext.setAttribute("Plist",PList);
 %>
 <!DOCTYPE html>
@@ -494,20 +501,13 @@
   
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/dinerbackground/pages/Team/shelve/product.do" name="form1" enctype="multipart/form-data">
 
-			<div class="col-sm-10">
-				<label>商品編號:</label>
-				<br>
-				<input type="TEXT" name="productID"	value="${param.productID}"class="form-control"  />			
-			</div>
+		
+		
+			
+					
 	
 	
-			<div class="col-sm-10">
-				<label>商家編號:</label>
-				<br>
-				<input type="TEXT" name="dinerID"	value="1${param.dinerID}"class="form-control"  />			
-			</div>
-			
-			
+	
 			<div class="col-sm-10">
 				<label>商品名稱:</label>
 				<br>
@@ -550,21 +550,23 @@
         	<br>
             <input type="file" id="p_file" name="productBlob1" onclick="previewImage()"/>                     
             <br>
-            <input type="file" id="p_file" name="productBlob2" onclick="previewImage()"/>
+            <input type="file" id="p_file2" name="productBlob2" onclick="previewImage()"/>
             <br>
-            <input type="file" id="p_file" name="productBlob3" onclick="previewImage()"/>
+            <input type="file" id="p_file3" name="productBlob3" onclick="previewImage()"/>
             
-            <span style="color:red;">${errorMsgs.productBlob1}</span>
+            
             <br>
             <br>
 
-           <div id="preview" class="col-sm-3">
+           <div id="preview" class="col-sm-6">
               <span class="text">預覽圖</span>
             </div>
-            <div id="preview2" class="col-sm-3">
+        		
+            <div id="preview2" class="col-sm-6">
               <span class="text">預覽圖2</span>
             </div>
-            <div id="preview3" class="col-sm-3">
+      			
+            <div id="preview3" class="col-sm-6">
               <span class="text">預覽圖3</span>
             </div>
           </div>
@@ -580,8 +582,11 @@
            
            
 			<div>
+				<input type="hidden" name="productID"value="${param.productID}"/>		
+				<input type="hidden" name="dinerID"	value="${account.dinerID}"/>
 				<input type="hidden" name="action" value="update">
-					<input type="submit"  id="submit" value="確認修改">
+				<input type="submit"  id="submit" value="確認修改">
+				
 			</div>
 			
 			
@@ -593,57 +598,98 @@
   
     </div>
      </div>
-     <script type="text/javascript">
-//清除提示信息
-function hideContent(d) {
-     document.getElementById(d).style.display = "none";
-}
+    <script>
 
-//照片上傳-預覽用
-var filereader_support = typeof FileReader != 'undefined';
-if (!filereader_support) {
-	alert("No FileReader support");
-}
-acceptedTypes = {
-		'image/png' : true,
-		'image/jpeg' : true,
-		'image/gif' : true
-};
-function previewImage() {
-	var upfile1 = document.getElementById("p_file");
-	upfile1.addEventListener("change", function(event) {
-		var files = event.target.files || event.dataTransfer.files;
-		for (var i = 0; i < files.length; i++) {
-			previewfile(files[i])
-		}
-	}, false);
-}
-function previewfile(file) {
-	if (filereader_support === true && acceptedTypes[file.type] === true) {
-		var reader = new FileReader();
-		reader.onload = function(event) {
-			var image = new Image();
-			image.src = event.target.result;
-			image.width = 100;
-			image.height = 75;
-			image.border = 2;
-			if (blob_holder.hasChildNodes()) {
-				blob_holder.removeChild(blob_holder.childNodes[0]);
-			}
-			blob_holder.appendChild(image);
-		};
-		reader.readAsDataURL(file);
-		document.getElementById('submit').disabled = false;
-	} else {
-		blob_holder.innerHTML = "<div  style='text-align: left;'>" + "● filename: " + file.name
-				+ "<br>" + "● ContentTyp: " + file.type
-				+ "<br>" + "● size: " + file.size + "bytes"
-				+ "<br>" + "● 上傳ContentType限制: <b> <font color=red>image/png、image/jpeg、image/gif </font></b></div>";
-		document.getElementById('submit').disabled = true;
-	}
-}
-</script>
-     
+      window.addEventListener("load", function(e){
+
+      
+        var preview_el = document.getElementById("preview");
+        var p_file_el = document.getElementById("p_file");
+        
+        var preview_img = function(file){
+
+          var reader = new FileReader(); // 用來讀取檔案
+          reader.readAsDataURL(file); // 讀取檔案
+          reader.addEventListener("load", function () {
+       
+
+            let img_str = '<img src="' + reader.result + '" class="preview_img">';
+            preview_el.innerHTML = img_str;
+          });
+        };
+
+
+        p_file_el.addEventListener("change", function(e){
+          if(this.files.length > 0){
+            preview_img(this.files[0]);
+          }else{
+            preview_el.innerHTML = '<span class="text">預覽圖</span>';
+          }
+        });
+        
+        
+        var preview_el2 = document.getElementById("preview2");
+        var p_file_el2 = document.getElementById("p_file2");
+        
+        var preview_img2 = function(file){
+
+          var reader2 = new FileReader(); // 用來讀取檔案
+          reader2.readAsDataURL(file); // 讀取檔案
+          reader2.addEventListener("load", function () {
+       
+
+            let img_str2 = '<img src="' + reader2.result + '" class="preview_img">';
+            preview_el2.innerHTML = img_str2;
+          });
+        };
+
+
+        p_file_el2.addEventListener("change", function(e){
+          if(this.files.length > 0){
+            preview_img2(this.files[0]);
+          }else{
+            preview_el2.innerHTML = '<span class="text">預覽圖2</span>';
+          }
+        });
+        
+        
+        
+        var preview_el3 = document.getElementById("preview3");
+        var p_file_el3 = document.getElementById("p_file3");
+        
+        var preview_img3 = function(file){
+
+          var reader3 = new FileReader(); // 用來讀取檔案
+          reader3.readAsDataURL(file); // 讀取檔案
+          reader3.addEventListener("load", function () {
+       
+
+            let img_str3 = '<img src="' + reader3.result + '" class="preview_img">';
+            preview_el3.innerHTML = img_str3;
+          });
+        };
+
+
+        p_file_el3.addEventListener("change", function(e){
+          if(this.files.length > 0){
+            preview_img3(this.files[0]);
+          }else{
+            preview_el3.innerHTML = '<span class="text">預覽圖3</span>';
+          }
+        });
+        
+        
+        
+
+      });
+      
+      
+     </script>
+
+
+
+
+
      
      
 </div><!--/. container-fluid -->

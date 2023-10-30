@@ -11,9 +11,9 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+import javax.servlet.http.HttpSession;
 
-import com.product.entity.Product;
+import com.product.entity.ProductVO;
 import com.product.service.ProductService;
 import com.webempadmin.model.WebempadminService;
 
@@ -28,6 +28,8 @@ public class ProductServlet extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
+
+		HttpSession session = req.getSession();
 
 		if ("getOne_For_Display".equals(action)) {
 
@@ -63,7 +65,7 @@ public class ProductServlet extends HttpServlet {
 
 			/*************************** 2.開始查詢資料 *****************************************/
 			ProductService productSvc = new ProductService();
-			Product product = productSvc.getOneProduct(productTypeID);
+			ProductVO product = productSvc.getOneProduct(productTypeID);
 			if (product == null) {
 				errorMsgs.put("productID", "查無資料");
 			}
@@ -116,7 +118,7 @@ public class ProductServlet extends HttpServlet {
 
 			/*************************** 2.開始查詢資料 *****************************************/
 			ProductService productSvc = new ProductService();
-			Product product = productSvc.getOneProduct(productTypeID);
+			ProductVO product = productSvc.getOneProduct(productTypeID);
 			if (product == null) {
 				errorMsgs.put("productID", "查無資料");
 			}
@@ -142,29 +144,23 @@ public class ProductServlet extends HttpServlet {
 
 			/*************************** 1.接收請求參數 ****************************************/
 			Integer productID = Integer.valueOf(req.getParameter("productID"));
-			
-System.out.println(productID);
+
+			System.out.println(productID);
 
 			/*************************** 2.開始查詢資料 ****************************************/
 			ProductService pSvc = new ProductService();
-			Product product = pSvc.getOneProduct(productID);
+			ProductVO product = pSvc.getOneProduct(productID);
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-			String param =  
-							"?&productID=" + product.getProductID() +
-							"&dinerID=" + product.getDinerID() +
-							"&productName=" + product.getProductName() +
-							"&productPrice=" + product.getProductPrice() +
-							"&productTypeID=" + product.getProductTypeID()+
-							"&productDailyStock=" + product.getProductDailyStock() + 
-							"&productRemark=" + product.getProductRemark() + 
-							"&productBlob1=" + product.getProductBlob1() + 
-							"&productBlob2=" + product.getProductBlob2() + 
-							"&productBlob3=" + product.getProductBlob3() + 
-							"&productStatus=" + product.getProductStatus();
-			
-System.out.println(param);			
-			
+			String param = "?&productID=" + product.getProductID() + "&dinerID=" + product.getDinerID()
+					+ "&productName=" + product.getProductName() + "&productPrice=" + product.getProductPrice()
+					+ "&productTypeID=" + product.getProductTypeID() + "&productDailyStock="
+					+ product.getProductDailyStock() + "&productRemark=" + product.getProductRemark() + "&productBlob1="
+					+ product.getProductBlob1() + "&productBlob2=" + product.getProductBlob2() + "&productBlob3="
+					+ product.getProductBlob3() + "&productStatus=" + product.getProductStatus();
+
+			System.out.println(param);
+
 			String url = "/dinerbackground/pages/Team/p_list/update_product.jsp" + param;
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_product.jsp
 			successView.forward(req, res);
@@ -215,42 +211,18 @@ System.out.println(param);
 				errorMsgs.put("productRemark", "請輸入商品介紹");
 			}
 
-//			String productStatus = req.getParameter("productStatus").trim();			
-//			String productStatus = "上架中";
-
-
-//			InputStream in = req.getPart("productBlob1").getInputStream(); 
-//			byte[] productBlob1 = null;
-//			if (in.available() != 0) {
-//				productBlob1 = new byte[in.available()];
-//				in.read(productBlob1);
-//				in.close();
-//			} else {
-//				ProductService PSvc = new ProductService();
-//				productBlob1 = PSvc.getOneProduct(productID).getProductBlob1();
-//			}
-//			
-			ProductService productSvc = new ProductService();
-
-			
+			InputStream in = req.getPart("productBlob1").getInputStream();
 			byte[] productBlob1 = null;
-InputStream in =req.getPart("productBlob1").getInputStream();				
-			if(in.available() == 0) { //取原本資料內的照片
-				productSvc = new ProductService();
-				productBlob1 = productSvc.getOneProduct(productID).getProductBlob1();
-				
-			} else {
-//	            errorMsgs.put("empImage", "圖片格式不支援");
+			if (in.available() != 0) {
 				productBlob1 = new byte[in.available()];
 				in.read(productBlob1);
 				in.close();
-	        }
-			
-			
-			
-		
+			} else {
+				ProductService PSvc = new ProductService();
+				productBlob1 = PSvc.getOneProduct(productID).getProductBlob1();
+			}
 
-			InputStream in2 = req.getPart("productBlob2").getInputStream(); 
+			InputStream in2 = req.getPart("productBlob2").getInputStream();
 			byte[] productBlob2 = null;
 			if (in2.available() != 0) {
 				productBlob2 = new byte[in2.available()];
@@ -261,7 +233,7 @@ InputStream in =req.getPart("productBlob1").getInputStream();
 				productBlob2 = PSvc.getOneProduct(productID).getProductBlob2();
 			}
 
-			InputStream in3 = req.getPart("productBlob3").getInputStream(); 
+			InputStream in3 = req.getPart("productBlob3").getInputStream();
 			byte[] productBlob3 = null;
 			if (in3.available() != 0) {
 				productBlob3 = new byte[in3.available()];
@@ -281,9 +253,9 @@ InputStream in =req.getPart("productBlob1").getInputStream();
 			}
 
 			/*************************** 2.開始修改資料 *****************************************/
-			 productSvc = new ProductService();
-			Product product = productSvc.updateProduct(productID, dinerID, productName, productPrice, productTypeID,
-					productDailyStock, productRemark,productBlob1,productBlob2,productBlob3);
+			ProductService productSvc = new ProductService();
+			ProductVO product = productSvc.updateProduct(productID, dinerID, productName, productPrice, productTypeID,
+					productDailyStock, productRemark, productBlob1, productBlob2, productBlob3);
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("product", product); // 資料庫update成功後,正確的的VO物件,存入req
@@ -298,9 +270,9 @@ InputStream in =req.getPart("productBlob1").getInputStream();
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
+
 			Integer dinerID = Integer.valueOf(req.getParameter("dinerID"));
 
-			
 			String productName = req.getParameter("productName").trim();
 			String productNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 			if (productName == null || productName.trim().length() == 0) {
@@ -308,8 +280,7 @@ InputStream in =req.getPart("productBlob1").getInputStream();
 			} else if (!productName.trim().matches(productNameReg)) { // 以下練習正則(規)表示式(regular-expression)
 				errorMsgs.put("productName", "商品名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 			}
-			
-			
+
 			Integer productPrice = null;
 			try {
 				productPrice = Integer.valueOf(req.getParameter("productPrice").trim());
@@ -338,26 +309,22 @@ InputStream in =req.getPart("productBlob1").getInputStream();
 
 			// 照片
 			InputStream in = req.getPart("productBlob1").getInputStream(); // 從javax.servlet.http.Part物件取得上傳檔案的InputStream
-			
-		
+
 			byte[] productBlob1 = new byte[in.available()];
-				in.read(productBlob1);
-				in.close();
-	
+			in.read(productBlob1);
+			in.close();
 
 			InputStream in2 = req.getPart("productBlob2").getInputStream(); // 從javax.servlet.http.Part物件取得上傳檔案的InputStream
-					
+
 			byte[] productBlob2 = new byte[in2.available()];
-				in2.read(productBlob2);
-				in2.close();
-	
+			in2.read(productBlob2);
+			in2.close();
 
 			InputStream in3 = req.getPart("productBlob3").getInputStream(); // 從javax.servlet.http.Part物件取得上傳檔案的InputStream
-						
+
 			byte[] productBlob3 = new byte[in3.available()];
-				in3.read(productBlob3);
-				in3.close();
-		
+			in3.read(productBlob3);
+			in3.close();
 
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
@@ -369,9 +336,11 @@ InputStream in =req.getPart("productBlob1").getInputStream();
 
 			/*************************** 2.開始新增資料 ***************************************/
 			ProductService productSvc = new ProductService();
-			productSvc.addProduct(dinerID, productName, productPrice, productTypeID, productDailyStock, productRemark,productBlob1,productBlob2,productBlob3);
+			productSvc.addProduct(dinerID, productName, productPrice, productTypeID, productDailyStock, productRemark,
+					productBlob1, productBlob2, productBlob3);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
+
 			String url = "/dinerbackground/pages/Team/shelve/shelve_PV.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);
@@ -394,27 +363,36 @@ InputStream in =req.getPart("productBlob1").getInputStream();
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 			successView.forward(req, res);
 		}
-		
 
-		if ("off_shelve".equals(action)) { // 來自p_list.jsp
+		if ("off_shelve".equals(action)) { // 來自update_product.jsp的請求
 
 			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 
-			/*************************** 1.接收請求參數 ***************************************/
-			Integer productID = Integer.valueOf(req.getParameter("productID"));
+			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+
+			Integer productID = Integer.valueOf(req.getParameter("productID").trim());
+
 			String productStatus = req.getParameter("productStatus").trim();
 
-			/*************************** 2.開始刪除資料 ***************************************/
-			ProductService PSvc = new ProductService();
-			PSvc.offShelveProduct(productID, productStatus);
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/dinerbackground/pages/Team/p_list/p_list.jsp");
+				failureView.forward(req, res);
+				return; // 程式中斷
+			}
 
-			/*************************** 3.下架完成,準備轉交(Send the Success view) ***********/
+			/*************************** 2.開始修改資料 *****************************************/
+			ProductService productSvc = new ProductService();
+			ProductVO product = productSvc.offShelveProduct(productID, productStatus);
+
+			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
+			req.setAttribute("product", product); // 資料庫update成功後,正確的的VO物件,存入req
 			String url = "/dinerbackground/pages/Team/p_list/p_list.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交p_list.jsp
 			successView.forward(req, res);
 		}
-		
-		
+
 	}
 }

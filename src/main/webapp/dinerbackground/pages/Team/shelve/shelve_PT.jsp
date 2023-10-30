@@ -22,8 +22,6 @@ List<ProductType> PTlist = PTSvc.getAll();
 pageContext.setAttribute("list", PTlist);
 %>
 
-
-
 <!DOCTYPE html>
 <html lang="zh-Hant">
 
@@ -428,7 +426,7 @@ pageContext.setAttribute("list", PTlist);
 
 
 
-				<FORM METHOD="post" ACTION="productType.do" name="form1">
+				<FORM METHOD="post" ACTION="<%= request.getContextPath()%>/dinerbackground/pages/Team/shelve/productType.do" name="form1">
 					<table>
 					<br>
 					<br>

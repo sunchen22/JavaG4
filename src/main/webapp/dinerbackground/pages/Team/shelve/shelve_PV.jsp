@@ -9,20 +9,28 @@
 <%@ page import="com.varytype.service.*"%>
 <%@ page import="com.product.entity.*"%>
 <%@ page import="com.product.service.*"%>
+<%@ page import="com.productvary.dao.*"%>
+<%@ page import="com.productvary.entity.*"%>
+<%@ page import="com.productvary.service.*"%>
 <%
     ProductTypeService PTSvc = new ProductTypeService();
     List<ProductType> PTlist = PTSvc.getAll();
     pageContext.setAttribute("list",PTlist);
 %>
 <%
-VaryTypeService VTSvc = new VaryTypeService();
-List<VaryType> VTList = VTSvc.getAll();
-pageContext.setAttribute("VTlist", VTList);
+	VaryTypeService VTSvc = new VaryTypeService();
+	List<VaryType> VTList = VTSvc.getAll();
+	pageContext.setAttribute("VTlist", VTList);
 %>
 <%
     ProductService PSvc = new ProductService();
-    List <Product> PList= PSvc.getAll();
+    List <ProductVO> PList= PSvc.getAll();
     pageContext.setAttribute("Plist",PList);
+%>
+<%
+	ProductVaryService PVSvc = new ProductVaryService();
+	List<ProductVary> PVlist = PVSvc.getAll();
+	pageContext.setAttribute("PVlist", PVlist);
 %>
 <!DOCTYPE html>
 <html lang="zh-Hant">
@@ -297,13 +305,13 @@ pageContext.setAttribute("VTlist", VTList);
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="..\shelve\type_setting.html" class="nav-link">
+                  <a href="..\shelve\type_setting.jsp" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>商品群組設定</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="..\shelve\shelve.html" class="nav-link">
+                  <a href="..\shelve\shelve_PT.jsp" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>單獨上架</p>
                   </a>
@@ -326,7 +334,7 @@ pageContext.setAttribute("VTlist", VTList);
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="..\p_list\p_list.html" class="nav-link">
+                  <a href="..\p_list\p_list.jsp" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>商品列表</p>
                   </a>
@@ -447,7 +455,7 @@ pageContext.setAttribute("VTlist", VTList);
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">商品上架</h1>
+              <h1 class="m-0">商品上架-客製選項新增</h1>
             </div>
             <div class="col-sm-6">
               <!-- <ol class="breadcrumb float-sm-right">
@@ -490,7 +498,6 @@ pageContext.setAttribute("VTlist", VTList);
         <!-- <div class="col-md-3"> -->
 
       <div class="shelve">
-
   
 		<FORM METHOD="post" ACTION="productVary.do" name="form1" >
 	
@@ -511,7 +518,7 @@ pageContext.setAttribute("VTlist", VTList);
 			<div class="col-sm-10">
 				<label>客製分類:</label>
 				<br>
-				<select name="varyTypeID" class="form-control" style="width:200px;display:inline">
+				<select name="varyTypeID" id="mySelect" class="form-control" style="width:200px;display:inline" onchange="getValue()">
 				<c:forEach var="varyTypeVO" items="${VTlist}">
 					<option value="${varyTypeVO.varyTypeID}" >${varyTypeVO.varyType}
 				</c:forEach>
@@ -539,7 +546,7 @@ pageContext.setAttribute("VTlist", VTList);
            
 			<div>
 				<input type="hidden" name="action" value="insert">
-					<input type="submit"  id="submit" value="新增客製選項">
+				<input type="submit"  id="submit" value="新增客製選項">
 			</div>
 			
 			
@@ -547,61 +554,26 @@ pageContext.setAttribute("VTlist", VTList);
 			
 		
 	</FORM>
- 
-  
-    </div>
-     </div>
-     <script type="text/javascript">
-//清除提示信息
-function hideContent(d) {
-     document.getElementById(d).style.display = "none";
-}
+	
 
-//照片上傳-預覽用
-var filereader_support = typeof FileReader != 'undefined';
-if (!filereader_support) {
-	alert("No FileReader support");
-}
-acceptedTypes = {
-		'image/png' : true,
-		'image/jpeg' : true,
-		'image/gif' : true
-};
-function previewImage() {
-	var upfile1 = document.getElementById("p_file");
-	upfile1.addEventListener("change", function(event) {
-		var files = event.target.files || event.dataTransfer.files;
-		for (var i = 0; i < files.length; i++) {
-			previewfile(files[i])
-		}
-	}, false);
-}
-function previewfile(file) {
-	if (filereader_support === true && acceptedTypes[file.type] === true) {
-		var reader = new FileReader();
-		reader.onload = function(event) {
-			var image = new Image();
-			image.src = event.target.result;
-			image.width = 100;
-			image.height = 75;
-			image.border = 2;
-			if (blob_holder.hasChildNodes()) {
-				blob_holder.removeChild(blob_holder.childNodes[0]);
-			}
-			blob_holder.appendChild(image);
-		};
-		reader.readAsDataURL(file);
-		document.getElementById('submit').disabled = false;
-	} else {
-		blob_holder.innerHTML = "<div  style='text-align: left;'>" + "● filename: " + file.name
-				+ "<br>" + "● ContentTyp: " + file.type
-				+ "<br>" + "● size: " + file.size + "bytes"
-				+ "<br>" + "● 上傳ContentType限制: <b> <font color=red>image/png、image/jpeg、image/gif </font></b></div>";
-		document.getElementById('submit').disabled = true;
-	}
-}
-</script>
-     
+
+  			 </div>
+	 	  </div>
+    
+<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/dinerbackground/pages/Team/p_list/p_list.jsp" name="form1">
+					<div class="col-sm-4" >
+
+
+						<div class="form-group">
+
+							
+															
+								<input type="submit" value="返回商品列表" >
+								
+							
+						</div>
+					</div>
+				</FORM>
      
      
 </div><!--/. container-fluid -->

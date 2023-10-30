@@ -1,5 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.*"%>
+<%@ page import="com.grouporder.service.*"%>
+<%@ page import="com.grouporder.entity.*"%>
+<%@ page import="com.grouporder.dao.*"%>
+
+<%
+    GroupOrderServiceN GOSvc = new GroupOrderServiceN();
+    List<GroupOrderVO> GOlist = GOSvc.getAll(3);
+    pageContext.setAttribute("GOlist",GOlist);
+%>
+<%
+    GroupOrderServiceN GOSvc4 = new GroupOrderServiceN();
+    List<GroupOrderVO> GOlist4 = GOSvc4.getAll(4);
+    pageContext.setAttribute("GOlist4",GOlist4);
+%>
+<%
+    GroupOrderServiceN GOSvc5 = new GroupOrderServiceN();
+    List<GroupOrderVO> GOlist5 = GOSvc5.getAll(5);
+    pageContext.setAttribute("GOlist5",GOlist5);
+%>
+<%
+    GroupOrderServiceN GOSvc6 = new GroupOrderServiceN();
+    List<GroupOrderVO> GOlist6 = GOSvc6.getAll(6);
+    pageContext.setAttribute("GOlist6",GOlist6);
+%>
+<%
+    GroupOrderServiceN GOSvc7 = new GroupOrderServiceN();
+    List<GroupOrderVO> GOlist7 = GOSvc7.getAll(7);
+    pageContext.setAttribute("GOlist7",GOlist7);
+%>
 <!DOCTYPE html>
 <html lang="zh-Hant">
 
@@ -20,7 +50,7 @@
   <link rel="stylesheet" href="../../../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../../../dist/css/adminlte.min.css">
-  <link rel="stylesheet" href="ord_query.css">
+
 </head>
 
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -303,36 +333,38 @@
 
                       <!-- ==============頁籤標頭===================== -->
                       <div class="nav nav-tabs" id="ord-tab" role="tablist" >
+                         
 
                         <a class="nav-item nav-link active" id="tab1" data-toggle="tab" 
                           href="#ord-tbd" role="tab" aria-controls="ord-tbd" 
                           aria-selected="true">
-                          待確認訂單
+                          訂單查詢
                         </a>
 
                         <a class="nav-item nav-link " id="tab2" data-toggle="tab" 
                           href="#ord-preparation" role="tab" aria-controls="ord-preparation" 
                           aria-selected="false">
-                          準備中訂單
+                          待確認訂單
                         </a>
 
                         <a class="nav-item nav-link" id="tab3" data-toggle="tab" 
                           href="#ord-finish" role="tab" aria-controls="ord-finish" 
                           aria-selected="false">
-                          已完成訂單
+                          準備中訂單
                         </a>
 
                         <a class="nav-item nav-link" id="tab4" data-toggle="tab"
                           href="#ord-cancel" role="tab" aria-controls="ord-cancel"
                           aria-selected="false">
+                          已完成訂單
+                        </a>
+                        
+						<a class="nav-item nav-link" id="tab5" data-toggle="tab"
+                          href="#ord-query" role="tab" aria-controls="ord-query"
+                          aria-selected="false">
                           已取消訂單
                         </a>
 
-                        <a class="nav-item nav-link" id="tab5" data-toggle="tab"
-                          href="#ord-query" role="tab" aria-controls="ord-query"
-                          aria-selected="false">
-                          訂單查詢
-                        </a>
                       </div>
                     </nav>
                   </div>
@@ -349,8 +381,107 @@
                         <div class="card-body table-responsive p-0" style="height: auto;">
                           <table class="table table-head-fixed text-nowrap">
                             <!-- 表格標題 -->
+                           <div class="col-12">
+                            <div class="card">
+                            <div class="card-header">
+                            <h3 class="card-title" >訂單查詢</h3>
                             
+                            </div>
                             <div class="col-12">
+                               <!-- interactive chart -->                                                                             
+                                                                    
+                                 </div>
+                                         
+                                 <!-- <div class="col-md-3"> -->
+                                <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/dinerbackground/pages/Team/ord_query/orderquery.do"
+									style="margin-bottom: 0px;">
+									
+									<span class="col-10">
+                                     <label style=" margin: 0;">訂單編號查詢：</label>
+                                     <input type="TEXT" name="groupOrderID" placeholder="請輸入訂單編號"  value="${param.groupOrderID}">
+                                     </span><font color=red>${errorMsgs.groupOrderID}</font>
+                                      <br>
+									<input type="hidden" name="action" value="getOne_For_Display">
+									<input type="submit"  value="查詢" class="btn btn-warning"style="font-weight:bold"> 
+                                    
+								</FORM>
+                                 
+                                 
+                                 
+                                 
+                
+                               </div>                        
+                             <table class="table table-bordered table-hover" >
+                             <thead >
+                             <tr>
+                             <th>訂單編號</th>                             
+                             <th>訂單狀態</th>                             
+                             <th>成立時間</th>
+                             <th>訂單地址</th>
+                             <th>金額</th>
+                             <th>完成時間</th>
+                             </tr>
+                             </thead>
+                             
+             
+<%
+GroupOrderVO grouporder = (GroupOrderVO) request.getAttribute("grouporder"); //EmpServlet.java(Concroller), 存入req的empVO物件
+%>                   	         
+
+                           
+                           
+                              <tbody>
+
+                              
+                      
+                                <tr data-widget="expandable-table" aria-expanded="false">
+                                  <td>${grouporder.groupOrderID}</td>
+                                  <td>${grouporder.orderStatus}</td>
+                                  <td>${grouporder.groupOrderCreateTime}</td>
+                                  <td>${grouporder.buildingID}</td>
+                                  <td>${grouporder.groupTotalPrice}</td>
+                                  <td>${grouporder.groupOrderSubmitTime}</td>
+                                  </tr>
+                                  <tr class="expandable-body">
+                                  <td colspan="6">
+                                  <p>
+                                    訂單內容<br>
+                                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                   <br>訂單內容      
+                                  </p>
+
+                                	
+                             
+                 			   </tbody>
+                           
+                           
+                           
+                           
+                           
+                           
+                           
+                           
+               
+                           
+                         </div>          
+                       </div>                      
+                     </div>
+                   </div>                            
+                            
+                            
+
+                            <!-- 結束 -->
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- 標籤 ======商品 銷售額==== 內容 -->
+                <div class="tab-pane fade" id="ord-preparation" role="tabpanel"
+                aria-labelledby="ord-preparation">
+                  <div class="card-body table-responsive p-0" style="height: auto;">
+                    <table class="table table-head-fixed text-nowrap">
+                          <!-- 表格標題 -->
+<div class="col-12">
                               <div class="card">
                               <div class="card-header" >
                               <h3 class="card-title" >待確認訂單</h3>
@@ -369,19 +500,16 @@
                               </tr>
                               </thead>
                               <tbody>
+
                               
+                          <c:forEach var="groupOrder" items="${GOlist}"> 
                                 <tr data-widget="expandable-table" aria-expanded="false">
-                                  <td>S2232802896	</td>
-                                  <td><font color='blue'>待確認</font></td>
-                                  <td><b>04-16</b>
-                                      <br>17:00</td>
-                                  <td>台北市中正區濟南路一段321號<br />
-                                    <a href='/s2232802896.html' target=blank>apple大樓</a>
-                                  </td>
-                                  <td><font color="#009900">$ 8,000</font></td>
-                                  <th><b>2023-04-16</b>
-                                      <br>20:16<br/>
-                                    </th>
+                                  <td>${groupOrder.groupOrderID}</td>
+                                  <td>${groupOrder.orderStatus}</td>
+                                  <td>${groupOrder.groupOrderCreateTime}</td>
+                                  <td>${groupOrder.buildingID}</td>
+                                  <td>${groupOrder.groupTotalPrice}</td>
+                                  <td>${groupOrder.groupOrderSubmitTime}</td>
                                   </tr>
                                   <tr class="expandable-body">
                                   <td colspan="6">
@@ -390,34 +518,44 @@
                                   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
                                    <br>訂單內容      
                                   </p>
-                  
-                                    <button type="submit" style="font-weight:bold" class="print btn-warning">確認訂單</button>
-   
-                                    <button type="submit" style="font-weight:bold" class="print btn-warning">               
-                                    <p style="display:none;">開始時間：<span id="start_pad"></span><br>
-                                      结束時間：<span id="end_pad"></span><br></p>
-                                    <div >拒絕訂單(<span id="pad"></span>後拒絕)</div>
-                                   </button>                       
-                    
+                  				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/dinerbackground/pages/Team/ord_query/orderquery.do"
+									style="margin-bottom: 0px;">
+									<input type="submit"  value="確認訂單"> 
+									<input type="hidden"name="groupOrderID" value="${groupOrder.groupOrderID}">
+									<input type="hidden"name="orderStatus" value="5">
+									<input type="hidden" name="action" value="status">
+								</FORM>
+								
+				 				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/dinerbackground/pages/Team/ord_query/orderquery.do"
+									style="margin-bottom: 0px;">
+									<input type="submit"  value="拒絕訂單"> 
+									<input type="hidden"name="groupOrderID" value="${groupOrder.groupOrderID}">
+									<input type="hidden"name="orderStatus" value="6">
+									<input type="hidden" name="action" value="status">
+								</FORM>    
+                                	
+                            </c:forEach>             
+                 			   </tbody>
                                   </td>
                                   </tr>                    
                                 </div>
                               </div>
                              </div>                      
-                           </div>
-                            <!-- 結束 -->
-                          </table>
-                        </div>
+                           </div>                          
+                          
+                          
+               
+                          
+                          <!-- 結束 -->
+                        </table>
                       </div>
                     </div>
-                    <!-- 標籤 ======商品 銷售額==== 內容 -->
-                <div class="tab-pane fade" id="ord-preparation" role="tabpanel"
-                aria-labelledby="ord-preparation">
-                  <div class="card-body table-responsive p-0" style="height: auto;">
-                    <table class="table table-head-fixed text-nowrap">
+                    <!-- 標籤 ======商品 銷售量==== 內容 -->
+                    <div class="tab-pane fade" id="ord-finish" role="tabpanel" aria-labelledby="ord-finish">
+                      <div class="card-body table-responsive p-0" style="height: auto;">
+                        <table class="table table-head-fixed text-nowrap">
                           <!-- 表格標題 -->
-                          
-                          <div class="col-12">
+ <div class="col-12">
                             <div class="card">
                             <div class="card-header" >
                             <h3 class="card-title" >準備中訂單</h3>
@@ -436,19 +574,14 @@
                             </tr>
                             </thead>
                             <tbody>
-                            
+                             <c:forEach var="groupOrder" items="${GOlist5}"> 
                               <tr data-widget="expandable-table" aria-expanded="false">
-                                <td>S2232802896	</td>
-                                <td><font color='blue'>待確認</font></td>
-                                <td><b>04-16</b>
-                                    <br>17:00</td>
-                                <td>台北市中正區濟南路一段321號<br />
-                                  <a href='/s2232802896.html' target=blank>apple大樓</a>
-                                </td>
-                                <td><font color="#009900">$ 8,000</font></td>
-                                <th><b>2023-04-16</b>
-                                    <br>20:16<br/>
-                                  </th>
+                                  <td>${groupOrder.groupOrderID}</td>
+                                  <td>${groupOrder.orderStatus}</td>
+                                  <td>${groupOrder.groupOrderCreateTime}</td>
+                                  <td>${groupOrder.buildingID}</td>
+                                  <td>${groupOrder.groupTotalPrice}</td>
+                                  <td>${groupOrder.groupOrderSubmitTime}</td>
                                 </tr>
                                 <tr class="expandable-body">
                                 <td colspan="6">
@@ -457,32 +590,34 @@
                                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
                                  <br>訂單內容      
                                 </p>
-                
-                                  <button type="submit" style="font-weight:bold" class="print btn-warning">確認訂單</button>
-     
-                                  <button type="submit" style="font-weight:bold" class="print btn-warning">               
-                                  <p style="display:none;">開始時間：<span id="start_pad"></span><br>
-                                    结束時間：<span id="end_pad"></span><br></p>
-                                  <div >拒絕訂單(<span id="pad"></span>後拒絕)</div>
-                                 </button>                       
-                  
+                                <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/dinerbackground/pages/Team/ord_query/orderquery.do"
+									style="margin-bottom: 0px;">
+									<input type="submit"  value="訂單已送達"> 
+									<input type="hidden"name="groupOrderID" value="${groupOrder.groupOrderID}">
+									<input type="hidden"name="orderStatus" value="7">
+									<input type="hidden" name="action" value="status">
+								</FORM>
+                                                         
+                  				</c:forEach>  
                                 </td>
                                 </tr>                    
                               </div>
                             </div>
                            </div>                      
-                         </div>
-                          <!-- 結束 -->
+                         </div>                         
+                          
+
+                          <!-- 結束 -->     
                         </table>
                       </div>
                     </div>
-                    <!-- 標籤 ======商品 銷售量==== 內容 -->
-                    <div class="tab-pane fade" id="ord-finish" role="tabpanel" aria-labelledby="ord-finish">
+                    <!-- 標籤 ======商品種類 銷售額==== 內容 -->
+                    <div class="tab-pane fade" id="ord-cancel" role="tabpanel"
+                      aria-labelledby="ord-cancel">
                       <div class="card-body table-responsive p-0" style="height: auto;">
                         <table class="table table-head-fixed text-nowrap">
                           <!-- 表格標題 -->
-                          
-                          <div class="col-12">
+ <div class="col-12">
                             <div class="card">
                             <div class="card-header">
                             <h3 class="card-title" >已完成訂單</h3>
@@ -500,47 +635,45 @@
                             </tr>
                             </thead>
                             <tbody>
-                           
+                            <c:forEach var="groupOrder" items="${GOlist7}"> 
                              <tr data-widget="expandable-table" aria-expanded="false">
-                               <td>S2232802896	</td>
-                               <td><font color='blue'>已完成</font></td>
-                               <td><b>04-16</b>
-                                 <br>17:00</td>
-                               <td>台北市中正區濟南路一段321號<br />
-                                 <a href='/s2232802896.html' target=blank>apple大樓</a>
-                               </td>
-                               <td><font color="#009900">$ 8,000</font></td>
-                               <th><b>2023-04-16</b>
-                                 <br>20:16<br/>
-                                 </th>
+                                  <td>${groupOrder.groupOrderID}</td>
+                                  <td>${groupOrder.orderStatus}</td>
+                                  <td>${groupOrder.groupOrderCreateTime}</td>
+                                  <td>${groupOrder.buildingID}</td>
+                                  <td>${groupOrder.groupTotalPrice}</td>
+                                  <td>${groupOrder.groupOrderSubmitTime}</td>
                                </tr>
                                <tr class="expandable-body">
                                <td colspan="6">
                                <p>
                                  訂單內容<br>
                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                               <button type="submit" style="font-weight:bold" class="print btn-warning">列印</button>              
                              <br> 訂單內容
                              </p>                
                                </td>
                                </tr>
+                               </c:forEach>  
                            </tbody>                          
                          </div>                          
                        </div>                          
                      </div>
-                   </div> 
-                          <!-- 結束 -->     
+                   </div>                          
+                          
+                          
+                 
+                        
+                          <!-- 結束 -->
                         </table>
                       </div>
                     </div>
-                    <!-- 標籤 ======商品種類 銷售額==== 內容 -->
-                    <div class="tab-pane fade" id="ord-cancel" role="tabpanel"
-                      aria-labelledby="ord-cancel">
+                    <!-- 標籤 ======商品種類 銷售量==== 內容 -->
+                    <div class="tab-pane fade" id="ord-query" role="tabpanel"
+                      aria-labelledby="ord-query">
                       <div class="card-body table-responsive p-0" style="height: auto;">
                         <table class="table table-head-fixed text-nowrap">
                           <!-- 表格標題 -->
-                          
-                          <div class="col-12">
+  <div class="col-12">
                             <div class="card">
                             <div class="card-header">
                             <h3 class="card-title" >已取消訂單</h3>
@@ -559,18 +692,14 @@
                             </tr>
                             </thead>
                             <tbody>
-                             
+                            <c:forEach var="groupOrder" items="${GOlist4}"> 
                              <tr data-widget="expandable-table" aria-expanded="false">
-                               <td>S2232802896	</td>
-                               <td><font color='blue'>已取消</font></td>
-                               <td><b>04-16</b>
-                                   <br>17:00</td>
-                               <td>台北市中正區濟南路一段321號<br />
-                                   <a href='/s2232802896.html' target=blank>apple大樓</a>
-                               </td>
-                               <td><font color="#009900">$ 8,000</font></td>
-                               <th><b>2023-04-16</b>
-                                   <br>20:16<br/>
+                                  <td>${groupOrder.groupOrderID}</td>
+                                  <td>${groupOrder.orderStatus}</td>
+                                  <td>${groupOrder.groupOrderCreateTime}</td>
+                                  <td>${groupOrder.buildingID}</td>
+                                  <td>${groupOrder.groupTotalPrice}</td>
+                                  <td>${groupOrder.groupOrderSubmitTime}</td>
                                </th>
                                </tr>
                                <tr class="expandable-body">
@@ -582,119 +711,40 @@
                                <br>訂單內容
                                </p>                  
                                </td>
-                             </tr>                
+                             </tr>    
+                             </c:forEach>   
+                             
+                            <c:forEach var="groupOrder" items="${GOlist6}"> 
+                             <tr data-widget="expandable-table" aria-expanded="false">
+                                  <td>${groupOrder.groupOrderID}</td>
+                                  <td>${groupOrder.orderStatus}</td>
+                                  <td>${groupOrder.groupOrderCreateTime}</td>
+                                  <td>${groupOrder.buildingID}</td>
+                                  <td>${groupOrder.groupTotalPrice}</td>
+                                  <td>${groupOrder.groupOrderSubmitTime}</td>
+                               </th>
+                               </tr>
+                               <tr class="expandable-body">
+                               <td colspan="6">
+                               <p>
+                                 訂單內容<br>
+                                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                         
+                               <br>訂單內容
+                               </p>                  
+                               </td>
+                             </tr>    
+                             </c:forEach>             
                            </tbody>
                          </div>            
                        </div>                        
                      </div>
                    </div>  
-                          <!-- 結束 -->
-                        </table>
-                      </div>
-                    </div>
-                    <!-- 標籤 ======商品種類 銷售量==== 內容 -->
-                    <div class="tab-pane fade" id="ord-query" role="tabpanel"
-                      aria-labelledby="ord-query">
-                      <div class="card-body table-responsive p-0" style="height: auto;">
-                        <table class="table table-head-fixed text-nowrap">
-                          <!-- 表格標題 -->
-                          
-                          <div class="col-12">
-                            <div class="card">
-                            <div class="card-header">
-                            <h3 class="card-title" >訂單查詢</h3>
-                            
-                            </div>
-                            <div class="col-12">
-                               <!-- interactive chart -->                                                                             
-                                                                    
-                                 </div>
-                                                     
-                                 <!-- <div class="col-md-3"> -->
-                                 <form action="simple-results.html" style="padding:10px;">
-                     
-                                   <span class="col-10">
-                                     <label style=" margin: 0;">訂單編號查詢：</label>
-                                     <input type="number" placeholder="請輸入訂單編號" class="border border-warning" >
-                                   </span>
-                                   <br>
-                     
-                                   <span class="col-10">
-                                     <label style=" margin: 0;">訂單日期查詢：</label>
-                                     <input type="date" placeholder="2023" class="border border-warning" size="4" > 
-                                   </span>                              
-                                   <br>
-                     
-                                   <span class="col-10">
-                                     <label style=" margin: 0;">訂單地址查詢：</label>
-                                     <input type="search" placeholder="請輸入大樓名稱" class="border border-warning" list="test" >
-                                     <datalist id="test">
-                                       <option value="apple大樓"></option>
-                                       <option value="ant大樓"></option>
-                                       <option value="banana大樓"></option>
-                                       <option value="bird大樓"></option>
-                                       <option value="orange大樓"></option>
-                                       <option value="ox大樓"></option>
-                                     </datalist>                                  
-                                   </span>
-                                   <br>
-                                   <button type="submit" style="font-weight:bold" class="btn btn-warning">查詢</button>
-                                 </form>                  
-                               </div>                        
-                             <table class="table table-bordered table-hover" >
-                             <thead >
-                             <tr>
-                             <th>訂單編號</th>
-                             
-                               <td  align="center" class="tableTitle"><input type="search" placeholder="訂單狀態"  list="orderStatus" size="12">
-                                 <datalist id="orderStatus">
-                                   <option value="揪團已建立"></option>
-                                   <option value="成團條件達成 "></option>
-                                   <option value="揪團成功"></option>
-                                   <option value="揪團失敗"></option>
-                                   <option value="餐點準備中"></option>
-                                   <option value="商家拒單"></option>
-                                   <option value="餐點送達"></option>
-                                 </datalist>
-                               </td>
-                             
-                             <th>成立時間</th>
-                             <th>訂單地址</th>
-                             <th>金額</th>
-                             <th>完成時間</th>
-                             </tr>
-                             </thead>
-                             
-             
-                   	         
-                             <tbody>
-<c:forEach var="groupOrder" items="${groupOrder}"> 
-                             <tr>
-                             <td>${groupOrder.groupOrderID}</td>
-                             <td>${groupOrder.orderStatus}</td>
-                             <td>${groupOrder.groupOrderCreateTime}</td>
-                             <td>${groupOrder.buildingID}</td>
-                             <td>${groupOrder.groupTotalPrice}</td>
-                             <td>${groupOrder.groupOrderSubmitTime}</td>
-                             </tr>
-                             <tr class="expandable-body">
-                             <td colspan="6">
-                             <p>
-                             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                             <button type="submit" style="font-weight:bold" class="print btn-warning">列印</button>    
-                                       
-                             </p>              
-                             </td>
-                             </tr>  
-</c:forEach>          
-                           </tbody>
-                           
-               
-                           
-                         </div>          
-                       </div>                      
-                     </div>
-                   </div> 
+                   
+                   
+                   
+                   
+                   
                           <!-- 結束 -->
                         </table>
                       </div>
@@ -703,29 +753,7 @@
                   <!-- /.card-body -->
                 </div>
                 <!-- /.card -->
-                <SCRIPT> 
-                  var startDate = new Date();
-                  var endDate = new Date(2023,8,27,23,59);
-                  var spantime = (endDate - startDate)/1000;
-                   
-                  function getString(dt){
-                      return dt.getFullYear() + "年" + (dt.getMonth()+1) + "月" +    dt.getDate() + "日" + dt.getHours() + "時" + dt.getMinutes() + "分";
-                  }
-                  function cal(){
-                      spantime --;
-                      
-                      var m = Math.floor((spantime % 3600)/(60));
-                      var s = Math.floor(spantime%60);
-                      str =  m + "分 " + s + "秒 ";
-                      document.getElementById("pad").innerHTML = str;
-                  }
-                   
-                  window.onload = function(){
-                      document.getElementById("start_pad").innerHTML = getString(startDate);
-                      document.getElementById("end_pad").innerHTML = getString(endDate);
-                      setInterval(cal, 1000);
-                  }
-                  </SCRIPT>  
+
 
               </div>
             </div>

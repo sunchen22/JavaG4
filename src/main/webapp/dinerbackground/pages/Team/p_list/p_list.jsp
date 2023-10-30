@@ -4,14 +4,29 @@
 <%@ page import="com.varytype.dao.*"%>
 <%@ page import="com.product.entity.*"%>
 <%@ page import="com.product.service.*"%>
+<%@ page import="com.dinerinfo.service.*"%>
+<%@ page import="com.dinerinfo.entity.*"%>
+
 <%
-    ProductService PSvc = new ProductService();
-    List <ProductVO> PList= PSvc.getAll();
-    pageContext.setAttribute("list",PList);
+     ProductService PSvc = new ProductService();
+     List <ProductVO> PList= PSvc.getAll();
+     pageContext.setAttribute("Plist",PList);
 %>
- <%
-  Product product = (Product) request.getAttribute("product"); //EmpServlet.java(Concroller), 存入req的empVO物件
+
+
+
+<%
+
+	DinerInfo account = (DinerInfo) session.getAttribute("account");
+
 %>
+
+<%
+      ProductService PSvc2 = new ProductService();
+      List <ProductVO> PList2= PSvc2.getByDID(1);
+      pageContext.setAttribute("Plist2",PList2);
+%>
+
 <!DOCTYPE html>
 <html lang="zh-Hant">
 
@@ -450,7 +465,7 @@
 	
 
 
-	<c:forEach var="productVO" items="${list}" >
+	<c:forEach var="productVO" items="${Plist2}" >
 		
 		<tr align="center">
 <%-- 			<td>${productVO.productID}</td> --%>
@@ -458,11 +473,13 @@
 			<td>${productVO.productName}</td>
 			<td>${productVO.productPrice}</td>
 						
-<%-- 			<td>${productVO.getProductType().getProductTypeDes()}</td>	 --%>
-			<td>${productVO.productTypeID}</td>
+			<td>${productVO.getProductType().getProductTypeDes()}</td>	
+<%-- 			<td>${productVO.productTypeID}</td> --%>
 					
 			<td width="12%">${productVO.productDailyStock}</td>
+			
 			<td width="12%">${productVO.productReleaseTime}</td>
+			
 			<td><img style="width:80px" src="<%= request.getContextPath()%>/dinerbackground/pages/Team/shelve/productPhoto.do?productID=${productVO.productID}"></td>			
 			
 			
@@ -482,12 +499,23 @@
 				</FORM>
 			</td>
 			<td>
+				${productVO.productStatus}
 				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/dinerbackground/pages/Team/shelve/product.do"
 					style="margin-bottom: 0px;">
-					<input type="submit" value="下架商品"> 
+					<input type="submit"  value="下架商品"> 
 					<input type="hidden"name="productID" value="${productVO.productID}">
+					<input type="hidden"name="productStatus" value="已下架">
 					<input type="hidden" name="action" value="off_shelve">
 				</FORM>
+				
+				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/dinerbackground/pages/Team/shelve/product.do"
+					style="margin-bottom: 0px;">
+					<input type="submit" value="重新上架"> 
+					<input type="hidden"name="productID" value="${productVO.productID}">
+					<input type="hidden"name="productStatus" value="上架中">
+					<input type="hidden" name="action" value="off_shelve">
+				</FORM>
+				
 			</td>
 			
 		</tr>
@@ -505,7 +533,8 @@
         
         </div>
         
-    
+
+        
 
    
 
