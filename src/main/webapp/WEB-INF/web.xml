@@ -131,6 +131,7 @@
 	<filter-mapping>
 		<filter-name>bgloginFilter</filter-name>
 		<url-pattern>/background/pages/*</url-pattern>
+		<url-pattern>/cproject/pages/*</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>
