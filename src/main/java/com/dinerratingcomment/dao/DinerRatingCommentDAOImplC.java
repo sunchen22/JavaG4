@@ -8,7 +8,7 @@ import org.hibernate.query.Query;
 import com.dinerinfo.entity.DinerInfo;
 import com.dinerratingcomment.entity.DinerRatingComment;
 
-
+import test.MailService;
 import util.HibernateUtil;
 
 public class DinerRatingCommentDAOImplC implements DinerRatingCommentDAOC {
@@ -18,10 +18,16 @@ public class DinerRatingCommentDAOImplC implements DinerRatingCommentDAOC {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 //			session.beginTransaction();
+			
 			DinerRatingComment drc = session.get(DinerRatingComment.class , commentID);
+			
 			if(drc != null) {
 			drc.setDinerRatingCommentStatus(2);
-			//session.delete(drc);
+			MailService m = new MailService();
+			m.sendMail(drc.getDinerInfo().getDinerEmail(), "樓頂揪樓咖通知", "您被評論的不實內容，經審核已由後台刪除");
+			m.sendMail(drc.getUserInfo().getUserAccount(), "樓頂揪樓咖通知", "您的評論經後台審核與事實不符，已由後台刪除");
+			
+			
 			}
 //			session.getTransaction().commit();	
 		

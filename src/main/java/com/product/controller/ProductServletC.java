@@ -13,6 +13,8 @@ import com.dinerinfo.dao.DinerInfoDAOImplC;
 import com.dinerinfo.entity.DinerInfo;
 import com.product.dao.ProductDAOImplC;
 import com.product.entity.Product;
+
+import test.MailService;
 @WebServlet("/cproject/pages/pdsc.do")
 public class ProductServletC extends HttpServlet {
 
@@ -69,6 +71,10 @@ public class ProductServletC extends HttpServlet {
 			if( pdt!= null) {
 				
 				pdt.setProductStatus("下架中");
+				MailService m = new MailService();
+				m.sendMail(pdt.getDinerinfo().getDinerEmail(), "樓頂揪樓咖通知", "您的商品資訊有誤而下架，若有需要再次上架請注意上架資訊是否有誤");
+				
+				
 			}
 			
 			Integer dinerID = Integer.parseInt(req.getParameter("dinerID"));

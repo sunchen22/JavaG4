@@ -26,9 +26,13 @@
 
 
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9xCVRfjTJn4JaNOv0J9KKnySK0_Jc6D8&libraries=places,geometry&callback=initMap" async defer></script>
+
     <script>
         let map;
-
+        
+        
         function initMap() {
             map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 15
@@ -60,7 +64,7 @@
 
                     const request = {
                         location: targetLatLng,
-                        radius: 3000, // 3公里的
+                        radius: 3000, // 距離
                         types: ["convenience_store"]
                     };
 
@@ -74,7 +78,7 @@
                                 return distanceA - distanceB;
                             });
 
-                            results = results.slice(0, 5); // 僅顯示的大樓
+                            results = results.slice(0, 5); // 顯示的大樓
 
                             const customNames = ["中華大樓", "岷發大樓", "天祥大樓", "宇宙大樓", "復興大樓"];
 
@@ -90,11 +94,8 @@
                                     title: customName
                                 });
 
-//                                 google.maps.event.addListener(placeMarker, "click", function () {
-//                                     infowindow.setContent('<div><strong>' + customName + '</strong><br>' + place.vicinity + '</div>');
-//                                     infowindow.open(map, placeMarker);
-//                                 });
-                                
+
+                                 
                                 
                                 
                                 google.maps.event.addListener(placeMarker, "click", function () {
@@ -109,12 +110,7 @@
                                     infowindow.open(map, placeMarker);
                                     
                                     
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
+                                
                                     
                                     
                                 });
@@ -132,10 +128,12 @@
         
         
         function handleButtonClick() {
+        	
+       	
+        	
         	const infowindowContent = document.querySelector(".gm-style-iw");
             
-            
-//             const nameElement = infowindowContent.querySelector("strong");
+
             const nameElement = document.getElementById("placeName");
             const customName = nameElement ? nameElement.textContent : "未找到名稱";
             
@@ -183,9 +181,9 @@
     background-color: #007BFF; 
     color: #fff; 
     border: 2px solid #0056b3; 
-    padding: 5px 10px; /* 内边距，控制按钮大小 */
-    border-radius: 8px; /* 圆角边框 */
-    cursor: pointer; /* 鼠标指针形状 */
+    padding: 5px 10px; 
+    border-radius: 8px; 
+    cursor: pointer; 
 	}
 
 	
@@ -232,61 +230,29 @@
       </ul>
     </nav>
     
-    <aside class="main-sidebar sidebar-light-warning elevation-4">
-      
-      <a href="<%=request.getContextPath()%>/index.jsp" class="brand-link">
-        <img src="<%=request.getContextPath()%>/cproject/dist/img/Logo.png" alt="樓頂揪樓咖 Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-normal">後台管理平台</span>
-      </a>
-
-      
-      <div class="sidebar">
-        
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-          <div class="image">
-            <img src="<%=request.getContextPath()%>/cproject/dist/img/emp01.png" class="img-circle elevation-2" alt="emp01">
-          </div>
-          <div class="info">
-            <a href="#" class="d-block">小丸子</a>
-          </div>
-        </div>
-
-       
-        <nav class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+   
             
-<%@ include  file="pageaside.file" %> 
-              </ul>
-        </nav>
+
+<%@ include file="../../background/pages/pageaside.file" %>
+              
         
+     </nav> 
+              
+      
       </div>
-     
+      
     </aside>
+     
+   
 
     <div class="content-wrapper">
     
-    
-    
-    
-    
-    
-    
+ 
     
     <div id="map" ></div>
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+  
     
  </div>
 
@@ -316,14 +282,14 @@
       
       
 
-    <%@ include  file="pagejs.file" %>
+    <%@ include  file="../../background/pages/pagejs.file" %>
   
       <%@ include file="included-fragment.file" %>
 		<script src="https://code.jquery.com/jquery-3.5.1.js"></script>                                    <!-- ●●js  for jquery datatables 用 -->
 		<script	src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>              <!-- ●●js  for jquery datatables 用 -->
 		<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.jqueryui.min.css" /> <!-- ●●css for jquery datatables 用 -->
 		
-      <script src="" async defer></script>
+      
 </body>
 
 </html>

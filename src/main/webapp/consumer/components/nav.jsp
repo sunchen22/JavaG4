@@ -69,8 +69,8 @@ if (session.getAttribute("loginUserInfo") == null) { // 如為 null, 代表此us
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<li><a class="dropdown-item"
 							href="${pageContext.request.contextPath}/consumer/FAQ.jsp">常見問題</a></li>
-						<li><a class="dropdown-item"
-							href="${pageContext.request.contextPath}/consumer/protected/Feedback.jsp">意見反饋</a></li>
+<!-- 						<li><a class="dropdown-item" -->
+<%-- 							href="${pageContext.request.contextPath}/consumer/protected/Feedback.jsp">意見反饋</a></li> --%>
 						<li><a class="dropdown-item"
 							href="${pageContext.request.contextPath}/consumer/protected/Chatroom.jsp">聯繫客服</a></li>
 					</ul></li>
