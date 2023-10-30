@@ -127,6 +127,12 @@ public class UserNewsDAOImpl implements UserNewsDAO {
 		return getSession().createQuery("select count(*) from UserNews", Long.class).uniqueResult(); // 單筆查詢.uniqueResult()
 	}
 	
+	// add by tz
+	@Override
+	public List<UserNews> getAllbyStatus() {
+		return getSession().createQuery("from UserNews where userNewsStatus = 1", UserNews.class).list();
+	}
+	
 	
 
 }

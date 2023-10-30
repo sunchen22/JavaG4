@@ -44,6 +44,13 @@ public class UserNewsServiceImpl implements UserNewsService {
 	public List<UserNews> getAllUserNews() {
 		return dao.getAll();
 	}
+
+	// add by tz
+	@Override
+	public List<UserNews> getAllUserNewsByStatus() {
+		// TODO Auto-generated method stub
+		return dao.getAllbyStatus();
+	}
 	
 //	@Override //複合查詢
 //	public List<UserInfo> getUserInfoByCompositeQuery(Map<String, String[]> map) {
