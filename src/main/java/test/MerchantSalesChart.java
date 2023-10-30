@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.TimeZone;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
@@ -27,11 +28,11 @@ public class MerchantSalesChart {
         XYDataset dataset = createDataset();
         JFreeChart chart = createChart(dataset);
 
-        // 设置图表背景为白色
+        
         chart.setBackgroundPaint(Color.WHITE);
 
         try {
-            // 保存图像到文件
+            
             ChartUtilities.saveChartAsPNG(new File("MerchantSalesChart.png"), chart, 1000, 600);
         } catch (IOException e) {
             e.printStackTrace();
@@ -44,11 +45,13 @@ public class MerchantSalesChart {
         for (int i = 0; i < 7; i++) {
             double sales;
             do {
-                // 生成销售额数据在5000到10000之间
+                
                 sales = 5000 + Math.random() * 5000;
             } while (sales < 5000 || sales > 10000);
 
             series.add(currentDay, sales);
+            
+
             currentDay = (Day) currentDay.previous();
         }
         return new TimeSeriesCollection(series);
@@ -67,7 +70,7 @@ public class MerchantSalesChart {
 
         XYPlot plot = chart.getXYPlot();
 
-        // 设置图表绘图区域背景色
+      
         plot.setBackgroundPaint(new Color(245, 245, 245));
         plot.setRangeGridlinesVisible(true);
         plot.setRangeGridlinePaint(Color.WHITE);
@@ -87,6 +90,10 @@ public class MerchantSalesChart {
         xAxis.setLabelFont(new Font("Arial", Font.BOLD, 18));
         xAxis.setTickUnit(new DateTickUnit(DateTickUnitType.DAY, 1));
         xAxis.setDateFormatOverride(new SimpleDateFormat("MM-dd"));
+        
+      
+        
+        
 
         NumberAxis yAxis = (NumberAxis) plot.getRangeAxis();
         yAxis.setAxisLineVisible(true);

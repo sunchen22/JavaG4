@@ -5,6 +5,8 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.dinerratingcomment.dao.*"%>
 <%@page import="com.dinerinfo.entity.DinerInfo"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <html>
 
 <head>
@@ -172,8 +174,7 @@ pageContext.setAttribute("list", list);
                                     <th>評論內容</th>
                                     <th>評論時間</th>
                                     <th>評分</th>
-                                    <th>商家回覆內容</th>
-                                    <th>商家回覆時間</th>
+                                    
                                     <th></th>
                                     
                                 </tr>
@@ -185,7 +186,9 @@ pageContext.setAttribute("list", list);
                                     
                                     <td>${dinerratingcomment.userInfo.userName}</td>
                                     <td>${dinerratingcomment.userCommentContent}</td>
-                                    <td>${dinerratingcomment.userCommentTime}</td>
+                                    <td>
+                                    <fmt:formatDate value="${dinerratingcomment.userCommentTime}" pattern="yyyy-MM-dd HH:mm:ss" />                                    
+                                    </td>
                                                                        
                                     <td>
 
@@ -205,8 +208,7 @@ pageContext.setAttribute("list", list);
                                     </td>
                                     
                                     
-                                    <td>${dinerratingcomment.dinerReplyContent}</td>
-                                    <td>${dinerratingcomment.dinerReplyTime}</td>
+                                    
                                     
                                     <td>
                                     	<form method = post action = "<%=request.getContextPath()%>/cproject/pages/drcs.do">
