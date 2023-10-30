@@ -113,41 +113,7 @@ Advertisement advertisement = (Advertisement) request.getAttribute("advertisemen
 	class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 	<div class="wrapper">
 
-		<!-- Preloader -->
-		<!-- <div class="preloader flex-column justify-content-center align-items-center">
-      <img class="animation__wobble" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-    </div> -->
-
-		<!-- 基本版面 上方懸浮欄 -->
-		<!-- Navbar -->
-		<nav class="main-header navbar navbar-expand navbar-dark">
-			<!-- 上方懸浮欄 左方按鈕 -->
-			<!-- Left navbar links -->
-			<ul class="navbar-nav">
-				<li class="nav-item"><a class="nav-link" data-widget="pushmenu"
-					href="#" role="button"><i class="fas fa-bars"></i></a></li>
-				<li class="nav-item d-none d-sm-inline-block"><a
-					href="./dashboard-index" class="nav-link">首頁</a></li>
-
-			</ul>
-
-			<!-- 彈出右側下拉欄 -->
-			<!-- Right navbar links -->
-			<ul class="navbar-nav ml-auto">
-
-
-				<!-- 全螢幕控制鈕 -->
-				<li class="nav-item"><a class="nav-link"
-					data-widget="fullscreen" href="#" role="button"> <i
-						class="fas fa-expand-arrows-alt"></i>
-				</a></li>
-
-			</ul>
-		</nav>
-		<!-- /.navbar -->
-
-		<!-- 主要功能側邊欄(左側) -->
-		<!-- Main Sidebar Container -->
+	
 		<%@ include file="/dinerbackground/pages/Team/dinerNav.file"%>
 
 
