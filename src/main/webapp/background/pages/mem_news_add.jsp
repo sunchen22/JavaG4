@@ -126,7 +126,7 @@ UserNews userNews = (UserNews) request.getAttribute("userNews");
 		</c:forEach>
 	</ul>
 </c:if>
-							
+							<FORM METHOD="post" ACTION="usernews.do" NAME="form_admadd" ENCTYPE="multipart/form-data">
 								<div class="card-body" style="padding-bottom: 5px;">
 									<div class="form-group">
 
@@ -153,9 +153,9 @@ UserNews userNews = (UserNews) request.getAttribute("userNews");
 
 								</div>
 								<!-- /.card-body -->
-						<div class="card-footer" style="display: flex; justify-content: center;">
+<!-- 						<div class="card-footer" style="display: flex; justify-content: center;"> -->
 							
-							<FORM METHOD="post" ACTION="usernews.do" NAME="form_admadd" ENCTYPE="multipart/form-data">
+						
 								<div  style="text-align: center;  background: transparent ; margin:5px">
 										<input type="hidden" name="action" value="insert">
 										<input type="submit" name="action" value="確定" class="btn btn-warning">
@@ -168,7 +168,7 @@ UserNews userNews = (UserNews) request.getAttribute("userNews");
 									<input type="submit" value="取消" class="btn btn-warning">
 								</div>
 							</FORM>
-						</div>
+<!-- 						</div> -->
 						<!-- /.card -->
 					</div>
 				</div>
