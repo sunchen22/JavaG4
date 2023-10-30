@@ -85,7 +85,7 @@ public class GroupOrderDAOHibernateImplC implements GroupOrderDAOC{
         try {
             String sql = "SELECT DATE(groupOrderSubmitTime) AS orderDate, SUM(groupTotalPrice) AS totalSales " +
                     "FROM grouporder " +
-                    "WHERE dinerId = :dinerID " +
+                    "WHERE dinerId = :dinerID " + " and orderStatus = :orderStatus " +
                     "AND DATE(groupOrderSubmitTime) BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) " +
                     "AND DATE_SUB(CURDATE(), INTERVAL 1 DAY) " +
                     "GROUP BY DATE(groupOrderSubmitTime) " +
@@ -93,6 +93,7 @@ public class GroupOrderDAOHibernateImplC implements GroupOrderDAOC{
 
             NativeQuery<Tuple> query = session.createNativeQuery(sql, Tuple.class);
             query.setParameter("dinerID", dinerID); 
+            query.setParameter("orderStatus", 7); 
             List<Tuple> results = query.getResultList();
 
 
@@ -113,7 +114,7 @@ public class GroupOrderDAOHibernateImplC implements GroupOrderDAOC{
 		try {
 
 //			session.beginTransaction();
-			String sql = "SELECT go.groupOrderID, p.productName, uo.productQuantity, go.orderStatus, bf.buildingName, go.groupTotalPrice, go.groupOrderSubmitTime, "
+			String sql = "SELECT go.groupOrderID, p.productName, uo.productQuantity, go.orderStatus, bf.buildingName, uo.userItemPrice , go.groupOrderSubmitTime, "
 					+"(SELECT productVaryDes FROM productvary  pv WHERE pv.productVaryID = uod.productVaryID1), "
 					+"(SELECT productVaryDes FROM productvary  pv WHERE pv.productVaryID = uod.productVaryID2), "
 					+"(SELECT productVaryDes FROM productvary  pv WHERE pv.productVaryID = uod.productVaryID3), "

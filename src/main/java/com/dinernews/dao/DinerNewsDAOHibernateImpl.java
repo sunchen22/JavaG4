@@ -2,6 +2,8 @@ package com.dinernews.dao;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.hibernate.Session;
 
 import com.dinernews.entity.DinerNews;
@@ -26,21 +28,23 @@ public class DinerNewsDAOHibernateImpl implements DinerNewsDAO {
 		return -1;
 
 	}
+	
 	@Override
-	public int update(DinerNews dns) {
+	public DinerNews update() {
 
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		
 		try {
-			session.beginTransaction();
-			session.update(dns);
-			session.getTransaction().commit();
-
-			return 1;
+//			session.beginTransaction();
+			DinerNews dn = session.get(DinerNews.class , 1);
+//			session.getTransaction().commit();
+			
+			return dn;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+//			session.getTransaction().rollback();
 		}
-		return -1;
+		return null;
 	}
 	@Override
 	public int down(Integer dinerNewsID) {
