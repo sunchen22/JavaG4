@@ -91,10 +91,10 @@
 						<p><%=comment.getUserCommentContent()%></p>
 					</div>
 					<div class="col-2">
-					<button class="like-btn btn btn-outline-primary ms-auto">
-						<span>👍</span> <span>4</span>
-						<%-- 這個"4"應該是從後端取得的，目前先寫死 --%>
-					</button>
+<!-- 					<button class="like-btn btn btn-outline-primary ms-auto"> -->
+<!-- 						<span>👍</span> <span>4</span> -->
+<%-- 						這個"4"應該是從後端取得的，目前先寫死 --%>
+<!-- 					</button> -->
 					</div>
 				</div>
 				<%-- 如果有商家回覆，顯示在這裡 --%>

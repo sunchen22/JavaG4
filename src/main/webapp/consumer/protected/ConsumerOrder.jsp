@@ -153,7 +153,7 @@ if (groupOrdersID != null) {
 				<!-- 				<button class="btn btn-outline-success mb-1" -->
 				<!-- 					onclick="window.location.href='Feedback.html'">意見反饋</button> -->
 				<button class="btn btn-outline-success mb-1"
-					onclick="window.location.href='${pageContext.request.contextPath}/protected/Chatroom.jsp'">聯繫客服</button>
+					onclick="window.location.href='${pageContext.request.contextPath}/consumer/protected/Chatroom.jsp'">聯繫客服</button>
 			</div>
 		</div>
 <% }} %>
