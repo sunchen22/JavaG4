@@ -10,15 +10,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>樓頂揪樓咖後台管理</title>
 
-  <!-- Google Font: Source Sans Pro -->
+
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
-  <!-- IonIcons -->
+ 
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/cproject/plugins/fontawesome-free/css/all.min.css">
+  
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="../dist/css/adminlte.min.css">
+
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/cproject/dist/css/adminlte.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 </head>
@@ -56,37 +56,14 @@
       </ul>
     </nav>
     
-    <aside class="main-sidebar sidebar-light-warning elevation-4">
-     
-      <a href="<%=request.getContextPath()%>/index.jsp" class="brand-link">
-        <img src="<%=request.getContextPath()%>/cproject/dist/img/Logo.png" alt="樓頂揪樓咖 Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-normal">後台管理平台</span>
-      </a>
+   <%@ include file="../../background/pages/pageaside.file" %>
 
-     
-      <div class="sidebar">
-        
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-          <div class="image">
-            <img src="<%=request.getContextPath()%>/cproject/dist/img/emp01.png" class="img-circle elevation-2" alt="emp01">
-          </div>
-          <div class="info">
-            <a href="#" class="d-block">小丸子</a>
-          </div>
-        </div>
 
-        
-        <nav class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            
-<%@ include  file="pageaside.file" %>
-              </ul>
-        </nav>
-        
+</nav> 
+ 
       </div>
-     
+      
     </aside>
-
 
 
     <div class="content-wrapper">
@@ -124,13 +101,13 @@
               <c:forEach var="dinerinfo" items="${list}">
                     <tr>
                       <td><span class="text-muted">${dinerinfo.dinerID}</span></td>
-                      <td><a href="invoice.html" class="text-inherit">${dinerinfo.dinerTaxID}</a></td>
+                      <td>${dinerinfo.dinerTaxID}</td>
                       <td>
                         ${dinerinfo.dinerName}
                       </td>                      
                       
                       <td>
-                        <form method = "get" action = "difs.do">
+                        <form method = "post" action = "<%=request.getContextPath()%>/cproject/pages/difs.do">
                           <input type="hidden" name="dinerID"  value="${dinerinfo.dinerID}">    
                           <input type="hidden" name="action"  value="go_for_payment">    
 			      		  
@@ -180,11 +157,9 @@
       <script src="<%=request.getContextPath()%>/cproject/dist/js/pages/dashboard3.js"></script>
      
     
-    	<%@ include  file="pagejs.file" %>
+    	<%@ include  file="../../background/pages/pagejs.file" %>
     
-<!--       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-<!--       <link rel="stylesheet" -->
-<!--         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext"> -->
+      
         
         
       

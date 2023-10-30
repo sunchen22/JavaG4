@@ -13,7 +13,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>樓頂揪樓咖後台管理</title>
 
-
+  
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
  
@@ -59,35 +59,11 @@
       </ul>
     </nav>
     
-    <aside class="main-sidebar sidebar-light-warning elevation-4">
-      
-      <a href="<%=request.getContextPath()%>/index.jsp" class="brand-link">
-        <img src="<%=request.getContextPath()%>/cproject/dist/img/Logo.png" alt="樓頂揪樓咖 Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-normal">後台管理平台</span>
-      </a>
+    <%@ include file="../../background/pages/pageaside.file" %>
 
-      
-      <div class="sidebar">
-       
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-          <div class="image">
-            <img src="<%=request.getContextPath()%>/cproject/dist/img/emp01.png" class="img-circle elevation-2" alt="emp01">
-          </div>
-          <div class="info">
-            <a href="#" class="d-block">小丸子</a>
-          </div>
-        </div>
 
-       
-        <nav class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            
-
-              
-              <%@ include  file="pageaside.file" %> 
-              </ul>
-        </nav>
-       
+</nav> 
+ 
       </div>
       
     </aside>
@@ -145,7 +121,7 @@
             <c:forEach var="advertisement" items="${list}">
               <tr>
                 <td><span class="text-muted">${advertisement.dinerid.dinerID}</span></td>
-                <td><a href="invoice.html" class="text-inherit">${advertisement.dinerid.dinerTaxID}</a></td>
+                <td>${advertisement.dinerid.dinerTaxID}</td>
                 <td>
                   ${advertisement.dinerid.dinerName}
                 </td>
@@ -167,7 +143,7 @@
 				</td>
 				
 				<td>
-				<form method = "post" action = "adc.do">
+				<form method = "post" action = "<%=request.getContextPath()%>/cproject/pages/adc.do">
                 <input type="hidden" name="advertisementID" value = "${advertisement.advertisementID}">
 				<button type = "submit" class="btn btn-warning" style="font-weight :bold">查詢</button>
                 </form>
@@ -211,7 +187,7 @@
             <c:forEach var="advertisement" items="${list1}">
               <tr>
                 <td><span class="text-muted">${advertisement.dinerid.dinerID}</span></td>
-                <td><a href="invoice.html" class="text-inherit">${advertisement.dinerid.dinerTaxID}</a></td>
+                <td>${advertisement.dinerid.dinerTaxID}</td>
                 <td>
                   ${advertisement.dinerid.dinerName}
                 </td>
@@ -229,7 +205,7 @@
                  ${advertisement.advertisementDownTime}
                 </td>
                 <td>
-                <form method = "post" action = "adc.do">
+                <form method = "post" action = "<%=request.getContextPath()%>/cproject/pages/adc.do">
                 <input type="hidden" name="advertisementID" value = "${advertisement.advertisementID}">
 				<button type = "submit" class="btn btn-warning" style="font-weight :bold">查詢</button>
                 </form>
@@ -238,18 +214,18 @@
                 
 				
 				<td>
-				<form method = "get" action = "ads.do">
+				<form method = "post" action = "<%=request.getContextPath()%>/cproject/pages/ads.do">
 				<input type="hidden" name="action" value = "go_for_check">
 				<input type="hidden" name="check" value = "${advertisement.advertisementID}">
-				<button type = "submit" class="btn btn-warning" style="font-weight :bold">審核</button>
+				<button id = "click1" type = "submit" class="btn btn-warning" style="font-weight :bold">審核</button>
 				</form>
 				</td>
 				
 				<td>
-				<form method = "get" action = "ads.do">
+				<form method = "post" action = "<%=request.getContextPath()%>/cproject/pages/ads.do">
 				<input type="hidden" name="action" value = "go_for_rejected">
 				<input type="hidden" name="check" value = "${advertisement.dinerid.dinerID}">
-				<button type = "submit" class="btn btn-warning" style="font-weight :bold">拒絕</button>
+				<button id = "click2 " type = "submit" class="btn btn-warning" style="font-weight :bold">拒絕</button>
 				</form>
 				</td>
     
@@ -289,7 +265,7 @@
   <script src="<%=request.getContextPath()%>/cproject/dist/js/pages/dashboard3.js"></script>
   
 
-	<%@ include  file="pagejs.file" %>
+	<%@ include  file="../../background/pages/pagejs.file" %>
 
 <!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 <!--   <link rel="stylesheet" -->
@@ -301,7 +277,16 @@
 		<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.jqueryui.min.css" /> <!-- ●●css for jquery datatables 用 -->
 		
       <script>
-      $(document).ready(function() {
+             
+       
+      
+	  
+     
+      
+      
+      
+      $(document).ready(function() {   	  
+    	  
   		$('#table').DataTable({
   			"lengthMenu": [3],
   			"searching": true,  //搜尋功能, 預設是開啟
@@ -329,40 +314,53 @@
   		        }
   		    }
   		});
+  		
+  		
+  		
+  		
+  		$('#table1').DataTable({
+			"lengthMenu": [3],
+			"searching": true,  //搜尋功能, 預設是開啟
+		    "paging": true,     //分頁功能, 預設是開啟
+		    "ordering": true,   //排序功能, 預設是開啟
+		    "language": {
+		        "processing": "處理中...",
+		        "loadingRecords": "載入中...",
+		        "lengthMenu": "顯示 _MENU_ 筆結果",
+		        "zeroRecords": "沒有符合的結果",
+		        "info": "顯示第 _START_ 至 _END_ 筆結果，共<font color=red> _TOTAL_ </font>筆",
+		        "infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
+		        "infoFiltered": "(從 _MAX_ 筆結果中過濾)",
+		        "infoPostFix": "",
+		        "search": "搜尋:",
+		        "paginate": {
+		            "first": "第一頁",
+		            "previous": "上一頁",
+		            "next": "下一頁",
+		            "last": "最後一頁"
+		        },
+		        "aria": {
+		            "sortAscending":  ": 升冪排列",
+		            "sortDescending": ": 降冪排列"
+		        }
+		    }
+		});
+  		
+  		$("button[id^='click1']").click(function() {
+  	        alert("已發送email");
+  	    });
+  		
+  		$("button[id^='click2']").click(function() {
+  	        alert("已發送email");
+  	    });
+  		
+
+  		
+  		
   	});
       
+    
       
-      
-      $(document).ready(function() {
-    		$('#table1').DataTable({
-    			"lengthMenu": [3],
-    			"searching": true,  //搜尋功能, 預設是開啟
-    		    "paging": true,     //分頁功能, 預設是開啟
-    		    "ordering": true,   //排序功能, 預設是開啟
-    		    "language": {
-    		        "processing": "處理中...",
-    		        "loadingRecords": "載入中...",
-    		        "lengthMenu": "顯示 _MENU_ 筆結果",
-    		        "zeroRecords": "沒有符合的結果",
-    		        "info": "顯示第 _START_ 至 _END_ 筆結果，共<font color=red> _TOTAL_ </font>筆",
-    		        "infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
-    		        "infoFiltered": "(從 _MAX_ 筆結果中過濾)",
-    		        "infoPostFix": "",
-    		        "search": "搜尋:",
-    		        "paginate": {
-    		            "first": "第一頁",
-    		            "previous": "上一頁",
-    		            "next": "下一頁",
-    		            "last": "最後一頁"
-    		        },
-    		        "aria": {
-    		            "sortAscending":  ": 升冪排列",
-    		            "sortDescending": ": 降冪排列"
-    		        }
-    		    }
-    		});
-    	});
-
       </script>
 
 </body>

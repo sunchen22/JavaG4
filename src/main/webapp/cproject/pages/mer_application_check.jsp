@@ -60,33 +60,11 @@
       </ul>
     </nav>
    
-    <aside class="main-sidebar sidebar-light-warning elevation-4">
-    
-      <a href="<%=request.getContextPath()%>/index.jsp" class="brand-link">
-        <img src="<%=request.getContextPath()%>/cproject/dist/img/Logo.png" alt="樓頂揪樓咖 Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-normal">後台管理平台</span>
-      </a>
+    <%@ include file="../../background/pages/pageaside.file" %>
 
-      
-      <div class="sidebar">
-      
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-          <div class="image">
-            <img src="<%=request.getContextPath()%>/cproject/dist/img/emp01.png" class="img-circle elevation-2" alt="emp01">
-          </div>
-          <div class="info">
-            <a href="#" class="d-block">小丸子</a>
-          </div>
-        </div>
 
-      
-        <nav class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            
-	<%@ include  file="pageaside.file" %>
-            </ul>
-        </nav>
-       
+</nav> 
+ 
       </div>
       
     </aside>
@@ -140,16 +118,7 @@
 		
  			%>
               
-              
-              
-              
-              
-              
-              
-              
-
-              
-              
+          
 
                 <span>
                   <label>&nbsp;品牌名稱：</label>
@@ -215,22 +184,18 @@
                 
 
 
-
-
-
-
                 <div align="right" style="margin-right: 10px; margin-bottom: 15px; display: flex; justify-content: flex-end;">
                   
-             	  <form method="post" action ="difs.do" style="margin-left: 5px;">
-                  <button type="submit"  class="btn btn-warning" style="font-weight :bold">
+             	  <form method="post" action ="<%=request.getContextPath()%>/cproject/pages/difs.do" style="margin-left: 5px;">
+                  <button id = "click" type="submit"  class="btn btn-warning" style="font-weight :bold">
                     審核
                   </button>
                   <input type="hidden" name="action" value="go_for_active">
     			  <input type="hidden" name="dinerID" value="<%= dif.getDinerID()%>">
 				  </form>
 				  
-				  <form method="post" action="pdsc.do" style="margin-left: 5px;">
-                  <button type="submit"  class="btn btn-warning" style="font-weight :bold">
+				  <form method="post" action="<%=request.getContextPath()%>/cproject/pages/difs.do" style="margin-left: 5px;">
+                  <button id = "click2" type="submit"  class="btn btn-warning" style="font-weight :bold">
                   拒絕
                   </button>
                   <input type="hidden" name="action" value="go_for_deactivated">
@@ -240,11 +205,7 @@
 
             </div>
             
-            
-            
-
-
-            
+           
           </div>
           
         </div>
@@ -258,9 +219,6 @@
     
 
   </div>
-
-
-
 
 
   
@@ -286,15 +244,21 @@
   
   <script src="<%=request.getContextPath()%>/cproject/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  <script src="../dist/js/adminlte.js"></script>  
-  <%@ include  file="pagejs.file" %>
+  <script src="<%=request.getContextPath()%>/cproject/dist/js/adminlte.js"></script>  
+  <%@ include  file="../../background/pages/pagejs.file" %>
   
 
-<!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-<!--   <link rel="stylesheet" -->
-<!--     href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext"> -->
+
+  <script>
+  $("#click").on("click",function(){
+	 alert("已發送email"); 
+  });
   
- 
+  $("#click2").on("click",function(){
+		 alert("已發送email"); 
+	  });
+  </script>  
+
 </body>
 
 </html>
