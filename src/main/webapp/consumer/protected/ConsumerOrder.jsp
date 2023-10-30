@@ -149,8 +149,6 @@ if (groupOrdersID != null) {
 			<div class="col-2 d-flex flex-column ">
 				<button class="btn btn-outline-success mb-1"
 					onclick="window.location.href='${pageContext.request.contextPath}/consumer/protected/DinerComment.jsp?dinerID=2'">評論</button>
-				<!-- 				<button class="btn btn-outline-success mb-1" -->
-				<!-- 					onclick="window.location.href='Feedback.html'">意見反饋</button> -->
 				<button class="btn btn-outline-success mb-1"
 					onclick="window.location.href='${pageContext.request.contextPath}/consumer/protected/Chatroom.jsp'">聯繫客服</button>
 			</div>
