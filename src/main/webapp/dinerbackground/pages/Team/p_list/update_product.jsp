@@ -9,6 +9,13 @@
 <%@ page import="com.varytype.service.*"%>
 <%@ page import="com.product.entity.*"%>
 <%@ page import="com.product.service.*"%>
+<%@ page import="com.dinerinfo.service.*"%>
+<%@ page import="com.dinerinfo.entity.*"%>
+<%
+
+	DinerInfo account = (DinerInfo) session.getAttribute("account");
+
+%>
 <%
     ProductTypeService PTSvc = new ProductTypeService();
     List<ProductType> PTlist = PTSvc.getAll();
@@ -21,7 +28,7 @@
 %>
 <%
     ProductService PSvc = new ProductService();
-    List <Product> PList= PSvc.getAll();
+    List <ProductVO> PList= PSvc.getAll();
     pageContext.setAttribute("Plist",PList);
 %>
 <!DOCTYPE html>
@@ -75,366 +82,8 @@
   <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
 
-    <!-- Preloader -->
-    <!-- <div class="preloader flex-column justify-content-center align-items-center">
-      <img class="animation__wobble" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-    </div> -->
-
-    <!-- 基本版面 上方懸浮欄 -->
-    <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand navbar-dark">
-      <!-- 上方懸浮欄 左方按鈕 -->
-      <!-- Left navbar links -->
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a href="dashboard-index" class="nav-link">首頁</a>
-        </li>
-
-      </ul>
-
-      <!-- 彈出右側下拉欄 -->
-      <!-- Right navbar links -->
-      <ul class="navbar-nav ml-auto">
-
-        <!-- 搜尋控制鈕 -->
-        <!-- Navbar Search -->
-        <!-- <li class="nav-item">
-          <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-            <i class="fas fa-search"></i>
-          </a>
-          <div class="navbar-search-block">
-            <form class="form-inline">
-              <div class="input-group input-group-sm">
-                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-                <div class="input-group-append">
-                  <button class="btn btn-navbar" type="submit">
-                    <i class="fas fa-search"></i>
-                  </button>
-                  <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                    <i class="fas fa-times"></i>
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </li> -->
-
-        <!-- 訊息控制鈕 -->
-        <!-- Messages Dropdown Menu -->
-        <!-- <li class="nav-item dropdown">
-          <a class="nav-link" data-toggle="dropdown" href="#">
-            <i class="far fa-comments"></i>
-            <span class="badge badge-danger navbar-badge">3</span>
-          </a>
-          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-            <a href="#" class="dropdown-item">
-              <!-- Message Start -->
-        <!-- <div class="media">
-                <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-                <div class="media-body">
-                  <h3 class="dropdown-item-title">
-                    Brad Diesel
-                    <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                  </h3>
-                  <p class="text-sm">Call me whenever you can...</p>
-                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                </div>
-              </div> -->
-        <!-- Message End -->
-        <!-- </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item"> -->
-        <!-- Message Start -->
-        <!-- <div class="media">
-                <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                <div class="media-body">
-                  <h3 class="dropdown-item-title">
-                    John Pierce
-                    <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                  </h3>
-                  <p class="text-sm">I got your message bro</p>
-                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                </div>
-              </div> -->
-        <!-- Message End -->
-        <!-- </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item"> -->
-        <!-- Message Start -->
-        <!-- <div class="media">
-                <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                <div class="media-body">
-                  <h3 class="dropdown-item-title">
-                    Nora Silvester
-                    <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                  </h3>
-                  <p class="text-sm">The subject goes here</p>
-                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                </div>
-              </div> -->
-        <!-- Message End -->
-        <!-- </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-          </div>
-        </li>  -->
-
-        <!-- 提醒控制鈕 -->
-        <!-- Notifications Dropdown Menu -->
-        <!-- <li class="nav-item dropdown">
-          <a class="nav-link" data-toggle="dropdown" href="#">
-            <i class="far fa-bell"></i>
-            <span class="badge badge-warning navbar-badge">15</span>
-          </a>
-          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-            <span class="dropdown-item dropdown-header">15 Notifications</span>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <i class="fas fa-envelope mr-2"></i> 4 new messages
-              <span class="float-right text-muted text-sm">3 mins</span>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <i class="fas fa-users mr-2"></i> 8 friend requests
-              <span class="float-right text-muted text-sm">12 hours</span>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <i class="fas fa-file mr-2"></i> 3 new reports
-              <span class="float-right text-muted text-sm">2 days</span>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-          </div>
-        </li> -->
-
-        <!-- 全螢幕控制鈕 -->
-        <li class="nav-item">
-          <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-            <i class="fas fa-expand-arrows-alt"></i>
-          </a>
-        </li>
-
-      </ul>
-    </nav>
-    <!-- /.navbar -->
-
-    <!-- 主要功能側邊欄(左側) -->
-    <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
-
-      <!-- 品牌logo -->
-      <!-- Brand Logo -->
-      <a href="index3.html" class="brand-link">
-        <img src="../../../dist/img/joLOGO.png" alt="joLOGO" class="brand-image img-circle elevation-3"
-          style="opacity: .8">
-        <span class="brand-text font-weight-light">樓頂揪樓咖</span>
-      </a>
-
-      <!-- Sidebar -->
-      <div class="sidebar">
-        <!-- 商家頭像 -->
-        <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-          <div class="image">
-            <img src="../../../dist/img/sara lance.png" class="img-circle elevation-2" alt="User Image">
-          </div>
-          <div class="info">
-            <a href="#" class="d-block">Sara Lance</a>
-          </div>
-        </div>
-
-        <!-- SidebarSearch Form -->
-
-        <!-- 功能項目列 -->
-        <!-- Sidebar Menu -->
-        <nav class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-cogs"></i>
-                <p>
-                  商家資料管理
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <!-- 商家資料管理 子選項 -->
-              <ul class="nav nav-treeview">
-
-                <!-- 公司資料變更 -->
-                <li class="nav-item">
-                  <a href="./info-change.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>公司資料變更</p>
-                  </a>
-                </li>
-
-                <!-- 店面設定 -->
-                <li class="nav-item">
-                  <a href="./business-set.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>店面設定</p>
-                  </a>
-                </li>
-
-              </ul>
-
-            </li>
-
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-file-upload"></i>
-                <p>
-                  商品上架
-                  <i class="right fas fa-angle-left"></i>
-                  <!-- <span class="badge badge-info right"></span> 這裡可以用來設定右邊顯示的訊息提醒小數字 -->
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="..\shelve\type_setting.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>商品群組設定</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="..\shelve\shelve.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>單獨上架</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="..\shelve\shelve_batch.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>批次上架</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-hammer"></i>
-                <p>
-                  商品管理
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="..\p_list\p_list.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>商品列表</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="..\shelve\p_preview.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>單獨商品頁面</p>
-                  </a>
-                </li>
-
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-newspaper"></i>
-                <p>
-                  訂單管理
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="../ord_query/ord_query.html#tab1" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>揪團成功訂單</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="../ord_query/ord_query.html#tab2" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>已完成訂單</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="../ord_query/ord_query.html#tab3" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>已取消訂單</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="../ord_query/ord_query.html#tab4" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>訂單查詢</p>
-                  </a>
-                </li>
-              </ul>
-
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-handshake"></i>
-                <p>
-                  幫助中心
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="../help/Guide-to-Adding-Products-list.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>上架教學</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="../help/monthly-report.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>每月報表</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="../help/sales-data.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>銷售數據</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="../help/request-Ad-placement.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>申請廣告上架</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="../help/comment-reply.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>評論區回覆</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a href="../frontpage/frontpage-index.html" class="nav-link">
-
-                <i class="nav-icon fas fa-sign-out-alt"></i>
-                <p>
-                  登出
-
-                </p>
-              </a>
-
-            </li>
-
-        </nav>
-        <!-- /.sidebar-menu -->
-      </div>
-
-      <!-- /.sidebar -->
-    </aside>
+    <%@ include file="/dinerbackground/pages/Team/dinerNav.file"%>
+    
 
 
 
@@ -494,20 +143,13 @@
   
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/dinerbackground/pages/Team/shelve/product.do" name="form1" enctype="multipart/form-data">
 
-			<div class="col-sm-10">
-				<label>商品編號:</label>
-				<br>
-				<input type="TEXT" name="productID"	value="${param.productID}"class="form-control"  />			
-			</div>
+		
+		
+			
+					
 	
 	
-			<div class="col-sm-10">
-				<label>商家編號:</label>
-				<br>
-				<input type="TEXT" name="dinerID"	value="1${param.dinerID}"class="form-control"  />			
-			</div>
-			
-			
+	
 			<div class="col-sm-10">
 				<label>商品名稱:</label>
 				<br>
@@ -550,21 +192,23 @@
         	<br>
             <input type="file" id="p_file" name="productBlob1" onclick="previewImage()"/>                     
             <br>
-            <input type="file" id="p_file" name="productBlob2" onclick="previewImage()"/>
+            <input type="file" id="p_file2" name="productBlob2" onclick="previewImage()"/>
             <br>
-            <input type="file" id="p_file" name="productBlob3" onclick="previewImage()"/>
+            <input type="file" id="p_file3" name="productBlob3" onclick="previewImage()"/>
             
-            <span style="color:red;">${errorMsgs.productBlob1}</span>
+            
             <br>
             <br>
 
-           <div id="preview" class="col-sm-3">
+           <div id="preview" class="col-sm-6">
               <span class="text">預覽圖</span>
             </div>
-            <div id="preview2" class="col-sm-3">
+        		
+            <div id="preview2" class="col-sm-6">
               <span class="text">預覽圖2</span>
             </div>
-            <div id="preview3" class="col-sm-3">
+      			
+            <div id="preview3" class="col-sm-6">
               <span class="text">預覽圖3</span>
             </div>
           </div>
@@ -580,8 +224,11 @@
            
            
 			<div>
+				<input type="hidden" name="productID"value="${param.productID}"/>		
+				<input type="hidden" name="dinerID"	value="${account.dinerID}"/>
 				<input type="hidden" name="action" value="update">
-					<input type="submit"  id="submit" value="確認修改">
+				<input type="submit"  id="submit" value="確認修改">
+				
 			</div>
 			
 			
@@ -593,57 +240,98 @@
   
     </div>
      </div>
-     <script type="text/javascript">
-//清除提示信息
-function hideContent(d) {
-     document.getElementById(d).style.display = "none";
-}
+    <script>
 
-//照片上傳-預覽用
-var filereader_support = typeof FileReader != 'undefined';
-if (!filereader_support) {
-	alert("No FileReader support");
-}
-acceptedTypes = {
-		'image/png' : true,
-		'image/jpeg' : true,
-		'image/gif' : true
-};
-function previewImage() {
-	var upfile1 = document.getElementById("p_file");
-	upfile1.addEventListener("change", function(event) {
-		var files = event.target.files || event.dataTransfer.files;
-		for (var i = 0; i < files.length; i++) {
-			previewfile(files[i])
-		}
-	}, false);
-}
-function previewfile(file) {
-	if (filereader_support === true && acceptedTypes[file.type] === true) {
-		var reader = new FileReader();
-		reader.onload = function(event) {
-			var image = new Image();
-			image.src = event.target.result;
-			image.width = 100;
-			image.height = 75;
-			image.border = 2;
-			if (blob_holder.hasChildNodes()) {
-				blob_holder.removeChild(blob_holder.childNodes[0]);
-			}
-			blob_holder.appendChild(image);
-		};
-		reader.readAsDataURL(file);
-		document.getElementById('submit').disabled = false;
-	} else {
-		blob_holder.innerHTML = "<div  style='text-align: left;'>" + "● filename: " + file.name
-				+ "<br>" + "● ContentTyp: " + file.type
-				+ "<br>" + "● size: " + file.size + "bytes"
-				+ "<br>" + "● 上傳ContentType限制: <b> <font color=red>image/png、image/jpeg、image/gif </font></b></div>";
-		document.getElementById('submit').disabled = true;
-	}
-}
-</script>
-     
+      window.addEventListener("load", function(e){
+
+      
+        var preview_el = document.getElementById("preview");
+        var p_file_el = document.getElementById("p_file");
+        
+        var preview_img = function(file){
+
+          var reader = new FileReader(); // 用來讀取檔案
+          reader.readAsDataURL(file); // 讀取檔案
+          reader.addEventListener("load", function () {
+       
+
+            let img_str = '<img src="' + reader.result + '" class="preview_img">';
+            preview_el.innerHTML = img_str;
+          });
+        };
+
+
+        p_file_el.addEventListener("change", function(e){
+          if(this.files.length > 0){
+            preview_img(this.files[0]);
+          }else{
+            preview_el.innerHTML = '<span class="text">預覽圖</span>';
+          }
+        });
+        
+        
+        var preview_el2 = document.getElementById("preview2");
+        var p_file_el2 = document.getElementById("p_file2");
+        
+        var preview_img2 = function(file){
+
+          var reader2 = new FileReader(); // 用來讀取檔案
+          reader2.readAsDataURL(file); // 讀取檔案
+          reader2.addEventListener("load", function () {
+       
+
+            let img_str2 = '<img src="' + reader2.result + '" class="preview_img">';
+            preview_el2.innerHTML = img_str2;
+          });
+        };
+
+
+        p_file_el2.addEventListener("change", function(e){
+          if(this.files.length > 0){
+            preview_img2(this.files[0]);
+          }else{
+            preview_el2.innerHTML = '<span class="text">預覽圖2</span>';
+          }
+        });
+        
+        
+        
+        var preview_el3 = document.getElementById("preview3");
+        var p_file_el3 = document.getElementById("p_file3");
+        
+        var preview_img3 = function(file){
+
+          var reader3 = new FileReader(); // 用來讀取檔案
+          reader3.readAsDataURL(file); // 讀取檔案
+          reader3.addEventListener("load", function () {
+       
+
+            let img_str3 = '<img src="' + reader3.result + '" class="preview_img">';
+            preview_el3.innerHTML = img_str3;
+          });
+        };
+
+
+        p_file_el3.addEventListener("change", function(e){
+          if(this.files.length > 0){
+            preview_img3(this.files[0]);
+          }else{
+            preview_el3.innerHTML = '<span class="text">預覽圖3</span>';
+          }
+        });
+        
+        
+        
+
+      });
+      
+      
+     </script>
+
+
+
+
+
      
      
 </div><!--/. container-fluid -->

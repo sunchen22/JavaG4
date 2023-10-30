@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import com.product.entity.Product;
 import com.product.service.ProductService;
 import com.productvary.entity.ProductVary;
@@ -44,7 +45,7 @@ public class ProductVaryServlet extends HttpServlet {
 			PVSvc.addProductVary(productID, productVaryDes, productVaryPrice, varyTypeID);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/dinerbackground/pages/Team/p_list/p_list.jsp";
+			String url = "/dinerbackground/pages/Team/shelve/shelve_PV.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);
 
@@ -132,6 +133,28 @@ public class ProductVaryServlet extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 			successView.forward(req, res);
 		}
+		
+		if ("getbyid".equals(action)) { // 來自listAllEmp.jsp
+
+			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+	
+				/***************************1.接收請求參數***************************************/
+				Integer priductID = Integer.valueOf(req.getParameter("priductID"));
+				
+System.out.println(priductID);
+
+
+				/***************************2.開始查詢資料***************************************/
+				ProductVaryService pvSvc = new ProductVaryService();
+				pvSvc.getByPID(priductID);
+				
+				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
+				String url = "/dinerbackground/pages/Team/shelve/type_setting.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+				successView.forward(req, res);
+		}
+		
 
 	}
 
