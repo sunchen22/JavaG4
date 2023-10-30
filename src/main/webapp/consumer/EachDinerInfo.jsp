@@ -240,22 +240,22 @@
 	                            </div>
 	                            <div class="col-9">
 	                                <select class="form-select form-select-sm" name="buildingID">
-	                                    <option value="1">1號大樓 台北市中山區南京東路三段219號</option>
-	                                    <option value="2">2號大樓 台北市松山區南京東路三段248號</option>
-	                                    <option value="3">3號大樓 台北市松山區南京東路三段248號</option>
-	                                    <option value="4">4號大樓 台北市松山區南京東路三段248號</option>
-	                                    <option value="5">5號大樓 台北市松山區南京東路三段248號</option>
+	                                    <option value="1">南方之星大樓 台北市松山區八德路二段346巷3弄2號</option>
+	                                    <option value="2">遠雄大樓 台北市松山區南京東路四段133巷4弄1號</option>
+	                                    <option value="3">巨蛋大樓 台北市松山區八德路三段155巷1號</option>
+	                                    <option value="4">緯育大樓 台北市松山區敦化南路1段5號3樓</option>
+	                                    <option value="5">松山大樓 台北市松山區長安東路二段215號</option>
 	                                </select>
 	                            </div>
 	                        </div>
-	                        <div class="row mt-2">
-	                            <div class="col-3 text-end">
-	                                <span>大樓地址</span>
-	                            </div>
-	                            <div class="col-9">
-	                                <span>台北市中山區南京東路三段219號</span>
-	                            </div>
-	                        </div>
+<!-- 	                        <div class="row mt-2"> -->
+<!-- 	                            <div class="col-3 text-end"> -->
+<!-- 	                                <span>大樓地址</span> -->
+<!-- 	                            </div> -->
+<!-- 	                            <div class="col-9"> -->
+<!-- 	                                <span>台北市中山區南京東路三段219號</span> -->
+<!-- 	                            </div> -->
+<!-- 	                        </div> -->
 	                        <div class="row mt-2">
 	                            <div class="col-3 text-end">
 	                                <span>成團條件</span>

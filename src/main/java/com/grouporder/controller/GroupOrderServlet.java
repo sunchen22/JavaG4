@@ -135,7 +135,7 @@ public class GroupOrderServlet extends HttpServlet {
 		    	if (userIsGroupMember) {
 		    		 List<Map<String,Object>> userOrderDetailData = groupOrderServiceImpl.getUserOrderDetailOnThisGroupOrder(groupOrderID, userInfo);
 		    		if (userOrderDetailData != null) {
-		    			req.getSession().setAttribute("userOrderDetailData", userOrderDetailData);
+		    			req.setAttribute("userOrderDetailData", userOrderDetailData);
 		    		}
 		    	}
 	    	}

@@ -126,7 +126,7 @@ List<Map<String,Object>> cartData = (List<Map<String,Object>>) request.getAttrib
 					</div>
 					
 					<c:choose>
-						<c:when test="${empty sessionScope.userOrderDetailData}">
+						<c:when test="${empty userOrderDetailData}">
 					<div class="mdl-stepper-step">
 						<div class="mdl-stepper-circle">
 							<span>2</span>
@@ -156,15 +156,6 @@ List<Map<String,Object>> cartData = (List<Map<String,Object>>) request.getAttrib
 						<div class="mdl-stepper-bar-left"></div>
 						<div class="mdl-stepper-bar-right"></div>
 					</div>
-					<div class="mdl-stepper-step <c:if test="${groupOrderData.orderStatus == 5}">active-step</c:if>">
-						<div class="mdl-stepper-circle">
-							<span>4</span>
-						</div>
-						<div class="mdl-stepper-title">餐點準備中</div>
-						<div class="mdl-stepper-optional"></div>
-						<div class="mdl-stepper-bar-left"></div>
-						<div class="mdl-stepper-bar-right"></div>
-					</div>
 				</div>
 
 			</div>
@@ -174,7 +165,7 @@ List<Map<String,Object>> cartData = (List<Map<String,Object>>) request.getAttrib
 	</section>
 	
 	<c:choose>
-		<c:when test="${not empty sessionScope.userOrderDetailData}">
+		<c:when test="${not empty userOrderDetailData}">
 	<section class="container mt-5">
 		<!-- Accordion start -->
 		<div class="accordion w-50" id="userOrder">
@@ -184,7 +175,7 @@ List<Map<String,Object>> cartData = (List<Map<String,Object>>) request.getAttrib
 	          		<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
 	            		<div class="col-8">您已付款的訂購明細</div><div class="col-3 fw-bold text-end">總計：
 	            		<% 
-	            			List<Map<String, Object>> userOrderDetailData = (List<Map<String, Object>>) session.getAttribute("userOrderDetailData");
+	            			List<Map<String, Object>> userOrderDetailData = (List<Map<String, Object>>) request.getAttribute("userOrderDetailData");
 		            		int totalPrice = 0;
 		            		for (Object userItem : userOrderDetailData) {
 		            			int userItemPrice = (Integer) ((Map) userItem).get("userItemPrice");
@@ -425,9 +416,7 @@ List<Map<String,Object>> cartData = (List<Map<String,Object>>) request.getAttrib
 					      <div class="col-4">
 					        <div class="input-group">
 					          <input type="number" class="form-control form-control-sm" min="1" value="${item.quantity}" disabled>
-					          <button class="btn btn-outline-secondary disabled" type="button">
-					            <i class="fas fa-trash"></i>
-					          </button>
+					          
 					    	    </div>
 					      </div>
 					    	  <div class="col-3">

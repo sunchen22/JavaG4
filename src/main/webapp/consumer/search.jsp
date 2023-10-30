@@ -15,7 +15,7 @@
 <%-- Import CSS for this page below (if any) --%>
 
 <%-- Remember to edit the page title --%>
-<title>樓頂揪樓咖-搜尋大樓揪團</title>
+<title>樓頂揪樓咖-大樓揪團列表</title>
 </head>
 
 <body>
@@ -26,31 +26,31 @@
 	<%-- Page content start --%>
 	<section class="container mt-5">
 		<!-- 1. Search bar start -->
-		<div class="search_bar">
-			<form action="${pageContext.request.contextPath}/GroupOrder.do?action=searchGroupOrder" method="post">
-				<div class="row col-11 mx-auto mb-3">
-					<div class="col-3">
+<!-- 		<div class="search_bar"> -->
+<%-- 			<form action="${pageContext.request.contextPath}/GroupOrder.do?action=searchGroupOrder" method="post"> --%>
+<!-- 				<div class="row col-11 mx-auto mb-3"> -->
+<!-- 					<div class="col-3"> -->
 
-						<input type="text" class="form-control input_keyword"
-							name="keyword" placeholder="輸入商家名稱關鍵字">
+<!-- 						<input type="text" class="form-control input_keyword" -->
+<!-- 							name="keyword" placeholder="輸入商家名稱關鍵字"> -->
 
-					</div>
-					<div class="col-8">
-						<div class="input-group">
-							<input type="text" class="form-control input_address"
-								name="address" placeholder="輸入大樓地址關鍵字"> 
+<!-- 					</div> -->
+<!-- 					<div class="col-8"> -->
+<!-- 						<div class="input-group"> -->
+<!-- 							<input type="text" class="form-control input_address" -->
+<!-- 								name="address" placeholder="輸入大樓地址關鍵字">  -->
 <!-- 								<a class="btn btn-outline-secondary" title="清除"><i -->
 <!-- 								class="fa-solid fa-xmark"></i></a> <a -->
 <!-- 								class="btn btn-outline-secondary" title="使用我的定位"><i -->
 <!-- 								class="fa-solid fa-location-dot"></i></a> <a -->
 <!-- 								class="btn btn-outline-secondary" title="使用我的常用大樓"><i -->
 <!-- 								class="fa-solid fa-building"></i></a> -->
-						</div>
-					</div>
-					<button class="col-1 btn btn-dark" type="submit" id="btn_search">搜尋</button>
-				</div>
-			</form>
-		</div>
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 					<button class="col-1 btn btn-dark" type="submit" id="btn_search">搜尋</button> -->
+<!-- 				</div> -->
+<!-- 			</form> -->
+<!-- 		</div> -->
 		<!-- 1. Search bar end -->
 
 		<!-- 2. Tabs and contents start -->
@@ -75,7 +75,7 @@
 			<!-- 2.2 Contents start -->
 <!-- 			<div class="tab-content" id="nav_tab_content"> -->
 				<!-- 2.2.1.1 Search result area start -->
-				搜尋大樓揪團
+				大樓揪團列表
 				<div class="row">
 					<!-- 2.2.1.1.1 Left content start -->
 <!-- 					<div class="col-3"> -->

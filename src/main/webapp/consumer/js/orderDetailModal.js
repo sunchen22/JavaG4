@@ -177,9 +177,7 @@ function openCart(groupOrderID, dinerID) {
 									<div class="input-group">
 										<input type="number" class="form-control form-control-sm"
 											min="1" value="${item.quantity}" disabled>
-										<button class="btn btn-outline-secondary disabled" type="button">
-											<i class="fas fa-trash"></i>
-										</button>
+										
 									</div>
 								</div>
 								<div class="col-3">
