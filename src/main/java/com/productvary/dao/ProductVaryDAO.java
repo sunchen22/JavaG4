@@ -283,8 +283,8 @@ public class ProductVaryDAO implements ProductVaryDAO_interface {
 	@Override
 	public List<ProductVary> getByPID(Integer productID) {
 		List<ProductVary> list = new ArrayList<ProductVary>();
+		
 		ProductVary productVary = null;
-
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -293,9 +293,9 @@ public class ProductVaryDAO implements ProductVaryDAO_interface {
 
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_BY_PID);
-			rs = pstmt.executeQuery();
 			pstmt.setInt(1, productID);
-
+			rs = pstmt.executeQuery();
+			
 			while (rs.next()) {
 				// empVO 也稱為 Domain objects
 				productVary = new ProductVary();
@@ -304,6 +304,7 @@ public class ProductVaryDAO implements ProductVaryDAO_interface {
 				productVary.setProductVaryDes(rs.getString("productVaryDes"));
 				productVary.setProductVaryPrice(rs.getInt("productVaryPrice"));
 				productVary.setVaryTypeID(rs.getInt("varyTypeID"));
+				
 				list.add(productVary); // Store the row in the list
 			}
 

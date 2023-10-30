@@ -259,7 +259,7 @@ public class ProductServlet extends HttpServlet {
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("product", product); // 資料庫update成功後,正確的的VO物件,存入req
-			String url = "/dinerbackground/pages/Team/p_list/p_list.jsp";
+			String url = "/dinerbackground/pages/Team/shelve/update_shelve_PV.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交p_list.jsp
 			successView.forward(req, res);
 		}

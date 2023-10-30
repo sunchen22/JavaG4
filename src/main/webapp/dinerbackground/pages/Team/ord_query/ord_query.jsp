@@ -65,9 +65,9 @@
     integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="../../../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <link rel="<%=request.getContextPath()%>/dinerbackground/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="../../../dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/dinerbackground/dist/css/adminlte.min.css">
 
 </head>
 
@@ -77,10 +77,10 @@
 <%@ include file="/dinerbackground/pages/Team/dinerNav.file"%>
 
 
-   
-
-    <!-- Content Wrapper. Contains page content -->
+ <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
+    <section>
+    
       <!-- Content Header (Page header) -->
       <div class="content-header">
         <div class="container-fluid">
@@ -89,7 +89,10 @@
               <h1 class="m-0">訂單查詢</h1>
             </div>
             <div class="col-sm-6">
-
+              <!-- <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">商家資料管理 v2</li>
+              </ol> -->
             </div><!-- /.col -->
           </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -572,26 +575,29 @@ GroupOrderVO grouporder = (GroupOrderVO) request.getAttribute("grouporder");
   <!-- ./wrapper -->
 
   <!-- REQUIRED SCRIPTS -->
-  <!-- jQuery -->
-  <script src="../../../plugins/jquery/jquery.min.js"></script>
-  <!-- Bootstrap -->
-  <script src="../../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- overlayScrollbars -->
-  <script src="../../../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-  <!-- AdminLTE App -->
-  <script src="../../../dist/js/adminlte.js"></script>
+			<!-- jQuery -->
+			<script src="<%=request.getContextPath()%>/dinerbackground/plugins/jquery/jquery.min.js"></script>
+			<!-- Bootstrap -->
+			<script src="<%=request.getContextPath()%>/dinerbackground/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+			<!-- overlayScrollbars -->
+			<script
+				src="<%=request.getContextPath()%>/dinerbackground/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+			<!-- AdminLTE App -->
+			<script src="<%=request.getContextPath()%>/dinerbackground/dist/js/adminlte.js"></script>
 
-  <!-- PAGE PLUGINS -->
-  <!-- jQuery Mapael -->
-  <script src="../../../plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
-  <script src="../../../plugins/raphael/raphael.min.js"></script>
-  <script src="../../../plugins/jquery-mapael/jquery.mapael.min.js"></script>
-  <script src="../../../plugins/jquery-mapael/maps/usa_states.min.js"></script>
-  <!-- ChartJS -->
-  <script src="../../../plugins/chart.js/Chart.min.js"></script>
+			<!-- PAGE PLUGINS -->
+			<!-- jQuery Mapael -->
+			<script src="<%=request.getContextPath()%>/dinerbackground/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
+			<script src="<%=request.getContextPath()%>/dinerbackground/plugins/raphael/raphael.min.js"></script>
+			<script src="<%=request.getContextPath()%>/dinerbackground/plugins/jquery-mapael/jquery.mapael.min.js"></script>
+			<script src="<%=request.getContextPath()%>/dinerbackground/plugins/jquery-mapael/maps/usa_states.min.js"></script>
+			<!-- ChartJS -->
+			<script src="<%=request.getContextPath()%>/dinerbackground/plugins/chart.js/Chart.min.js"></script>
 
-  <!-- AdminLTE for demo purposes -->
-  <script src="../../../dist/js/demo.js"></script>
+			<!-- AdminLTE for demo purposes -->
+			<script src="<%=request.getContextPath()%>/dinerbackground/dist/js/demo.js"></script>
+			<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+			<script src="<%=request.getContextPath()%>/dinerbackground/dist/js/pages/dashboard2.js"></script>
 
 </body>
 
