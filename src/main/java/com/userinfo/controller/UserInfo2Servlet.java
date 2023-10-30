@@ -44,6 +44,7 @@ public class UserInfo2Servlet extends HttpServlet {
 			if (req.getSession().getAttribute("empPageQty") == null) {
 				int empPageQty = userinfoService.getPageTotal();
 				req.getSession().setAttribute("empPageQty", empPageQty);
+				System.out.println("我在getall查詢內 empPageQty:"+empPageQty);
 			}
 
 			req.setAttribute("userinfoList", userinfoList); // setAttribute設定 將結果傳出去
@@ -126,27 +127,11 @@ public class UserInfo2Servlet extends HttpServlet {
 			userinfo.setBuildinginfo(buildingInfo);
 
 			// 圖片
-//			byte[] userBlob = null;
-//			InputStream in = req.getPart("userBlob").getInputStream();
-//			if (in.available() == 0) {  // 取原本資料內的照片
-//				userBlob = new UserInfo2ServiceImpl().getImage(userID);
-//				System.out.println("原定要取原本的照片userBlob"+userBlob);
-//			} else {
-//				userBlob = new byte[in.available()];
-//				in.read(userBlob);
-//				in.close();
-//			}
-//			userinfo.setUserBlob(userBlob);
-
-			// 圖片
 			byte[] userBlob = null;
 			InputStream in = req.getPart("userBlob").getInputStream();
 			if (in.available() == 0) { // 取原本資料內的照片
-				System.out.println("要取原本照片的ID userIDuserIDuserIDuserIDuserID" + userID);
 				UserInfo userinfoorg = userinfoService.getUserInfoByuserID(userID);
-				System.out.println("userinfoorg取的到媽媽媽媽媽媽媽媽媽媽媽媽媽媽" + userinfoorg);
 				userBlob = userinfoorg.getUserBlob();
-				System.out.println("原定要取原本的照片userBlob" + userBlob);
 				userinfo.setUserBlob(userBlob);
 			} else {
 				userBlob = new byte[in.available()];
@@ -167,6 +152,7 @@ public class UserInfo2Servlet extends HttpServlet {
 			UserInfo userinfo2 = userinfoService.getUserInfoByuserID(userID);
 			req.getSession().setAttribute("userinfo", userinfo2);
 
+
 			// mem_account_results.jsp頁碼處理
 			String page = req.getParameter("page"); // 取得第幾頁
 			System.out.println("page" + page);
@@ -175,8 +161,10 @@ public class UserInfo2Servlet extends HttpServlet {
 			if (req.getSession().getAttribute("empPageQty") == null) {
 				int empPageQty = userinfoService.getPageTotal();
 				req.getSession().setAttribute("empPageQty", empPageQty);
+				System.out.println("empPageQty"+empPageQty);
 			}
 			req.setAttribute("currentPage", currentPage); // setAttribute設定 將結果傳出去
+			System.out.println("currentPage"+currentPage);
 
 			String url = "/background/pages/mem_account_listone.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功轉交
@@ -208,6 +196,14 @@ public class UserInfo2Servlet extends HttpServlet {
 			successView.forward(req, res);
 			
 		}
+		
+//		=============取消動作:回到索引頁=============
+				if ("cancel".equals(action)) {
+						String url = "/background/pages/mem_account.jsp"; // 指定的頁面路徑
+			            RequestDispatcher dispatcher = req.getRequestDispatcher(url);
+			            dispatcher.forward(req, res);
+				}
+		
 	}
 
 	@Override

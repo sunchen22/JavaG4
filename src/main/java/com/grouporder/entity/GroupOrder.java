@@ -2,28 +2,36 @@ package com.grouporder.entity;
 
 import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.buildinginfo.entity.BuildingInfo;
 import com.dinerinfo.entity.DinerInfo;
 import com.userinfo.entity.UserInfo;
-
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import com.userorderdetail.entity.UserOrderDetail;
 
 @Entity
 @Table(name = "grouporder")
 public class GroupOrder {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "groupOrderID", updatable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)	
+	@Column(name = "groupOrderID")
 	private Integer groupOrderID;
+	
+//	@OneToMany(cascade = CascadeType.ALL)
+//	@JoinColumn(name = "groupOrderID", referencedColumnName = "groupOrderID")
+//	private List<UserOrderDetail> userOrderDetails;
 
 //	@Column(name = "dinerID")
 //	private	Integer	dinerID;
@@ -67,7 +75,7 @@ public class GroupOrder {
 
 	public GroupOrder(Integer groupOrderID, DinerInfo dinerInfo, BuildingInfo buildingInfo, String orderStatus,
 			Timestamp groupOrderCreateTime, Timestamp groupOrderSubmitTime, UserInfo userInfo, Integer groupTotalPrice,
-			byte[] deliveredBlob) {
+			byte[] deliveredBlob /*, List<UserOrderDetail> userOrderDetails */ ) {
 		super();
 		this.groupOrderID = groupOrderID;
 		this.dinerInfo = dinerInfo;
@@ -78,7 +86,20 @@ public class GroupOrder {
 		this.userInfo = userInfo;
 		this.groupTotalPrice = groupTotalPrice;
 		this.deliveredBlob = deliveredBlob;
+//		this.userOrderDetails = userOrderDetails;
 	}
+
+	
+	
+	
+	
+//	public List<UserOrderDetail> getuserOrderDetails() {
+//		return userOrderDetails;
+//	}
+//
+//	public void setuserOrderDetails(List<UserOrderDetail> userOrderDetails) {
+//		this.userOrderDetails = userOrderDetails;
+//	}
 
 	public Integer getGroupOrderID() {
 		return groupOrderID;

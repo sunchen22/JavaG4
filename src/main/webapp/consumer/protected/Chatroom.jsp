@@ -7,13 +7,16 @@
 <%@ page import="com.userinfo.entity.*" %>
 
 <style>
-	.messages--received>.message {
-		background-color: #ddd;
-	}
+/* 	.messages--received>.message { */
+/* 		background-color: #ddd; */
+/* 	} */
 	
-	.messages--sent>.message {
-		background-color: #1998e6;
-		color: white;
+/* 	.messages--sent>.message { */
+/* 		background-color: #1998e6; */
+/* 		color: white; */
+/* 	} */
+	li::marker {
+	 list-style-type:none;
 	}
 	
 	#row {
@@ -31,27 +34,28 @@
 }
 
 .friend{
-  display:inline-block;
+  position: relative;
+  display: online;
   clear: both;
   padding: 5px;
   border-radius: 20px;
-  margin-bottom: 2px;
+  margin-bottom: 20px;
   font-family: Helvetica, Arial, sans-serif;
-  background: #eee;
+  background: #ddd;
   float: left;
-  list-sytle:none;
+  list-style-type:none;
 }
 
 .me{
   position: relative;
-  display: online-block;
+  display: online;
   clear: both;
   padding: 5px;
   border-radius: 20px;
-  margin-bottom: 2px;
+  margin-bottom: 20px;
   font-family: Helvetica, Arial, sans-serif;
   float: right;
-  background: #ffc107;
+  background: #1998e6;
   color: #fff;
 }
 
@@ -66,6 +70,7 @@
   color: #92959E; 
   font-size: 9px;
   white-space:nowrap;
+  list-style-type:none;
 }
 
 .timedivme{
@@ -79,14 +84,9 @@
   color: #92959E; 
   font-size: 9px;
   white-space:nowrap;
-  
-  .message-area {
-	height: 1000%;
-	resize: none;
-	box-sizing: border-box;
-	overflow: auto;
-	background-color: #ffffff;
 }
+  
+
 </style>
 
 
@@ -99,46 +99,30 @@
 	<%-- The navigation bar --%>
 
 	<%-- Page content start --%>
-	<div class="container col-3">
-    <div class="screen card">
-    <h3 id="statusOutput" class="statusOutput"></h3>
-	<div id="row"></div>
-	<div id="messagesArea" class="panel message-area" ></div>
-	<div class="panel input-area">
-		<input id="message" class="text-field" type="text" placeholder="Message" onkeydown="if (event.keyCode == 13) sendMessage();" /> 
-		<input type="submit"  id="sendMessage" class="button" value="Send" onclick="sendMessage();" /> 
-<!-- 		<input type="button" id="connect" class="button" value="Connect" onclick="connect();" />  -->
-<!-- 		<input type="button" id="disconnect" class="button" value="Disconnect" onclick="disconnect();" /> -->
-	</div>
-    
-<!--       <div class="header card-header bg-primary text-light">客服</div> -->
-<!--       <div class="card-body p-2 conversation vh-75 overflow-auto"> -->
-<!--         <div class="d-flex flex-column messages messages--received align-items-start"> -->
-<!--           <div class="message rounded-pill px-3 py-1 mb-2">您好</div> -->
-<!--         </div> -->
-<!--         <div class="d-flex flex-column align-items-end messages messages--sent"> -->
-<!--           <div class="message rounded-pill px-3 py-1 mb-2">我想請問如何註冊</div> -->
-<!--         </div> -->
-<!--         <div class="d-flex flex-column messages messages--received align-items-start"> -->
-<!--           <div class="message rounded-pill px-3 py-1 mb-2">請於右上方找到註冊會員按鈕</div> -->
-<!--         </div> -->
-<!--         <div class="d-flex flex-column align-items-end messages messages--sent"> -->
-<!--           <div class="message rounded-pill px-3 py-1 mb-2">好喔~謝謝</div> -->
-<!--         </div> -->
-<!--         <div class="d-flex flex-column align-items-end messages messages--sent"> -->
-<!--           <div class="message rounded-pill px-3 py-1 mb-2">我找到了~</div> -->
-<!--         </div> -->
-<!--       </div> -->
-<!--       <div class="card-footer p-1"> -->
-<!--         <div class="input-group"> -->
-<!--           <input type="text" class="form-control" placeholder="輸入文字後 請按enter或送出"> -->
-<!--           <div class="input-group-append px-2"> -->
-<!--             <button class="btn btn-primary">&#10147;</button> -->
-<!--           </div> -->
-<!--         </div> -->
-<!--       </div> -->
+	<div class="container col-4">
+	<div class="card card-warning direct-chat" >
+	
+		<div class="card-header" >
+                    <h3 class="card-title"  ><i class="nav-icon fas fa-comment"></i>&nbsp;聊天室</h3>
+                    <h3 class="card-title"  id="statusOutput" ></h3> 	
+                    <div id="row">點擊後開始聊天</div>
+         </div>
+         
+		 <div class="card-body"  style="height: 300px; overflow-y: scroll;">
+			<div id="messagesArea" class="direct-chat-messages" ></div>
+		 </div>
+
+			<div class="card-footer ">
+		        <div class="input-group">
+					<input id="message" class="form-control"  type="text" placeholder="Message" onkeydown="if (event.keyCode == 13) sendMessage();" /> 
+					<input type="submit"  id="sendMessage" class="btn btn-primary"  value="Send" onclick="sendMessage();" /> 
+			<!-- 		<input type="button" id="connect" class="button" value="Connect" onclick="connect();" />  -->
+			<!-- 		<input type="button" id="disconnect" class="button" value="Disconnect" onclick="disconnect();" /> -->
+				</div>
+			</div>
+ 	 </div>
     </div>
-  </div>
+
 
 
 	<%-- Page content end --%>
@@ -151,40 +135,7 @@
 
 	<%@ include file="../components/tail.jsp"%>
 	<%-- Import JS for this page below (if any) --%>
-	<script>
-    $(document).ready(function () {
-      function sendMessage() {
-        var inputField = $('.form-control');
-        var lastMessageContainer = $('.messages').last();
-        var messageContent = inputField.val();
 
-        // 創建新的訊息元素
-        var newMessage = $('<div class="message rounded-pill px-3 py-1 mb-2">' + messageContent + '</div>');
-
-        if (messageContent.trim() !== "") {
-          if (lastMessageContainer.hasClass('messages--sent')) {
-            lastMessageContainer.append(newMessage);
-          } else {
-            var newSentContainer = $('<div class="d-flex flex-column align-items-end messages messages--sent"></div>');
-            newSentContainer.append(newMessage);
-            lastMessageContainer.after(newSentContainer);
-          }
-          inputField.val('');
-          $('.conversation').scrollTop($('.conversation')[0].scrollHeight);
-        }
-      }
-
-      // 按下送出時
-      $('.btn-primary').on('click', sendMessage);
-
-      // 按下Enter時
-      $('.form-control').on('keypress', function (e) {
-        if (e.which == 13) {
-          sendMessage();
-        }
-      });
-    });
-  </script>
 
   <!-- ===========消費者聊天室=========== -->
 <%

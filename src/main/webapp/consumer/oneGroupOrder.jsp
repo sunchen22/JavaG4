@@ -2,12 +2,20 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.LinkedHashMap"%>
 <%@ page import="java.util.HashMap"%>
+<%@ page import="java.util.Map"%>
 <%@ page import="java.util.List"%>
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:formatDate value="${groupOrderData.groupOrderSubmitTime}" pattern="yyyy-MM-dd HH:mm:ss" var="groupOrderSubmitTimeFormatted" />
+<%
+List<Map<String,Object>> cartData = (List<Map<String,Object>>) request.getAttribute("cartData");
+if (cartData != null) {
+	for (Map cartProduct : cartData) {
+		System.out.println(cartProduct);
+	}
+}
 
-
+%>
 <%@ include file="components/head.jsp"%>
 <%-- Import CSS for this page below (if any) --%>
 
@@ -25,17 +33,17 @@
 	<div class="container">
 		<div class="card">
 			<div class="row g-0 align-items-center">
-				<div class="col-5 h-100">
+				<div class="col-4 h-100">
 					<img
 						src="${pageContext.request.contextPath}/GroupOrderDinerImage?entity=GroupOrder&id=${groupOrderData.groupOrderID}"
 						class="card-img" alt="...">
 				</div>
-				<div class="col-7">
+				<div class="col-8">
 					<div class="card-body">
 						<h5 class="card-title">${groupOrderData.buildingName}</h5>
 						<ul class="list-unstyled card-text">
 							<li>大樓地址：${groupOrderData.buildingAddress}</li>
-							<li>${groupOrderData.dinerName}</li>
+							<li><a href="${pageContext.request.contextPath}/consumer/EachDinerInfo.jsp?dinerID=1">${groupOrderData.dinerName}</a></li>
 							<li class="list-inline-item"><span
 								class="badge fs-6 rounded-pill bg-secondary">
 									${groupOrderData.dinerType == 'M' ? '<i class="fa-solid fa-utensils"></i>' : (groupOrderData.dinerType=='D' ? '<i class="fa-solid fa-mug-saucer"></i>' : '<i class="fa-solid fa-utensils"></i><i class="fa-solid fa-mug-saucer"></i>')}</span>
@@ -48,13 +56,13 @@
 							</li>
 							<li class="list-inline-item">成團狀態：${groupOrderData.orderStatus=='1'? '未達成團條件' : '已達成團條件'}</li>
 							<li>付款截止時間：${groupOrderSubmitTimeFormatted}</li>
-							<li>
-								<div class="progress">
-									<div class="progress-bar bg-dark" role="progressbar"
-										style="width: 25%;" aria-valuenow="25" aria-valuemin="0"
-										aria-valuemax="100">25%</div>
-								</div>
-							</li>
+<!-- 							<li> -->
+<!-- 								<div class="progress"> -->
+<!-- 									<div class="progress-bar bg-dark" role="progressbar" -->
+<!-- 										style="width: 25%;" aria-valuenow="25" aria-valuemin="0" -->
+<!-- 										aria-valuemax="100">25%</div> -->
+<!-- 								</div> -->
+<!-- 							</li> -->
 						</ul>
 						<div class="d-grid gap-2 d-flex justify-content-end">
 							<c:choose>
@@ -67,11 +75,17 @@
 							        <c:choose>
 							            <c:when test="${not sessionScope.userIsGroupMember}">
 							                <!-- User is logged in but doesn't belong to the group -->
-							                <span>加入此大樓揪團後才可點餐</span><a class="btn btn-dark" href="${pageContext.request.contextPath}/GroupOrder.do?action=join&groupOrderID=${groupOrderData.groupOrderID}&dinerName=${groupOrderData.dinerName}">加入此大樓揪團</a>
+							                <span>加入此大樓揪團後才可點餐</span><a class="btn btn-dark" href="${pageContext.request.contextPath}/GroupOrder.do?action=join&groupOrderID=${groupOrderData.groupOrderID}">加入此大樓揪團</a>
 							            </c:when>
 							            <c:otherwise>
 							                <!-- User is logged in and belongs to the group -->
-							                <a class="btn btn-outline-dark disabled">已加入此大樓揪團</a>
+							                <a class="btn btn-dark disabled">已加入此大樓揪團</a>
+							                <a class="btn btn-dark" id="open_cart_btn"
+									 data-grouporderid="${groupOrderData.groupOrderID}" data-dinerid="${groupOrderData.dinerID}" aria-controls="shopping_cart"
+									href="#">
+									<i class="bi-cart-fill me-1"></i> 購物車 
+<!-- 									<span class="badge bg-dark text-white ms-1 rounded-pill">1</span> -->
+								</a>
 							            </c:otherwise>
 							        </c:choose>
 							    </c:otherwise>
@@ -112,11 +126,23 @@
 						<div class="mdl-stepper-bar-left"></div>
 						<div class="mdl-stepper-bar-right"></div>
 					</div>
+					
+					<c:choose>
+						<c:when test="${empty sessionScope.userOrderDetailData}">
 					<div class="mdl-stepper-step">
 						<div class="mdl-stepper-circle">
 							<span>2</span>
 						</div>
-						<div class="mdl-stepper-title">點餐</div>
+						<div class="mdl-stepper-title">付款</div>
+						</c:when>
+						<c:otherwise>
+					<div class="mdl-stepper-step active-step">
+						<div class="mdl-stepper-circle">
+							<span>2</span>
+						</div>
+						<div class="mdl-stepper-title">已付款</div>
+						</c:otherwise>
+					</c:choose>	
 						<div class="mdl-stepper-optional"></div>
 						<div class="mdl-stepper-bar-left"></div>
 						<div class="mdl-stepper-bar-right"></div>
@@ -125,15 +151,6 @@
 						<div class="mdl-stepper-circle">
 							<span>3</span>
 						</div>
-						<div class="mdl-stepper-title">付款</div>
-						<div class="mdl-stepper-optional"></div>
-						<div class="mdl-stepper-bar-left"></div>
-						<div class="mdl-stepper-bar-right"></div>
-					</div>
-					<div class="mdl-stepper-step">
-						<div class="mdl-stepper-circle">
-							<span>4</span>
-						</div>
 						<div class="mdl-stepper-title">成團條件達成</div>
 						<div class="mdl-stepper-optional"></div>
 						<div class="mdl-stepper-bar-left"></div>
@@ -141,7 +158,7 @@
 					</div>
 					<div class="mdl-stepper-step">
 						<div class="mdl-stepper-circle">
-							<span>5</span>
+							<span>4</span>
 						</div>
 						<div class="mdl-stepper-title">
 							付款期限到<br>自動送出訂單
@@ -152,7 +169,7 @@
 					</div>
 					<div class="mdl-stepper-step">
 						<div class="mdl-stepper-circle">
-							<span>6</span>
+							<span>5</span>
 						</div>
 						<div class="mdl-stepper-title">餐點送達</div>
 						<div class="mdl-stepper-optional"></div>
@@ -166,7 +183,64 @@
 		</div>
 		<!-- stepper end -->
 	</section>
-
+	
+	<c:choose>
+		<c:when test="${not empty sessionScope.userOrderDetailData}">
+	<section class="container mt-5">
+		<!-- Accordion start -->
+		<div class="accordion w-50" id="userOrder">
+	    	<div class="accordion-item">
+	        	<!-- Accordion head start -->
+	        	<h2 class="accordion-header" id="headingOne">
+	          		<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+	            		<div class="col-8">已付款訂購明細</div><div class="col-3 fw-bold text-end">總計：
+	            		<% 
+	            			List<Map<String, Object>> userOrderDetailData = (List<Map<String, Object>>) session.getAttribute("userOrderDetailData");
+		            		int totalPrice = 0;
+		            		for (Object userItem : userOrderDetailData) {
+		            			int userItemPrice = (Integer) ((Map) userItem).get("userItemPrice");
+		            			totalPrice += userItemPrice;
+		            		}
+	            		%>
+	            		<%=totalPrice%>元</div>
+	          		</button>
+	        	</h2>
+	        	<!-- Accordion head end -->
+	        	<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#userOrder" style="">
+	          		<!-- Accordion body start -->
+		          	<div class="accordion-body">
+			            <ul class="list-group">
+							<!-- Column names start -->
+							<li class="list-group-item d-flex justify-content-between align-items-start">
+				                <div class="ms-2 me-auto col-7"><div class="fw-bold">品名</div></div>
+				                <div class="col-3"><span class="fw-bold">數量</span></div>
+				                <div class="col-2"><span class="fw-bold">小計</span></div>
+			                </li>
+			                <!-- Column names end -->
+			                <!-- User items start -->
+			                <c:forEach var="userItem" items="${userOrderDetailData}">
+			                <li class="list-group-item d-flex justify-content-between align-items-start">
+			                  	<div class="ms-2 me-auto col-7"><div class="fw-bold">${userItem.productName}</div>
+									<c:forEach var="productVary" items="${userItem.productVaryList}">
+									<div class="ms-2">${productVary}</div>
+									</c:forEach>
+								</div>
+			                	<div class="col-3"><span class="badge bg-dark rounded-pill">${userItem.productQuantity}</span></div>
+			                	<div class="col-2"><span class="">${userItem.userItemPrice}元</span></div>
+			                </li>
+			                </c:forEach>
+			                <!-- User items end -->
+			            </ul>
+					</div>
+					<!-- Accordion body end -->
+	        	</div>
+			</div>
+		</div>
+		<!-- Accordion end -->   
+	</section>
+		</c:when>
+	</c:choose>
+	
 	<section class="container mt-4">
 		<h2>菜單</h2>
 		<c:forEach var="productType" items="${menuData}">
@@ -208,7 +282,7 @@
 		style="display: none;">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form id="modal_form" method="post" action="${pageContext.request.contextPath}/GroupOrder.do?action=addToCart">
+				<form id="modal_form">
 				<div class="modal-header">
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
@@ -251,8 +325,9 @@
 					</div>
 					<div class="px-4" id="modal_product_varies">
 						<!-- 餐點名稱 -->
-						<input type="hidden" id="modal_productID" name="productID" value="0" data-productid="0"></span>
-						<input type="hidden" id="modal_group_orderID" name="groupOrderID" value="${groupOrderData.groupOrderID}"></span>
+						<input type="hidden" id="modal_group_orderID" name="groupOrderID" value="${groupOrderData.groupOrderID}"></input>
+						<input type="hidden" id="modal_dinerID" name="dinerID" value="${groupOrderData.dinerID}"></input>
+						<input type="hidden" id="modal_productID" name="productID" value="0" data-productid="0"></input>
 						<h2 id="modal_product_name"></h2>
 	
 						<!-- 餐點簡介段落 -->
@@ -309,14 +384,14 @@
 					                <p>加入此大樓揪團後才可點餐</p>
 					                <div>
 					                <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">取消</button>
-					                <a class="btn btn-dark" href="${pageContext.request.contextPath}/GroupOrder.do?action=join&groupOrderID=${groupOrderData.groupOrderID}&dinerName=${groupOrderData.dinerName}">加入此大樓揪團</a>
+					                <a class="btn btn-dark" href="${pageContext.request.contextPath}/GroupOrder.do?action=join&groupOrderID=${groupOrderData.groupOrderID}">加入此大樓揪團</a>
 					                </div>
 					            </c:when>
 					            <c:otherwise>
 					                <!-- User is logged in and belongs to the group -->
 					                <div>
 									<button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">取消</button>
-									<button type="submit" class="btn btn-dark" id="add_to_cart">加到購物車</button>
+									<button type="button" class="btn btn-dark" id="add_to_cart">加到購物車</button>
 									</div>
 					            </c:otherwise>
 					        </c:choose>
@@ -329,6 +404,110 @@
 		</div>
 	</div>
 	
+	<!-- Shopping cart offcanvas start -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="shopping_cart">
+	<!--Offcanvas header start -->
+	<div class="offcanvas-header">
+		<h4 id="">購物車</h4>
+		<button type="button" class="btn-close text-reset"
+			data-bs-dismiss="offcanvas" aria-label="Close"></button>
+	</div>
+	<!-- Offcanvas header end -->
+	<!-- Offcanvas body start -->
+	<div class="offcanvas-body">
+		<div class="px-1 py-0 my-0">
+			<h5>${groupOrderData.buildingName}</h5>
+			<span class="fs-6">大樓地址：${groupOrderData.buildingAddress}<br>
+				商家：${groupOrderData.dinerName}
+			</span>
+			<ul class="list-group px-0">
+				
+				<c:forEach items="${cartData}" var="item">
+				  <li class="list-group-item px-1">
+				    <div class="row">
+				      <div class="col-5">
+				        <h6 class="mb-0">${item.productName}</h6>
+				        <p class="mb-0 ms-2 text-muted">
+				          <c:forEach items="${item.productVaryDess}" var="productVaryDes">
+				            ${productVaryDes}<br/>
+				          </c:forEach>
+					        </p>
+					      </div>
+					      <div class="col-4">
+					        <div class="input-group">
+					          <input type="number" class="form-control form-control-sm" min="1" value="${item.quantity}" disabled>
+					          <button class="btn btn-outline-secondary disabled" type="button">
+					            <i class="fas fa-trash"></i>
+					          </button>
+					    	    </div>
+					      </div>
+					    	  <div class="col-3">
+					   	     <span class="fs-6">${item.productAndVaryPrice}元</span>
+					   	   </div>
+					  	  </div>
+					 	 </li>
+				</c:forEach>
+			
+<!-- 				<li class="list-group-item px-1"> -->
+<!-- 					<div class="row"> -->
+<!-- 						<div class="col-5"> -->
+<!-- 							<h6 class="mb-0">蒜味香腸烤肉飯</h6> -->
+<!-- 							<p class="mb-0 ms-2 text-muted">加荷包蛋</p> -->
+<!-- 						</div> -->
+<!-- 						<div class="col-4"> -->
+<!-- 							<div class="input-group"> -->
+<!-- 								<input type="number" class="form-control form-control-sm" -->
+<!-- 									min="1" value="1" disabled> -->
+<!-- 								<button class="btn btn-outline-secondary disabled" type="button"> -->
+<!-- 									<i class="fas fa-trash"></i> -->
+<!-- 								</button> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 						<div class="col-3"> -->
+<!-- 							<span class="fs-6">150元</span> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</li> -->
+
+<!-- 				<li class="list-group-item px-1"> -->
+<!-- 					<div class="row"> -->
+<!-- 						<div class="col-5"> -->
+<!-- 							<h6 class="mb-0">蒜味香腸烤肉飯</h6> -->
+<!-- 							<p class="mb-0 ms-2 text-muted"></p> -->
+<!-- 						</div> -->
+<!-- 						<div class="col-4"> -->
+<!-- 							<div class="input-group"> -->
+<!-- 								<input type="number" class="form-control form-control-sm" -->
+<!-- 									min="1" value="1" disabled> -->
+<!-- 								<button class="btn btn-outline-secondary disabled" type="button"> -->
+<!-- 									<i class="fas fa-trash"></i> -->
+<!-- 								</button> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 						<div class="col-3"> -->
+<!-- 							<span class="fs-6">140元</span> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</li> -->
+			</ul>
+		</div>
+
+		<div class="mt-2 text-end">
+			<p class="fw-bold" id="cart_total">總計元</p>
+		</div>
+
+		<div class="mt-4 col-10 mx-auto">
+			<div class="my-2">
+				<a href="${pageContext.request.contextPath}/GroupOrder.do?action=checkout&groupOrderID=${groupOrderData.groupOrderID}&dinerID=${groupOrderData.dinerID}" class="btn btn-dark btn-lg w-100">付款</a>
+			</div>
+			<div class="my-2">
+				<a href="#" class="btn btn-outline-dark btn-lg w-100" data-bs-dismiss="offcanvas">繼續點餐</a>
+			</div>
+		</div>
+	</div>
+	<!-- Offcanvas body end -->
+</div>
+<!-- Shopping cart offcanvas end -->
 	
 	<%-- Page content end --%>
 

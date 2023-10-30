@@ -15,13 +15,13 @@
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/background/plugins/fontawesome-free/css/all.min.css">
   <!-- IonIcons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="../dist/css/adminlte.min.css">
-  <link rel="stylesheet" href="../plugins/fontawesome-free\css\fontawesome.min.css">
-  <link rel="stylesheet" href="../plugins/fontawesome-free\css\fontawesome.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/background/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/background/plugins/fontawesome-free\css\fontawesome.min.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/background/plugins/fontawesome-free\css\fontawesome.css">
 
 <style>
 li::marker {
@@ -116,7 +116,7 @@ li::marker {
       <ul class="navbar-nav ml-auto">
 
         <li class="nav-item">
-          <a class="nav-link" href="../index3.jsp" role="button">
+          <a class="nav-link"  href="${pageContext.request.contextPath}/background/pages/index3.jsp" role="button">
             <i class="fas fa-home"></i>
           </a>
         </li>
@@ -132,43 +132,10 @@ li::marker {
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-light-warning elevation-4">
-      <!-- Brand Logo -->
-      <a href="../index3.jsp" class="brand-link">
-        <img src="../dist/img/Logo.png" alt="樓頂揪樓咖 Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-normal">後台管理平台</span>
-      </a>
-
-      <!-- Sidebar -->
-      <div class="sidebar">
-        <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-          <div class="image">
-            <img src="../dist/empimg/emp02.png" class="img-circle elevation-2" alt="emp01">
-          </div>
-          <div class="info">
-            <a href="#" class="d-block">小丸子</a>
-          </div>
-        </div>
-
-        <!-- Sidebar Menu -->
-        <nav class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
 
  <!-- 引入側邊欄 -->
 <%@ include  file="pageaside.file" %>
 
-<%-- 						<form id="myForm" action="<%= request.getContextPath() %>/background/pages/chat.do" method="POST"> --%>
-<!-- 								<li class="nav-item"  id="chatBtn"> -->
-<!-- 										<a href="./svr_cust.jsp" class="nav-link"> <i class="far fa-circle nav-icon"></i><p>線上客服訊息管理</p></a> -->
-<!-- 										<div style="display:none;"> -->
-<!-- 											<input type="hidden"  id="userName" name="userName" value="cs" /> -->
-<!-- 											<input type="submit" id="send"  onclick="sendName();" /> -->
-<!-- 										</div>> -->
-<!-- 								</li> -->
-<!-- 						</form> -->
         </nav>
         <!-- /.sidebar-menu -->
       </div>
@@ -288,13 +255,13 @@ li::marker {
   <!-- REQUIRED SCRIPTS -->
 
   <!-- jQuery -->
-  <script src="../plugins/jquery/jquery.min.js"></script>
+  <script src="${pageContext.request.contextPath}/background/plugins/jquery/jquery.min.js"></script>
   <!-- Bootstrap -->
-  <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="${pageContext.request.contextPath}/background/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- AdminLTE -->
-  <script src="../dist/js/adminlte.js"></script>
+  <script src="${pageContext.request.contextPath}/background/dist/js/adminlte.js"></script>
   <!-- OPTIONAL SCRIPTS -->
-  <script src="../plugins/chart.js/Chart.min.js"></script>
+  <script src="${pageContext.request.contextPath}/background/plugins/chart.js/Chart.min.js"></script>
 
 
 <!-- ===========聊天室=========== -->
@@ -316,7 +283,7 @@ li::marker {
 
 	var statusOutput = document.getElementById("statusOutput");
 	var messagesArea = document.getElementById("messagesArea");
-// 	var self = '${userName}'; //這裡的username是誰
+// 	var self = '${userName}'; 
 	var self = 'cs';  //test
 	var webSocket;
 
@@ -360,17 +327,21 @@ li::marker {
 				}
 				messagesArea.scrollTop = messagesArea.scrollHeight;
 			} else if ("chat" === jsonObj.type) {       //預設
-				var li = document.createElement('li');
-						var div = document.createElement('div');
-				jsonObj.sender === self ? li.className += 'me' : li.className += 'friend';
-				jsonObj.sender  === self ? div.className += 'timedivme' : div.className += 'timedivfriend';
-				li.innerHTML = jsonObj.message;
-				console.log(li);
-// 						div.className +='timediv';
-						div.textContent = jsonObj.timestamp;
-						li.appendChild(div);
-				document.getElementById("area").appendChild(li);
-				messagesArea.scrollTop = messagesArea.scrollHeight;
+				//判斷收件是否是自己、對方是自己
+// 				if( jsonObj.sender === friend && jsonObj.receiver === self){
+// 					if( jsonObj.sender === friend ||  jsonObj.sender === self){
+						var li = document.createElement('li');
+								var div = document.createElement('div');
+						jsonObj.sender === self ? li.className += 'me' : li.className += 'friend';
+						jsonObj.sender  === self ? div.className += 'timedivme' : div.className += 'timedivfriend';
+						li.innerHTML = jsonObj.message;
+						console.log(li);
+		// 						div.className +='timediv';
+								div.textContent = jsonObj.timestamp;
+								li.appendChild(div);
+						document.getElementById("area").appendChild(li);
+						messagesArea.scrollTop = messagesArea.scrollHeight;
+// 				}
 			} else if ("close" === jsonObj.type) {
 				refreshFriendList(jsonObj);
 			}
@@ -412,7 +383,7 @@ li::marker {
 	}
 	
 	// 有好友上線或離線就更新列表
-	function refreshFriendList(jsonObj) {
+	function refreshFriendList(jsonObj) { 
 		var friends = jsonObj.users;
 		var frow = document.getElementById("frow");
 		frow.innerHTML = '';
@@ -450,8 +421,6 @@ li::marker {
 		statusOutput.innerHTML = name;
 	}
 </script>
-
-<!--  ========點擊側邊的客服訊息時發動/線上聊天 ======== -->
 
 
 </body>

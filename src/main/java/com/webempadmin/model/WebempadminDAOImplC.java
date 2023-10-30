@@ -17,7 +17,9 @@ public class WebempadminDAOImplC implements WebempadminDAOC{
 		
 		try {
 //		session.beginTransaction();
-		List<Webempadmin> list = session.createQuery(" from Webempadmin  ", Webempadmin.class).list();
+		List<Webempadmin> list = session.createQuery(" from Webempadmin where empStatus = : status ", Webempadmin.class)
+				.setParameter("status", false)//查詢SQL empStatus boolean 傳入false為0(0是查的到)
+				.list();
 		
 //		session.getTransaction().commit();
 		

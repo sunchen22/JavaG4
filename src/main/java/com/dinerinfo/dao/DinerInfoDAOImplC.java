@@ -15,7 +15,7 @@ import util.HibernateUtil;
 
 
 public class DinerInfoDAOImplC implements DinerInfoDAOC{
-	
+	@Override
 	public DinerInfo findByPK(Integer dinerInfoID) {
 		
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -34,7 +34,7 @@ public class DinerInfoDAOImplC implements DinerInfoDAOC{
 		}
 		return null;
 	}
-	
+	@Override
 	public List<DinerInfo> getAll(){
 		
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -52,8 +52,8 @@ public class DinerInfoDAOImplC implements DinerInfoDAOC{
 		}
 		return null;
 	}
-		
-public List<DinerInfo> getAllSubmitted(){
+	@Override	
+	public List<DinerInfo> getAllSubmitted(){
 		
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
@@ -75,7 +75,7 @@ public List<DinerInfo> getAllSubmitted(){
 		
 	
 	
-
+	@Override
 public List<DinerInfo> getAllChanged(){
 	
 	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -93,7 +93,7 @@ public List<DinerInfo> getAllChanged(){
 	}
 	return null;
 }
-
+	@Override
 public List<DinerInfo> getAllAD(){
 	
 	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -113,7 +113,7 @@ public List<DinerInfo> getAllAD(){
 	return null;
 }
 
-
+@Override
 public DinerInfo update(Integer dinerInfoID) {
 	
 	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -121,12 +121,7 @@ public DinerInfo update(Integer dinerInfoID) {
 //	session.beginTransaction();
 	DinerInfo dif = session.get(DinerInfo.class, dinerInfoID);
 	
-//	if(dif!=null) {
-//		JSONObject j = new JSONObject();
-//		 j.put("1","111");
-//		 j.put("2", "222");
-//		dif.setDinerUpdate(j.toString());
-//	}
+
 	
 	
 //	session.getTransaction().commit();
@@ -143,7 +138,7 @@ public DinerInfo update(Integer dinerInfoID) {
 }
 
 
-
+@Override
 public DinerInfo DeactivatedByPK(Integer dinerInfoID) {
 	
 	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -163,7 +158,7 @@ public DinerInfo DeactivatedByPK(Integer dinerInfoID) {
 	return null;
 }
 
-
+@Override
 public DinerInfo ActiveByPK(Integer dinerInfoID) {
 	
 	Session session = HibernateUtil.getSessionFactory().getCurrentSession();

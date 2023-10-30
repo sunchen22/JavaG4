@@ -1,6 +1,7 @@
 package com.dinerinfo.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import com.dinerinfo.entity.DinerInfo;
 import com.dinerinfo.service.DinerInfoServiceImpl;
@@ -177,7 +179,6 @@ public class DinerInfoServletD extends HttpServlet {
 			// 雖然前端選項寫死，還是稍微做個判定，增加安全性
 			dinerInfoRg.setDinerType(dinerType); // 存下註冊者輸入的資訊
 
-
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("dinerInfo", dinerInfoRg); // 含有輸入格式錯誤的 dinerInfo 物件,也存入req
@@ -262,16 +263,13 @@ public class DinerInfoServletD extends HttpServlet {
 
 			HttpSession session = req.getSession(); // 用一個會話來儲存現在已經登入成功的物件
 			session.setAttribute("account", dinerInfoAlg); // 將 account 標記為資料庫的 dinerInfo 相對物件，當filter在過濾時就會知道這是已經登錄的帳號
-			System.out.println(dinerInfoAlg.getDinerID()+"===========這是取得的dinerID===========");
+			System.out.println(dinerInfoAlg.getDinerID() + "===========這是取得的dinerID===========");
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 
 			String url = "/dinerbackground/pages/Team/dashboard/info-change.jsp"; // 登入完成後跳轉的頁面
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 info-change.jsp
 			successView.forward(req, res);
 		}
-		
-		
-		
 
 //		=========================== 送出商家資料修改 ======================================================			
 
@@ -288,8 +286,6 @@ public class DinerInfoServletD extends HttpServlet {
 			DinerInfo editInfo = new DinerInfo(); // 創建一個 dinerInfo 對象，來儲存商家輸入的資料
 			DinerInfo oldInfo = new DinerInfo(); // 創建一個 dinerInfo 對象，來儲存商家原始的資料
 			DinerInfo newInfo = new DinerInfo(); // 創建一個 dinerInfo 對象，來儲存商家輸入，且經確認，格式無誤、與資料庫其他商家不重複的資料
-			
-			
 
 			int dinerID = Integer.parseInt(req.getParameter("dinerID")); // 從隱藏欄位取得送出此請求的商家id
 			oldInfo = dinerInfoServiceImpl.getDinerInfoByDinerID(dinerID); // 查詢出商家資料，放入商家原始的資料的容器
@@ -431,9 +427,9 @@ public class DinerInfoServletD extends HttpServlet {
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("modifiedData", editInfo); // 含有輸入格式錯誤的 dinerInfo 物件,也存入req，存入"modifiedData"
-													   // 特別注意 : account 是登入後就預設好的dinerInfo，不能存在這裡，
-				                                       // 不然servlet再跑第二次的時候就會讀不到資料庫的資料
-				
+				// 特別注意 : account 是登入後就預設好的dinerInfo，不能存在這裡，
+				// 不然servlet再跑第二次的時候就會讀不到資料庫的資料
+
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/dinerbackground/pages/Team/dashboard/info-change.jsp");
 				failureView.forward(req, res);
@@ -446,18 +442,18 @@ public class DinerInfoServletD extends HttpServlet {
 			// 確認過與資料庫無重複的資料才可被寫入
 			System.out.println(newInfo);
 
-			//存入前先檢查資料庫裡的 dinerUpdate 欄位是空的，而且dinerStatus不能是"changed" 
-			if(oldInfo.getDinerUpdate() != null || oldInfo.getDinerStatus().equals("changed")) {
-				
+			// 存入前先檢查資料庫裡的 dinerUpdate 欄位是空的，而且dinerStatus不能是"changed"
+			if (oldInfo.getDinerUpdate() != null || oldInfo.getDinerStatus().equals("changed")) {
+
 				req.setAttribute("alreadyApplyMsg", "您已提交過修改申請，請靜待管理員審核");
-				
+
 			} else {
-				
+
 				oldInfo = dinerInfoServiceImpl.compareDinerInfo(oldInfo, newInfo);
 				System.out.println(oldInfo);
 				// oldInfo : dinerUpdate 欄位被寫入、dinerStatus 欄位備置換成"changed"
 				HttpSession session = req.getSession();
-				
+
 				if (oldInfo.getDinerUpdate() != null) {
 
 					session.setAttribute("account", oldInfo);
@@ -468,9 +464,8 @@ public class DinerInfoServletD extends HttpServlet {
 				} else {
 					req.setAttribute("successMsg", "您沒有變更任何資料");
 				}
-				
+
 			}
-			
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			String url = "/dinerbackground/pages/Team/dashboard/info-change.jsp";
@@ -478,6 +473,110 @@ public class DinerInfoServletD extends HttpServlet {
 			successView.forward(req, res);
 
 		}
+		
+		
+
+//		=========================== 修改成團訂單金額 ======================================================	
+
+		if ("dinerOrderThresholdChange".equals(action)) { // 來自business-set.jsp的請求 
+
+			List<String> orderThresholdErrorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("orderThresholdErrorMsgs", orderThresholdErrorMsgs);
+
+			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+
+			// Send the use back to the form, if there were errors
+			String dinerOrderThreshold = req.getParameter("dinerOrderThreshold");
+			String dinerOrderThresholdReg = "^(?!0$)([1-9][0-9]{0,3}|0)$";
+			if (dinerOrderThreshold == null || dinerOrderThreshold.trim().length() == 0) {
+				orderThresholdErrorMsgs.add("成團訂單金額 : 請勿空白");
+			} else if (!dinerOrderThreshold.trim().matches(dinerOrderThresholdReg)) {
+				orderThresholdErrorMsgs.add("成團訂單金額 : 最多只能是4位數，不得小於0");
+			}
+
+			if (!orderThresholdErrorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/dinerbackground/pages/Team/dashboard/business-set.jsp");
+				failureView.forward(req, res);
+				return;// 程式中斷
+			}
+
+			
+
+			/*************************** 2.開始載入資料 *****************************************/
+
+			HttpSession session = req.getSession();
+			
+			int dinerID = Integer.parseInt(req.getParameter("dinerID"));
+			DinerInfo dinerInfo = dinerInfoServiceImpl.setDinerOrderThreshold(dinerID,dinerOrderThreshold); 
+			
+			session.setAttribute("account", dinerInfo); 
+			
+			/*************************** 3.新增完成,準備轉交(Send the Success view) *************/
+
+			String url = "/dinerbackground/pages/Team/dashboard/business-set.jsp"; // 登入完成後跳轉的頁面
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 info-change.jsp
+			successView.forward(req, res);
+		}
+		
+		
+//		=========================== 上傳商家照片 ======================================================	
+	
+		
+		if ("addDinerBlob".equals(action)) { // 來自business-set.jsp的請求 
+
+			List<String> dinerBloberrorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("dinerBloberrorMsgs", dinerBloberrorMsgs);
+			
+			
+
+			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+
+			// Send the use back to the form, if there were errors
+			
+			int dinerID = Integer.parseInt(req.getParameter("dinerID"));
+			DinerInfo dinerInfo = dinerInfoServiceImpl.getDinerInfoByDinerID(dinerID);
+			
+			Part dinerBlobPart  = req.getPart("dinerBlob");
+			byte[] dinerBlob = null;
+			try {
+				InputStream in = dinerBlobPart.getInputStream();
+				
+				dinerBlob = in.readAllBytes();
+				dinerInfo.setDinerBlob(dinerBlob);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+
+//			if (!dinerBloberrorMsgs.isEmpty()) {
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/dinerbackground/pages/Team/dashboard/business-set.jsp");
+//				failureView.forward(req, res);
+//				return;// 程式中斷
+//			}
+
+			
+
+			/*************************** 2.開始新增資料 *****************************************/
+
+			HttpSession session = req.getSession();
+			
+			
+			session.setAttribute("account", dinerInfo); 
+			
+			/*************************** 3.新增完成,準備轉交(Send the Success view) *************/
+
+			String url = "/dinerbackground/pages/Team/dashboard/business-set.jsp"; // 完成後跳轉的頁面
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 business-set.jsp
+			successView.forward(req, res);
+		}
+		
+		
 
 	}
 

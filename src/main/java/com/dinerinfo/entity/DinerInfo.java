@@ -17,6 +17,7 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import com.advertisement.entity.Advertisement;
+import com.businesshours.entity.BusinessHours;
 import com.product.entity.Product;
 
 
@@ -33,6 +34,10 @@ public class DinerInfo {
 	
 	@OneToMany(fetch = FetchType.EAGER , mappedBy = "dinerid" , cascade = CascadeType.ALL)
 	private Set<Advertisement> ads;
+	
+	@OneToMany(mappedBy = "dinerInfo",cascade = CascadeType.ALL)
+	@OrderBy("dinerOpenHoursID asc")
+	private Set<BusinessHours> businessHours;
 	
 	@Column(name="dinerName")
 	private String dinerName;
@@ -85,14 +90,16 @@ public class DinerInfo {
 	private String dinerUpdate;
 
 	
-	
 
 	
-//	@OneToMany(mappedBy = "advertisement",cascade = CascadeType.ALL)
-//	@OrderBy("dinerID asc")
-//	private Set<Advertisement> advertisements;
-	
-	
+	public Set<BusinessHours> getBusinessHours() {
+		return businessHours;
+	}
+
+	public void setBusinessHours(Set<BusinessHours> businessHours) {
+		this.businessHours = businessHours;
+	}
+
 	public String getDinerUpdate() {
 		return dinerUpdate;
 	}

@@ -164,11 +164,13 @@ public class GroupOrderDAOHibernateImpl implements GroupOrderDAO {
 					+ "LEFT JOIN go.dinerInfo d " + "LEFT JOIN go.buildingInfo b "
 					+ "LEFT JOIN go.userInfo u " 
 					+ "WHERE go.orderStatus = '1' OR go.orderStatus = '2'";
-
-			int first = (currentPage - 1) * PAGE_MAX_RESULT;
-			List<Object[]> results = getSession().createQuery(hql, Object[].class).setFirstResult(first).setMaxResults(PAGE_MAX_RESULT)
-					.list();
-
+//			分頁
+//			int first = (currentPage - 1) * PAGE_MAX_RESULT;
+//			List<Object[]> results = getSession().createQuery(hql, Object[].class).setFirstResult(first).setMaxResults(PAGE_MAX_RESULT)
+//					.list();
+//			分頁
+			
+			List<Object[]> results = getSession().createQuery(hql, Object[].class).list();
 //			getSession().getTransaction().commit();
 			return results;
 
@@ -213,7 +215,7 @@ public class GroupOrderDAOHibernateImpl implements GroupOrderDAO {
 					+ "	FROM DinerInfo AS d "
 					+ "	LEFT JOIN Product AS p ON d.dinerID = p.dinerID "
 					+ "	LEFT JOIN ProductType AS pt ON p.productTypeID = pt.productTypeID "
-					+ "	WHERE d.dinerID = " + String.valueOf(dinerID)
+					+ "	WHERE d.dinerID = " + String.valueOf(dinerID) + " AND p.productStatus = '上架中' "
 					+ "	ORDER BY pt.productTypeID, p.productPrice";	
 			
 			@SuppressWarnings("unchecked")

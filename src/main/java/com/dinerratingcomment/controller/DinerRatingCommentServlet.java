@@ -77,6 +77,7 @@ public class DinerRatingCommentServlet extends HttpServlet {
 
 			dinerRatingComment.setUserCommentTime(new java.sql.Timestamp(System.currentTimeMillis()));
 			dinerRatingComment.setUserCommentContent(userCommentContent);
+			dinerRatingComment.setDinerRatingCommentStatus((Integer) 1);
 
 			UserInfo userInfo = new UserInfo();
 			userInfo.setUserID(userID);
@@ -104,7 +105,7 @@ public class DinerRatingCommentServlet extends HttpServlet {
 			}
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/consumer/protected/DinerComment.jsp";
+			String url = "/consumer/protected/DinerComment.jsp?dinerID="+dinerID;
 			String cp = req.getContextPath();
 			res.sendRedirect(cp + url);
 			

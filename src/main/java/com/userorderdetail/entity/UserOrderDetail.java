@@ -2,12 +2,18 @@ package com.userorderdetail.entity;
 
 import java.sql.Timestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import javax.persistence.Column;
-import javax.persistence.Id;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.grouporder.entity.GroupOrder;
 
 @Entity
 @Table(name = "userorderdetail")
@@ -29,8 +35,12 @@ public class UserOrderDetail {
 	@Column(name = "userID")
 	private	Integer	userID;
 
-	@Column(name = "groupOrderID")
-	private	Integer	groupOrderID;
+//	@Column(name = "groupOrderID")
+//	private	Integer	groupOrderID;
+	
+	@ManyToOne
+	@JoinColumn(name = "groupOrderID" , referencedColumnName = "groupOrderID")
+	private GroupOrder groupOrder;
 	
 	@Column(name = "userPaymentTime")
 	private	Timestamp userPaymentTime;
@@ -40,14 +50,14 @@ public class UserOrderDetail {
 	}
 
 	public UserOrderDetail(Integer userOrderItemID, Integer productID, Integer productQuantity, Integer userItemPrice,
-			Integer userID, Integer groupOrderID, Timestamp userPaymentTime) {
+			Integer userID, GroupOrder groupOrder, Timestamp userPaymentTime) {
 		super();
 		this.userOrderItemID = userOrderItemID;
 		this.productID = productID;
 		this.productQuantity = productQuantity;
 		this.userItemPrice = userItemPrice;
 		this.userID = userID;
-		this.groupOrderID = groupOrderID;
+		this.groupOrder = groupOrder;
 		this.userPaymentTime = userPaymentTime;
 	}
 
@@ -91,12 +101,12 @@ public class UserOrderDetail {
 		this.userID = userID;
 	}
 
-	public Integer getGroupOrderID() {
-		return groupOrderID;
+	public GroupOrder getGroupOrder() {
+		return groupOrder;
 	}
 
-	public void setGroupOrderID(Integer groupOrderID) {
-		this.groupOrderID = groupOrderID;
+	public void setGroupOrder(GroupOrder groupOrder) {
+		this.groupOrder = groupOrder;
 	}
 
 	public Timestamp getUserPaymentTime() {
@@ -110,8 +120,8 @@ public class UserOrderDetail {
 	@Override
 	public String toString() {
 		return "UserOrderDetail [userOrderItemID=" + userOrderItemID + ", productID=" + productID + ", productQuantity="
-				+ productQuantity + ", userItemPrice=" + userItemPrice + ", userID=" + userID + ", groupOrderID="
-				+ groupOrderID + ", userPaymentTime=" + userPaymentTime + "]";
+				+ productQuantity + ", userItemPrice=" + userItemPrice + ", userID=" + userID + ", groupOrder="
+				+ groupOrder + ", userPaymentTime=" + userPaymentTime + "]";
 	}
 		
 }

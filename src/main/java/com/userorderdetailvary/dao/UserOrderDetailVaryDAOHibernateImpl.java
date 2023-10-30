@@ -3,24 +3,37 @@ package com.userorderdetailvary.dao;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import com.userorderdetailvary.entity.UserOrderDetailVary;
 import util.HibernateUtil;
 
 public class UserOrderDetailVaryDAOHibernateImpl implements UserOrderDetailVaryDAO{
+	// One SessionFactory(which is thread-safe) for one DAO
+	private SessionFactory factory;
 
+	public UserOrderDetailVaryDAOHibernateImpl(SessionFactory factory) {
+		this.factory = factory;
+	}
+
+	// Each CRUD method in this DAO should get its own Session(which is not
+	// thread-safe)
+	private Session getSession() {
+		return factory.getCurrentSession();
+	}
+	
 	@Override
 	public int add(UserOrderDetailVary userOrderDetailVary) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		
 		try {
-			session.beginTransaction();
-			Integer id = (Integer) session.save(userOrderDetailVary);
-			session.getTransaction().commit();
+//			session.beginTransaction();
+			Integer id = (Integer) getSession().save(userOrderDetailVary);
+//			session.getTransaction().commit();
 			return id;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+//			session.getTransaction().rollback();
 		}
 		
 		return -1;
@@ -28,16 +41,16 @@ public class UserOrderDetailVaryDAOHibernateImpl implements UserOrderDetailVaryD
 
 	@Override
 	public int update(UserOrderDetailVary userOrderDetailVary) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		
 		try {
-			session.beginTransaction();
-			session.update(userOrderDetailVary);
-			session.getTransaction().commit();
+//			session.beginTransaction();
+			getSession().update(userOrderDetailVary);
+//			session.getTransaction().commit();
 			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+//			session.getTransaction().rollback();
 		}
 		
 		return -1;
@@ -45,19 +58,19 @@ public class UserOrderDetailVaryDAOHibernateImpl implements UserOrderDetailVaryD
 
 	@Override
 	public int delete(Integer userOrderDetailVaryID) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		
 		try {
-			session.beginTransaction();
-			UserOrderDetailVary userOrderDetailVary = session.get(UserOrderDetailVary.class, userOrderDetailVaryID);
+//			session.beginTransaction();
+			UserOrderDetailVary userOrderDetailVary = getSession().get(UserOrderDetailVary.class, userOrderDetailVaryID);
 			if (userOrderDetailVary != null) {
-				session.delete(userOrderDetailVary);
+				getSession().delete(userOrderDetailVary);
 			} 
-			session.getTransaction().commit();
+//			session.getTransaction().commit();
 			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+//			session.getTransaction().rollback();
 		}
 		
 		return -1;
@@ -65,16 +78,16 @@ public class UserOrderDetailVaryDAOHibernateImpl implements UserOrderDetailVaryD
 
 	@Override
 	public UserOrderDetailVary findByPK(Integer userOrderDetailVaryID) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		
 		try {
-			session.beginTransaction();
-			UserOrderDetailVary userOrderDetailVary = session.get(UserOrderDetailVary.class, userOrderDetailVaryID);
-			session.getTransaction().commit();
+//			session.beginTransaction();
+			UserOrderDetailVary userOrderDetailVary = getSession().get(UserOrderDetailVary.class, userOrderDetailVaryID);
+//			session.getTransaction().commit();
 			return userOrderDetailVary;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+//			session.getTransaction().rollback();
 		}
 		
 		return null;
@@ -82,16 +95,16 @@ public class UserOrderDetailVaryDAOHibernateImpl implements UserOrderDetailVaryD
 
 	@Override
 	public List<UserOrderDetailVary> getAll() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		
 		try {
-			session.beginTransaction();
-			List<UserOrderDetailVary> list = session.createQuery("from UserOrderDetailVary", UserOrderDetailVary.class).list();
-			session.getTransaction().commit();
+//			session.beginTransaction();
+			List<UserOrderDetailVary> list = getSession().createQuery("from UserOrderDetailVary", UserOrderDetailVary.class).list();
+//			session.getTransaction().commit();
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+//			session.getTransaction().rollback();
 		}
 		
 		return null;

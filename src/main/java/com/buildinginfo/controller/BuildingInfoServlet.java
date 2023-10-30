@@ -29,28 +29,27 @@ public class BuildingInfoServlet extends HttpServlet {
 		if ("get_Data_Display".equals(action)) { // 來自select_page.jsp的請求
 			
 			String str = req.getParameter("bdgname");
-			String str1 = req.getParameter("bdgaddr");
-																//(str == null || (str.trim()).length() == 0)
-			if((str.equals("")|| (str.trim()).length() == 0) && (str1.equals("")|| (str1.trim()).length() == 0)){ // && (str1 == null || (str1.trim()).length() == 0)
+			
+																
+			if((str.equals("")|| (str.trim()).length() == 0)){ 
 				
-				RequestDispatcher failureView = req.getRequestDispatcher("/cproject/pages/bldg_queryAll_data.jsp");
+				RequestDispatcher successView = req.getRequestDispatcher("/cproject/pages/bldg_queryAll_data.jsp");
 				
-				failureView.forward(req, res);
+				successView.forward(req, res);
 				
 			}
 
 			List<String> errorMsgs = new LinkedList<String>();
-//			Store this set in the request scope, in case we need to
-//	 		send the ErrorPage view.
+			
 			req.setAttribute("errorMsgs", errorMsgs);
 
-			if (!(str.equals("") || (str.trim()).length() == 0) || !(str1.equals("") || (str1.trim()).length() == 0)) {
+			if (!(str.equals("") || (str.trim()).length() == 0)) {
 				
 				Integer buildingID = null;
-//				String buildingName = "";
+				
 				try {
 					buildingID = Integer.valueOf(str);
-//					buildingName = str1;
+					
 				} catch (Exception e) {
 					errorMsgs.add("格式不正確");
 				}
@@ -103,23 +102,20 @@ public class BuildingInfoServlet extends HttpServlet {
 
 		}
 		
-//			if ("go_for_update".equals(action)) {
-//			
-//			Integer buildingID = Integer.valueOf(req.getParameter("buildingID"));
-//			
-//			/*************************** 2.開始查詢資料 ***************************************/
-//			BuildingInfoDAO dao = new BuildingInfoDAOHibernateImpl();
-//			dao.findByPK(buildingID);
-//			
-//
-//			/*************************** 3.查詢完成,準備轉交(Send the Success view) ***********/
-//			req.setAttribute("buildingID", buildingID); 
-//			String url = "/pages/bldg_queryAll_data.jsp";
-//			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
-//			successView.forward(req, res);
-//
-//		}
+		
+		res.setContentType("text/plain ; charset=UTF-8");
+		
+		String name = req.getParameter("name");
+	    String address = req.getParameter("address");
+	    if(name != null && address != null) {
 
+	    BuildingInfoDAOHibernateImpl bi = new BuildingInfoDAOHibernateImpl();
+	    bi.add(name,address);
+	    
+	    }
+		
+	    return;
+		
 	}
 
 }

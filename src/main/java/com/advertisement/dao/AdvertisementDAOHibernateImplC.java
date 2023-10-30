@@ -10,6 +10,7 @@ import util.HibernateUtil;
 
 import com.advertisement.entity.Advertisement;
 import com.dinerinfo.entity.DinerInfo;
+import com.product.entity.Product;
 
 public class AdvertisementDAOHibernateImplC implements AdvertisementDAOC {
 	
@@ -85,7 +86,59 @@ public List<Advertisement> getAllSubmittedAD(){
 //		session.getTransaction().rollback();
 		}
 		return null;
+		
+
 	}
+
+
+
+@Override
+public byte[] getImg(Integer advertisementID) {
+	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	
+	try {
+
+//		session.beginTransaction();
+		Advertisement ad = session.get(Advertisement.class, advertisementID);
+
+
+		
+//		List list = new ArrayList();
+		
+		byte[] img = ad.getAdvertisementBlob();
+//		byte[] img2 = pdt.getProductBlob2();
+//		byte[] img3 = pdt.getProductBlob3();
+//		list.add(img1);
+//		list.add(img2);
+//		list.add(img3);
+//		list.get(1);
+//		list.get(2);
+//		list.get(3);
+//		session.getTransaction().commit();
+		
+		return img;
+		
+	} catch (Exception e) {
+		e.printStackTrace();
+//		session.getTransaction().rollback();
+	}
+	
+	return null;
+	
+}	
+
+
+
+
+
+
+
+
+
+
+
+
+
 //@Override
 //public List<Advertisement> getDinerInfoSubmittedAD(Integer dinerID){
 //		Session session = HibernateUtil.getSessionFactory().getCurrentSession();

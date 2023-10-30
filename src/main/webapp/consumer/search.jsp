@@ -77,50 +77,50 @@
 				搜尋大樓揪團
 				<div class="row">
 					<!-- 2.2.1.1.1 Left content start -->
-					<div class="col-3">
-						<ul class="list-group filter_by">
-							<li class="list-group-item d-flex justify-content-center">
-								<a class="btn btn-dark"><i
-									class="fa-solid fa-map-location-dot"></i>在地圖中顯示</a>
-							</li>
-							<li class="list-group-item">
-								<h5>篩選</h5>
-								<div class="form-check">
-									<input class="form-check-input my_building_only"
-										type="checkbox" id="g_my_building_only"> <label
-										class="form-check-label" for="g_my_building_only">只顯示我的常用大樓</label>
-								</div>
-								<div class="form-check">
-									<input class="form-check-input achived_only" type="checkbox"
-										value="" id="achived_only"> <label
-										class="form-check-label" for="achived_only">只顯示成團條件已達成</label>
-								</div>
-							</li>
-							<li class="list-group-item">
-								<h5>商家分類</h5>
-								<div class="form-check">
-									<input class="form-check-input type_food" type="checkbox"
-										id="g_type_food"> <label class="form-check-label"
-										for="g_type_food"> <i class="fa-solid fa-utensils"></i>餐點
-									</label>
-								</div>
-								<div class="form-check">
-									<input class="form-check-input type_drinks" type="checkbox"
-										id="g_type_drinks"> <label class="form-check-label"
-										for="g_type_drinks"> <i
-										class="fa-solid fa-mug-saucer"></i>飲料
-									</label>
-								</div>
-								<div class="form-check">
-									<input class="form-check-input type_mixed" type="checkbox"
-										id="g_type_mixed"> <label class="form-check-label"
-										for="g_type_mixed"> <i class="fa-solid fa-utensils"></i><i
-										class="fa-solid fa-mug-saucer"></i>複合式
-									</label>
-								</div>
-							</li>
-						</ul>
-					</div>
+<!-- 					<div class="col-3"> -->
+<!-- 						<ul class="list-group filter_by"> -->
+<!-- 							<li class="list-group-item d-flex justify-content-center"> -->
+<!-- 								<a class="btn btn-dark"><i -->
+<!-- 									class="fa-solid fa-map-location-dot"></i>在地圖中顯示</a> -->
+<!-- 							</li> -->
+<!-- 							<li class="list-group-item"> -->
+<!-- 								<h5>篩選</h5> -->
+<!-- 								<div class="form-check"> -->
+<!-- 									<input class="form-check-input my_building_only" -->
+<!-- 										type="checkbox" id="g_my_building_only"> <label -->
+<!-- 										class="form-check-label" for="g_my_building_only">只顯示我的常用大樓</label> -->
+<!-- 								</div> -->
+<!-- 								<div class="form-check"> -->
+<!-- 									<input class="form-check-input achived_only" type="checkbox" -->
+<!-- 										value="" id="achived_only"> <label -->
+<!-- 										class="form-check-label" for="achived_only">只顯示成團條件已達成</label> -->
+<!-- 								</div> -->
+<!-- 							</li> -->
+<!-- 							<li class="list-group-item"> -->
+<!-- 								<h5>商家分類</h5> -->
+<!-- 								<div class="form-check"> -->
+<!-- 									<input class="form-check-input type_food" type="checkbox" -->
+<!-- 										id="g_type_food"> <label class="form-check-label" -->
+<!-- 										for="g_type_food"> <i class="fa-solid fa-utensils"></i>餐點 -->
+<!-- 									</label> -->
+<!-- 								</div> -->
+<!-- 								<div class="form-check"> -->
+<!-- 									<input class="form-check-input type_drinks" type="checkbox" -->
+<!-- 										id="g_type_drinks"> <label class="form-check-label" -->
+<!-- 										for="g_type_drinks"> <i -->
+<!-- 										class="fa-solid fa-mug-saucer"></i>飲料 -->
+<!-- 									</label> -->
+<!-- 								</div> -->
+<!-- 								<div class="form-check"> -->
+<!-- 									<input class="form-check-input type_mixed" type="checkbox" -->
+<!-- 										id="g_type_mixed"> <label class="form-check-label" -->
+<!-- 										for="g_type_mixed"> <i class="fa-solid fa-utensils"></i><i -->
+<!-- 										class="fa-solid fa-mug-saucer"></i>複合式 -->
+<!-- 									</label> -->
+<!-- 								</div> -->
+<!-- 							</li> -->
+<!-- 						</ul> -->
+<!-- 					</div> -->
 					<!-- 2.2.1.1.1 Left content end -->
 
 					<!-- 2.2.1.1.2 Right content start-->
@@ -130,24 +130,24 @@
 						<div class="d-flex align-items-center justify-content-between">
 
 							<!-- Count of results start -->
-							<div class="num_of_results">
-								<span class="d-inline-block">1382筆結果</span>
-							</div>
+<!-- 							<div class="num_of_results"> -->
+<!-- 								<span class="d-inline-block">1382筆結果</span> -->
+<!-- 							</div> -->
 							<!-- Count of results end -->
 
 							<!-- Sort start -->
-							<div class="order_by">
-								<span class="d-inline-block">排序依：</span>
-								<div class="d-inline-block">
-									<select name="group_order_order_by" class="form-select">
-										<option value="distance">距離</option>
-										<option value="rating">評分</option>
-										<option value="threshold">成團條件金額</option>
-										<option value="progress">成團條件達成進度</option>
-										<option value="deadline">付款截止時間</option>
-									</select>
-								</div>
-							</div>
+<!-- 							<div class="order_by"> -->
+<!-- 								<span class="d-inline-block">排序依：</span> -->
+<!-- 								<div class="d-inline-block"> -->
+<!-- 									<select name="group_order_order_by" class="form-select"> -->
+<!-- 										<option value="distance">距離</option> -->
+<!-- 										<option value="rating">評分</option> -->
+<!-- 										<option value="threshold">成團條件金額</option> -->
+<!-- 										<option value="progress">成團條件達成進度</option> -->
+<!-- 										<option value="deadline">付款截止時間</option> -->
+<!-- 									</select> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
 							<!-- Sort end -->
 
 						</div>
@@ -203,19 +203,19 @@
 				<!-- 2.2.1.1 Search result area end -->
 
 				<!-- 2.2.1.2 Pagination Start  -->
-				<div class="mt-3 d-flex justify-content-center">
-					<nav aria-label="Page navigation example">
-						<ul class="pagination justify-content-start">
-							<li class="page-item disabled"><a class="page-link"
-								href="#"><i class="fa-solid fa-angle-left"></i></a></li>
-							<li class="page-item active"><a class="page-link" href="#">01</a></li>
-							<li class="page-item"><a class="page-link" href="#">02</a></li>
-							<li class="page-item"><a class="page-link" href="#">03</a></li>
-							<li class="page-item"><a class="page-link" href="#"><i
-									class="fa-solid fa-angle-right"></i></a></li>
-						</ul>
-					</nav>
-				</div>
+<!-- 				<div class="mt-3 d-flex justify-content-center"> -->
+<!-- 					<nav aria-label="Page navigation example"> -->
+<!-- 						<ul class="pagination justify-content-start"> -->
+<!-- 							<li class="page-item disabled"><a class="page-link" -->
+<!-- 								href="#"><i class="fa-solid fa-angle-left"></i></a></li> -->
+<!-- 							<li class="page-item active"><a class="page-link" href="#">01</a></li> -->
+<!-- 							<li class="page-item"><a class="page-link" href="#">02</a></li> -->
+<!-- 							<li class="page-item"><a class="page-link" href="#">03</a></li> -->
+<!-- 							<li class="page-item"><a class="page-link" href="#"><i -->
+<!-- 									class="fa-solid fa-angle-right"></i></a></li> -->
+<!-- 						</ul> -->
+<!-- 					</nav> -->
+<!-- 				</div> -->
 				<!-- 2.2.1.2 Pagination End  -->
 			<!-- 2.2.1 Group order end -->
 

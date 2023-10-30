@@ -38,9 +38,7 @@ public class WebempadminVO implements java.io.Serializable{
 //		this.empID = empID;
 //	}
 	
-	
-	
-	
+
 	
 	public String getEmpName() {
 		return empName;

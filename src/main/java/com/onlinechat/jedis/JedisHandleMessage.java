@@ -20,15 +20,15 @@ public class JedisHandleMessage {
 			return historyData;
 		}
 
-		public static void saveChatMessage(String sender, String receiver, String message) {
+		public static void saveChatMessage(String sender, String receiver, String message, String timestamp) {
 			// 對雙方來說，都要各存著歷史聊天記錄
 			String senderKey = new StringBuilder(sender).append(":").append(receiver).toString();
 			String receiverKey = new StringBuilder(receiver).append(":").append(sender).toString();
 
 			Jedis jedis = pool.getResource();
 			jedis.select(7);  //設定redis的儲存database 
-			jedis.rpush(senderKey, message);  //A
-			jedis.rpush(receiverKey, message);  //B
+			jedis.rpush(senderKey, message, timestamp);  //A
+			jedis.rpush(receiverKey, message, timestamp);  //B
 			jedis.close();
 		}
 

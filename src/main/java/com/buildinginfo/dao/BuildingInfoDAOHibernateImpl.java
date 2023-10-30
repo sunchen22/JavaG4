@@ -14,16 +14,20 @@ import util.HibernateUtil;
 
 public class BuildingInfoDAOHibernateImpl implements BuildingInfoDAO {
 	@Override
-	public int add(BuildingInfo bif) {
+	public int add(String name , String address) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 
 //			session.beginTransaction();
-			Integer id = (Integer) session.save(bif);
+			BuildingInfo b = new BuildingInfo();
+			b.setBuildingName(name);
+			b.setBuildingAddress("台北市" + address);
+			b.setbuildingStatus(1);
+			session.save(b);
 //			session.getTransaction().commit();
-			System.out.println(id);
+			
 
-			return id;
+			return 0;
 		} catch (Exception e) {
 			e.printStackTrace();
 //			session.getTransaction().rollback();
@@ -46,7 +50,7 @@ public class BuildingInfoDAOHibernateImpl implements BuildingInfoDAO {
 		}
 		return -1;
 	}
-
+	@Override
 	public int down(Integer buildingID) {//更新狀態(刪除但只是更新狀態)
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
@@ -64,7 +68,7 @@ public class BuildingInfoDAOHibernateImpl implements BuildingInfoDAO {
 		return -1;
 
 	}
-
+	@Override
 	public BuildingInfo findByPK(Integer buildingID) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
@@ -101,7 +105,7 @@ public class BuildingInfoDAOHibernateImpl implements BuildingInfoDAO {
 	
 	
 	
-
+	@Override
 	public List<BuildingInfo> getAll() {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {

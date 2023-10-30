@@ -63,7 +63,7 @@ public class FriendWS {
 		System.out.println("-----------------------------------------------------------------");
 		
 		
-		
+
 		
 		JsonObject jsonObject = gson.fromJson(message, JsonObject.class);
 		String newMsg = gson.toJson(jsonObject);
@@ -72,12 +72,13 @@ public class FriendWS {
 		ChatMessage chatMessage = gson.fromJson(newMsg, ChatMessage.class); // gson拿到Json資料會參考ChatMessage.class這個類別的內容去找對應資料，並回傳JAVA2物件
 		String sender = chatMessage.getSender();
 		String receiver = chatMessage.getReceiver();
-			
+		String timestamp = chatMessage.getTimestamp();
+		
 		if ("history".equals(chatMessage.getType())) {  // 獲得歷史訊息
 			List<String> historyData = JedisHandleMessage.getHistoryMsg(sender, receiver);
 			String historyMsg = gson.toJson(historyData);
-			System.out.println("historyMs" + historyMsg);
-			ChatMessage cmHistory = new ChatMessage("history", sender, receiver, historyMsg);
+			System.out.println("historyMs" + historyMsg +timestamp);
+			ChatMessage cmHistory = new ChatMessage("history", sender, receiver, historyMsg, timestamp);
 			if (userSession != null && userSession.isOpen()) {
 				userSession.getAsyncRemote().sendText(gson.toJson(cmHistory));
 				return;
@@ -89,15 +90,10 @@ public class FriendWS {
 		if (receiverSession != null && receiverSession.isOpen()) {
 			receiverSession.getAsyncRemote().sendText(message);
 			userSession.getAsyncRemote().sendText(message);
-			JedisHandleMessage.saveChatMessage(sender, receiver, message);
+			JedisHandleMessage.saveChatMessage(sender, receiver, message, timestamp);
 		}
-		System.out.println("Message received: " + message);
+		System.out.println("Message received: " + message + timestamp);
 	}
-	
-	 // 檢查客服是否在線
-//    private boolean isCSOnline() {
-//        return !csSessions.isEmpty(); // 如果 csSessions 集合不為空，表示有客服在線
-//    }
 
 	@OnError
 	public void onError(Session userSession, Throwable e) {
