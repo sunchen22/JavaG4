@@ -20,9 +20,7 @@ public class ProductDAOImplC implements ProductDAOC {
 //			session.beginTransaction();
 			Product pdt = session.get(Product.class, ProductID);
 
-			
-
-			
+		
 
 //			session.getTransaction().commit();
 			return pdt;

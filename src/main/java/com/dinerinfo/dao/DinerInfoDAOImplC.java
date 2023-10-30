@@ -121,12 +121,7 @@ public DinerInfo update(Integer dinerInfoID) {
 //	session.beginTransaction();
 	DinerInfo dif = session.get(DinerInfo.class, dinerInfoID);
 	
-//	if(dif!=null) {
-//		JSONObject j = new JSONObject();
-//		 j.put("1","111");
-//		 j.put("2", "222");
-//		dif.setDinerUpdate(j.toString());
-//	}
+
 	
 	
 //	session.getTransaction().commit();

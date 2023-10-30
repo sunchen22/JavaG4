@@ -87,5 +87,17 @@ public class ProductVary {
 		return "ProductVary [productVaryID=" + productVaryID + ", productID=" + productID + ", productVaryDes="
 				+ productVaryDes + ", productVaryPrice=" + productVaryPrice + ", varyTypeID=" + varyTypeID + "]";
 	}
+    public com.varytype.entity.VaryType getVaryTypeVO() {
+    	com.varytype.service.VaryTypeService vtSvc = new com.varytype.service.VaryTypeService();
+    	com.varytype.entity.VaryType varyType = vtSvc.getOneVaryType(varyTypeID);
+	    return varyType;
+    }
+    
+    
+    public com.product.entity.ProductVO getProductVO() {
+    	com.product.service.ProductService pSvc = new com.product.service.ProductService();
+    	com.product.entity.ProductVO product = pSvc.getOneProduct(productID);
+	    return product;
+    }
 
 }

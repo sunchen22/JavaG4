@@ -16,6 +16,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.advertisement.entity.Advertisement;
+import com.dinerinfo.entity.DinerInfo;
 
 import  static  util.Constants.PAGE_MAX_RESULT;
 
@@ -142,6 +143,42 @@ public class AdvertisementDAOImpl implements AdvertisementDAO{
 	@Override
 	public long getTotal() {
 		return getSession().createQuery("select count(*) from Advertisement", Long.class).uniqueResult();
+	}
+
+	@Override
+	public void addAdvertisement(Advertisement advertisement) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public DinerInfo getDinerInfoByDinerID(Integer dinerID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Advertisement> getSubmitted(Integer dinerID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Advertisement> getActive(Integer dinerID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Advertisement> getDeactivated(Integer dinerID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Advertisement> getAdvertisementsByDinerID(Integer dinerID) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

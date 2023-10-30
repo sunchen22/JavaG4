@@ -12,8 +12,6 @@ List<BuildingInfo> buildingList = buildingInfoDAO.getAll();
 pageContext.setAttribute("buildingList", buildingList);
 %>
 
-<link href="./css/style.css" rel="stylesheet">
-
 
 <title>樓頂揪樓咖-消費者註冊</title>
 
@@ -46,12 +44,12 @@ pageContext.setAttribute("buildingList", buildingList);
 				</div>
 				<script>
 					setTimeout(function() {
-						window.location.href = "Login.jsp";
+						window.location.href = "${pageContext.request.contextPath}/consumer/Login.jsp";
 					}, 5000);
 				</script>
 				<%}%>
 
-			<form method="post" action="user.do" enctype="multipart/form-data">
+			<form method="post" action="${pageContext.request.contextPath}/user.do" enctype="multipart/form-data">
 				<div class="row mb-3">
 					<label for="userAccount_input" class="col-form-label col-md-3">帳號Mail：</label>
 					<div class="col-md-9">
@@ -132,7 +130,7 @@ pageContext.setAttribute("buildingList", buildingList);
 				</div>
 			</form>
 			<div class="mt-3 text-center">
-				<a href="Login.jsp">我已經有帳號了</a>
+				<a href="${pageContext.request.contextPath}/consumer/Login.jsp">我已經有帳號了</a>
 			</div>
 		</div>
 	</div>
@@ -148,13 +146,7 @@ pageContext.setAttribute("buildingList", buildingList);
 
 	<%@ include file="./components/tail.jsp"%>
 	<%-- Import JS for this page below (if any) --%>
-	<script>
-		var script = document.createElement('script');
-		script.src = './vendor/bootstrap-5.3.1-dist/js/bootstrap.bundle.min.js';
-		document.head.appendChild(script);
-	</script>
-	<script src="./js/all.js"></script>
-	<script src="./vendor/jquery/jquery-3.7.1.min.js"></script>
+
 	<script>
 		function togglePwdDisplay() {
 			$(".pwd").each(function() {

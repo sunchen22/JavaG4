@@ -68,22 +68,16 @@ public class GroupOrderDAOHibernateImplC implements GroupOrderDAOC{
 //			session.getTransaction().commit();
 
 
-			
-
-
 			return gor;
 		} catch (Exception e) {
 			e.printStackTrace();
-//			getSession().getTransaction().rollback();
+//			session.getTransaction().rollback();
 		}
 
 		return null;
 	}
 	
-	
-	
-	
-	
+
 	
 	public List<Tuple> getAllOrderPrice(Integer dinerID) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -101,20 +95,95 @@ public class GroupOrderDAOHibernateImplC implements GroupOrderDAOC{
             query.setParameter("dinerID", dinerID); 
             List<Tuple> results = query.getResultList();
 
-//            for (Tuple result : results) {
-//                Date orderDate = result.get("orderDate", Date.class);
-//                BigDecimal totalSales = result.get("totalSales", BigDecimal.class);
-//
-//                System.out.println("Order Date: " + orderDate);
-//                System.out.println("Total Sales: " + totalSales);
-//            }
+
 
             return results;
         } catch (Exception e) {
             e.printStackTrace();
+//            session.getTransaction().rollback();
         }
 
         return null;
     }
+	
+	@Override
+	public List<Object[]> getOrderDetail(Integer dinerID) {
+	
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+
+//			session.beginTransaction();
+			String sql = "SELECT go.groupOrderID, p.productName, uo.productQuantity, go.orderStatus, bf.buildingName, go.groupTotalPrice, go.groupOrderSubmitTime, "
+					+"(SELECT productVaryDes FROM productvary  pv WHERE pv.productVaryID = uod.productVaryID1), "
+					+"(SELECT productVaryDes FROM productvary  pv WHERE pv.productVaryID = uod.productVaryID2), "
+					+"(SELECT productVaryDes FROM productvary  pv WHERE pv.productVaryID = uod.productVaryID3), "
+					+"(SELECT productVaryDes FROM productvary  pv WHERE pv.productVaryID = uod.productVaryID4) "
+					+"FROM grouporder go "
+					+"LEFT JOIN userorderdetail  uo ON go.groupOrderID = uo.groupOrderID "					
+					+"LEFT JOIN product p ON uo.productID = p.productID "	
+					+"LEFT JOIN userorderdetailvary  uod ON uo.userOrderItemID = uod.userOrderItemID " 
+					+" LEFT JOIN buildinginfo as bf on go.buildingID = bf.buildingID where go.dinerid = ?0 ";	
+				
+			        @SuppressWarnings("unchecked")
+					List<Object[]> list = session.createNativeQuery(sql).setParameter(0, dinerID).list();
+
+			        		
+			
+//					session.getTransaction().commit();
+
+
+			        return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+//			session.getTransaction().rollback();
+		}
+		
+	
+		
+		return null;
+	}
+	
+	
+	@Override
+	public List<Object[]> getOrderDetail2(Integer dinerID, Integer orderStatus) {
+	
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+
+//			session.beginTransaction();
+			String sql = "SELECT go.groupOrderID, p.productName, uo.productQuantity, go.orderStatus, bf.buildingName, go.groupTotalPrice, go.groupOrderCreateTime, go.groupOrderSubmitTime, "
+					+"(SELECT productVaryDes FROM productvary  pv WHERE pv.productVaryID = uod.productVaryID1), "
+					+"(SELECT productVaryDes FROM productvary  pv WHERE pv.productVaryID = uod.productVaryID2), "
+					+"(SELECT productVaryDes FROM productvary  pv WHERE pv.productVaryID = uod.productVaryID3), "
+					+"(SELECT productVaryDes FROM productvary  pv WHERE pv.productVaryID = uod.productVaryID4) "
+					+"FROM grouporder go "
+					+"LEFT JOIN userorderdetail  uo ON go.groupOrderID = uo.groupOrderID "					
+					+"LEFT JOIN product p ON uo.productID = p.productID "	
+					+"LEFT JOIN userorderdetailvary  uod ON uo.userOrderItemID = uod.userOrderItemID " 
+					+" LEFT JOIN buildinginfo as bf on go.buildingID = bf.buildingID where go.dinerid = ?0 and orderStatus= ?1 ";	
+				
+			
+		
+			
+			
+			        @SuppressWarnings("unchecked")
+					List<Object[]> list = session.createNativeQuery(sql).setParameter(0, dinerID).setParameter(1, orderStatus).list();
+
+			        		
+			
+//					session.getTransaction().commit();
+
+
+			        return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+//			session.getTransaction().rollback();
+		}
+		
+	
+		
+		return null;
+	}
+	
 	
 }

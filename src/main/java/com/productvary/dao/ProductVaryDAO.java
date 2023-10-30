@@ -33,8 +33,8 @@ public class ProductVaryDAO implements ProductVaryDAO_interface {
 		"SELECT productVaryID,productID,productVaryDes,productVaryPrice,varyTypeID FROM productvary order by productVaryID";
 	private static final String GET_ONE_STMT = 
 		"SELECT productVaryID,productID,productVaryDes,productVaryPrice,varyTypeID FROM productvary where productVaryID = ?";
-	private static final String GET_BY_TYPE = 
-			"SELECT productVaryID,productID,productVaryDes,productVaryPrice,varyTypeID FROM productvary where varyTypeID = ?";
+	private static final String GET_BY_PID = 
+		"SELECT productVaryID,productID,productVaryDes,productVaryPrice,varyTypeID FROM productvary where productID = ?";
 	private static final String DELETE = 
 		"DELETE FROM productvary where productVaryID = ?";
 	private static final String UPDATE = 
@@ -281,7 +281,7 @@ public class ProductVaryDAO implements ProductVaryDAO_interface {
 	}
 	
 	@Override
-	public List<ProductVary> getByType() {
+	public List<ProductVary> getByPID(Integer productID) {
 		List<ProductVary> list = new ArrayList<ProductVary>();
 		ProductVary productVary = null;
 
@@ -292,8 +292,9 @@ public class ProductVaryDAO implements ProductVaryDAO_interface {
 		try {
 
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_BY_TYPE);
+			pstmt = con.prepareStatement(GET_BY_PID);
 			rs = pstmt.executeQuery();
+			pstmt.setInt(1, productID);
 
 			while (rs.next()) {
 				// empVO 也稱為 Domain objects

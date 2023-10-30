@@ -39,12 +39,12 @@
           </div>
           <div class="row">
             <div class="col-8">
-              <div class="icheck-primary">
-                <input type="checkbox" id="remember">
-                <label for="remember">
-                  記住我的登入資訊
-                </label>
-              </div>
+<!--               <div class="icheck-primary"> -->
+<!--                 <input type="checkbox" id="remember"> -->
+<!--                 <label for="remember"> -->
+<!--                   記住我的登入資訊 -->
+<!--                 </label> -->
+<!--               </div> -->
             </div>
 
             <div class="col-4">
@@ -64,9 +64,9 @@
 			</c:if>
         </form>
 
-        <p class="mb-1">
-          <a href="${pageContext.request.contextPath}/consumer/ForgetPwd.jsp">忘記密碼</a>
-        </p>
+<!--         <p class="mb-1"> -->
+<%--           <a href="${pageContext.request.contextPath}/consumer/ForgetPwd.jsp">忘記密碼</a> --%>
+<!--         </p> -->
         <p class="mb-0">
           <a href="${pageContext.request.contextPath}/consumer/Registration.jsp" class="registration_link">我要註冊</a>
         </p>
