@@ -18,7 +18,7 @@ public class ProductVO {
 	private Integer productID;
 
 	private Integer dinerID;
-	
+
 	@Column(name = "productName")
 	private String productName;
 
@@ -53,12 +53,9 @@ public class ProductVO {
 		super();
 	}
 
-
-
-
 	public ProductVO(Integer productID, DinerInfo dinerid, String productName, Integer productPrice,
 			Integer productTypeID, Integer productDailyStock, Timestamp productReleaseTime, byte[] productBlob1,
-			byte[] productBlob2, byte[] productBlob3, String productRemark, String productStatus ) {
+			byte[] productBlob2, byte[] productBlob3, String productRemark, String productStatus) {
 
 		super();
 		this.productID = productID;
@@ -74,7 +71,6 @@ public class ProductVO {
 		this.productStatus = productStatus;
 	}
 
-
 	public Integer getProductID() {
 		return productID;
 	}
@@ -83,21 +79,13 @@ public class ProductVO {
 		this.productID = productID;
 	}
 
-	
-
 	public Integer getDinerID() {
 		return dinerID;
 	}
 
-
-
-
 	public void setDinerID(Integer dinerID) {
 		this.dinerID = dinerID;
 	}
-
-
-
 
 	public String getProductName() {
 		return productName;
@@ -131,17 +119,9 @@ public class ProductVO {
 		this.productDailyStock = productDailyStock;
 	}
 
-
-
-
-
-
 	public Timestamp getProductReleaseTime() {
 		return productReleaseTime;
 	}
-
-
-
 
 	public void setProductReleaseTime(Timestamp productReleaseTime) {
 		this.productReleaseTime = productReleaseTime;
@@ -151,30 +131,21 @@ public class ProductVO {
 		return productBlob1;
 	}
 
-
 	public void setProductBlob1(byte[] productBlob1) {
 		this.productBlob1 = productBlob1;
 	}
-
 
 	public byte[] getProductBlob2() {
 		return productBlob2;
 	}
 
-
-
-
 	public void setProductBlob2(byte[] productBlob2) {
 		this.productBlob2 = productBlob2;
 	}
 
-
-
-
 	public byte[] getProductBlob3() {
 		return productBlob3;
 	}
-
 
 	public void setProductBlob3(byte[] productBlob3) {
 		this.productBlob3 = productBlob3;
@@ -196,25 +167,20 @@ public class ProductVO {
 		this.productStatus = productStatus;
 	}
 
-
-	
-
 	@Override
 	public String toString() {
-		return "Product [productID=" + productID + ", productName=" + productName
-				+ ", productPrice=" + productPrice + ", productTypeID=" + productTypeID + ", productDailyStock="
-				+ productDailyStock + ", productReleaseTime=" + productReleaseTime + ", productBlob1=" + productBlob1
-				+ ", productBlob2=" + productBlob2 + ", productBlob3=" + productBlob3 + ", productRemark="
-				+ productRemark + ", productStatus=" + productStatus + "]";
+		return "Product [productID=" + productID + ", productName=" + productName + ", productPrice=" + productPrice
+				+ ", productTypeID=" + productTypeID + ", productDailyStock=" + productDailyStock
+				+ ", productReleaseTime=" + productReleaseTime + ", productBlob1=" + productBlob1 + ", productBlob2="
+				+ productBlob2 + ", productBlob3=" + productBlob3 + ", productRemark=" + productRemark
+				+ ", productStatus=" + productStatus + "]";
 	}
-	
 
-    // for join productTypeDes from productTypeID
-    public com.producttype.entity.ProductType getProductType() {
-	    com.producttype.service.ProductTypeService PTSvc = new com.producttype.service.ProductTypeService();
-	    com.producttype.entity.ProductType productType = PTSvc.getOneProductType(productID);
-	    return productType;
-    }
-	
+	// for join productTypeDes from productTypeID
+	public com.producttype.entity.ProductType getProductType() {
+		com.producttype.service.ProductTypeService PTSvc = new com.producttype.service.ProductTypeService();
+		com.producttype.entity.ProductType productType = PTSvc.getOneProductType(productTypeID);
+		return productType;
+	}
 
 }

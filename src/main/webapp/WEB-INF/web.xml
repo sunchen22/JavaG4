@@ -42,7 +42,7 @@
 	</filter-mapping>
 
 	<!-- ================15==================== -->
-	<servlet>
+<servlet>
 		<servlet-name>VaryTypeServlet</servlet-name>
 		<servlet-class>com.varytype.controller.VaryTypeServlet</servlet-class>
 	</servlet>
@@ -51,25 +51,6 @@
 		<url-pattern>/dinerbackground/pages/Team/shelve/varytype.do</url-pattern>
 	</servlet-mapping>
 
-	<servlet>
-		<servlet-name>ProductServlet</servlet-name>
-		<servlet-class>com.product.controller.ProductServlet</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>ProductServlet</servlet-name>
-		<url-pattern>/p_list/product.do</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>ProductTypeServlet</servlet-name>
-		<servlet-class>com.product.controller.ProductType</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>ProductTypeServlet</servlet-name>
-		<url-pattern>/productType.do</url-pattern>
-	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>productPhoto</servlet-name>
@@ -78,6 +59,64 @@
 	<servlet-mapping>
 		<servlet-name>productPhoto</servlet-name>
 		<url-pattern>/dinerbackground/pages/Team/shelve/productPhoto.do</url-pattern>
+	</servlet-mapping>
+
+
+
+
+
+	<servlet>
+		<servlet-name>ProductServlet</servlet-name>
+		<servlet-class>com.product.controller.ProductServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ProductServlet</servlet-name>
+		<url-pattern>/dinerbackground/pages/Team/shelve/product.do</url-pattern>
+	</servlet-mapping>
+
+
+
+	<servlet>
+		<servlet-name>ProductTypeServlet</servlet-name>
+		<servlet-class>com.producttype.controller.ProductTypeServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ProductTypeServlet</servlet-name>
+		<url-pattern>/dinerbackground/pages/Team/shelve/productType.do</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>ProductVaryServlet</servlet-name>
+		<servlet-class>com.productvary.controller.ProductVaryServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ProductVaryServlet</servlet-name>
+		<url-pattern>/dinerbackground/pages/Team/shelve/productVary.do</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>GroupOrderServletN</servlet-name>
+		<servlet-class>com.grouporder.controller.GroupOrderServletN</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>GroupOrderServletN</servlet-name>
+		<url-pattern>/dinerbackground/pages/Team/ord_query/orderquery.do</url-pattern>
+	</servlet-mapping>
+	
+	
+		<servlet>
+		<servlet-name>GroupOrderServletC</servlet-name>
+		<servlet-class>com.grouporder.controller.GroupOrderServletN</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>GroupOrderServletC</servlet-name>
+		<url-pattern>/dinerbackground/pages/Team/ord_query/orderquery2.do</url-pattern>
 	</servlet-mapping>
 	
 	<!-- ================10==================== -->
