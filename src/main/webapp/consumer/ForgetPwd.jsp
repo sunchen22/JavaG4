@@ -1,7 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="components/head.jsp"%>
 <%-- Import CSS for this page below (if any) --%>
-<link href="./css/style.css" rel="stylesheet">
 
 <title>樓頂揪樓咖-忘記密碼</title>
 <%-- Remember to edit the page title --%>
@@ -46,7 +45,7 @@
 						<div class="input-group-append"></div>
 					</div>
 					<div class="text-center">
-						<button type="button" onclick="location.href='ResetPwd.html';"
+						<button type="button" onclick="location.href='${pageContext.request.contextPath}/consumer/ResetPwd.jsp';"
 							class="btn btn-primary btn-block">送出驗證碼</button>
 					</div>
 				</form>

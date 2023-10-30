@@ -4,6 +4,8 @@ import java.sql.Time;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.Session;
+
 import com.businesshours.entity.BusinessHours;
 import com.dinerinfo.entity.DinerInfo;
 
@@ -11,16 +13,21 @@ public interface BusinessHoursDAO {
 	// 此介面定義對資料庫的相關存取抽象方法
 	int add(BusinessHours dinerOpenHours);
 	int update(BusinessHours dinerOpenHours);
+//	BusinessHours update(BusinessHours dinerOpenHours);
 	int delete(Integer dinerOpenHoursID);
 	int deleteByDinerID(Integer dinerID);
 	BusinessHours findByPK(Integer dinerOpenHoursID);
 	
 	DinerInfo findByPKJoinDinerInfo(Integer dinerOpenHoursID);
 	
-
+	BusinessHours findByDayAndDinerId(Session session,String dayOfWeek, Integer dinerID);
+	
+	DinerInfo getDinerInfoByDinerID(Integer dinerID);
 	
 	int isValidBusinessHours(Time openTime , Time closeTime);
     
+	BusinessHours setOpenStatus(Integer dinerID, String dayOfWeek, String openStatus);
+	
 	//判定是否已有該營業日
 	String isExistDayOfWeek(Integer dinerID , String dayOfWeek);
 	

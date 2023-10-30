@@ -148,7 +148,7 @@
 			<!-- 以下預計放置搜尋出的畫面 -->
 			<div class="card">
 				<div class="card-body">
-				<p>這頁是複合查詢的results!!!!</p>
+				<p>查詢結果：</p>
 <!-- 						<ul class="pagination justify-content-left "> -->
 <%-- 							<c:if test="${empPageQty > 0}"> --%>
 <%-- 						  		<b><font >第${currentPage}/${empPageQty}頁</font></b> --%>
