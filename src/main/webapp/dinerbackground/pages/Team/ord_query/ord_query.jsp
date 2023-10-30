@@ -4,32 +4,50 @@
 <%@ page import="com.grouporder.service.*"%>
 <%@ page import="com.grouporder.entity.*"%>
 <%@ page import="com.grouporder.dao.*"%>
+<%@ page import="com.dinerinfo.service.*"%>
+<%@ page import="com.dinerinfo.entity.*"%>
+<% 
 
-<%
-    GroupOrderServiceN GOSvc = new GroupOrderServiceN();
-    List<GroupOrderVO> GOlist = GOSvc.getAll(3);
-    pageContext.setAttribute("GOlist",GOlist);
+	DinerInfo account3 = (DinerInfo) session.getAttribute("account");
+    GroupOrderDAOHibernateImplC godhi3 = new GroupOrderDAOHibernateImplC();
+	List<Object[]> list3 = godhi3.getOrderDetail2(account3.getDinerID(),3);                          	
+    pageContext.setAttribute("list3", list3);	
+    
 %>
-<%
-    GroupOrderServiceN GOSvc4 = new GroupOrderServiceN();
-    List<GroupOrderVO> GOlist4 = GOSvc4.getAll(4);
-    pageContext.setAttribute("GOlist4",GOlist4);
+<% 
+
+	DinerInfo account5 = (DinerInfo) session.getAttribute("account");
+    GroupOrderDAOHibernateImplC godhi5 = new GroupOrderDAOHibernateImplC();
+	List<Object[]> list5 = godhi5.getOrderDetail2(account5.getDinerID(),5);                          	
+    pageContext.setAttribute("list5", list5);	
+    
 %>
-<%
-    GroupOrderServiceN GOSvc5 = new GroupOrderServiceN();
-    List<GroupOrderVO> GOlist5 = GOSvc5.getAll(5);
-    pageContext.setAttribute("GOlist5",GOlist5);
+<% 
+
+	DinerInfo account6 = (DinerInfo) session.getAttribute("account");
+    GroupOrderDAOHibernateImplC godhi6 = new GroupOrderDAOHibernateImplC();
+	List<Object[]> list6 = godhi6.getOrderDetail2(account6.getDinerID(),6);                          	
+    pageContext.setAttribute("list6", list6);	
+    
 %>
-<%
-    GroupOrderServiceN GOSvc6 = new GroupOrderServiceN();
-    List<GroupOrderVO> GOlist6 = GOSvc6.getAll(6);
-    pageContext.setAttribute("GOlist6",GOlist6);
+<% 
+
+	DinerInfo account7 = (DinerInfo) session.getAttribute("account");
+    GroupOrderDAOHibernateImplC godhi7 = new GroupOrderDAOHibernateImplC();
+	List<Object[]> list7 = godhi7.getOrderDetail2(account7.getDinerID(),7);                          	
+    pageContext.setAttribute("list7", list7);	
+    
 %>
-<%
-    GroupOrderServiceN GOSvc7 = new GroupOrderServiceN();
-    List<GroupOrderVO> GOlist7 = GOSvc7.getAll(7);
-    pageContext.setAttribute("GOlist7",GOlist7);
+<% 
+
+	DinerInfo account4 = (DinerInfo) session.getAttribute("account");
+    GroupOrderDAOHibernateImplC godhi4 = new GroupOrderDAOHibernateImplC();
+	List<Object[]> list4 = godhi4.getOrderDetail2(account4.getDinerID(),4);                          	
+    pageContext.setAttribute("list4", list4);	
+    
 %>
+
+
 <!DOCTYPE html>
 <html lang="zh-Hant">
 
@@ -56,253 +74,10 @@
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
   <div class="wrapper">
 
+<%@ include file="/dinerbackground/pages/Team/dinerNav.file"%>
 
 
-    <!-- 基本版面 上方懸浮欄 -->
-    <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand navbar-dark">
-      <!-- 上方懸浮欄 左方按鈕 -->
-      <!-- Left navbar links -->
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a href="dashboard-index" class="nav-link">首頁</a>
-        </li>
-
-      </ul>
-
-      <!-- 彈出右側下拉欄 -->
-      <!-- Right navbar links -->
-      <ul class="navbar-nav ml-auto">
-
-
-
-        <!-- 全螢幕控制鈕 -->
-        <li class="nav-item">
-          <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-            <i class="fas fa-expand-arrows-alt"></i>
-          </a>
-        </li>
-
-      </ul>
-    </nav>
-    <!-- /.navbar -->
-
-    <!-- 主要功能側邊欄(左側) -->
-    <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
-
-      <!-- 品牌logo -->
-      <!-- Brand Logo -->
-      <a href="index3.html" class="brand-link">
-        <img src="../../../dist/img/joLOGO.png" alt="joLOGO" class="brand-image img-circle elevation-3"
-          style="opacity: .8">
-        <span class="brand-text font-weight-light">樓頂揪樓咖</span>
-      </a>
-
-      <!-- Sidebar -->
-      <div class="sidebar">
-        <!-- 商家頭像 -->
-        <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-          <div class="image">
-            <img src="../../../dist/img/sara lance.png" class="img-circle elevation-2" alt="User Image">
-          </div>
-          <div class="info">
-            <a href="#" class="d-block">Sara Lance</a>
-          </div>
-        </div>
-
-        <!-- SidebarSearch Form -->
-
-        <!-- 功能項目列 -->
-        <!-- Sidebar Menu -->
-        <nav class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-cogs"></i>
-                <p>
-                  商家資料管理
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <!-- 商家資料管理 子選項 -->
-              <ul class="nav nav-treeview">
-
-                <!-- 公司資料變更 -->
-                <li class="nav-item">
-                  <a href="../dashboard/info-change.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>公司資料變更</p>
-                  </a>
-                </li>
-
-                <!-- 店面設定 -->
-                <li class="nav-item">
-                  <a href="../dashboard/business-set.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>店面設定</p>
-                  </a>
-                </li>
-
-              </ul>
-
-            </li>
-
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-file-upload"></i>
-                <p>
-                  商品上架
-                  <i class="right fas fa-angle-left"></i>
-                  <!-- <span class="badge badge-info right"></span> 這裡可以用來設定右邊顯示的訊息提醒小數字 -->
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="pages/layout/top-nav.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>商品群組設定</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>單獨上架</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="pages/layout/boxed.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>批次上架</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-hammer"></i>
-                <p>
-                  商品管理
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="pages/charts/chartjs.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>商品列表</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="pages/charts/flot.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>單獨商品頁面</p>
-                  </a>
-                </li>
-
-              </ul>
-            </li>
-            <li class="nav-item menu-open">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-newspaper"></i>
-                <p>
-                  訂單管理
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="pages/UI/general.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>揪團成功訂單</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="pages/UI/icons.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>已完成訂單</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="pages/UI/buttons.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>已取消訂單</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="pages/UI/sliders.html" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>訂單查詢</p>
-                  </a>
-                </li>
-              </ul>
-
-            </li>
-            <li class="nav-item ">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-handshake"></i>
-                <p>
-                  幫助中心
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="../help/Guide-to-Adding-Products-list.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>上架教學</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="../help/monthly-report.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>每月報表</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="../help/sales-data.html" class="nav-link ">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>銷售數據</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="../help/request-Ad-placement.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>申請廣告上架</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="../help/comment-reply.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>評論區回覆</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a href="../frontpage/frontpage-index.html" class="nav-link">
-
-                <i class="nav-icon fas fa-sign-out-alt"></i>
-                <p>
-                  登出
-
-                </p>
-              </a>
-
-            </li>
-
-        </nav>
-        <!-- /.sidebar-menu -->
-      </div>
-
-      <!-- /.sidebar -->
-    </aside>
+   
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -416,16 +191,15 @@
                              <tr>
                              <th>訂單編號</th>                             
                              <th>訂單狀態</th>                             
-                             <th>成立時間</th>
                              <th>訂單地址</th>
                              <th>金額</th>
-                             <th>完成時間</th>
+                             <th>成立時間</th>
                              </tr>
                              </thead>
                              
              
 <%
-GroupOrderVO grouporder = (GroupOrderVO) request.getAttribute("grouporder"); //EmpServlet.java(Concroller), 存入req的empVO物件
+GroupOrderVO grouporder = (GroupOrderVO) request.getAttribute("grouporder"); 
 %>                   	         
 
                            
@@ -436,33 +210,27 @@ GroupOrderVO grouporder = (GroupOrderVO) request.getAttribute("grouporder"); //E
                       
                                 <tr data-widget="expandable-table" aria-expanded="false">
                                   <td>${grouporder.groupOrderID}</td>
-                                  <td>${grouporder.orderStatus}</td>
-                                  <td>${grouporder.groupOrderCreateTime}</td>
+                                  <td>
+                                    ${grouporder.orderStatus eq '1' ? '揪團已建立' : 
+									  grouporder.orderStatus eq '2' ? '成團條件達成':
+									  grouporder.orderStatus eq '3' ? '待商家確認':
+									  grouporder.orderStatus eq '4' ? '揪團失敗':
+									  grouporder.orderStatus eq '5' ? '餐點準備中':
+									  grouporder.orderStatus eq '6' ? '商家拒單':
+									  grouporder.orderStatus eq '7' ? '餐點送達' : ''}                                  
+                                  </td>
+                                  
                                   <td>${grouporder.buildingID}</td>
                                   <td>${grouporder.groupTotalPrice}</td>
                                   <td>${grouporder.groupOrderSubmitTime}</td>
+                                  
                                   </tr>
                                   <tr class="expandable-body">
                                   <td colspan="6">
-                                  <p>
-                                    訂單內容<br>
-                                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                                   <br>訂單內容      
-                                  </p>
-
-                                	
-                             
+                              
+                 
                  			   </tbody>
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-                           
-               
-                           
+                          
                          </div>          
                        </div>                      
                      </div>
@@ -481,7 +249,7 @@ GroupOrderVO grouporder = (GroupOrderVO) request.getAttribute("grouporder"); //E
                   <div class="card-body table-responsive p-0" style="height: auto;">
                     <table class="table table-head-fixed text-nowrap">
                           <!-- 表格標題 -->
-<div class="col-12">
+							<div class="col-12">
                               <div class="card">
                               <div class="card-header" >
                               <h3 class="card-title" >待確認訂單</h3>
@@ -493,35 +261,43 @@ GroupOrderVO grouporder = (GroupOrderVO) request.getAttribute("grouporder"); //E
                               <tr>
                               <th>訂單編號</th>
                               <th>訂單狀態</th>
-                              <th>成立時間</th>
                               <th>訂單地址</th>
                               <th>金額</th>
-                              <th>完成時間</th>
+                              <th>成立時間</th>
                               </tr>
                               </thead>
                               <tbody>
 
-                              
-                          <c:forEach var="groupOrder" items="${GOlist}"> 
+                          <c:forEach var="row" items="${list3}"> 
                                 <tr data-widget="expandable-table" aria-expanded="false">
-                                  <td>${groupOrder.groupOrderID}</td>
-                                  <td>${groupOrder.orderStatus}</td>
-                                  <td>${groupOrder.groupOrderCreateTime}</td>
-                                  <td>${groupOrder.buildingID}</td>
-                                  <td>${groupOrder.groupTotalPrice}</td>
-                                  <td>${groupOrder.groupOrderSubmitTime}</td>
+                                  <td>${row[0]}</td>
+                                  <td>
+                                    ${row[3] eq '1' ? '揪團已建立' : 
+									  row[3] eq '2' ? '成團條件達成':
+									  row[3] eq '3' ? '待商家確認':
+									  row[3] eq '4' ? '揪團失敗':
+									  row[3] eq '5' ? '餐點準備中':
+									  row[3] eq '6' ? '商家拒單':
+									  row[3] eq '7' ? '餐點送達' : ''}                                  
+                                  </td>
+                                  <td>${row[4]}</td>
+                                  <td>${row[5]}</td>
+                                  <td>${row[7]}</td>
                                   </tr>
                                   <tr class="expandable-body">
                                   <td colspan="6">
                                   <p>
                                     訂單內容<br>
-                                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                                   <br>訂單內容      
+									
+									
+									商品名稱:${row[1]}   ${row[8]} ${row[9]} ${row[10]} ${row[11]}數量:${row[2]} 
+        
+                                   <br>    
                                   </p>
                   				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/dinerbackground/pages/Team/ord_query/orderquery.do"
 									style="margin-bottom: 0px;">
 									<input type="submit"  value="確認訂單"> 
-									<input type="hidden"name="groupOrderID" value="${groupOrder.groupOrderID}">
+									<input type="hidden"name="groupOrderID" value="${row[0]}">
 									<input type="hidden"name="orderStatus" value="5">
 									<input type="hidden" name="action" value="status">
 								</FORM>
@@ -529,7 +305,7 @@ GroupOrderVO grouporder = (GroupOrderVO) request.getAttribute("grouporder"); //E
 				 				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/dinerbackground/pages/Team/ord_query/orderquery.do"
 									style="margin-bottom: 0px;">
 									<input type="submit"  value="拒絕訂單"> 
-									<input type="hidden"name="groupOrderID" value="${groupOrder.groupOrderID}">
+									<input type="hidden"name="groupOrderID" value="${row[0]}">
 									<input type="hidden"name="orderStatus" value="6">
 									<input type="hidden" name="action" value="status">
 								</FORM>    
@@ -555,7 +331,7 @@ GroupOrderVO grouporder = (GroupOrderVO) request.getAttribute("grouporder"); //E
                       <div class="card-body table-responsive p-0" style="height: auto;">
                         <table class="table table-head-fixed text-nowrap">
                           <!-- 表格標題 -->
- <div class="col-12">
+ 							<div class="col-12">
                             <div class="card">
                             <div class="card-header" >
                             <h3 class="card-title" >準備中訂單</h3>
@@ -567,33 +343,38 @@ GroupOrderVO grouporder = (GroupOrderVO) request.getAttribute("grouporder"); //E
                             <tr>
                             <th>訂單編號</th>
                             <th>訂單狀態</th>
-                            <th>成立時間</th>
                             <th>訂單地址</th>
                             <th>金額</th>
-                            <th>完成時間</th>
+                            <th>成立時間</th>
                             </tr>
                             </thead>
                             <tbody>
-                             <c:forEach var="groupOrder" items="${GOlist5}"> 
+                          <c:forEach var="row" items="${list5}"> 
                               <tr data-widget="expandable-table" aria-expanded="false">
-                                  <td>${groupOrder.groupOrderID}</td>
-                                  <td>${groupOrder.orderStatus}</td>
-                                  <td>${groupOrder.groupOrderCreateTime}</td>
-                                  <td>${groupOrder.buildingID}</td>
-                                  <td>${groupOrder.groupTotalPrice}</td>
-                                  <td>${groupOrder.groupOrderSubmitTime}</td>
+                                  <td>${row[0]}</td>
+                                  <td>
+                                    ${row[3] eq '1' ? '揪團已建立' : 
+									  row[3] eq '2' ? '成團條件達成':
+									  row[3] eq '3' ? '待商家確認':
+									  row[3] eq '4' ? '揪團失敗':
+									  row[3] eq '5' ? '餐點準備中':
+									  row[3] eq '6' ? '商家拒單':
+									  row[3] eq '7' ? '餐點送達' : ''}                                  
+                                  </td>
+                                  <td>${row[4]}</td>
+                                  <td>${row[5]}</td>
+                                  <td>${row[7]}</td>
                                 </tr>
                                 <tr class="expandable-body">
                                 <td colspan="6">
                                 <p>
                                   訂單內容<br>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                                 <br>訂單內容      
+										商品名稱:${row[1]}   ${row[8]} ${row[9]} ${row[10]} ${row[11]} 數量:${row[2]}                                 <br>訂單內容      
                                 </p>
                                 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/dinerbackground/pages/Team/ord_query/orderquery.do"
 									style="margin-bottom: 0px;">
 									<input type="submit"  value="訂單已送達"> 
-									<input type="hidden"name="groupOrderID" value="${groupOrder.groupOrderID}">
+									<input type="hidden"name="groupOrderID" value="${row[0]}">
 									<input type="hidden"name="orderStatus" value="7">
 									<input type="hidden" name="action" value="status">
 								</FORM>
@@ -617,7 +398,7 @@ GroupOrderVO grouporder = (GroupOrderVO) request.getAttribute("grouporder"); //E
                       <div class="card-body table-responsive p-0" style="height: auto;">
                         <table class="table table-head-fixed text-nowrap">
                           <!-- 表格標題 -->
- <div class="col-12">
+ 							<div class="col-12">
                             <div class="card">
                             <div class="card-header">
                             <h3 class="card-title" >已完成訂單</h3>
@@ -628,28 +409,34 @@ GroupOrderVO grouporder = (GroupOrderVO) request.getAttribute("grouporder"); //E
                             <tr>
                             <th>訂單編號</th>
                             <th>訂單狀態</th>
-                            <th>成立時間</th>
                             <th>訂單地址</th>
                             <th>金額</th>
-                            <th>完成時間</th>
+                            <th>成立時間</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach var="groupOrder" items="${GOlist7}"> 
+                          <c:forEach var="row" items="${list7}"> 
                              <tr data-widget="expandable-table" aria-expanded="false">
-                                  <td>${groupOrder.groupOrderID}</td>
-                                  <td>${groupOrder.orderStatus}</td>
-                                  <td>${groupOrder.groupOrderCreateTime}</td>
-                                  <td>${groupOrder.buildingID}</td>
-                                  <td>${groupOrder.groupTotalPrice}</td>
-                                  <td>${groupOrder.groupOrderSubmitTime}</td>
+                                  <td>${row[0]}</td>
+                                  <td>
+                                    ${row[3] eq '1' ? '揪團已建立' : 
+									  row[3] eq '2' ? '成團條件達成':
+									  row[3] eq '3' ? '待商家確認':
+									  row[3] eq '4' ? '揪團失敗':
+									  row[3] eq '5' ? '餐點準備中':
+									  row[3] eq '6' ? '商家拒單':
+									  row[3] eq '7' ? '餐點送達' : ''}                                  
+                                  </td>                                 
+                                  <td>${row[4]}</td>
+                                  <td>${row[5]}</td>
+                                  <td>${row[7]}</td>
                                </tr>
                                <tr class="expandable-body">
                                <td colspan="6">
                                <p>
                                  訂單內容<br>
-                               Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                             <br> 訂單內容
+                                 商品名稱:${row[1]}   ${row[8]} ${row[9]} ${row[10]} ${row[11]}數量:${row[2]} 
+                             <br> 
                              </p>                
                                </td>
                                </tr>
@@ -673,7 +460,7 @@ GroupOrderVO grouporder = (GroupOrderVO) request.getAttribute("grouporder"); //E
                       <div class="card-body table-responsive p-0" style="height: auto;">
                         <table class="table table-head-fixed text-nowrap">
                           <!-- 表格標題 -->
-  <div class="col-12">
+  							<div class="col-12">
                             <div class="card">
                             <div class="card-header">
                             <h3 class="card-title" >已取消訂單</h3>
@@ -685,56 +472,66 @@ GroupOrderVO grouporder = (GroupOrderVO) request.getAttribute("grouporder"); //E
                             <tr>
                             <th>訂單編號</th>
                             <th>訂單狀態</th>
-                            <th>成立時間</th>
                             <th>訂單地址</th>
                             <th>金額</th>
-                            <th>完成時間</th>
+                            <th>成立時間</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach var="groupOrder" items="${GOlist4}"> 
+                          <c:forEach var="row" items="${list6}"> 
                              <tr data-widget="expandable-table" aria-expanded="false">
-                                  <td>${groupOrder.groupOrderID}</td>
-                                  <td>${groupOrder.orderStatus}</td>
-                                  <td>${groupOrder.groupOrderCreateTime}</td>
-                                  <td>${groupOrder.buildingID}</td>
-                                  <td>${groupOrder.groupTotalPrice}</td>
-                                  <td>${groupOrder.groupOrderSubmitTime}</td>
-                               </th>
+                                  <td>${row[0]}</td>
+                                  <td>
+                                    ${row[3] eq '1' ? '揪團已建立' : 
+									  row[3] eq '2' ? '成團條件達成':
+									  row[3] eq '3' ? '待商家確認':
+									  row[3] eq '4' ? '揪團失敗':
+									  row[3] eq '5' ? '餐點準備中':
+									  row[3] eq '6' ? '商家拒單':
+									  row[3] eq '7' ? '餐點送達' : ''}                                  
+                                  </td>                                 
+                                  <td>${row[4]}</td>
+                                  <td>${row[5]}</td>
+                                  <td>${row[7]}</td>
                                </tr>
                                <tr class="expandable-body">
                                <td colspan="6">
                                <p>
                                  訂單內容<br>
-                                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                               <button type="submit" style="font-weight:bold" class="print btn-warning">列印</button>              
-                               <br>訂單內容
+                                 商品名稱:${row[1]}   ${row[8]} ${row[9]} ${row[10]} ${row[11]}數量:${row[2]} 
+                               <br>
                                </p>                  
                                </td>
                              </tr>    
-                             </c:forEach>   
+                             </c:forEach> 
+                                                       <c:forEach var="row" items="${list4}"> 
+                             <tr data-widget="expandable-table" aria-expanded="false">
+                                  <td>${row[0]}</td>
+                                  <td>
+                                    ${row[3] eq '1' ? '揪團已建立' : 
+									  row[3] eq '2' ? '成團條件達成':
+									  row[3] eq '3' ? '待商家確認':
+									  row[3] eq '4' ? '揪團失敗':
+									  row[3] eq '5' ? '餐點準備中':
+									  row[3] eq '6' ? '商家拒單':
+									  row[3] eq '7' ? '餐點送達' : ''}                                  
+                                  </td>                                 
+                                  <td>${row[4]}</td>
+                                  <td>${row[5]}</td>
+                                  <td>${row[7]}</td>
+                               </tr>
+                               <tr class="expandable-body">
+                               <td colspan="6">
+                               <p>
+                                 訂單內容<br>
+                                 商品名稱:${row[1]}   ${row[8]} ${row[9]} ${row[10]} ${row[11]}  數量:${row[2]} 
+                                 <br>
+                               </p>                  
+                               </td>
+                             </tr>    
+                             </c:forEach>     
                              
-                            <c:forEach var="groupOrder" items="${GOlist6}"> 
-                             <tr data-widget="expandable-table" aria-expanded="false">
-                                  <td>${groupOrder.groupOrderID}</td>
-                                  <td>${groupOrder.orderStatus}</td>
-                                  <td>${groupOrder.groupOrderCreateTime}</td>
-                                  <td>${groupOrder.buildingID}</td>
-                                  <td>${groupOrder.groupTotalPrice}</td>
-                                  <td>${groupOrder.groupOrderSubmitTime}</td>
-                               </th>
-                               </tr>
-                               <tr class="expandable-body">
-                               <td colspan="6">
-                               <p>
-                                 訂單內容<br>
-                                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                                         
-                               <br>訂單內容
-                               </p>                  
-                               </td>
-                             </tr>    
-                             </c:forEach>             
+        
                            </tbody>
                          </div>            
                        </div>                        

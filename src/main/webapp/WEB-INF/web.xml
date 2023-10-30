@@ -108,6 +108,17 @@
 		<url-pattern>/dinerbackground/pages/Team/ord_query/orderquery.do</url-pattern>
 	</servlet-mapping>
 	
+	
+		<servlet>
+		<servlet-name>GroupOrderServletC</servlet-name>
+		<servlet-class>com.grouporder.controller.GroupOrderServletN</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>GroupOrderServletC</servlet-name>
+		<url-pattern>/dinerbackground/pages/Team/ord_query/orderquery2.do</url-pattern>
+	</servlet-mapping>
+	
 	<!-- ================10==================== -->
 
 	<!-- ================2==================== -->
