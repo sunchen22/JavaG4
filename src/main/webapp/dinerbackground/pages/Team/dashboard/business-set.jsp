@@ -19,7 +19,9 @@ String dinerStatus = account.getDinerStatus();
 Integer dinerID = account.getDinerID();
 BusinessHoursServiceImpl bh = new BusinessHoursServiceImpl();
 List<BusinessHours> businessHours = bh.getBusinessHoursByDinerID(dinerID);
-pageContext.setAttribute("businessHours", businessHours);
+
+session.setAttribute("businessHours", businessHours);
+
 
 System.out.println("businessHours"+businessHours);
 
@@ -43,56 +45,22 @@ System.out.println("businessHours"+businessHours);
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <!-- overlayScrollbars -->
 <link rel="stylesheet"
-	href="../../../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+	href="<%=request.getContextPath()%>/dinerbackground/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
 <!-- Theme style -->
-<link rel="stylesheet" href="../../../dist/css/adminlte.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/dinerbackground/dist/css/adminlte.min.css">
 
 <!-- Select2 -->
 <link rel="stylesheet"
-	href="../../../plugins/select2/css/select2.min.css">
+	href="<%=request.getContextPath()%>/dinerbackground/plugins/select2/css/select2.min.css">
 <link rel="stylesheet"
-	href="../../../plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+	href="<%=request.getContextPath()%>/dinerbackground/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
 </head>
 
 <body
 	class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 	<div class="wrapper">
 
-		<!-- Preloader -->
-		<!-- <div class="preloader flex-column justify-content-center align-items-center">
-      <img class="animation__wobble" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-    </div> -->
-
-		<!-- 基本版面 上方懸浮欄 -->
-		<!-- Navbar -->
-		<nav class="main-header navbar navbar-expand navbar-dark">
-			<!-- 上方懸浮欄 左方按鈕 -->
-			<!-- Left navbar links -->
-			<ul class="navbar-nav">
-				<li class="nav-item"><a class="nav-link" data-widget="pushmenu"
-					href="#" role="button"><i class="fas fa-bars"></i></a></li>
-				<li class="nav-item d-none d-sm-inline-block"><a
-					href="./dashboard-index" class="nav-link">首頁</a></li>
-
-			</ul>
-
-			<!-- 彈出右側下拉欄 -->
-			<!-- Right navbar links -->
-			<ul class="navbar-nav ml-auto">
-
-
-				<!-- 全螢幕控制鈕 -->
-				<li class="nav-item"><a class="nav-link"
-					data-widget="fullscreen" href="#" role="button"> <i
-						class="fas fa-expand-arrows-alt"></i>
-				</a></li>
-
-			</ul>
-		</nav>
-		<!-- /.navbar -->
-
-		<!-- 主要功能側邊欄(左側) -->
-		<!-- Main Sidebar Container -->
+	
 		<%@ include file="/dinerbackground/pages/Team/dinerNav.file"%>
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
@@ -171,6 +139,7 @@ System.out.println("businessHours"+businessHours);
 <%-- 									value="<%=hours.getOpenStatus()%>"> --%>
 
 									<input type="hidden" name="action" value="dayOfWeekStatus[<%=dayInEnglish%>]">
+<%-- 									<input type="hidden" name="openStatus" value="<%=hours.getOpenStatus()%>"> --%>
 
 								<input type="hidden" name="openStatus"
 									id="hiddenInput<%=dayInEnglish%>"
@@ -474,34 +443,34 @@ System.out.println("businessHours"+businessHours);
 
 	<!-- REQUIRED SCRIPTS -->
 	<!-- jQuery -->
-	<script src="../../../plugins/jquery/jquery.min.js"></script>
+	<script src="<%=request.getContextPath()%>/dinerbackground/plugins/jquery/jquery.min.js"></script>
 	<!-- Bootstrap -->
-	<script src="../../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="<%=request.getContextPath()%>/dinerbackground/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<!-- overlayScrollbars -->
 	<script
-		src="../../../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+		src="<%=request.getContextPath()%>/dinerbackground/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 	<!-- AdminLTE App -->
-	<script src="../../../dist/js/adminlte.js"></script>
+	<script src="<%=request.getContextPath()%>/dinerbackground/dist/js/adminlte.js"></script>
 
 	<!-- PAGE PLUGINS -->
 	<!-- jQuery Mapael -->
-	<script src="../../../plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
-	<script src="../../../plugins/raphael/raphael.min.js"></script>
-	<script src="../../../plugins/jquery-mapael/jquery.mapael.min.js"></script>
-	<script src="../../../plugins/jquery-mapael/maps/usa_states.min.js"></script>
+	<script src="<%=request.getContextPath()%>/dinerbackground/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
+	<script src="<%=request.getContextPath()%>/dinerbackground/plugins/raphael/raphael.min.js"></script>
+	<script src="<%=request.getContextPath()%>/dinerbackground/plugins/jquery-mapael/jquery.mapael.min.js"></script>
+	<script src="<%=request.getContextPath()%>/dinerbackground/plugins/jquery-mapael/maps/usa_states.min.js"></script>
 	<!-- ChartJS -->
-	<script src="../../../plugins/chart.js/Chart.min.js"></script>
+	<script src="<%=request.getContextPath()%>/dinerbackground/plugins/chart.js/Chart.min.js"></script>
 
 	<!-- AdminLTE for demo purposes -->
-	<script src="../../../dist/js/demo.js"></script>
+	<script src="<%=request.getContextPath()%>/dinerbackground/dist/js/demo.js"></script>
 
 
 	<!-- Bootstrap Switch -->
 	<script
-		src="../../../plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+		src="<%=request.getContextPath()%>/dinerbackground/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 
 	<!-- Select2 -->
-	<script src="../../../plugins/select2/js/select2.full.min.js"></script>
+	<script src="<%=request.getContextPath()%>/dinerbackground/plugins/select2/js/select2.full.min.js"></script>
 
 	<script>
 		//控制開關店按鈕

@@ -30,9 +30,9 @@ public class ProductDAO implements ProductDAO_interface {
 	private static final String INSERT_STMT = "INSERT INTO product (dinerID,productName,productPrice,productTypeID,productDailyStock,productRemark,productBlob1,productBlob2,productBlob3) VALUES (?, ?, ?, ?, ?, ?,?,?,?)";
 	private static final String GET_ALL_STMT = "SELECT productID,dinerID,productName,productPrice,productTypeID,productDailyStock,productReleaseTime,productRemark,productStatus,productBlob1,productBlob2,productBlob3 FROM product ";
 	private static final String GET_ONE_STMT = "SELECT productID,dinerID,productName,productPrice,productTypeID,productDailyStock,productReleaseTime,productRemark,productStatus,productBlob1,productBlob2,productBlob3 FROM product where productID = ?";
-	private static final String GET_ByType_STMT = "SELECT productID,dinerID,productName,productPrice,productTypeID,productDailyStock,productReleaseTime,productRemark,productStatus,productBlob1,productBlob2,productBlob3 FROM product where productTypeID = ?";
+	private static final String GET_ByDID_STMT = "SELECT productID,dinerID,productName,productPrice,productTypeID,productDailyStock,productReleaseTime,productRemark,productStatus,productBlob1,productBlob2,productBlob3 FROM product where dinerID = ?";
 	private static final String DELETE = "DELETE FROM product where productID = ?";
-	private static final String UPDATE = "UPDATE product set dinerID=?, productName=?, productPrice=?, productTypeID=?, productDailyStock=?,productRemark=?,productStatus=? productBlob1=?,productBlob2=?,productBlob3=?  where productID = ?";
+	private static final String UPDATE = "UPDATE product set dinerID=?, productName=?, productPrice=?, productTypeID=?, productDailyStock=?, productRemark=?, productBlob1=?, productBlob2=?, productBlob3=?  where productID = ?";
 	private static final String OFF_SHELVE = "UPDATE product set productStatus=?  where productID = ?";
 
 	@Override
@@ -98,11 +98,12 @@ public class ProductDAO implements ProductDAO_interface {
 			pstmt.setInt(4, product.getProductTypeID());
 			pstmt.setInt(5, product.getProductDailyStock());
 			pstmt.setString(6, product.getProductRemark());
-			pstmt.setString(7, product.getProductStatus());
-			pstmt.setBytes(8, product.getProductBlob1());
-			pstmt.setBytes(9, product.getProductBlob2());
-			pstmt.setBytes(10, product.getProductBlob3());
-			pstmt.setInt(11, product.getProductID());
+			pstmt.setBytes(7, product.getProductBlob1());
+			pstmt.setBytes(8, product.getProductBlob2());
+			pstmt.setBytes(9, product.getProductBlob3());
+			pstmt.setInt(10, product.getProductID());
+			
+
 
 			pstmt.executeUpdate();
 
@@ -368,7 +369,7 @@ public class ProductDAO implements ProductDAO_interface {
 	}
 
 	@Override
-	public List<ProductVO> getByType() {
+	public List<ProductVO> getByDID(Integer dinerID) {
 		List<ProductVO> list = new ArrayList<ProductVO>();
 		ProductVO product = null;
 
@@ -376,10 +377,13 @@ public class ProductDAO implements ProductDAO_interface {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
+		
 		try {
 
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_ByType_STMT);
+			pstmt = con.prepareStatement(GET_ByDID_STMT);
+			pstmt.setInt(1, dinerID);
+
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {

@@ -22,7 +22,7 @@ public class ProductTypeServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		req.setCharacterEncoding("UTF-8");
-	    HttpSession session = req.getSession();
+	  
 
 		String action = req.getParameter("action");
 

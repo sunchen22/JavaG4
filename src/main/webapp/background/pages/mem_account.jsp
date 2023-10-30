@@ -167,11 +167,11 @@
 				<div class="card">
 					<div class="card-body">
 					
-						<ul class="pagination justify-content-left ">
-							<c:if test="${empPageQty > 0}">
-						  		<b><font >第${currentPage}/${empPageQty}頁</font></b>
-							</c:if>
-						</ul>
+<!-- 						<ul class="pagination justify-content-left "> -->
+<%-- 							<c:if test="${empPageQty > 0}"> --%>
+<%-- 						  		<b><font >第${currentPage}/${empPageQty}頁</font></b> --%>
+<%-- 							</c:if> --%>
+<!-- 						</ul> -->
 						
 						<table class="table table-bordered">
 							<thead>
@@ -209,23 +209,23 @@
 					</div>
 
 <!-- ======= 底部頁數/頁碼 ======= -->
-<div class="card-footer bg-transparent ">
-	<ul class="pagination justify-content-center ">
-	<c:if test="${currentPage > 1}">
-		<a href="${pageContext.request.contextPath}/background/pages/user.do?action=getAll&page=1">至第一頁</a>&nbsp;
-	</c:if>
-	<c:if test="${currentPage - 1 != 0}">
-		<a href="${pageContext.request.contextPath}/background/pages/user.do?action=getAll&page=${currentPage - 1}">上一頁</a>&nbsp;
-	</c:if>
-	<c:if test="${currentPage + 1 <= empPageQty}">
-		<a href="${pageContext.request.contextPath}/background/pages/user.do?action=getAll&page=${currentPage + 1}">下一頁</a>&nbsp;
-	</c:if>
-	<c:if test="${currentPage != empPageQty}">
-		<a href="${pageContext.request.contextPath}/background/pages/user.do?action=getAll&page=${empPageQty}">至最後一頁</a>&nbsp;
-	</c:if>
+<!-- <div class="card-footer bg-transparent "> -->
+<!-- 	<ul class="pagination justify-content-center "> -->
+<%-- 	<c:if test="${currentPage > 1}"> --%>
+<%-- 		<a href="${pageContext.request.contextPath}/background/pages/user.do?action=getAll&page=1">至第一頁</a>&nbsp; --%>
+<%-- 	</c:if> --%>
+<%-- 	<c:if test="${currentPage - 1 != 0}"> --%>
+<%-- 		<a href="${pageContext.request.contextPath}/background/pages/user.do?action=getAll&page=${currentPage - 1}">上一頁</a>&nbsp; --%>
+<%-- 	</c:if> --%>
+<%-- 	<c:if test="${currentPage + 1 <= empPageQty}"> --%>
+<%-- 		<a href="${pageContext.request.contextPath}/background/pages/user.do?action=getAll&page=${currentPage + 1}">下一頁</a>&nbsp; --%>
+<%-- 	</c:if> --%>
+<%-- 	<c:if test="${currentPage != empPageQty}"> --%>
+<%-- 		<a href="${pageContext.request.contextPath}/background/pages/user.do?action=getAll&page=${empPageQty}">至最後一頁</a>&nbsp; --%>
+<%-- 	</c:if> --%>
 
-	</ul>
-</div>
+<!-- 	</ul> -->
+<!-- </div> -->
 
 				</div>
 		</div>

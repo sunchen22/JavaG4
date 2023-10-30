@@ -49,7 +49,7 @@ public class ProductService {
 		product.setProductBlob1(productBlob1);
 		product.setProductBlob2(productBlob2);
 		product.setProductBlob3(productBlob3);
-
+		
 		dao.update(product);
 
 		return dao.findByPrimaryKey(productID);
@@ -74,11 +74,13 @@ public class ProductService {
 		return dao.getAll();
 	}
 	
-	public List<ProductVO> getByType() {
-		return dao.getByType();
+	public List<ProductVO> getByDID(Integer dinerID) {
+		
+		return dao.getByDID(dinerID);
 	}
 	//下架
-	public void offShelveProduct(Integer productID,String productStatus) {
+	
+	public ProductVO offShelveProduct(Integer productID,String productStatus) {
 		ProductVO product = new ProductVO();
 
 		product.setProductID(productID);
@@ -86,6 +88,7 @@ public class ProductService {
 		product.setProductStatus(productStatus);
 
 		dao.offshelve(product);
+		return dao.findByPrimaryKey(productID);
 
 	}
 }

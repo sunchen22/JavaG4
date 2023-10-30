@@ -28,7 +28,7 @@
 					aria-labelledby="flush-headingOne"
 					data-bs-parent="#accordionFlushExample">
 					<div class="accordion-body">
-						請點選右上角的<a href="registration.html">註冊</a>，填寫資料即可成為會員
+						請點選右上角的<a href="${pageContext.request.contextPath}/consumer/Registration.jsp">註冊</a>，填寫資料即可成為會員
 					</div>
 				</div>
 			</div>

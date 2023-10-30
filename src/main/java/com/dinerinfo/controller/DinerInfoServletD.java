@@ -266,7 +266,7 @@ public class DinerInfoServletD extends HttpServlet {
 			System.out.println(dinerInfoAlg.getDinerID() + "===========這是取得的dinerID===========");
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 
-			String url = "/dinerbackground/pages/Team/dashboard/info-change.jsp"; // 登入完成後跳轉的頁面
+			String url = "/dinerbackground/pages/Team/dashboard/index.jsp"; // 登入完成後跳轉的頁面
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 info-change.jsp
 			successView.forward(req, res);
 		}
