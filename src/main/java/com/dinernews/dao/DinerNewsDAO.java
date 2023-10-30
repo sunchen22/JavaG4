@@ -6,7 +6,7 @@ import com.dinernews.entity.DinerNews;
 
 public interface DinerNewsDAO {
 	int add(DinerNews dns);
-	int update(DinerNews dns);
+	DinerNews update();
 	int down(Integer dinerNewsID);
 	List<DinerNews> getAll();
 }
