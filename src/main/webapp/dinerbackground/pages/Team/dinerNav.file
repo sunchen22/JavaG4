@@ -137,7 +137,7 @@
 						</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item"><a
-									href="${pageContext.request.contextPath}/dinerbackground/pages/Team/help/Guide-to-Adding-Products-list.jsp"
+									href="${pageContext.request.contextPath}/dinerbackground/pages/Team/help/Guide.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>商家Q&A</p>
 								</a></li>
