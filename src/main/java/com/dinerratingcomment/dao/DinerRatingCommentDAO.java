@@ -7,6 +7,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 import com.dinerratingcomment.entity.DinerRatingComment;
 
@@ -98,7 +99,7 @@ public class DinerRatingCommentDAO implements DinerRatingCommentDAO_Interface {
 		try {
 //			session.beginTransaction();
 			List<DinerRatingComment> list = session
-					.createQuery("from DinerRatingComment d where d.dinerInfo.dinerID = :dinerID",
+					.createQuery("from DinerRatingComment d where d.dinerInfo.dinerID = :dinerID AND d.dinerRatingCommentStatus = 1",
 							DinerRatingComment.class)
 					.setParameter("dinerID", dinerID).list();
 //			session.getTransaction().commit();
@@ -119,12 +120,10 @@ public class DinerRatingCommentDAO implements DinerRatingCommentDAO_Interface {
 	public Double getAverageRatingByDinerIDWithCriteria(Integer dinerID) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
-			CriteriaBuilder cb = session.getCriteriaBuilder();
-			CriteriaQuery<Double> cq = cb.createQuery(Double.class);
-			Root<DinerRatingComment> root = cq.from(DinerRatingComment.class);
-			cq.select(cb.avg(root.get("dinerRating"))).where(cb.equal(root.get("dinerInfo").get("dinerID"), dinerID));
-			Double averageRating = session.createQuery(cq).uniqueResult();
-			return averageRating;
+			String hql = "SELECT AVG(drc.dinerRating) FROM DinerRatingComment drc WHERE drc.dinerInfo.dinerID = :dinerID AND drc.dinerRatingCommentStatus = 1";
+	        Query query = session.createQuery(hql);
+	        query.setParameter("dinerID", dinerID);
+	        return (Double) query.uniqueResult();
 		} catch (Exception e) {
 			e.printStackTrace();
 //			session.getTransaction().rollback();

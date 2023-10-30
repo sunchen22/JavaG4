@@ -171,18 +171,22 @@ public class UserInfoServlet extends HttpServlet {
     		req.getSession().setAttribute("navbarJoinedGroupOrders", navbarJoinedGroupOrders);
 			
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String defaultURL = "/consumer/index.jsp";
-			String contextPath = req.getContextPath(); // 取得當前應用的 context path
+    		String contextPath = req.getContextPath(); // 取得當前應用的 context path
+    		String defaultURL = contextPath + "/consumer/index.jsp";
+			
 
 			Object locationObj = session.getAttribute("location");
 			String location = (locationObj != null) ? (String) locationObj : defaultURL;
 
-			if (location.startsWith(contextPath)) {
-			    location = location.substring(contextPath.length()); // 去除 context path
-			}
-			RequestDispatcher successView = req.getRequestDispatcher(location);
+//			if (location.startsWith(contextPath)) {
+//			    location = location.substring(contextPath.length()); // 去除 context path
+//			}
+			System.out.println(location);
 			session.removeAttribute("location");
-			successView.forward(req, res);
+			res.sendRedirect(location);
+//			RequestDispatcher successView = req.getRequestDispatcher(location);
+//			
+//			successView.forward(req, res);
 		}
 
 		// ======================================================
@@ -299,6 +303,7 @@ public class UserInfoServlet extends HttpServlet {
 		
 		if(action.equals("logout")) {
 			req.getSession().removeAttribute("loginUserInfo");
+			req.getSession().invalidate();  // Remove all session attributes
 			req.getRequestDispatcher("/consumer/index.jsp").forward(req, res);	
 		}
 	}

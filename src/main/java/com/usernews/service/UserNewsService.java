@@ -5,6 +5,7 @@ import java.util.List;
 import com.usernews.entity.UserNews;
 
 public interface UserNewsService {
+	UserNews addUserNews(UserNews usernews);
 	
 	void  updateUserNews(UserNews usernews);
 	

@@ -5,15 +5,15 @@ public class ChatMessage {
 	private String sender;
 	private String receiver;
 	private String message;
-	private  String sendertime;
+	private  String timestamp;
 
-//	public ChatMessage(String type, String sender, String receiver, String message, String Timestamp) {
-//		this.type = type;
-//		this.sender = sender;
-//		this.receiver = receiver;
-//		this.message = message;
-//		this.sendertime = sendertime;
-//	}
+	public ChatMessage(String type, String sender, String receiver, String message, String Timestamp) {
+		this.type = type;
+		this.sender = sender;
+		this.receiver = receiver;
+		this.message = message;
+		this.timestamp = timestamp;
+	}
 	
 	public ChatMessage(String type, String sender, String receiver, String message) {
 		this.type = type;
@@ -22,12 +22,12 @@ public class ChatMessage {
 		this.message = message;
 	}
 
-	public String getSendertime() {
-		return sendertime;
+	public String getTimestamp() {
+		return timestamp;
 	}
 
-	public void setSendertime(String sendertime) {
-		this.sendertime = sendertime;
+	public void setTimestamp(String timestamp) {
+		this.timestamp = timestamp;
 	}
 
 	public String getSender() {

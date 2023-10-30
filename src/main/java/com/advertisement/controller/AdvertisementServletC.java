@@ -14,6 +14,8 @@ import com.advertisement.entity.Advertisement;
 import com.dinerinfo.dao.DinerInfoDAOImplC;
 import com.dinerinfo.entity.DinerInfo;
 
+import test.MailService;
+
 
 
 @WebServlet("/cproject/pages/ads.do")
@@ -39,10 +41,7 @@ public class AdvertisementServletC extends HttpServlet{
 		Integer advertisementID = Integer.valueOf(str);
 		
 		
-//		DinerInfoDAOImplC dic = new DinerInfoDAOImplC();
-//		DinerInfo dif = dic.findByPK(dinerid);
-//		
-//		req.setAttribute("dif", dif);
+
 		
 		AdvertisementDAOHibernateImplC adc = new AdvertisementDAOHibernateImplC();
 		
@@ -50,9 +49,16 @@ public class AdvertisementServletC extends HttpServlet{
 		
 		if(ad!= null) {
 			ad.setAdvertisementStatus("Approved");
+			MailService m = new MailService();
+			m.sendMail(ad.getDinerid().getDinerEmail(), "樓頂揪樓咖通知", "您的廣告已通過審核,請靜待上架");
+			
 		}
 		
-		String url = "/cproject/pages/mer_ad.jsp";	
+		
+		
+		String url = "/cproject/pages/mer_ad.jsp";
+			
+		
 		
 		RequestDispatcher successView = req.getRequestDispatcher(url);
 		
@@ -85,7 +91,8 @@ public class AdvertisementServletC extends HttpServlet{
 				
 				ad.setAdvertisementStatus("Rejected");
 				
-				
+				MailService m = new MailService();
+				m.sendMail(ad.getDinerid().getDinerEmail(), "樓頂揪樓咖通知", "您的廣告上架區間因已有其他廣告，而未通過審核,若有需要請再次申請");
 				
 			}		
 					

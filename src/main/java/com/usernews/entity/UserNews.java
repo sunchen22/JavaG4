@@ -34,7 +34,8 @@ public class UserNews {
 	@Column(name = "userNewsReviseTime")
 	private Date userNewsReviseTime;
 	
-	@Column(name = "userNewsStatus")
+	
+	@Column(name = "userNewsStatus", columnDefinition = "int")
 	private Integer userNewsStatus;
 	
 	public UserNews() {
@@ -94,4 +95,13 @@ public class UserNews {
 	public void setUserNewsStatus(Integer userNewsStatus) {
 		this.userNewsStatus = userNewsStatus;
 	}
+
+	@Override
+	public String toString() {
+		return "UserNews [userNewsID=" + userNewsID + ", userNewsContent=" + userNewsContent + ", webempadmin="
+				+ webempadmin + ", userNewsReleaseTime=" + userNewsReleaseTime + ", userNewsReviseTime="
+				+ userNewsReviseTime + ", userNewsStatus=" + userNewsStatus + "]";
+	}
+	
+	
 }

@@ -8,4 +8,5 @@ public interface GroupOrderDAOC {
 	List<GroupOrder> getAll(Integer dinerID);
 	byte[] getImg(Integer groupOrderID);
 	GroupOrder findByPK(Integer groupOrderID);
+	List<Object[]> getOrderDetail(Integer dinerID);
 }

@@ -1,37 +1,47 @@
 package com.grouporder.service;
 
 import java.util.List;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import java.util.HashMap;
+import java.util.Arrays;
 
 import util.HibernateUtil;
 import util.JedisUtil;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 import com.grouporder.entity.GroupOrder;
 import com.product.entity.Product;
 import com.productvary.entity.ProductVary;
 import com.userinfo.entity.UserInfo;
-
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-
 import com.grouporder.dao.GroupOrderDAOHibernateImpl;
 import com.buildinginfo.entity.BuildingInfo;
 import com.dinerinfo.entity.DinerInfo;
-
+import com.userorderdetail.dao.UserOrderDetailDAOHibernateImpl;
+import com.userorderdetail.entity.*;
+import com.userorderdetailvary.entity.*;
+import com.userorderdetailvary.dao.UserOrderDetailVaryDAOHibernateImpl;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.internal.LinkedTreeMap;
+import com.google.gson.reflect.TypeToken;
 
 public class GroupOrderServiceImpl implements GroupOrderService {
 	// One DAO instance for one service instance
 	private GroupOrderDAOHibernateImpl dao;
+	private UserOrderDetailDAOHibernateImpl userOrderDetailDao;
+	private UserOrderDetailVaryDAOHibernateImpl userOrderDetailVaryDao;
+	
 	// Jedis
 	private JedisPool pool;
 
 	public GroupOrderServiceImpl() {
 		dao = new GroupOrderDAOHibernateImpl(HibernateUtil.getSessionFactory());
+		userOrderDetailDao = new UserOrderDetailDAOHibernateImpl(HibernateUtil.getSessionFactory());
+		userOrderDetailVaryDao = new UserOrderDetailVaryDAOHibernateImpl(HibernateUtil.getSessionFactory());
 		// Jedis
 		pool = JedisUtil.getJedisPool();
 	}
@@ -90,8 +100,8 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 		// dinerRating: 4.0,
 		// menuData: {1飯類: [{productID: 10, productName: 炒飯, productPrice: 65},
 		// {productID: 1, productName: 滷肉飯, productPrice: 70},
-		// 2麵類: [{productID: 8, productName: 義大利麵, productPrice: 90}],
-		// 3飲料: [{productID: 9, productName: 可樂, productPrice: 60}]
+		// 麵類: [{productID: 8, productName: 義大利麵, productPrice: 90}],
+		// 飲料: [{productID: 9, productName: 可樂, productPrice: 60}]
 		// }
 		// }
 
@@ -155,9 +165,9 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 		// productPrice: 70,
 		// productRemark: 滷肉飯說明,
 		// varyTypes: {
-		// 1加辣: [{productVaryID: 8, productVaryDes:大辣, productVaryPrice: 0}
+		// 加辣: [{productVaryID: 8, productVaryDes:大辣, productVaryPrice: 0}
 		// {productVaryID: 9, productVaryDes:小辣, productVaryPrice: 0}]
-		// 2加飯: [{productVaryID: 10, productVaryDes:加飯, productVaryPrice: 10}]
+		// 加飯: [{productVaryID: 10, productVaryDes:加飯, productVaryPrice: 10}]
 		// }
 		// }
 		Map<String, Object> productAndVaryOptionsData = new HashMap<>();
@@ -212,7 +222,6 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 		Product product = dao.findByPKProduct(productID);
 		if (product != null) {
 			int productPrice = product.getProductPrice();
-			System.out.println("PRODUCT PRICE: " + productPrice);
 			return productPrice;
 		} else {
 			return null;
@@ -228,6 +237,22 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public Integer calculateSubtotal(Integer productID, Integer quantity, List<Integer> productVaryIDList) {
+		int subtotal = getProductPrice(productID);
+		System.out.println("~~~~productVaryIDList" + productVaryIDList);
+		if (productVaryIDList != null) {
+			for (Integer productVaryID : productVaryIDList) {
+				if (productVaryID != 0) {
+					int productVaryPrice = getProductVaryPrice(productVaryID);
+					subtotal += productVaryPrice;
+				}
+			}
+		}
+
+		return subtotal * quantity;
 	}
 
 	@Override
@@ -268,7 +293,53 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 	}
 
 	@Override
+	public void addUserToGroup(Object userInfo, Integer groupOrderID) {
+		// Update the following two types of data in Redis
+		// 1. Users belonging to each group order (for single group order page)
+		// SET: groupOrder:1 | value: 3
+		//                     value: 4
+		// SET: groupOrder:2 | value: 3
+		// SET: groupOrder:5 | value: 4
+
+		// 2. Each user's group orders (for nav bar)
+		// HASH: user:3 | key: 1 | value: {"groupOrder": "1", "dinerID": "1",
+		//                                 "dinerName": "美味小館"}
+		//                key: 2 | value: {"groupOrder": "2", "dinerID": "2", "dinerName": "鮮味屋"}
+		// HASH: user:4 | key: 1 | value: {"groupOrder": "1", "dinerID": "1",
+		//                                 "dinerName": "美味小館"}
+		//                key: 5 | value: {"groupOrder": "5", "dinerID": "5", 
+		//                                 "dinerName": "Happy Hours"}
+
+		Integer userID = ((UserInfo) userInfo).getUserID();
+		try (Jedis jedis = pool.getResource()) {
+			jedis.select(6);
+			String groupOrderKey = "groupOrder:" + groupOrderID.toString();
+			String userKey = "user:" + userID.toString();
+
+			// 1. Update users belonging to each group order
+			jedis.sadd(groupOrderKey, userID.toString());
+
+			// 2. Update each user's group orders
+			Map<String, String> userData = new HashMap<>();
+			Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+
+			userData.put("groupOrder", groupOrderID.toString());
+			String dinerID = dao.getOneJoin(groupOrderID).get(0)[1].toString();
+			String dinerName = (String) dao.getOneJoin(groupOrderID).get(0)[2];
+			userData.put("dinerID", dinerID);
+			userData.put("dinerName", dinerName);
+			jedis.hset(userKey, groupOrderID.toString(), gson.toJson(userData));
+
+		}
+	}
+
+	@Override
 	public Boolean userIsGroupMember(Object userInfo, Integer groupOrderID) {
+		// SET: groupOrder:1 | value: 3
+		// value: 4
+		// SET: groupOrder:2 | value: 3
+		// SET: groupOrder:5 | value: 4
+
 		String userID = ((UserInfo) userInfo).getUserID().toString();
 		try (Jedis jedis = pool.getResource()) {
 			jedis.select(6);
@@ -277,70 +348,282 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 	}
 
 	@Override
-	public void addUserToGroup(Object userInfo, Integer groupOrderID, String dinerName) {
-		// Update the following two types of data in Redis
-		// 1. Users belonging to each group order (for group order page)
-		// {groupOrder:1 : [12, 11, 14, 13, 15]}
-		// {groupOrder:2 : [13, 11]}
-		// 2. Each user's group orders (for nav bar)
-		// {user:12 : [{groupOrder:1, dinerName: xxx}]}
-		// {user:11 : [{groupOrder:1, dinerName: xxx}, {groupOrder:2, dinerName: yyy}]}
-		// {user:14 : [{groupOrder:1, dinerName: xxx}]}
-		// {user:13 : [{groupOrder:1, dinerName: xxx}, {groupOrder:2, dinerName: yyy}]}
-		// {user:15 : [{groupOrder:1, dinerName: xxx}]}
-		Integer userID = ((UserInfo) userInfo).getUserID();
+	public List<Map<String, Object>> navbarJoinedGroupOrders(Object userInfo) {
+		// HASH: user:3 | key: 1 | value: {"groupOrder": "1", "dinerID": "1",
+		//                                 "dinerName": "美味小館"}
+		//                key: 2 | value: {"groupOrder": "2", "dinerID": "2",
+		//                                 "dinerName": "鮮味屋"}
+		// HASH: user:4 | key: 1 | value: {"groupOrder": "1", "dinerID": "1",
+		//                                 "dinerName": "美味小館"}
+		//                key: 5 | value: {"groupOrder": "5", "dinerID": "5",
+		//                                 "dinerName": "Happy Hours"}
+
+		String userID = ((UserInfo) userInfo).getUserID().toString();
+		List<Map<String, Object>> groupOrders = new ArrayList<>();
+
 		try (Jedis jedis = pool.getResource()) {
 			jedis.select(6);
-			String groupOrderKey = "groupOrder:" + groupOrderID.toString();
-			String userKey = "user:" + userID.toString();
 
-			// Update users belonging to each group order
-			jedis.sadd(groupOrderKey, userID.toString());
+			String userKey = "user:" + userID;
 
-			// Update each user's group orders
-			Map<String, String> userData = new HashMap<>();
-			Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+			// Get all fields and their values from the Redis Hash
+			Map<String, String> userData = jedis.hgetAll(userKey);
 
-			userData.put("groupOrder", groupOrderID.toString());
-			userData.put("dinerName", dinerName);
-			jedis.hset(userKey, groupOrderID.toString(), gson.toJson(userData));
-			
+			for (Map.Entry<String, String> entry : userData.entrySet()) {
+				String field = entry.getKey();
+				String jsonGroupOrderInfo = entry.getValue();
+
+				// Parse the JSON data using Gson
+				Gson gson = new Gson();
+				LinkedTreeMap<String, Object> linkedTreeMap = gson.fromJson(jsonGroupOrderInfo, LinkedTreeMap.class);
+
+				// Convert the LinkedTreeMap to a standard Map
+				Map<String, Object> groupOrderInfo = new HashMap<>(linkedTreeMap);
+
+				groupOrders.add(groupOrderInfo);
+			}
 		}
+		return groupOrders;
 	}
-
+	
 	@Override
-	public List<Map<String, Object>> navbarJoinedGroupOrders(Object userInfo) {
-	    String userID = ((UserInfo) userInfo).getUserID().toString();
-	    List<Map<String, Object>> groupOrders = new ArrayList<>();
+	public void addProductToCart(Object userInfo, String groupOrderID, String dinerID, String productID, List<String> varyTypeIDs, String quantity) {
+		// LIST: user:3:groupOrder:1:diner:1:cart | key: {"productID": "1",
+		//                                                "varyTypeIDs": ["1","4"],
+		//                                                 "cartOrder": "1"}
+		//                                          value: 2
+		//                                        | key: {"productID": "1", 
+		//                                                "varyTypeIDs": ["1","3"]
+		//                                                "cartOrder": "1"}
+		//                                      	value: 3
+		// The value in LIST is the quantity added to cart. 
+		// When a second "productID": "1", "varyTypeIDs": ["1","4"] is added to cart,
+		// it shall add up to the value(quantity), instead of overwriting the value.     
+		
+		Integer userID = ((UserInfo) userInfo).getUserID();
+    
+	    int newQuantity = Integer.valueOf(quantity);
+
+       	// Prepare data to store in Redis as a Hash
+        Map<String, Object> productData = new HashMap<>();
+        productData.put("productID", productID);
+        productData.put("varyTypeIDs", varyTypeIDs);
+
+        try (Jedis jedis = pool.getResource()) {
+            jedis.select(6);
+            String cartKey = "user:" + userID + ":groupOrder:" + groupOrderID + ":diner:" + dinerID + ":cart";
+
+            // Add the "cartOrder" field to the product data
+            productData.put("cartOrder", String.valueOf(jedis.hlen(cartKey) + 1));
+
+            // Convert the product data to JSON
+            String productDataJson = new Gson().toJson(productData);
+
+            // Check if a similar entry exists and update quantity if found
+            for (Map.Entry<String, String> entry : jedis.hgetAll(cartKey).entrySet()) {
+                String existingProductDataJson = entry.getKey();
+
+                // Convert the existing entry to a map for comparison
+                Map<String, Object> existingProductData = new Gson().fromJson(existingProductDataJson,
+                        new TypeToken<Map<String, Object>>() {}.getType());
+
+                // Compare the productID and varyTypeIDs
+                if (existingProductData.get("productID").equals(productID.toString())
+                        && existingProductData.get("varyTypeIDs").equals(varyTypeIDs)) {
+                    // If a similar entry is found, update its quantity
+                    int existingQuantity = Integer.parseInt(entry.getValue());
+                    int totalQuantity = existingQuantity + newQuantity;
+
+                    // Update the Redis HASH with the new total quantity
+                    jedis.hset(cartKey, existingProductDataJson, String.valueOf(totalQuantity));
+                    return;
+                }
+            }
+
+            // If no similar entry is found, add a new entry to the Redis HASH
+            jedis.hset(cartKey, productDataJson, String.valueOf(newQuantity));
+        }
+	    
+	}
+	@Override
+	public List<Map<String,Object>> getCart(Object userInfo, Integer groupOrderID, Integer dinerID) {
+		// From Redis:
+		// LIST: user:3:groupOrder:1:diner:1:cart | key: {"productID": "1",
+		//                                                "varyTypeIDs": ["1","4"],
+		//                                                 "cartOrder": "1"}
+		//                                          value: 2
+		//                                        | key: {"productID": "1", 
+		//                                                "varyTypeIDs": ["1","3"]
+		//                                                "cartOrder": "1"}
+		//                                      	value: 3
+		// To Java List:
+	    // [
+	    //  {"productID": 1, "varyTypeIDs": [1,4], "quantity": 2}, 
+	    //  {"productID": 1, "varyTypeIDs": [1,3], "quantity": 3}
+	    // ]
+
+		Integer userID = ((UserInfo) userInfo).getUserID();
+	    List<Map<String, Object>> cartDataList = new ArrayList<>();
 
 	    try (Jedis jedis = pool.getResource()) {
 	        jedis.select(6);
+	        String cartKey = "user:" + userID + ":groupOrder:" + groupOrderID + ":diner:" + dinerID + ":cart";
 
-	        String userKey = "user:" + userID;
-	        Map<String, String> userData = jedis.hgetAll(userKey);
+	        // Get the product data for the cart using HGETALL
+	        Map<String, String> cartDataMap = jedis.hgetAll(cartKey);
 
-	        for (Map.Entry<String, String> entry : userData.entrySet()) {
-	            String groupOrderID = entry.getKey();
-	            String jsonGroupOrderInfo = entry.getValue();
+	        for (Map.Entry<String, String> entry : cartDataMap.entrySet()) {
+	            // Parse the product data JSON
+	            String productDataJson = entry.getKey();
+	            Map<String, Object> productData = new Gson().fromJson(productDataJson, new TypeToken<Map<String, Object>>() {}.getType());
 
-	            // Manually parse the JSON data
-	            Map<String, Object> groupOrderInfo = new HashMap<>();
-	            
-	            // Split the JSON data into key-value pairs
-	            String[] keyValuePairs = jsonGroupOrderInfo.split(",");
-	            for (String keyValuePair : keyValuePairs) {
-	                String[] keyValue = keyValuePair.split(":");
-	                String key = keyValue[0].trim().replaceAll("[\"{}]", "");
-	                String value = keyValue[1].trim().replaceAll("[\"{}]", "");
-	                groupOrderInfo.put(key, value);
-	            }
+	            // Extract quantity from the Redis value
+	            int quantity = Integer.parseInt(entry.getValue());
 
-	            groupOrders.add(groupOrderInfo);
+	            // Add quantity to the product data
+	            productData.put("quantity", quantity);
+
+	            // Add the product data to the cart
+	            cartDataList.add(productData);
 	        }
 	    }
-	    System.out.println("~~~~~~groupOrders" + groupOrders);
-	    return groupOrders;
+	    for (Map<String, Object> cartData : cartDataList) {
+	    	Integer productID = Integer.valueOf((String) cartData.get("productID"));
+	    	Product product = dao.findByPKProduct(productID);
+	    	
+	    	cartData.put("productName", dao.findByPKProduct(productID).getProductName());
+	    	
+	    	
+	    	ArrayList<Integer> productVaryIDs = (ArrayList<Integer>) cartData.get("varyTypeIDs");
+	    	ArrayList<Integer> productVaryList = new ArrayList();
+	    	for (Object productVaryID : productVaryIDs) {
+	    		productVaryList.add(Integer.parseInt((String)productVaryID));
+	    		System.out.println(productVaryID.getClass());
+	    	}
+	    	
+	    	List<String> productVaryDess = new ArrayList();
+	    	for (Integer productVaryID : productVaryList) {
+	    		String productVaryDes = dao.findByPKProductVary(productVaryID).getProductVaryDes();
+	    		productVaryDess.add(productVaryDes);
+	    	}
+	    	cartData.put("productVaryDess", productVaryDess);
+	    	
+	    	Integer quantity = (Integer) cartData.get("quantity");
+	    	cartData.put("productAndVaryPrice", calculateSubtotal(productID, Integer.valueOf(quantity), productVaryList));
+	    }
+	    
+	    return cartDataList;
 	}
+	
+	@Override
+	public void checkoutCart(Object userInfo, Integer groupOrderID, Integer dinerID) {
+		Integer userID = ((UserInfo) userInfo).getUserID();
+		List<Map<String,Object>> cartDataList = getCart(userInfo, groupOrderID, dinerID);
+		System.out.println("~~~~~checkoutCart cartData " + cartDataList);
+		
+		// 1. Add rows to userOrderDetail and userOrderDetailVary
+		for (Map<String,Object> cartData : cartDataList) {
+			int productID = Integer.valueOf((String) cartData.get("productID"));
+			int quantity = (Integer) cartData.get("quantity");
+			
+			ArrayList<Integer> productVaryIDs = (ArrayList<Integer>) cartData.get("varyTypeIDs");
+	    	ArrayList<Integer> productVaryList = new ArrayList();
+	    	for (Object productVaryID : productVaryIDs) {
+	    		productVaryList.add(Integer.parseInt((String)productVaryID));
+	    	}
+			
+	    	int subtotal = calculateSubtotal(productID, quantity, productVaryList);
+			System.out.println("~~~~~checkoutCart subtotal " + subtotal);
+			
+			// Add a row to userOrderDetail
+			UserOrderDetail userOrderDetail = new UserOrderDetail();
+			userOrderDetail.setProductID(productID);
+			userOrderDetail.setProductQuantity(quantity);
+			userOrderDetail.setUserItemPrice(subtotal);
+			userOrderDetail.setUserID(userID);
+			userOrderDetail.setGroupOrder(dao.findByPK(groupOrderID));
+			userOrderDetail.setUserPaymentTime(new Timestamp(System.currentTimeMillis()));
+			Integer userOrderDetailID = userOrderDetailDao.add(userOrderDetail);
+			
+			// Update groupTotalPrice in groupOrder
+			int groupTotalPrice = dao.findByPK(groupOrderID).getGroupTotalPrice();
+			groupTotalPrice += subtotal;
+			dao.findByPK(groupOrderID).setGroupTotalPrice(groupTotalPrice);
+			
+			// Add a row to userOrderDetailVary
+			if (productVaryList.size() > 0) {
+				UserOrderDetailVary userOrderDetailVary = new UserOrderDetailVary();
+				userOrderDetailVary.setUserOrderDetail(userOrderDetailDao.findByPK(userOrderDetailID));
+				
+				int i = 1;
+				for(Integer productVaryID : productVaryList) {
+					if (productVaryID != null) {
+						if (i == 1) {
+							userOrderDetailVary.setProductVaryID1(productVaryID);
+							i++;
+						} else if (i == 2) {
+							userOrderDetailVary.setProductVaryID2(productVaryID);
+							i++;
+						} else if (i == 3) {
+							userOrderDetailVary.setProductVaryID3(productVaryID);
+							i++;
+						} else {
+							userOrderDetailVary.setProductVaryID4(productVaryID);
+						}
+					}
+				}
+				
+				userOrderDetailVaryDao.add(userOrderDetailVary);
+			}
+			
+		}
+		
+		// 2. Remove Redis cart data
+		try (Jedis jedis = pool.getResource()) {
+		    jedis.select(6);
+		    
+		    String cartKey = "user:" + userID + ":groupOrder:" + groupOrderID + ":diner:" + dinerID + ":cart";
+		    jedis.del(cartKey);
+		}
+		
+		// 3. Check if groupTotalPrice reaches dinerOrderThreshold
+		int dinerOrderThreshold = dao.findByPKJoinDiner(groupOrderID).getDinerOrderThreshold();
+		int groupTotalPrice = dao.findByPK(groupOrderID).getGroupTotalPrice();
+		if (groupTotalPrice > dinerOrderThreshold) {
+			dao.findByPK(groupOrderID).setOrderStatus("2");
+		}
+	}
+	
+	@Override
+	public  List<Map<String,Object>> getUserOrderDetailOnThisGroupOrder(Integer groupOrderID, Object userInfo) {
+		// [
+		//  {productName=陽春麵, productQuantity=1, userItemPrice=70, productVaryList=[大份, null, null, null]}, 
+		//  {productName=雞腿飯, productQuantity=2, userItemPrice=230, productVaryList=[加荷包蛋, null, null, null]}, 
+		//  {productName=綠茶, productQuantity=1, userItemPrice=40, productVaryList=[正常冰, 正常糖, null, null]}
+		// ]
+		
+		Integer userID = ((UserInfo) userInfo).getUserID();
+		List<Object[]> results = userOrderDetailDao.findByGroupOrderAndUser(groupOrderID, userID);
+		
+		List<Map<String, Object>> resultList = new ArrayList<>();
 
+        // Iterate through the results
+        for (Object[] result : results) {
+            Map<String, Object> rowMap = new LinkedHashMap<>();
+            rowMap.put("productName", (String) result[0]);
+            rowMap.put("productQuantity", (int) result[1]);
+            rowMap.put("userItemPrice", (int) result[2]);
 
+            // Create a list to store productVary1 to productVary4
+            List<String> productVaryList = new ArrayList<>();
+            for (int i = 3; i <= 6; i++) {
+                productVaryList.add((String) result[i]);
+            }
+            rowMap.put("productVaryList", productVaryList);
+
+            resultList.add(rowMap);
+        }
+		
+		return resultList;
+	}
 }
