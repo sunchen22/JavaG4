@@ -171,7 +171,7 @@ pageContext.setAttribute("list", list);
                                     <th>評論者</th>
                                     <th>評論內容</th>
                                     <th>評論時間</th>
-                                    <th>星數</th>
+                                    <th>評分</th>
                                     <th>商家回覆內容</th>
                                     <th>商家回覆時間</th>
                                     <th></th>
@@ -186,12 +186,9 @@ pageContext.setAttribute("list", list);
                                     <td>${dinerratingcomment.userInfo.userName}</td>
                                     <td>${dinerratingcomment.userCommentContent}</td>
                                     <td>${dinerratingcomment.userCommentTime}</td>
-                                    
-                                    
+                                                                       
                                     <td>
-                                    
-                                    
-<%--                                     ${dinerratingcomment.dinerRating} --%>
+
 
 									<c:forEach var="i" begin="1" end="5">
 								    <c:choose>
@@ -212,7 +209,7 @@ pageContext.setAttribute("list", list);
                                     <td>${dinerratingcomment.dinerReplyTime}</td>
                                     
                                     <td>
-                                    	<form method = post action = "drcs.do">
+                                    	<form method = post action = "<%=request.getContextPath()%>/cproject/pages/drcs.do">
                                     	<input type="hidden" name="commentID"  value="${dinerratingcomment.commentID}">
                                     	<input type="hidden" name="dinerID"  value="${dinerratingcomment.dinerInfo.dinerID}">    
 					      		  		<input type="hidden" name="action" value="go_for_delete">
@@ -269,12 +266,6 @@ pageContext.setAttribute("list", list);
     
 	<%@ include  file="../../background/pages/pagejs.file" %>
 	
-<!--     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-<!--     <link rel="stylesheet" -->
-<!--         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext"> -->
-<!--     <script src="./assets/js/require.min.js"></script> -->
-
-<!--     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> -->
 
     <%@ include file="included-fragment.file" %>
 		<script src="https://code.jquery.com/jquery-3.5.1.js"></script>                                    <!-- ●●js  for jquery datatables 用 -->

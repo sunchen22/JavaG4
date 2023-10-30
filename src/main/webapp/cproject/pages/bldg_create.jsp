@@ -64,7 +64,7 @@
 
                     const request = {
                         location: targetLatLng,
-                        radius: 3000, // 3公里的
+                        radius: 3000, // 距離
                         types: ["convenience_store"]
                     };
 
@@ -78,7 +78,7 @@
                                 return distanceA - distanceB;
                             });
 
-                            results = results.slice(0, 5); // 僅顯示的大樓
+                            results = results.slice(0, 5); // 顯示的大樓
 
                             const customNames = ["中華大樓", "岷發大樓", "天祥大樓", "宇宙大樓", "復興大樓"];
 
@@ -94,10 +94,7 @@
                                     title: customName
                                 });
 
-//                                 google.maps.event.addListener(placeMarker, "click", function () {
-//                                     infowindow.setContent('<div><strong>' + customName + '</strong><br>' + place.vicinity + '</div>');
-//                                     infowindow.open(map, placeMarker);
-//                                 });
+
                                  
                                 
                                 
@@ -113,12 +110,7 @@
                                     infowindow.open(map, placeMarker);
                                     
                                     
-//                                     
-                                    
-                                    
-                                    
-                                    
-                                    
+                                
                                     
                                     
                                 });
@@ -137,13 +129,11 @@
         
         function handleButtonClick() {
         	
-        	
-        	
+       	
         	
         	const infowindowContent = document.querySelector(".gm-style-iw");
             
-            
-//             const nameElement = infowindowContent.querySelector("strong");
+
             const nameElement = document.getElementById("placeName");
             const customName = nameElement ? nameElement.textContent : "未找到名稱";
             
@@ -248,10 +238,7 @@
         
      </nav> 
               
-              
-            
       
-       
       </div>
       
     </aside>
@@ -265,18 +252,7 @@
     <div id="map" ></div>
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+  
     
  </div>
 

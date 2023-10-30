@@ -143,7 +143,7 @@
 				</td>
 				
 				<td>
-				<form method = "post" action = "adc.do">
+				<form method = "post" action = "<%=request.getContextPath()%>/cproject/pages/adc.do">
                 <input type="hidden" name="advertisementID" value = "${advertisement.advertisementID}">
 				<button type = "submit" class="btn btn-warning" style="font-weight :bold">查詢</button>
                 </form>
@@ -205,7 +205,7 @@
                  ${advertisement.advertisementDownTime}
                 </td>
                 <td>
-                <form method = "post" action = "adc.do">
+                <form method = "post" action = "<%=request.getContextPath()%>/cproject/pages/adc.do">
                 <input type="hidden" name="advertisementID" value = "${advertisement.advertisementID}">
 				<button type = "submit" class="btn btn-warning" style="font-weight :bold">查詢</button>
                 </form>
@@ -214,7 +214,7 @@
                 
 				
 				<td>
-				<form method = "get" action = "ads.do">
+				<form method = "post" action = "<%=request.getContextPath()%>/cproject/pages/ads.do">
 				<input type="hidden" name="action" value = "go_for_check">
 				<input type="hidden" name="check" value = "${advertisement.advertisementID}">
 				<button id = "click1" type = "submit" class="btn btn-warning" style="font-weight :bold">審核</button>
@@ -222,7 +222,7 @@
 				</td>
 				
 				<td>
-				<form method = "get" action = "ads.do">
+				<form method = "post" action = "<%=request.getContextPath()%>/cproject/pages/ads.do">
 				<input type="hidden" name="action" value = "go_for_rejected">
 				<input type="hidden" name="check" value = "${advertisement.dinerid.dinerID}">
 				<button id = "click2 " type = "submit" class="btn btn-warning" style="font-weight :bold">拒絕</button>
@@ -359,18 +359,7 @@
   		
   	});
       
-      
-      
-//       $(document).ready(function() {
-    		
-    		
-    		
-    		
-    		
-    		
-//     	});
-		
-      
+    
       
       </script>
 

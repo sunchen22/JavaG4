@@ -187,7 +187,7 @@
 
 
   <div align="right" style="margin-right: 10px; margin-bottom: 15px; display: flex; justify-content: flex-end;">
- 	<form method="post" action ="difs.do" style="margin-left: 5px;">
+ 	<form method="post" action ="<%=request.getContextPath()%>/cproject/pages/difs.do" style="margin-left: 5px;">
   <button id = "click" type="submit" class="btn btn-warning" style="font-weight: bold; margin-left: 5px;">
     停權</button>
   	<input type="hidden" name="action" value="go_for_deactivated">
@@ -195,7 +195,7 @@
   </form>
   
   
-  <form method="post" action="pdsc.do" style="margin-left: 5px;">
+  <form method="post" action="<%=request.getContextPath()%>/cproject/pages/pdsc.do" style="margin-left: 5px;">
     <button type="submit" class="btn btn-warning" style="font-weight: bold;">
     商品審核</button>
     <input type="hidden" name="action" value="go_for_product_check">
@@ -203,7 +203,7 @@
   </form>
   
   
-  <form  method="post" action ="difs.do">
+  <form  method="post" action ="<%=request.getContextPath()%>/cproject/pages/difs.do">
   <button type="submit" id="payment" class="btn btn-warning" style="font-weight: bold; margin-left: 5px;">
     金流報表</button>
   	<input type="hidden" name="action" value="go_for_payment">
@@ -253,20 +253,13 @@
   
   <script src="<%=request.getContextPath()%>/cproject/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<!--   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" -->
-<!--     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" -->
-<!--     crossorigin="anonymous"></script> -->
+
   
   <script src="<%=request.getContextPath()%>/cproject/dist/js/adminlte.js"></script>
   
 
   <%@ include  file="../../background/pages/pagejs.file" %>
   
-<!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-<!--   <link rel="stylesheet" -->
-<!--     href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext"> -->
-<!--   <!-- <script src="./assets/js/require.min.js"></script> -->
-
 
 
 

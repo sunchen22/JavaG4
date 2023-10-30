@@ -106,7 +106,7 @@
                                 
      	
                                 	GroupOrderDAOHibernateImplC godhi = new GroupOrderDAOHibernateImplC();
-//                                 	List<GroupOrder> list = godhi.getAll(dinerinfo.getDinerID());
+
 
 									List<Object[]> list = godhi.getOrderDetail(dinerinfo.getDinerID());
                                 	
@@ -212,7 +212,7 @@
                                     
                                     <td>
                                     
-		                         	<img src = "gosimg.do?groupOrderID=${row[0]}">
+		                         	<img src = "<%=request.getContextPath()%>/cproject/pages/gosimg.do?groupOrderID=${row[0]}">
                                     </td>
                                     
 
@@ -257,11 +257,7 @@
     
 	<%@ include  file="../../background/pages/pagejs.file" %>
 	
-<!--     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-<!--     <link rel="stylesheet" -->
-<!--         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext"> -->
-    
-<!--     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> -->
+
 
     <%@ include file="included-fragment.file" %>
 		<script src="https://code.jquery.com/jquery-3.5.1.js"></script>                                    <!-- ●●js  for jquery datatables 用 -->

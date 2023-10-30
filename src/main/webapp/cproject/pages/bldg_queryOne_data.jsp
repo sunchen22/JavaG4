@@ -125,14 +125,10 @@
 											class="btn btn-warning">查詢</button>
 									</span>
 								</form>
-								
-
 
 
 								<div id="interactive" style="height: 20px;"></div>
 							</div>
-
-
 
 
 						
@@ -171,7 +167,7 @@
 								
 								<td>
 														 
-										<form METHOD="get" ACTION="<%=request.getContextPath()%>/cproject/pages/bis.do">                
+										<form METHOD="post" ACTION="<%=request.getContextPath()%>/cproject/pages/bis.do">                
 					                  <input type="hidden" name="buildingID"  value="<%=bif.getBuildingID() %>">    
 								      <input type="hidden" name="action" value="delete">
 								      <button type="submit" value ="送出" class ="btn btn-warning" style = "font-weight :bold " data-bs-toggle="modal" data-bs-target="#exampleModal">刪除</button>
@@ -219,14 +215,7 @@
 	
 	<%@ include  file="../../background/pages/pagejs.file" %>
 	
-	<!-- 	<script -->
-<!-- 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" -->
-<!-- 		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" -->
-<!-- 		crossorigin="anonymous"></script> -->
-<!-- 	<link rel="stylesheet" -->
-<!-- 		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-<!-- 	<link rel="stylesheet" -->
-<!-- 		href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext"> -->
+	
 	
 	
 

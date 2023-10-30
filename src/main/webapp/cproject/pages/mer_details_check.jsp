@@ -129,7 +129,7 @@
 					String dinerAccountName = j.optString("dinerAccountName", " ");
 					String dinerTypeJ = j.optString("dinerType", " ");
 					
-// 					j.get("a").toString()
+
 					
 					
 	              	if(dinerTypeJ.equals("M")){
@@ -144,9 +144,6 @@
 					
 				%>
 
-
-
-<!--                 <form  method = "post" action="" style="padding:10px;"> -->
 
 
                   <div style="display: flex">
@@ -224,11 +221,7 @@
                               <input type="text" value = "<%= dinerType %>" class="border border-warning" style="width :60%">
                           </span>
                           <br>
-                          
-                          
-                          
-                          
-                          
+                   
                           
                           <br>
                           <br>
@@ -320,10 +313,6 @@
                  	 </div>
                   
 
-
-
-               
-  
   
   
                   <div id="interactive" style="height: 20px;"></div>
@@ -372,16 +361,7 @@
       <%@ include  file="../../background/pages/pagejs.file" %>
       
       
-       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-    crossorigin="anonymous"></script>
-    
-      
-    
-<!--       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-<!--       <link rel="stylesheet" -->
-<!--         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext"> -->
-<!--       <script src="./assets/js/require.min.js"></script> -->
+
 
 <script>
 

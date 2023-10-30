@@ -107,7 +107,7 @@
                 
 
                 
-                <form method = "post" action="dns.do" onsubmit="return validateForm()" style="padding:10px;">
+                <form method = "post" action="<%=request.getContextPath()%>/cproject/pages/dns.do" onsubmit="return validateForm()" style="padding:10px;">
                   <span>
                     <label>標題 :</label>
                     <input type="text" name = "news1" class="border border-warning" style = "width: 85%">
@@ -242,41 +242,11 @@
           </table>
           </div>
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
+ 
         
         </section>
 
       </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -307,10 +277,7 @@
      
       <%@ include  file="../../background/pages/pagejs.file" %>
       
-<!--       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-<!--       <link rel="stylesheet" -->
-<!--         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext"> -->
-<!--       <script src="./assets/js/require.min.js"></script> -->
+
       
       <%@ include file="included-fragment.file" %>
 		<script src="https://code.jquery.com/jquery-3.5.1.js"></script>                                    <!-- ●●js  for jquery datatables 用 -->
@@ -348,11 +315,6 @@
      		    }
      		});
      	});
-       
-       
-       
-       
-       
        
        
        

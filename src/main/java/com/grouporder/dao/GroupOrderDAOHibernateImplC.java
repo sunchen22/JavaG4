@@ -68,9 +68,6 @@ public class GroupOrderDAOHibernateImplC implements GroupOrderDAOC{
 //			session.getTransaction().commit();
 
 
-			
-
-
 			return gor;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -98,13 +95,7 @@ public class GroupOrderDAOHibernateImplC implements GroupOrderDAOC{
             query.setParameter("dinerID", dinerID); 
             List<Tuple> results = query.getResultList();
 
-//            for (Tuple result : results) {
-//                Date orderDate = result.get("orderDate", Date.class);
-//                BigDecimal totalSales = result.get("totalSales", BigDecimal.class);
-//
-//                System.out.println("Order Date: " + orderDate);
-//                System.out.println("Total Sales: " + totalSales);
-//            }
+
 
             return results;
         } catch (Exception e) {
