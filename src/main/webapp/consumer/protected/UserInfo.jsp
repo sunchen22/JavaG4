@@ -3,7 +3,6 @@
 
 <%@ include file="../components/head.jsp"%>
 <%-- Import CSS for this page below (if any) --%>
-<link href="../css/style.css" rel="stylesheet">
 <%@ page import="com.userinfo.entity.*"%>
 <%@ page import="com.userinfo.dao.*"%>
 
