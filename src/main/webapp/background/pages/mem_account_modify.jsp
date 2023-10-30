@@ -29,12 +29,12 @@ UserInfo userinfo = (UserInfo) request.getAttribute("userinfo"); //EmpServlet.ja
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 <!-- Font Awesome Icons -->
 <link rel="stylesheet"
-	href="../plugins/fontawesome-free/css/all.min.css">
+	href="${pageContext.request.contextPath}/background/plugins/fontawesome-free/css/all.min.css">
 <!-- IonIcons -->
 <link rel="stylesheet"
 	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 <!-- Theme style -->
-<link rel="stylesheet" href="../dist/css/adminlte.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/background/dist/css/adminlte.min.css">
 
 <style>
 #preview {
@@ -80,7 +80,7 @@ UserInfo userinfo = (UserInfo) request.getAttribute("userinfo"); //EmpServlet.ja
 			<!-- Right navbar links -->
 			<ul class="navbar-nav ml-auto">
 
-				<li class="nav-item"><a class="nav-link" href="../index3.html"
+				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/background/pages/index3.jsp" 
 					role="button"> <i class="fas fa-home"></i>
 				</a></li>
 
@@ -94,33 +94,7 @@ UserInfo userinfo = (UserInfo) request.getAttribute("userinfo"); //EmpServlet.ja
 		<!-- /.navbar -->
 
 		<!-- Main Sidebar Container -->
-		<!-- 有修改顏色 原本sidebar-dark-primary -->
-		<aside class="main-sidebar sidebar-light-warning elevation-4">
-			<!-- Brand Logo -->
-			<a href="../index3.jsp" class="brand-link"> <img
-				src="../dist/img/Logo.png" alt="樓頂揪樓咖 Logo"
-				class="brand-image img-circle elevation-3" style="opacity: .8">
-				<span class="brand-text font-weight-normal">後台管理平台</span>
-			</a>
-
-			<!-- Sidebar -->
-			<div class="sidebar">
-				<!-- Sidebar user panel (optional) -->
-				<div class="user-panel mt-3 pb-3 mb-3 d-flex">
-					<div class="image">
-						<img src="../dist/empimg/emp02.png" class="img-circle elevation-2"
-							alt="emp01">
-					</div>
-					<div class="info">
-						<a href="#" class="d-block">小丸子</a>
-					</div>
-				</div>
-
-				<!-- Sidebar Menu -->
-				<nav class="mt-2">
-					<ul class="nav nav-pills nav-sidebar flex-column"
-						data-widget="treeview" role="menu" data-accordion="false">
-
+		
  <!-- 引入側邊欄 -->
 <%@ include  file="pageaside.file" %>
 
@@ -176,7 +150,7 @@ UserInfo userinfo = (UserInfo) request.getAttribute("userinfo"); //EmpServlet.ja
 
 									<div class="form-group col-4">
 										<label>會員帳號：</label> 
-										<input type="text" class="form-control" name="userAccount" value="${userinfo.userAccount}">
+										<input type="text" class="form-control" readonly="readonly"  name="userAccount" value="${userinfo.userAccount}">
 									</div>
 								
 									<div class="form-group col-4">
@@ -236,14 +210,18 @@ UserInfo userinfo = (UserInfo) request.getAttribute("userinfo"); //EmpServlet.ja
 								</div>
 							</div>
 							<!-- /.card-body -->
-							<div class="card-footer" style="text-align: center; padding-top: 5px; display : inline-block">
+							
+							<div style="text-align: center;  background: transparent ; margin:5px">
 								<input type="hidden" name="action" value="update"> 
 								<input type="hidden" name="userID" value="${userinfo.userID}">
 								<input type="submit" value="送出修改" class="btn btn-warning">
-<%-- 								<input type="hidden" name="requestURL" value="<%=request.getParameter("requestURL")%>"> --%>
 							</div>
-							<div style="display : inline-block; justify-content:center">
-								<button type="submit" class="btn btn-warning">取消</button>
+							</FORM>
+							<FORM METHOD="post" ACTION="user.do" >
+							<div style="text-align: center;">
+								<input type="hidden" name="action" value="cancel"> 
+								<input type="hidden" name="userID" value="${userinfo.userID}">
+								<input type="submit" value="取消" class="btn btn-warning">
 							</div>
 						</FORM>
 					
@@ -279,13 +257,13 @@ UserInfo userinfo = (UserInfo) request.getAttribute("userinfo"); //EmpServlet.ja
 	<!-- REQUIRED SCRIPTS -->
 
 	<!-- jQuery -->
-	<script src="../plugins/jquery/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/background/plugins/jquery/jquery.min.js"></script>
 	<!-- Bootstrap -->
-	<script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="${pageContext.request.contextPath}/background/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<!-- AdminLTE -->
-	<script src="../dist/js/adminlte.js"></script>
+	<script src="${pageContext.request.contextPath}/background/dist/js/adminlte.js"></script>
 	<!-- OPTIONAL SCRIPTS -->
-	<script src="../plugins/chart.js/Chart.min.js"></script>
+	<script src="${pageContext.request.contextPath}/background/plugins/chart.js/Chart.min.js"></script>
 	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 	<!-- <script src="../dist/js/pages/dashboard3.js"></script> -->
 	

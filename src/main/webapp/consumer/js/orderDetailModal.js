@@ -30,18 +30,20 @@ function openOrderDetailModal(productID) {
 
 				let list_html = "";
 
+				let x = 1;
 				$.each(data.varyTypes, function (index, item) {
 
 					list_html += `<h5 class="modal_vary_type">${index}</h5>`;
 					console.log("index " + index);
 					console.log("item " + item);
 
+
 					$.each(item, function (i, it) {
 						let isFirstOption = true;
 						console.log(i);
 						console.log(it);
 						list_html += `<div class="form-check">
-										<input class="form-check-input" type="radio" name="${index}" id="productVaryID${it.productVaryID}" value="${it.productVaryID}" required>
+										<input class="form-check-input" type="radio" name="varyTypeCount${x}" id="productVaryID${it.productVaryID}" value="${it.productVaryID}" required>
 										<label class="form-check-label" for="productVaryID${it.productVaryID}">${it.productVaryDes} +${it.productVaryPrice}元</label>
 									  </div>`;
 						if (isFirstOption) {
@@ -49,6 +51,7 @@ function openOrderDetailModal(productID) {
 							isFirstOption = false;
 						}
 					});
+					x += 1;
 
 				});
 
@@ -110,9 +113,9 @@ function getCheckedVariesAndQuantity() {
 	return JSON.stringify(obj);
 }
 
-function addToCart(form, url) {
+function addToCart(form, groupOrderID, dinerID) {
 	$.ajax({
-		url: url,  // 資料請求的網址
+		url: contextPath + "/GroupOrder.do?action=addToCart",  // 資料請求的網址
 		type: "POST",                  // GET | POST | PUT | DELETE | PATCH
 		data: form.serialize(),  // 將物件資料(不用雙引號) 傳送到指定的 url
 		// contentType: "application/json",
@@ -120,11 +123,12 @@ function addToCart(form, url) {
 		beforeSend: function () {     // 在 request 發送之前執行
 			// 阻止使用者重複發出請求
 			$("#add_to_cart").attr("disabled", true);
-			
 		},
 		success: function () {    // request 成功取得回應後執行
-			// alert("Form Submited Successfully");
+			$("#order_detail_modal").modal("hide");
+			// $("#shopping_cart").offcanvas("show");
 			
+			openCart(groupOrderID, dinerID);
 		},
 		error: function (xhr) {  // request 發生錯誤的話執行
 			console.log(xhr);
@@ -132,6 +136,77 @@ function addToCart(form, url) {
 		complete: function (xhr) {  // request 完成之後執行(在 success / error 事件之後執行)
 			console.log(xhr);
 			$("#add_to_cart").attr("disabled", false);
+		}
+	});
+}
+
+function openCart(groupOrderID, dinerID) {
+	$.ajax({
+		url: contextPath + "/GroupOrder.do?action=openCart&groupOrderID=" + groupOrderID + "&dinerID=" + dinerID,  // 資料請求的網址
+		type: "POST",                  // GET | POST | PUT | DELETE | PATCH
+		// data:,  // 將物件資料(不用雙引號) 傳送到指定的 url
+		contentType: "application/json",
+		dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
+		beforeSend: function () {     // 在 request 發送之前執行
+			// 阻止使用者重複發出請求
+			$("#open_cart_btn").addClass("disabled");
+		},
+		success: function (data) {    // request 成功取得回應後執行
+			// console.log(data);
+			if (data.length > 0) {
+				let list_html = "";
+				let total = 0;
+				$.each(data, function (index, item) {
+					console.log("index " + index);
+					console.log("item " + item);
+					console.log("item.productName " + item.productName);
+					
+					list_html += `<li class="list-group-item px-1">
+									<div class="row">
+										<div class="col-5">
+											<h6 class="mb-0">${item.productName}</h6>`;
+					$.each(item.productVaryDess, function (innerIndex, innerItem) {
+						console.log("innerIndex " + innerIndex);
+						console.log("innerItem " + innerItem);
+						list_html += `<p class="mb-0 ms-2 text-muted">${innerItem}</p>`;
+					});
+
+					list_html += `			
+								</div>
+								<div class="col-4">
+									<div class="input-group">
+										<input type="number" class="form-control form-control-sm"
+											min="1" value="${item.quantity}" disabled>
+										<button class="btn btn-outline-secondary disabled" type="button">
+											<i class="fas fa-trash"></i>
+										</button>
+									</div>
+								</div>
+								<div class="col-3">
+									<span class="fs-6">${item.productAndVaryPrice}元</span>
+								</div>
+							</div>
+						</li>`;
+
+					total += item.productAndVaryPrice;
+				});
+
+				$("#shopping_cart ul.list-group").html(list_html);
+				$("#cart_total").html("總計" + total + "元");
+				
+				$("#shopping_cart").offcanvas("show");
+			} else {
+				alert("購物車是空的！");
+			}
+
+		},
+		error: function (xhr) {  // request 發生錯誤的話執行
+			console.log(xhr);
+			
+		},
+		complete: function (xhr) {  // request 完成之後執行(在 success / error 事件之後執行)
+			console.log(xhr);
+			$("#open_cart_btn").removeClass("disabled");
 		}
 	});
 }
@@ -159,8 +234,8 @@ $(function () {
 	});
 
 	$('#modal_product_quantity').on('keydown', function (event) {
-		if (event.which === 13 || event.which === 32 || event.which === 8 || event.which === 46) {
-			event.preventDefault(); // Prevent form submission on Enter key press
+		if ((!event.which >= 48) || !(event.which <= 57)) {  // If not numbers (0-9)
+			event.preventDefault(); // Prevent the key presses
 		}
 	});
 
@@ -196,11 +271,20 @@ $(function () {
 
 	$("#add_to_cart").click(function () {
 		let form = $("#modal_form");
-		let url = form.attr("action");
-		preventDefault();
-		if (form.checkValidity()) {
-			addToCart(form, url);
-	}
-	})
+		let valid = form[0].reportValidity();
+		if (valid) {
+			let groupOrderID = $("#open_cart_btn").attr("data-grouporderid");
+			let dinerID = $("#open_cart_btn").attr("data-dinerid");
+			addToCart(form, groupOrderID, dinerID);
+		}
+
+	});
+
+	$("#open_cart_btn").click(function (event) {
+		event.preventDefault();
+		let groupOrderID = $(this).attr("data-grouporderid");
+		let dinerID = $(this).attr("data-dinerid");
+		openCart(groupOrderID, dinerID);
+	});
 
 });

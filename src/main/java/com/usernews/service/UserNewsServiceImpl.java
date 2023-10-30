@@ -17,6 +17,12 @@ public class UserNewsServiceImpl implements UserNewsService {
 		dao = new UserNewsDAOImpl(HibernateUtil.getSessionFactory());
 	}
 	
+
+	public UserNews addUserNews(UserNews usernews) {
+		dao.insert(usernews);
+		return usernews;
+	}
+	
 	@Override
 	public void updateUserNews(UserNews usernews) {
 		dao.update(usernews);
@@ -25,7 +31,7 @@ public class UserNewsServiceImpl implements UserNewsService {
 	@Override
 	public void deleteUserNews(Integer usernewsID) {
 		// TODO Auto-generated method stub
-		
+		dao.delete(usernewsID);
 	}
 
 	@Override

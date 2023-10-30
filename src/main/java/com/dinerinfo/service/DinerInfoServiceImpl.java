@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.businesshours.entity.BusinessHours;
 import com.dinerinfo.dao.DinerInfoDAO;
 import com.dinerinfo.dao.DinerInfoDAOHibernateImpl;
 import com.dinerinfo.entity.DinerInfo;
@@ -134,10 +135,48 @@ public class DinerInfoServiceImpl implements DinerInfoService {
 	// ****************************************************************************
 	
 	
+	// 用來設定成團訂單金額的方法
+	@Override
+	public DinerInfo setDinerOrderThreshold(Integer dinerID, String dinerOrderThreshold) {
+		DinerInfo dinerinfo = dao.findByPK(dinerID);
+		int dot = Integer.parseInt(dinerOrderThreshold);
+		dinerinfo.setDinerOrderThreshold(dot);
+		return dinerinfo;
+	}
+	
+	// 用來讀取圖片的方法
+	@Override
+	public byte[] getDinerBlob(Integer dinerID) {
+		DinerInfo dinerInfo = dao.findByPK(dinerID);
+		if (dinerInfo != null) {
+			byte[] dinerBlob = dinerInfo.getDinerBlob();
+			return dinerBlob;
+		} else {
+			return null;
+		}
+	}
+		
+	// 用來新增圖片的方法
+	@Override
+	public DinerInfo setDinerBlob(byte[] dinerBlob , Integer dinerID) {
+		DinerInfo dinerInfo = dao.findByPK(dinerID);
+		dinerInfo.setDinerBlob(dinerBlob);
+		return dinerInfo;
+	}
+	
+	// 用來查廣告
+	@Override
+	public Set<BusinessHours> getBusinessHoursByDinerID(DinerInfo dinerInfo) {
+		int dinerID = dinerInfo.getDinerID();
+		return dao.getBusinessHoursByDinerID(dinerID);
+	}
+
 	@Override
 	public List<DinerInfo> getAllDinerInfos(int currentPage) {
 		return dao.getAll();
 	}
+
+
 
 	@Override
 	public int getPageTotal() {

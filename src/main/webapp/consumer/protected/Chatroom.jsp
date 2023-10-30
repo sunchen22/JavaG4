@@ -105,10 +105,10 @@
 		<div class="card-header" >
                     <h3 class="card-title"  ><i class="nav-icon fas fa-comment"></i>&nbsp;聊天室</h3>
                     <h3 class="card-title"  id="statusOutput" ></h3> 	
-                    <div id="row"></div>
+                    <div id="row">點擊後開始聊天</div>
          </div>
          
-		 <div class="card-body" >
+		 <div class="card-body"  style="height: 300px; overflow-y: scroll;">
 			<div id="messagesArea" class="direct-chat-messages" ></div>
 		 </div>
 

@@ -12,11 +12,11 @@
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/background/plugins/fontawesome-free/css/all.min.css">
   <!-- IonIcons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="../dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/background/dist/css/adminlte.min.css">
 
 </head>
 
@@ -58,28 +58,7 @@
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-light-warning elevation-4">
-      <a href="index3.jsp" class="brand-link">
-        <img src="<%= request.getContextPath()%>/background/dist/img/Logo.png" alt="樓頂揪樓咖 Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-normal">後台管理平台</span>
-      </a>
-
-      <!-- Sidebar -->
-      <div class="sidebar">
-        <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-          <div class="image">
-            <img src="../dist/emgimg/emp02.png" class="img-circle elevation-2" alt="emp01">
-          </div>
-          <div class="info">
-            <a href="#" class="d-block">小丸子</a>
-          </div>
-        </div>
-
-        <!-- Sidebar Menu -->
-        <nav class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
+      
  <!-- 引入側邊欄 -->
 <%@ include  file="pageaside.file" %>
          
@@ -128,18 +107,18 @@
   <!-- REQUIRED SCRIPTS -->
 
   <!-- jQuery -->
-  <script src="../plugins/jquery/jquery.min.js"></script>
+  <script src="${pageContext.request.contextPath}/background/plugins/jquery/jquery.min.js"></script>
   <!-- Bootstrap -->
-  <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="${pageContext.request.contextPath}/background/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- AdminLTE -->
-  <script src="../dist/js/adminlte.js"></script>
+  <script src="${pageContext.request.contextPath}/background/dist/js/adminlte.js"></script>
 
   <!-- OPTIONAL SCRIPTS -->
-  <script src="../plugins/chart.js/Chart.min.js"></script>
+  <script src="${pageContext.request.contextPath}/background/plugins/chart.js/Chart.min.js"></script>
   <!-- AdminLTE for demo purposes -->
   <!-- <script src="dist/js/demo.js"></script> -->
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-  <script src="../dist/js/pages/dashboard3.js"></script>
+  <script src="${pageContext.request.contextPath}/background/dist/js/pages/dashboard3.js"></script>
 
  <!-- 引入selfjs -->
 <%@ include  file="pagejs.file" %>

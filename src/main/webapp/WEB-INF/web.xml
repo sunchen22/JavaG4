@@ -87,6 +87,12 @@
 	<servlet>
 		<servlet-name>DinerInfoServletD</servlet-name>
 		<servlet-class>com.dinerinfo.controller.DinerInfoServletD</servlet-class>
+		 <multipart-config>
+        <!-- 配置上傳檔案大小的限制 -->
+        <max-file-size>10485760</max-file-size>  <!-- 10MB -->
+        <max-request-size>52428800</max-request-size>  <!-- 50MB -->
+        <file-size-threshold>2097152</file-size-threshold>  <!-- 2MB -->
+    </multipart-config>
 	</servlet>
 
 
@@ -173,4 +179,13 @@
 		<url-pattern>/background/pages/usernews.do</url-pattern>
 	</servlet-mapping>
 
+		<!-- 平台經營:總數量、總營收 -->
+	<servlet>
+		<servlet-name>BgsalesServlet</servlet-name>
+		<servlet-class>com.background.BgsalesServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BgsalesServlet</servlet-name>
+		<url-pattern>/background/pages/BgsalesServlet</url-pattern>
+	</servlet-mapping>
 </web-app>
