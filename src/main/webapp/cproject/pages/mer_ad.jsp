@@ -5,6 +5,7 @@
 <%@ page import="com.dinerinfo.entity.*"%>
 <%@ page import="com.advertisement.entity.*"%>
 <%@ page import="com.advertisement.dao.*"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
 
@@ -136,10 +137,12 @@
 				</td>
 				
 				<td>
-				  ${advertisement.advertisementUpTime}
+				<fmt:formatDate value="${advertisement.advertisementUpTime}" pattern="yyyy-MM-dd HH:mm:ss" />
+				  
 				</td>
 				<td>
-				  ${advertisement.advertisementDownTime}
+				<fmt:formatDate value="${advertisement.advertisementDownTime}" pattern="yyyy-MM-dd HH:mm:ss" />
+				  
 				</td>
 				
 				<td>
@@ -199,10 +202,12 @@
                 	${advertisement.advertisementName}
                 </td>
 				 <td>
-				 ${advertisement.advertisementUpTime}
+				 <fmt:formatDate value="${advertisement.advertisementUpTime}" pattern="yyyy-MM-dd HH:mm:ss" />
+				 
                 </td>
                  <td>
-                 ${advertisement.advertisementDownTime}
+                 <fmt:formatDate value="${advertisement.advertisementDownTime}" pattern="yyyy-MM-dd HH:mm:ss" />
+                 
                 </td>
                 <td>
                 <form method = "post" action = "<%=request.getContextPath()%>/cproject/pages/adc.do">
