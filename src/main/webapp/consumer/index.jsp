@@ -73,7 +73,7 @@
 				class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-1 row-cols-xl-1 justify-content-center mb-3">
 <% 
 UserNewsService newsServ = new UserNewsServiceImpl();
-List<UserNews> newsList = newsServ.getAllUserNews();
+List<UserNews> newsList = newsServ.getAllUserNewsByStatus();
 for(UserNews news : newsList){
 %>
 				<div class="col mb-1">
@@ -168,7 +168,7 @@ for(UserNews news : newsList){
 %>
 										<li>付款截止時間：<%= formattedSubmitTime %></li>
 										<div class="d-flex justify-content-end">
-											<a class="btn btn-dark">加入此大樓揪團</a>
+											<a class="btn btn-dark" href="${pageContext.request.contextPath}/GroupOrder.do?action=getOne&groupOrderID=<%=order.getGroupOrderID() %>">查看大樓揪團詳情</a>
 										</div>
 									</ul>
 								</div>

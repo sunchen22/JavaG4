@@ -15,6 +15,9 @@ public interface UserNewsService {
 	
 	List<UserNews> getAllUserNews();
 	
+	// add by tz
+	List<UserNews> getAllUserNewsByStatus();
+	
 	
 //	List<UserInfo> getUserInfoByCompositeQuery(Map<String, String[]> map);
 

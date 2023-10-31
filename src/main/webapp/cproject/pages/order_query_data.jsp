@@ -5,6 +5,7 @@
 <%@ page import="com.dinerinfo.dao.*"%>
 <%@ page import="com.dinerinfo.entity.*"%>
 <%@ page import="java.util.*"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 
 <head>
@@ -208,7 +209,9 @@
                                     </td>
                                     <td>${row[4]}</td>
                                     <td>${row[5]}</td>
-                                    <td>${row[6]}</td>
+                                    <td>
+                                    <fmt:formatDate value="${row[6]}" pattern="yyyy-MM-dd HH:mm:ss" />
+                                    </td>
                                     
                                     <td>
                                     
@@ -267,7 +270,7 @@
       <script>
       $(document).ready(function() {
   		$('#table').DataTable({
-  			"lengthMenu": [5],
+  			"lengthMenu": [3],
   			"searching": true,  //搜尋功能, 預設是開啟
   		    "paging": true,     //分頁功能, 預設是開啟
   		    "ordering": true,   //排序功能, 預設是開啟

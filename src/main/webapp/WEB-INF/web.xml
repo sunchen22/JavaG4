@@ -205,7 +205,7 @@
 		<dispatcher>ASYNC</dispatcher>
 	</filter-mapping>
 
-	<!-- 後台登入頁面 -->
+	<!-- 後台登入/登出頁面 -->
 	<servlet>
 		<servlet-name>bglogin</servlet-name>
 		<servlet-class>com.background.BgLoginHandler</servlet-class>
@@ -214,6 +214,7 @@
 		<servlet-name>bglogin</servlet-name>
 		<url-pattern>/background/bglogin</url-pattern>
 		<url-pattern>/background/pages/bglogin</url-pattern>
+		<url-pattern>/cproject/pages/bglogin</url-pattern>
 	</servlet-mapping>
 
 	<!-- 查詢會員 -->
@@ -255,4 +256,15 @@
 		<servlet-name>BgsalesServlet</servlet-name>
 		<url-pattern>/background/pages/BgsalesServlet</url-pattern>
 	</servlet-mapping>
+	
+		<!-- 重複姓名驗證 -->
+	<servlet>
+		<servlet-name>EmpNameServlet</servlet-name>
+		<servlet-class>com.webempadmin.controller.EmpNameServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EmpNameServlet</servlet-name>
+		<url-pattern>/background/pages/EmpNameServlet</url-pattern>
+	</servlet-mapping>	
+	
 </web-app>

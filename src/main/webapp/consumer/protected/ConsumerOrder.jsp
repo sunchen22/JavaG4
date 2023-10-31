@@ -35,7 +35,9 @@ Object[] firstDetail;
 if (groupOrdersID != null) {
 	for (Integer order : groupOrdersID) {
 		List<Object[]> orderDetailsList  = dao.getUserOrderDetails(userID, order);
-		firstDetail = orderDetailsList.get(0);
+		if(orderDetailsList != null && !orderDetailsList.isEmpty()) {
+			  firstDetail = orderDetailsList.get(0);
+			
 %>
 		<div
 			class="row d-flex justify-content-around row border border-dark p-1 rounded bg-warning bg-gradient mx-1 mb-2">
@@ -149,13 +151,11 @@ if (groupOrdersID != null) {
 			<div class="col-2 d-flex flex-column ">
 				<button class="btn btn-outline-success mb-1"
 					onclick="window.location.href='${pageContext.request.contextPath}/consumer/protected/DinerComment.jsp?dinerID=2'">評論</button>
-				<!-- 				<button class="btn btn-outline-success mb-1" -->
-				<!-- 					onclick="window.location.href='Feedback.html'">意見反饋</button> -->
 				<button class="btn btn-outline-success mb-1"
 					onclick="window.location.href='${pageContext.request.contextPath}/consumer/protected/Chatroom.jsp'">聯繫客服</button>
 			</div>
 		</div>
-<% }} %>
+<% }}} %>
 
 
 

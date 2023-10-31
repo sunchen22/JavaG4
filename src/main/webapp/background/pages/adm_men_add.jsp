@@ -160,8 +160,9 @@ WebempadminVO empVO = (WebempadminVO)request.getAttribute("empVO");
 										<%
 										String empName;
 										%>
-										<label>員工姓名 </label> <input type="text" class="form-control "
-											name="empName"
+										<label>員工姓名 </label>
+										<input type="text" class="form-control "
+											name="empName" id="empName"
 											value="<%if (empVO == null) {
 	empName = "請輸入員工姓名";
 } else {
@@ -231,13 +232,16 @@ WebempadminVO empVO = (WebempadminVO)request.getAttribute("empVO");
 
 								</div>
 								<!-- /.card-body -->
-								<div class="card-footer" style="text-align: center; padding-top: 5px; background: transparent">
-									
+								
+									<div style="text-align: center;  background: transparent ">
 										<input type="hidden" name="action" value="insert">
 										<input type="submit" id="submitbtn" name="action" value="確定" class="btn btn-warning">
-									
+										</div>
+								</form>
+								<form METHOD="post" ACTION="emp.do" NAME="form_admadd" ENCTYPE="multipart/form-data">	
+								<div style="text-align: center;  background: transparent ">
 									<button type="submit" class="btn btn-warning">取消</button>
-									
+									<input type="hidden" name="action" value="cancel">
 								</div>
 							</form>
 						</div>
@@ -530,7 +534,31 @@ WebempadminVO empVO = (WebempadminVO)request.getAttribute("empVO");
 			}
 		});
 	</script>
-
+	
+	<!-- 姓名重複驗證 -->
+	<script>
+		$(document).ready(function() {
+			$('#empName').on('focusout', function() {
+				var empName = $(this).val();
+				$.ajax({
+					url : "EmpNameServlet",
+					type : "POST",
+					data : {
+						"empName" : empName
+					},
+					dataType : "json",
+					success: function (repeatName) {
+	                    if (repeatName === "true") {
+	                        alert("重複姓名，請確認！");
+	                    }
+	                },
+					error : function(xhr, ajaxOptions, thrownError) {
+						
+					}
+				});
+			});
+		});
+	</script>
 
 </body>
 

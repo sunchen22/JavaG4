@@ -17,7 +17,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-
+import com.grouporder.entity.GroupOrder;
 import com.grouporder.service.GroupOrderServiceImpl;
 import com.userorderdetail.entity.UserOrderDetail;
 
@@ -36,9 +36,9 @@ public class GroupOrderServlet extends HttpServlet {
         String action = req.getParameter("action");
 		
 		switch (action) {
-			case "getAll":
-				getAllGroupOrder(req, res);
-				break;
+//			case "getAll":
+//				getAllGroupOrder(req, res);
+//				break;
 			case "getOne":
 				getOneGroupOrder(req, res);
 				break;
@@ -52,7 +52,7 @@ public class GroupOrderServlet extends HttpServlet {
 				joinThisGroupOrder(req, res);
 				break;
 			case "create":
-				createGroupOrder(req, res);
+				createAndJoinGroupOrder(req, res);
 				break;
 			case "addToCart":
 				addToCart(req, res);
@@ -62,6 +62,15 @@ public class GroupOrderServlet extends HttpServlet {
 				break;
 			case "checkout":
 				checkout(req, res);
+				break;
+			case "searchGroupOrder":
+				searchGroupOrder(req, res);
+				break;
+			case "Timeup":
+				timeUpAllGroupOrder(req, res);
+				break;
+			case "clearCart":
+				clearCart(req, res);
 				break;
 			default:
 //				forwardPath = "/index.jsp";
@@ -75,45 +84,45 @@ public class GroupOrderServlet extends HttpServlet {
         doPost(req, res);
     }
     
-    private void getAllGroupOrder(HttpServletRequest req, HttpServletResponse res) {
-    	System.out.println("request via AJAX comes in");
-
-        try {
-            // Process the request: get the JSON data from the request body
-            BufferedReader reader = req.getReader();
-            StringBuilder jsonBuilder = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                jsonBuilder.append(line);
-            }
-            reader.close();
-
-            // Request: Parse JSON into the Java object using Gson
-            Gson gson = new Gson();
-            AJAXRequestData requestData = gson.fromJson(jsonBuilder.toString(), AJAXRequestData.class);
-
-            // Request: Access requestData and its fields
-            String keyword = requestData.getKeyword();
-            String address = requestData.getAddress();
-
-            // Process the data
-            System.out.println("Keyword: " + keyword);
-            System.out.println("Address: " + address);
-            
-            // Prepare the response and send it
-            if (keyword.isBlank() && address.isBlank()) {
-            	String json = groupOrderServiceImpl.getAllJoinGroupOrder(1);
-            	System.out.println(json);
-            	
-            	// Send a JSON response
-            	res.setContentType("application/json; charset=UTF-8"); // Set content type to JSON
-            	res.getWriter().write(json);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            res.setStatus(HttpServletResponse.SC_BAD_REQUEST); // Set 400 Bad Request status on error
-        }
-    }
+//    private void getAllGroupOrder(HttpServletRequest req, HttpServletResponse res) {
+//    	System.out.println("request via AJAX comes in");
+//
+//        try {
+//            // Process the request: get the JSON data from the request body
+//            BufferedReader reader = req.getReader();
+//            StringBuilder jsonBuilder = new StringBuilder();
+//            String line;
+//            while ((line = reader.readLine()) != null) {
+//                jsonBuilder.append(line);
+//            }
+//            reader.close();
+//
+//            // Request: Parse JSON into the Java object using Gson
+//            Gson gson = new Gson();
+//            AJAXRequestData requestData = gson.fromJson(jsonBuilder.toString(), AJAXRequestData.class);
+//
+//            // Request: Access requestData and its fields
+//            String keyword = requestData.getKeyword();
+//            String address = requestData.getAddress();
+//
+//            // Process the data
+//            System.out.println("Keyword: " + keyword);
+//            System.out.println("Address: " + address);
+//            
+//            // Prepare the response and send it
+//            if (keyword.isBlank() && address.isBlank()) {
+//            	String json = groupOrderServiceImpl.getAllJoinGroupOrder(1);
+//            	System.out.println(json);
+//            	
+//            	// Send a JSON response
+//            	res.setContentType("application/json; charset=UTF-8"); // Set content type to JSON
+//            	res.getWriter().write(json);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            res.setStatus(HttpServletResponse.SC_BAD_REQUEST); // Set 400 Bad Request status on error
+//        }
+//    }
     
     private void getOneGroupOrder(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
     	// JS: href=${contextPath}/GroupOrder.do?action=getOne&groupOrderID=${item.groupOrderID}
@@ -129,12 +138,12 @@ public class GroupOrderServlet extends HttpServlet {
 	    		Boolean userIsGroupMember = groupOrderServiceImpl.userIsGroupMember(userInfo, groupOrderID);
 	    		req.getSession().setAttribute("userIsGroupMember", userIsGroupMember);
 		    	
-		    	if (userIsGroupMember) {
-		    		 List<Map<String,Object>> userOrderDetailData = groupOrderServiceImpl.getUserOrderDetailOnThisGroupOrder(groupOrderID, userInfo);
-		    		if (userOrderDetailData != null) {
-		    			req.getSession().setAttribute("userOrderDetailData", userOrderDetailData);
-		    		}
-		    	}
+		    	
+	    		 List<Map<String,Object>> userOrderDetailData = groupOrderServiceImpl.getUserOrderDetailOnThisGroupOrder(groupOrderID, userInfo);
+	    		if (userOrderDetailData != null) {
+	    			req.setAttribute("userOrderDetailData", userOrderDetailData);
+	    		}
+		    	
 	    	}
 	    	
 			res.setContentType("text/html; charset=UTF-8");
@@ -221,8 +230,10 @@ public class GroupOrderServlet extends HttpServlet {
 	    		
 	    	}
 	    	res.setContentType("text/html; charset=UTF-8");
-			RequestDispatcher dispatcher = req.getRequestDispatcher("/GroupOrder.do?action=getOne&groupOrderID=" + String.valueOf(groupOrderID));		
-			dispatcher.forward(req, res);
+//			RequestDispatcher dispatcher = req.getRequestDispatcher("/GroupOrder.do?action=getOne&groupOrderID=" + String.valueOf(groupOrderID));		
+//			dispatcher.forward(req, res);
+	    	String redirectURL = req.getContextPath() + "/GroupOrder.do?action=getOne&groupOrderID=" + String.valueOf(groupOrderID);
+    		res.sendRedirect(redirectURL);
 		
 	    } catch (Exception e) {
 	        e.printStackTrace();
@@ -230,34 +241,32 @@ public class GroupOrderServlet extends HttpServlet {
 	    }
     }
     
-    private void createGroupOrder(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    private void createAndJoinGroupOrder(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
     	// EL: href="${pageContext.request.contextPath}/GroupOrder.do?action=create"
-    	
-    	
-    	
-    	Object userInfo = req.getSession().getAttribute("loginUserInfo");
-    	if (userInfo != null) {
-    		req.getParameter("dinerID");
-    		req.getParameter("buildingID");
-    		req.getParameter("groupOrderSubmitTime");
-    		
-    		System.out.println("~~~~~~~~create group ");
-    		System.out.println("~~~~~~~~userInfo " + userInfo);
-    		System.out.println("~~~~~~~~dinerID " + req.getParameter("dinerID"));
-    		System.out.println("~~~~~~~~buildingID " + req.getParameter("buildingID"));
-    		System.out.println("~~~~~~~~groupOrderSubmitTime " + req.getParameter("groupOrderSubmitTime"));
-    		
-    		
-    		// Also need to set this attribute in action=login of UserInfoServlet.java
-//    		// so that the joined group orders data can be loaded from Redis upon user logging in
-//    		ArrayList<Map<String, Object>> navbarJoinedGroupOrders = (ArrayList<Map<String, Object>>) groupOrderServiceImpl.navbarJoinedGroupOrders(userInfo);
-//    		req.getSession().setAttribute("navbarJoinedGroupOrders", navbarJoinedGroupOrders);
-
-    	}
-    	
-//		res.setContentType("text/html; charset=UTF-8");
-//		RequestDispatcher dispatcher = req.getRequestDispatcher("/GroupOrder.do?action=getOne&groupOrderID=" + String.valueOf(newGroupOrderID));		
-//		dispatcher.forward(req, res);
+    	try {
+	    	Object userInfo = req.getSession().getAttribute("loginUserInfo");
+	    	RequestDispatcher dispatcher;
+	    	if (userInfo != null) {
+	    		Integer dinerID = Integer.valueOf(req.getParameter("dinerID"));
+	    		Integer buildingID = Integer.valueOf(req.getParameter("buildingID"));
+	    		String groupOrderSubmitTime = req.getParameter("groupOrderSubmitTime");
+	    		
+	    		Integer groupOrderID = groupOrderServiceImpl.createGroupOrder(dinerID, buildingID, groupOrderSubmitTime, userInfo);
+	    		
+	    		groupOrderServiceImpl.addUserToGroup(userInfo, groupOrderID);
+	    		ArrayList<Map<String, Object>> navbarJoinedGroupOrders = (ArrayList<Map<String, Object>>) groupOrderServiceImpl.navbarJoinedGroupOrders(userInfo);
+	    		req.getSession().setAttribute("navbarJoinedGroupOrders", navbarJoinedGroupOrders);
+	    		
+	    		res.setContentType("text/html; charset=UTF-8");
+//	    		dispatcher = req.getRequestDispatcher("/GroupOrder.do?action=getOne&groupOrderID=" + String.valueOf(groupOrderID));		
+//	    		dispatcher.forward(req, res);
+	    		String redirectURL = req.getContextPath() + "/GroupOrder.do?action=getOne&groupOrderID=" + String.valueOf(groupOrderID);
+	    		res.sendRedirect(redirectURL);
+	    	} 
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        res.setStatus(HttpServletResponse.SC_BAD_REQUEST); // Set 400 Bad Request status on error
+	    }
     }
     
     private void addToCart(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -324,7 +333,28 @@ public class GroupOrderServlet extends HttpServlet {
     		groupOrderServiceImpl.checkoutCart(userInfo, groupOrderID, dinerID);
     	
     		res.setContentType("text/html; charset=UTF-8");
-			RequestDispatcher dispatcher = req.getRequestDispatcher("/GroupOrder.do?action=getOne&groupOrderID=" + groupOrderID.toString());		
+//			RequestDispatcher dispatcher = req.getRequestDispatcher("/GroupOrder.do?action=getOne&groupOrderID=" + groupOrderID.toString());		
+//			dispatcher.forward(req, res);
+    		String redirectURL = req.getContextPath() + "/GroupOrder.do?action=getOne&groupOrderID=" + String.valueOf(groupOrderID);
+    		res.sendRedirect(redirectURL);
+    		
+    	} catch (Exception e) {
+	        e.printStackTrace();
+	        res.setStatus(HttpServletResponse.SC_BAD_REQUEST); // Set 400 Bad Request status on error
+    	}
+    }
+    
+    private void searchGroupOrder(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    	// EL: action="${pageContext.request.contextPath}/GroupOrder.do?action=searchGroupOrder"
+    	try {
+    		String nameKeyword = req.getParameter("keyword");
+            String addressKeyword = req.getParameter("address");
+                        
+            List<Map<String, Object>> groupOrderList = groupOrderServiceImpl.searchGroupOrder(nameKeyword, addressKeyword);
+            req.setAttribute("groupOrderList", groupOrderList);
+            
+    		res.setContentType("text/html; charset=UTF-8");
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/consumer/search.jsp");		
 			dispatcher.forward(req, res);
     	} catch (Exception e) {
 	        e.printStackTrace();
@@ -332,4 +362,40 @@ public class GroupOrderServlet extends HttpServlet {
     	}
     }
     
+    private void timeUpAllGroupOrder(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    	// EL: href="${pageContext.request.contextPath}/GroupOrder.do?action=Timeup"
+    	try {
+            groupOrderServiceImpl.changeAllGroupOrderStatus();
+            req.getSession().removeAttribute("navbarJoinedGroupOrders");
+//            req.getSession().removeAttribute("userIsGroupMember");
+            
+    		res.setContentType("text/html; charset=UTF-8");
+			String redirectURL = req.getContextPath() + "/GroupOrder.do?action=searchGroupOrder";
+    		res.sendRedirect(redirectURL);
+    	} catch (Exception e) {
+	        e.printStackTrace();
+	        res.setStatus(HttpServletResponse.SC_BAD_REQUEST); // Set 400 Bad Request status on error
+    	}
+    }
+    
+    private void clearCart(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    	// EL: href="${pageContext.request.contextPath}/GroupOrder.do?action=clearCart&groupOrderID=${groupOrderData.groupOrderID}&dinerID=${groupOrderData.dinerID}"
+    	try {
+    		Object userInfo = req.getSession().getAttribute("loginUserInfo");
+	    	if (userInfo != null) {
+	    		Integer groupOrderID = Integer.valueOf(req.getParameter("groupOrderID"));
+	    		Integer dinerID = Integer.valueOf(req.getParameter("dinerID"));
+	    		groupOrderServiceImpl.clearCart(userInfo, groupOrderID, dinerID);
+	    		
+	    		res.setContentType("text/html; charset=UTF-8");
+	    		String redirectURL = req.getContextPath() + "/GroupOrder.do?action=getOne&groupOrderID=" + String.valueOf(groupOrderID);
+	    		res.sendRedirect(redirectURL);
+	    	}
+            
+    	} catch (Exception e) {
+	        e.printStackTrace();
+	        res.setStatus(HttpServletResponse.SC_BAD_REQUEST); // Set 400 Bad Request status on error
+    	}
+    }
+        
 }

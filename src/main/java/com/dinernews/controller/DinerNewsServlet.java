@@ -39,46 +39,39 @@ public class DinerNewsServlet extends HttpServlet {
 		String emp = req.getParameter("emp");
 		Integer empid = Integer.parseInt(emp);
 		
+		DinerNewsDAOHibernateImpl dndi = new DinerNewsDAOHibernateImpl();
+		DinerNews dn = dndi.update();
+		if(dn!=null) {
+		
 		Webempadmin w = new Webempadmin();
 		w.setEmpID(empid);//new一個Webempadmin,透過映射關係set 49行
+	
 		
-		
-		DinerNews ds = new DinerNews();
-		ds.setDinerNewsContent1(news1);
-		ds.setDinerNewsContent2(news2);
-		ds.setDinerNewsContent3(news3);
-		ds.setWebempadmin(w);
-		ds.setDinerNewsStatus(1);
+		dn.setDinerNewsContent1(news1);
+		dn.setDinerNewsContent2(news2);
+		dn.setDinerNewsContent3(news3);
+		dn.setWebempadmin(w);
+		dn.setDinerNewsStatus(1);
 		
 		try {
-//			SimpleDateFormat s = new SimpleDateFormat(("yyyy-MM-dd"));
-//			Date d = s.parse(startDate);			
-			ds.setDinerNewsReleaseTime(new SimpleDateFormat("yyyy-MM-dd").parse(startDate));
 			
-//			LocalDate localDate = d.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-//			ds.setDinerNewsReleaseTime(localDate);
+			dn.setDinerNewsReleaseTime(new SimpleDateFormat("yyyy-MM-dd").parse(startDate));
 			
-			
-
-			
-			
-			
-			
+		
 		} catch (ParseException e) {
 			
 			e.printStackTrace();
 		}
 		try {
-			ds.setDinerNewsReviseTime(new SimpleDateFormat("yyyy-MM-dd").parse(endDate));
+			dn.setDinerNewsReviseTime(new SimpleDateFormat("yyyy-MM-dd").parse(endDate));
+			
 		} catch (ParseException e) {
 			
 			e.printStackTrace();
 		}
+	
 		
-		
-		
-		DinerNewsDAOHibernateImpl dndi = new DinerNewsDAOHibernateImpl();
-		dndi.add(ds);
+		}
 		
 		
 

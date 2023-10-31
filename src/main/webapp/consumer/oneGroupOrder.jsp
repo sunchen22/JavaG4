@@ -4,17 +4,12 @@
 <%@ page import="java.util.HashMap"%>
 <%@ page import="java.util.Map"%>
 <%@ page import="java.util.List"%>
+<%@ page import="com.userinfo.entity.UserInfo"%>
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:formatDate value="${groupOrderData.groupOrderSubmitTime}" pattern="yyyy-MM-dd HH:mm:ss" var="groupOrderSubmitTimeFormatted" />
 <%
 List<Map<String,Object>> cartData = (List<Map<String,Object>>) request.getAttribute("cartData");
-if (cartData != null) {
-	for (Map cartProduct : cartData) {
-		System.out.println(cartProduct);
-	}
-}
-
 %>
 <%@ include file="components/head.jsp"%>
 <%-- Import CSS for this page below (if any) --%>
@@ -43,7 +38,7 @@ if (cartData != null) {
 						<h5 class="card-title">${groupOrderData.buildingName}</h5>
 						<ul class="list-unstyled card-text">
 							<li>大樓地址：${groupOrderData.buildingAddress}</li>
-							<li><a href="${pageContext.request.contextPath}/consumer/EachDinerInfo.jsp?dinerID=1">${groupOrderData.dinerName}</a></li>
+							<li>商家：<a href="${pageContext.request.contextPath}/consumer/EachDinerInfo.jsp?dinerID=${groupOrderData.dinerID}">${groupOrderData.dinerName}</a></li>
 							<li class="list-inline-item"><span
 								class="badge fs-6 rounded-pill bg-secondary">
 									${groupOrderData.dinerType == 'M' ? '<i class="fa-solid fa-utensils"></i>' : (groupOrderData.dinerType=='D' ? '<i class="fa-solid fa-mug-saucer"></i>' : '<i class="fa-solid fa-utensils"></i><i class="fa-solid fa-mug-saucer"></i>')}</span>
@@ -52,9 +47,12 @@ if (cartData != null) {
 								class="badge fs-6 rounded-pill bg-secondary"><i
 									class="fa-solid fa-star"></i>${groupOrderData.dinerRating}</span></li>
 							<li>主揪：${groupOrderData.userNickName}</li>
+							<li class="list-inline-item">目前總金額：${groupOrderData.groupTotalPrice}元
+							</li>
 							<li class="list-inline-item">成團條件：${groupOrderData.dinerOrderThreshold}元
 							</li>
-							<li class="list-inline-item">成團狀態：${groupOrderData.orderStatus=='1'? '未達成團條件' : '已達成團條件'}</li>
+<%-- 							<li class="list-inline-item">成團狀態：${groupOrderData.orderStatus=='1'? '未達成團條件' : '已達成團條件'}</li> --%>
+							<li class="list-inline-item">成團狀態：<c:choose><c:when test="${groupOrderData.groupTotalPrice >= groupOrderData.dinerOrderThreshold}">已達成團條件</c:when><c:otherwise>未達成團條件</c:otherwise></c:choose></li>
 							<li>付款截止時間：${groupOrderSubmitTimeFormatted}</li>
 <!-- 							<li> -->
 <!-- 								<div class="progress"> -->
@@ -66,6 +64,11 @@ if (cartData != null) {
 						</ul>
 						<div class="d-grid gap-2 d-flex justify-content-end">
 							<c:choose>
+							    <c:when test="${groupOrderData.orderStatus == 3 or groupOrderData.orderStatus == 4 or groupOrderData.orderStatus == 5 
+						or groupOrderData.orderStatus == 6 or groupOrderData.orderStatus == 7}">
+							        <!-- Group order is timeupped -->
+							        <span>此大樓揪團付款期限已過，無法加入</span>
+							    </c:when>
 							    <c:when test="${empty sessionScope.loginUserInfo}">
 							        <!-- User is not logged in -->
 							        <span>登入並加入此大樓揪團後才可點餐</span>
@@ -99,7 +102,7 @@ if (cartData != null) {
 		</div>
 	</div>
 
-	<section class="container mt-5">
+	<section class="container mt-1">
 		<!-- stepper start -->
 		<div class="mdl-card mdl-shadow--2dp">
 
@@ -107,6 +110,14 @@ if (cartData != null) {
 
 				<div class="mdl-stepper-horizontal-alternative">
 					<c:choose>
+						<c:when test="${(groupOrderData.orderStatus == 3 or groupOrderData.orderStatus == 4 or groupOrderData.orderStatus == 5 
+						or groupOrderData.orderStatus == 6 or groupOrderData.orderStatus == 7) and not empty userOrderDetailData}">
+							<div class="mdl-stepper-step">
+								<div class="mdl-stepper-circle">
+									<span>1</span>
+								</div>
+								<div class="mdl-stepper-title">已加入此大樓揪團</div>						
+						</c:when>
 						<c:when test="${not sessionScope.userIsGroupMember}">
 							<div class="mdl-stepper-step">
 								<div class="mdl-stepper-circle">
@@ -128,7 +139,7 @@ if (cartData != null) {
 					</div>
 					
 					<c:choose>
-						<c:when test="${empty sessionScope.userOrderDetailData}">
+						<c:when test="${empty userOrderDetailData}">
 					<div class="mdl-stepper-step">
 						<div class="mdl-stepper-circle">
 							<span>2</span>
@@ -147,31 +158,25 @@ if (cartData != null) {
 						<div class="mdl-stepper-bar-left"></div>
 						<div class="mdl-stepper-bar-right"></div>
 					</div>
-					<div class="mdl-stepper-step">
-						<div class="mdl-stepper-circle">
+					<div class="mdl-stepper-step <c:if test="${groupOrderData.orderStatus == 3 or groupOrderData.orderStatus == 5 
+						or groupOrderData.orderStatus == 6 or groupOrderData.orderStatus == 7}">active-step</c:if>">
+						<div class="mdl-stepper-circle <c:if test="${groupOrderData.orderStatus == 4}">bg-danger</c:if>">
 							<span>3</span>
 						</div>
-						<div class="mdl-stepper-title">成團條件達成</div>
-						<div class="mdl-stepper-optional"></div>
-						<div class="mdl-stepper-bar-left"></div>
-						<div class="mdl-stepper-bar-right"></div>
-					</div>
-					<div class="mdl-stepper-step">
-						<div class="mdl-stepper-circle">
-							<span>4</span>
+						<div class="mdl-stepper-title <c:if test="${groupOrderData.orderStatus == 4}">text-danger</c:if>">
+							<c:choose>
+								<c:when test="${groupOrderData.orderStatus == 1 or groupOrderData.orderStatus == 2}">
+							當付款截止時間到<br>若成團條件有達成<br>將自動送出揪團訂單
+								</c:when>
+								<c:when test="${groupOrderData.orderStatus == 3 or groupOrderData.orderStatus == 5 
+								or groupOrderData.orderStatus == 6 or groupOrderData.orderStatus == 7}">
+								付款截止時間到<br>成團條件達成，揪團成功！<br>已自動送出揪團訂單
+								</c:when>
+								<c:otherwise>
+									付款截止時間到<br>成團條件未達成，揪團失敗！<br>已退款
+								</c:otherwise>
+							</c:choose>
 						</div>
-						<div class="mdl-stepper-title">
-							付款期限到<br>自動送出訂單
-						</div>
-						<div class="mdl-stepper-optional"></div>
-						<div class="mdl-stepper-bar-left"></div>
-						<div class="mdl-stepper-bar-right"></div>
-					</div>
-					<div class="mdl-stepper-step">
-						<div class="mdl-stepper-circle">
-							<span>5</span>
-						</div>
-						<div class="mdl-stepper-title">餐點送達</div>
 						<div class="mdl-stepper-optional"></div>
 						<div class="mdl-stepper-bar-left"></div>
 						<div class="mdl-stepper-bar-right"></div>
@@ -184,18 +189,18 @@ if (cartData != null) {
 		<!-- stepper end -->
 	</section>
 	
+	<section class="container mt-1">
 	<c:choose>
-		<c:when test="${not empty sessionScope.userOrderDetailData}">
-	<section class="container mt-5">
+		<c:when test="${not empty userOrderDetailData}">
 		<!-- Accordion start -->
 		<div class="accordion w-50" id="userOrder">
 	    	<div class="accordion-item">
 	        	<!-- Accordion head start -->
 	        	<h2 class="accordion-header" id="headingOne">
 	          		<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-	            		<div class="col-8">已付款訂購明細</div><div class="col-3 fw-bold text-end">總計：
+	            		<div class="col-8">您已付款的訂購明細</div><div class="col-3 fw-bold text-end">總計：
 	            		<% 
-	            			List<Map<String, Object>> userOrderDetailData = (List<Map<String, Object>>) session.getAttribute("userOrderDetailData");
+	            			List<Map<String, Object>> userOrderDetailData = (List<Map<String, Object>>) request.getAttribute("userOrderDetailData");
 		            		int totalPrice = 0;
 		            		for (Object userItem : userOrderDetailData) {
 		            			int userItemPrice = (Integer) ((Map) userItem).get("userItemPrice");
@@ -237,9 +242,38 @@ if (cartData != null) {
 			</div>
 		</div>
 		<!-- Accordion end -->   
-	</section>
+		</c:when>
+		<c:when test="${not empty sessionScope.loginUserInfo and sessionScope.userIsGroupMember and empty userOrderDetailData}">
+			<!-- Accordion start -->
+		<div class="accordion w-50" id="userOrder">
+	    	<div class="accordion-item">
+	        	<!-- Accordion head start -->
+	        	<h2 class="accordion-header" id="headingOne">
+	          		<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+	            		<div class="col-8">您已付款的訂購明細</div><div class="col-3 fw-bold text-end">總計：0元</div>
+	          		</button>
+	        	</h2>
+	        	<!-- Accordion head end -->
+	        	<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#userOrder" style="">
+	          		<!-- Accordion body start -->
+		          	<div class="accordion-body">
+			            <ul class="list-group">
+							<!-- Column names start -->
+							<li class="list-group-item d-flex justify-content-between align-items-start">
+				                <div class="ms-2 me-auto col-7"><div class="fw-bold">品名</div></div>
+				                <div class="col-3"><span class="fw-bold">數量</span></div>
+				                <div class="col-2"><span class="fw-bold">小計</span></div>
+			                </li>
+			                <!-- Column names end -->
+			            </ul>
+					</div>
+					<!-- Accordion body end -->
+	        	</div>
+			</div>
+		</div>
 		</c:when>
 	</c:choose>
+	</section>
 	
 	<section class="container mt-4">
 		<h2>菜單</h2>
@@ -405,7 +439,7 @@ if (cartData != null) {
 	</div>
 	
 	<!-- Shopping cart offcanvas start -->
-<div class="offcanvas offcanvas-end" tabindex="-1" id="shopping_cart">
+<div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="shopping_cart">
 	<!--Offcanvas header start -->
 	<div class="offcanvas-header">
 		<h4 id="">購物車</h4>
@@ -435,10 +469,8 @@ if (cartData != null) {
 					      </div>
 					      <div class="col-4">
 					        <div class="input-group">
-					          <input type="number" class="form-control form-control-sm" min="1" value="${item.quantity}" disabled>
-					          <button class="btn btn-outline-secondary disabled" type="button">
-					            <i class="fas fa-trash"></i>
-					          </button>
+					          <input type="number" class="form-control form-control-sm disabled" min="1" value="${item.quantity}" disabled>
+					          
 					    	    </div>
 					      </div>
 					    	  <div class="col-3">
@@ -502,6 +534,9 @@ if (cartData != null) {
 			</div>
 			<div class="my-2">
 				<a href="#" class="btn btn-outline-dark btn-lg w-100" data-bs-dismiss="offcanvas">繼續點餐</a>
+			</div>
+			<div class="my-2">
+				<a href="${pageContext.request.contextPath}/GroupOrder.do?action=clearCart&groupOrderID=${groupOrderData.groupOrderID}&dinerID=${groupOrderData.dinerID}" class="btn btn-outline-dark btn-lg w-100">清空購物車</a>
 			</div>
 		</div>
 	</div>

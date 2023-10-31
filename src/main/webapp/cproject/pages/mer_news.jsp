@@ -5,6 +5,7 @@
 <%@ page import="com.webempadmin.entity.*"%>
 <%@ page import="com.dinernews.dao.*"%>
 <%@ page import="com.dinernews.entity.*"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
 
@@ -220,12 +221,15 @@
                 </td>
                 
 				<td>
-				  ${dinerNews.dinerNewsReleaseTime}
+				  <fmt:formatDate value="${dinerNews.dinerNewsReleaseTime}" pattern="yyyy-MM-dd" />
+
 				  
 				</td>
 				
 				<td>
-				  ${dinerNews.dinerNewsReviseTime}
+				
+				<fmt:formatDate value="${dinerNews.dinerNewsReviseTime}" pattern="yyyy-MM-dd" />
+								 
 				</td>
 				<td>
 				  ${dinerNews.webempadmin.empName}
@@ -288,7 +292,7 @@
        <script>
        $(document).ready(function() {
      		$('#table').DataTable({
-     			"lengthMenu": [3],
+     			"lengthMenu": [1],
      			"searching": true,  //搜尋功能, 預設是開啟
      		    "paging": true,     //分頁功能, 預設是開啟
      		    "ordering": true,   //排序功能, 預設是開啟

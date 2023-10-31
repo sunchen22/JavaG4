@@ -28,7 +28,7 @@
 					aria-labelledby="flush-headingOne"
 					data-bs-parent="#accordionFlushExample">
 					<div class="accordion-body">
-						請點選右上角的<a href="${pageContext.request.contextPath}/consumer/Registration.jsp">註冊</a>，填寫資料即可成為會員
+						請點選右上角的<a href="${pageContext.request.contextPath}/consumer/Registration.jsp">註冊</a>，填寫資料即可成為會員。<br>
 					</div>
 				</div>
 			</div>
@@ -56,7 +56,7 @@
 				<div id="flush-collapseThree" class="accordion-collapse collapse"
 					aria-labelledby="flush-headingThree"
 					data-bs-parent="#accordionFlushExample">
-					<div class="accordion-body">請留言，將會有客服替您服務</div>
+					<div class="accordion-body">如果想成為商家，請點選加入<a href="${pageContext.request.contextPath}/dinerbackground/pages/Team/login/login-form.jsp">商家</a>。</div>
 				</div>
 			</div>
 			<div class="accordion-item">
