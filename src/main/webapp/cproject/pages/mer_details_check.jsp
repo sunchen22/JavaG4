@@ -305,7 +305,7 @@
                       
 						&ensp;
 						
-                      <button type="submit" id="click2" class="btn btn-warning" style="font-weight :bold"                          >
+                      <button type="submit" id="click2" class="btn btn-danger" style="font-weight :bold"                          >
                       
                           拒絕
                       </button>

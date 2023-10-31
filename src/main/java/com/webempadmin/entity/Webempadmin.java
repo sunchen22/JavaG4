@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,7 +24,7 @@ public class Webempadmin {
 	@Column(name = "empID", updatable = false)
 	private Integer empID;
 	
-	@OneToMany(mappedBy = "webempadmin" , cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "webempadmin" , cascade = CascadeType.ALL  , fetch =  FetchType.EAGER)
 	private Set<DinerNews> webempadmin;
 	
 	@Column(name = "empName")

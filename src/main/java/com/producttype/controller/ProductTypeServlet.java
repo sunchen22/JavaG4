@@ -34,12 +34,12 @@ public class ProductTypeServlet extends HttpServlet {
 			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 			String productTypeDes = req.getParameter("productTypeDes");
 			if (productTypeDes == null || (productTypeDes.trim()).length() == 0) {
-				errorMsgs.put("productTypeDes", "請輸入商品類型");
+				errorMsgs.put("productTypeDes", "*請輸入商品類型");
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/dinerbackground/pages/Team/shelve/shelve_PV.jsp");
+						.getRequestDispatcher("/dinerbackground/pages/Team/shelve/shelve_PT.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}

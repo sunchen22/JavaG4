@@ -26,6 +26,12 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
+<style>
+    .star {
+        color: yellow;
+    }
+</style>
+
 
 </head>
 
@@ -199,7 +205,7 @@ pageContext.setAttribute("list", list);
 								        <span class="star">&#9733;</span>
 								      </c:when>
 								      <c:otherwise>
-								        <span class="star">&#9734;</span>
+								        <span class="star1">&#9734;</span>
 								      </c:otherwise>
 								    </c:choose>
 								  </c:forEach>
@@ -215,7 +221,7 @@ pageContext.setAttribute("list", list);
                                     	<input type="hidden" name="commentID"  value="${dinerratingcomment.commentID}">
                                     	<input type="hidden" name="dinerID"  value="${dinerratingcomment.dinerInfo.dinerID}">    
 					      		  		<input type="hidden" name="action" value="go_for_delete">
-                                        <button id = "click" type="submit" class="btn btn-warning" style="font-weight :bold">
+                                        <button id = "click" type="submit" class="btn btn-danger" style="font-weight :bold">
                                         刪除
                                       </button>
 										</form>
