@@ -183,6 +183,21 @@ public class GroupOrderDAOHibernateImpl implements GroupOrderDAO {
 
 		return null;
 	}
+	
+	@Override
+	public List<GroupOrder> getAllStatusOneTwo() {
+		try {
+//			getSession().beginTransaction();
+			List<GroupOrder> list = getSession().createQuery("from GroupOrder where orderStatus = '1' OR orderStatus = '2'", GroupOrder.class).list();
+//			getSession().getTransaction().commit();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+//			getSession().getTransaction().rollback();
+		}
+
+		return null;
+	}
 
 	@Override
 	public List<Object[]> getAllJoin(Integer currentPage) {

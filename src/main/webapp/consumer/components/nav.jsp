@@ -60,7 +60,7 @@ if (session.getAttribute("loginUserInfo") == null) { // 如為 null, 代表此us
 		<div class="navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav me-auto mb-0 ms-2">
 				<li class="nav-item"><a class="nav-link" aria-current="page"
-					href="${pageContext.request.contextPath}/consumer/search.jsp">搜尋大樓揪團</a></li>
+					href="${pageContext.request.contextPath}/GroupOrder.do?action=searchGroupOrder">大樓揪團列表</a></li>
 				<li class="nav-item"><a class="nav-link"
 					href="${pageContext.request.contextPath}/consumer/search_diner.jsp">搜尋商家</a></li>
 				<li class="nav-item dropdown"><a

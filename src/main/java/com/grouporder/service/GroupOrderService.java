@@ -25,4 +25,6 @@ public interface GroupOrderService {
 	byte[] getGroupOrderProductImage(Integer productID, Integer no);
 	Integer createGroupOrder(Integer dinerID, Integer buildingID, String groupOrderSubmitTime, Object userInfo);
 	List<Map<String, Object>> searchGroupOrder(String nameKeyword, String addressKeyword);
+	void changeAllGroupOrderStatus();
+	void clearCart(Object userInfo, Integer groupOrderID, Integer dinerID);
 }

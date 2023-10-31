@@ -24,4 +24,5 @@ public interface GroupOrderDAO {
 	DinerInfo findByPKDiner(Integer dinerID);
 	BuildingInfo findByPKBuilding(Integer buildingID);
 	List<Object[]> getGroupOrderByKeywords(String nameKeyword, String addressKeyword);
+	List<GroupOrder> getAllStatusOneTwo();
 }

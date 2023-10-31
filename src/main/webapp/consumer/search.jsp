@@ -177,10 +177,11 @@
 													</li>
 													<li class="list-inline-item"><span class="badge fs-6 rounded-pill bg-secondary"><i class="fa-solid fa-star"></i>${groupOrder.dinerRating}</span>
 													</li><li>主揪：${groupOrder.userNickName}</li>
+													<li class="list-inline-item">目前總金額：${groupOrder.groupTotalPrice}元 </li>
 													<li class="list-inline-item">成團條件：${groupOrder.dinerOrderThreshold}元 </li>
 													<li class="list-inline-item">成團狀態：${groupOrder.orderStatus=='1'? '未達成團條件' : '已達成團條件'}</li>
 													<fmt:formatDate value="${groupOrder.groupOrderSubmitTime}" pattern="yyyy-MM-dd HH:mm:ss" var="groupOrderSubmitTimeFormatted" />
-													<li>付款截止時間：${groupOrder.groupOrderSubmitTime}</li>
+													<li>付款截止時間：${groupOrderSubmitTimeFormatted}</li>
 													<div class="d-flex justify-content-end"><a class="btn btn-dark" href="${pageContext.request.contextPath}/GroupOrder.do?action=getOne&groupOrderID=${groupOrder.groupOrderID}">查看大樓揪團詳情</a>
 													</div>
 												</ul>

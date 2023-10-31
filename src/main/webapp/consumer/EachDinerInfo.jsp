@@ -73,8 +73,9 @@
 					<div class="card-body">
 						<h5 class="card-title">${dinerInfo.dinerName}</h5>
 						<ul class="list-unstyled card-text">
-							<li class="list-inline-item"><span
-								class="badge fs-6 rounded-pill bg-secondary"><%=formattedOpenTime%>~<%=formattedCloseTime%></span></li>
+							<li class="list-inline-item">
+							營業時間：<span class="fs-6" id="open_time"><%=formattedOpenTime%></span>~<span class="fs-6" id="close_time"><%=formattedCloseTime%></span>
+							</li>
 							<li class="list-inline-item"><span
 								class="badge fs-6 rounded-pill bg-secondary"><i
 									class="fa-solid fa-utensils"></i></span></li>
@@ -84,7 +85,7 @@
 							<span
 								class="badge fs-6 rounded-pill bg-dark shadow"><i
 									class="fa-solid fa-star"></i><%= formattedRating %></span></a></li>
-							<li><span>可外送大樓：</span><span>宏春、揚昇金融</span></li>
+							<li><span>可外送大樓：</span><span>南方之星、遠雄、巨蛋、緯育、松山</span></li>
 							<li><span>成團條件：</span><span>${dinerInfo.dinerOrderThreshold}</span></li>
 							<li>配送時間：營業時間內接單後1小時內送達</li>
 						</ul>
@@ -95,7 +96,7 @@
     								<a class="btn btn-dark fs-6 disabled" data-bs-toggle="modal" data-bs-target="#create_group_modal"><i class="fa-solid fa-users"></i>發起大樓揪團</a>
     							</c:when>
     							<c:otherwise>
-									<a class="btn btn-dark fs-6" data-bs-toggle="modal" data-bs-target="#create_group_modal"><i class="fa-solid fa-users"></i>發起大樓揪團</a>
+									<a class="btn btn-dark fs-6" id="creat_group_order_btn" data-bs-toggle="modal" data-bs-target="#create_group_modal"><i class="fa-solid fa-users"></i>發起大樓揪團</a>
     							</c:otherwise>
 							</c:choose>
 <%-- 								<a class="btn btn-dark fs-6" href="<%=request.getContextPath()%>/consumer/protected/DinerComment.jsp?dinerID=<%= dinerID %>"><i class="fa-solid fa-comment"></i>觀看評論</a> --%>
@@ -277,7 +278,7 @@
 	                                <span>選擇付款截止時間</span>
 	                            </div>
 	                            <div class="col-7">
-	                                <select class="form-select form-select-sm d-inline-flex" name="groupOrderSubmitTime">
+	                                <select class="form-select form-select-sm d-inline-flex" id="group_order_submit_time" name="groupOrderSubmitTime">
 	                                    <option value="2023-10-29 11:00:00">今日11:00</option>
 	                                    <option value="2023-10-29 11:30:00">今日11:30</option>
 	                                    <option value="2023-10-29 12:00:00">今日12:00</option>
@@ -307,7 +308,7 @@
 
 	<%@ include file="./components/tail.jsp"%>
 	<%-- Import JS for this page below (if any) --%>
-
+	<script src="${pageContext.request.contextPath}/consumer/js/createGroupModal.js"></script>
 	<script>
 		//愛心切換加入最愛商家
 // 		$(document).ready(function() {

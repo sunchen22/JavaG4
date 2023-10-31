@@ -716,4 +716,40 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 		}
 		return null;
 	}
+	
+	@Override
+	public void changeAllGroupOrderStatus() {
+		
+		// 1. Change all group orders' status from 1 to 4, and from 2 to 3
+		List<GroupOrder> results = dao.getAllStatusOneTwo();
+		for (GroupOrder groupOrder : results) {
+			if (groupOrder.getOrderStatus().equals("1")) {
+				groupOrder.setOrderStatus("4");
+			} else {
+				groupOrder.setOrderStatus("3");
+			}
+		}
+		
+		// 2. Remove Redis data(cart, joined groups, group members)
+		try (Jedis jedis = pool.getResource()) {
+		    jedis.select(6);
+		    jedis.flushDB();
+		}
+	}
+	
+	@Override
+	public void clearCart(Object userInfo, Integer groupOrderID, Integer dinerID) {
+		Integer userID = ((UserInfo) userInfo).getUserID();
+			
+		// Remove Redis cart data
+		try (Jedis jedis = pool.getResource()) {
+		    jedis.select(6);
+		    
+		    String cartKey = "user:" + userID + ":groupOrder:" + groupOrderID + ":diner:" + dinerID + ":cart";
+		    jedis.del(cartKey);
+		}
+		
+	}
+	
+	
 }

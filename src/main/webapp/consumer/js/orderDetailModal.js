@@ -176,7 +176,7 @@ function openCart(groupOrderID, dinerID) {
 								<div class="col-4">
 									<div class="input-group">
 										<input type="number" class="form-control form-control-sm"
-											min="1" value="${item.quantity}" disabled>
+											min="1" value="${item.quantity}">
 										
 									</div>
 								</div>
