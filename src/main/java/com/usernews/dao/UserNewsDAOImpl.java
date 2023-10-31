@@ -83,7 +83,7 @@ public class UserNewsDAOImpl implements UserNewsDAO {
 
 	@Override
 	public List<UserNews> getAll() {
-		return getSession().createQuery("from UserNews", UserNews.class).list();
+		return getSession().createQuery("from UserNews where userNewsStatus = 1 or userNewsStatus = 0", UserNews.class).list();
 	}
 
 //	@Override

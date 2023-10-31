@@ -159,8 +159,8 @@ div.task_list_parent ul.task_list>li:last-child button.btn_down {
 									<input type="submit" value="送出修改" class="btn btn-warning">
 								</div>
 						
-
-<!-- 							<FORM METHOD="post" ACTION="usernews.do"> -->
+							</FORM>
+							<FORM METHOD="post" ACTION="usernews.do">
 								<div style="text-align: center;  background: transparent ; margin:5px">
 									<input type="hidden" name="action" value="cancel"> <input
 										type="hidden" name="userNewsID" value="${usernews.userNewsID}">
