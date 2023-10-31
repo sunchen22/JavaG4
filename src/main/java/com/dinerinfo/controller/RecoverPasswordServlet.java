@@ -119,7 +119,7 @@ public class RecoverPasswordServlet extends HttpServlet {
 			resetPasswordMailService.sendMail(dinerEmail, subject, messageText);
 			
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/dinerbackground/pages/Team/login/resetPasswordSuccess.html";
+			String url = "/dinerbackground/pages/Team/login/resetPasswordSuccess.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交 registerSuccess.html
 			successView.forward(req, res);
 
