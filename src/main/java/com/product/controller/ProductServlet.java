@@ -27,9 +27,11 @@ public class ProductServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		req.setCharacterEncoding("UTF-8");
+		HttpSession session = req.getSession();
+		
+
 		String action = req.getParameter("action");
 
-		HttpSession session = req.getSession();
 
 		if ("getOne_For_Display".equals(action)) {
 
@@ -78,7 +80,8 @@ public class ProductServlet extends HttpServlet {
 			}
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-			req.setAttribute("product", product); // 資料庫取出的empVO物件,存入req
+			
+			session.setAttribute("product", product); // 資料庫取出的empVO物件,存入req
 			String url = "/dinerbackground/pages/Team/p_list/NewFilePTest2.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 			successView.forward(req, res);
@@ -165,6 +168,8 @@ public class ProductServlet extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_product.jsp
 			successView.forward(req, res);
 		}
+		
+		
 
 		if ("update".equals(action)) { // 來自update_product.jsp的請求
 
@@ -174,7 +179,7 @@ public class ProductServlet extends HttpServlet {
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 
 			Integer productID = Integer.valueOf(req.getParameter("productID").trim());
-//			Integer productID = 58;
+			
 			Integer dinerID = Integer.valueOf(req.getParameter("dinerID").trim());
 
 			String productName = req.getParameter("productName");
@@ -258,8 +263,9 @@ public class ProductServlet extends HttpServlet {
 					productDailyStock, productRemark, productBlob1, productBlob2, productBlob3);
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
-			req.setAttribute("product", product); // 資料庫update成功後,正確的的VO物件,存入req
-			String url = "/dinerbackground/pages/Team/p_list/p_list.jsp";
+			
+			session.setAttribute("product", product); // 資料庫update成功後,正確的的VO物件,存入req
+			String url = "/dinerbackground/pages/Team/shelve/update_shelve_PV.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交p_list.jsp
 			successView.forward(req, res);
 		}

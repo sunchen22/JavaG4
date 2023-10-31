@@ -166,7 +166,7 @@ public class GroupOrderDAOHibernateImplC implements GroupOrderDAOC{
 		try {
 
 //			session.beginTransaction();
-			String sql = "SELECT go.groupOrderID, p.productName, uo.productQuantity, go.orderStatus, bf.buildingName, go.groupTotalPrice, go.groupOrderCreateTime, go.groupOrderSubmitTime, "
+			String sql = "SELECT go.groupOrderID, p.productName, uo.productQuantity, go.orderStatus, bf.buildingName, uo.userItemPrice, go.groupOrderCreateTime, go.groupOrderSubmitTime, "
 					+"(SELECT productVaryDes FROM productvary  pv WHERE pv.productVaryID = uod.productVaryID1), "
 					+"(SELECT productVaryDes FROM productvary  pv WHERE pv.productVaryID = uod.productVaryID2), "
 					+"(SELECT productVaryDes FROM productvary  pv WHERE pv.productVaryID = uod.productVaryID3), "

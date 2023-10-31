@@ -12,11 +12,7 @@
     List <VaryType> VTList= VTSvc.getAll();
     pageContext.setAttribute("VTlist",VTList);
 %>
-<%
-	ProductVaryService PVSvc = new ProductVaryService();
-	List<ProductVary> PVlist = PVSvc.getAll();
-	pageContext.setAttribute("PVlist", PVlist);
-%>
+
 <!DOCTYPE html>
 <html lang="zh-Hant">
 
@@ -34,9 +30,9 @@
     integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="../../../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/dinerbackground/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="../../../dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/dinerbackground/dist/css/adminlte.min.css">
   <link rel="stylesheet" href="type_setting.css">
   <script src="../../../plugins/jquery/jquery.min.js"></script>
   
@@ -80,7 +76,7 @@
                           <div class="row mt-4">                            
                             <nav class="w-100">
                               
-
+						
                              <FORM METHOD="post" ACTION="varytype.do" name="form1">
 								<table>
 										
@@ -105,7 +101,7 @@
                               
                               
                               
-                              
+                          <br>    
                               
                               
 
@@ -138,27 +134,29 @@
                             
                          <c:forEach var="varyTypeVO" items="${VTlist}">  
                             <div class="tab-pane fade" id="product-${varyTypeVO.varyTypeID}" role="tabpanel" aria-labelledby="product-volume-tab">
-                              <div class="card-body table-responsive p-0" style="height: 300px;">
+                              <div class="card-body table-responsive p-0" style="height: 50px;">
                                     <td>
 									  <FORM METHOD="post" ACTION="varytype.do" style="margin-bottom: 0px;">
 									     <input type="submit" value="刪除${varyTypeVO.varyType}分類">
 									     <input type="hidden" name="varyTypeID" value="${varyTypeVO.varyTypeID}">
 									     <input type="hidden" name="action" value="delete"></FORM>
 									</td>
+ 
+                              </div>
+                            </div>                          
+       					</c:forEach>
+                         
+        
 
-	        
-                                <table class="table table-head-fixed text-nowrap">
-                               
+                              </div>  
+                             </div>  
+                          </div>                  
+                          <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
 
-                                    <article class="task_container">
-                                      
-                                     
-                                      <h1 class="title1">${varyTypeVO.varyType}</h1>
-                                        <table id="example1" class="table table-bordered table-striped">
-                                        
-                                        
-                                        
-                                        
+                <table id="example1" class="table table-bordered table-striped">
+   
         <thead>
         <tr  align="center">
        	<th>商品名稱</th>
@@ -174,10 +172,15 @@
 
 
 	
-
+<%
+	ProductVary ProductVary = (ProductVary) request.getAttribute("ProductVary");
+	ProductVaryService PVSvc = new ProductVaryService();
+	List<ProductVary> PVlist = PVSvc.getByType(1);
+	pageContext.setAttribute("PVlist", PVlist);
+%>
 
 	<c:forEach var="productVaryVO" items="${PVlist}" >
-		
+
 		<tr align="center">
 		
 			<td>${productVaryVO.getProductVO().getProductName()}</td>
@@ -209,41 +212,10 @@
 		</tr>
 	</c:forEach>
 
-       
-    
- 
-    
-
         </tbody>
        
         </table>
-
-
-
-
-
-
-
-
-
-
-                                    </article>                                   
-                                </table>                               
-                              </div>
-                            </div>                          
-       					</c:forEach>
-                         
                           
-        
-
-                              </div>  
-                             </div>  
-                          </div>                  
-                          <!-- /.card-body -->
-                        </div>
-                        <!-- /.card -->
-
-               
                
                
      
@@ -267,27 +239,28 @@
 
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
-<script src="../../../plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap -->
-<script src="../../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- overlayScrollbars -->
-<script src="../../../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-<!-- AdminLTE App -->
-<script src="../../../dist/js/adminlte.js"></script>
+			<script src="<%=request.getContextPath()%>/dinerbackground/plugins/jquery/jquery.min.js"></script>
+			<!-- Bootstrap -->
+			<script src="<%=request.getContextPath()%>/dinerbackground/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+			<!-- overlayScrollbars -->
+			<script
+				src="<%=request.getContextPath()%>/dinerbackground/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+			<!-- AdminLTE App -->
+			<script src="<%=request.getContextPath()%>/dinerbackground/dist/js/adminlte.js"></script>
 
-<!-- PAGE PLUGINS -->
-<!-- jQuery Mapael -->
-<script src="../../../../plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
-<script src="../../../../plugins/raphael/raphael.min.js"></script>
-<script src="../../../../plugins/jquery-mapael/jquery.mapael.min.js"></script>
-<script src="../../../../plugins/jquery-mapael/maps/usa_states.min.js"></script>
-<!-- ChartJS -->
-<script src="../../../../plugins/chart.js/Chart.min.js"></script>
+			<!-- PAGE PLUGINS -->
+			<!-- jQuery Mapael -->
+			<script src="<%=request.getContextPath()%>/dinerbackground/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
+			<script src="<%=request.getContextPath()%>/dinerbackground/plugins/raphael/raphael.min.js"></script>
+			<script src="<%=request.getContextPath()%>/dinerbackground/plugins/jquery-mapael/jquery.mapael.min.js"></script>
+			<script src="<%=request.getContextPath()%>/dinerbackground/plugins/jquery-mapael/maps/usa_states.min.js"></script>
+			<!-- ChartJS -->
+			<script src="<%=request.getContextPath()%>/dinerbackground/plugins/chart.js/Chart.min.js"></script>
 
-<!-- AdminLTE for demo purposes -->
-<script src="../../../../dist/js/demo.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="../../../../dist/js/pages/dashboard2.js"></script>
+			<!-- AdminLTE for demo purposes -->
+			<script src="<%=request.getContextPath()%>/dinerbackground/dist/js/demo.js"></script>
+			<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+			<script src="<%=request.getContextPath()%>/dinerbackground/dist/js/pages/dashboard2.js"></script>
 </body>
 
 </html>
