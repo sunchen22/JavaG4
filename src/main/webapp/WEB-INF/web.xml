@@ -196,7 +196,7 @@
 		<dispatcher>ASYNC</dispatcher>
 	</filter-mapping>
 
-	<!-- 後台登入頁面 -->
+	<!-- 後台登入/登出頁面 -->
 	<servlet>
 		<servlet-name>bglogin</servlet-name>
 		<servlet-class>com.background.BgLoginHandler</servlet-class>
@@ -205,6 +205,7 @@
 		<servlet-name>bglogin</servlet-name>
 		<url-pattern>/background/bglogin</url-pattern>
 		<url-pattern>/background/pages/bglogin</url-pattern>
+		<url-pattern>/cproject/pages/bglogin</url-pattern>
 	</servlet-mapping>
 
 	<!-- 查詢會員 -->
