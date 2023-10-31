@@ -12,7 +12,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>樓頂揪樓咖後台管理</title>
+  <title>給商家最新消息</title>
 
   
   <link rel="stylesheet"
@@ -177,7 +177,7 @@
         
         
         
-        <p style="color: red">廣告</p>
+        <p style="color: red">最新消息</p>
         <div class="">
           <table id = "table" class="table table-bordered">
             <thead>
