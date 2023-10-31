@@ -65,21 +65,21 @@ DinerInfo account = (DinerInfo) session.getAttribute("account");
 			<section class="content">
 
 				<div class="card">
-					<div class="row">
-						<div class="col-md-8 offset-md-2">
-							<form action="simple-results.html">
-								<div class="input-group">
-									<input type="search" id="search-box"
-										class="form-control form-control-lg" placeholder="搜尋您想要的問題">
-									<div class="input-group-append">
-										<button type="submit" class="btn btn-lg btn-default">
-											<i class="fa fa-search"></i>
-										</button>
-									</div>
-								</div>
-							</form>
-						</div>
-					</div>
+<!-- 					<div class="row"> -->
+<!-- 						<div class="col-md-8 offset-md-2"> -->
+<!-- 							<form action="simple-results.html"> -->
+<!-- 								<div class="input-group"> -->
+<!-- 									<input type="search" id="search-box" -->
+<!-- 										class="form-control form-control-lg" placeholder="搜尋您想要的問題"> -->
+<!-- 									<div class="input-group-append"> -->
+<!-- 										<button type="submit" class="btn btn-lg btn-default"> -->
+<!-- 											<i class="fa fa-search"></i> -->
+<!-- 										</button> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</form> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
 					<!-- /.card-header -->
 					<div class="card-body">
 						<div id="jsGrid1"></div>
@@ -89,12 +89,12 @@ DinerInfo account = (DinerInfo) session.getAttribute("account");
 
 				<div>
 
-					<p>
-						找不到你想要問題嗎? <span>
-							<button type="button" class="btn btn-light">
-								<a href="${pageContext.request.contextPath}/dinerbackground/pages/Team/help/contact-form.jsp">與客服人員聯繫</a>
-							</button>
-					</p>
+<!-- 					<p> -->
+<!-- 						找不到你想要問題嗎? <span> -->
+<!-- 							<button type="button" class="btn btn-light"> -->
+<%-- 								<a href="${pageContext.request.contextPath}/dinerbackground/pages/Team/help/contact-form.jsp">與客服人員聯繫</a> --%>
+<!-- 							</button> -->
+<!-- 					</p> -->
 					</span>
 
 				</div>

@@ -337,9 +337,8 @@ DinerInfo account = (DinerInfo) session.getAttribute("account");
 
 			<script>
 			document.getElementById('submitButton').addEventListener('click', function(event) {
-			    var dinerStatus = '<%=account.getDinerStatus()%>
-				';
-							if (dinerStatus === 'changed') {
+			    var dinerStatus = '<%=account.getDinerStatus()%>';
+							if (dinerStatus == 'changed') {
 								event.preventDefault(); // 阻止表單提交
 								alert('管理員已在審核過程中，請勿二次提交');
 							}

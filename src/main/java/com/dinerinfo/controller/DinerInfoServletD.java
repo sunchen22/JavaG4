@@ -200,7 +200,7 @@ public class DinerInfoServletD extends HttpServlet {
 			}
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/dinerbackground/pages/Team/register/registerSuccess.html";
+			String url = "/dinerbackground/pages/Team/register/registerSuccess.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交 registerSuccess.html
 			successView.forward(req, res);
 		}
