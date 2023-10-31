@@ -160,8 +160,9 @@ WebempadminVO empVO = (WebempadminVO)request.getAttribute("empVO");
 										<%
 										String empName;
 										%>
-										<label>員工姓名 </label> <input type="text" class="form-control "
-											name="empName"
+										<label>員工姓名 </label>
+										<input type="text" class="form-control "
+											name="empName" id="empName"
 											value="<%if (empVO == null) {
 	empName = "請輸入員工姓名";
 } else {
@@ -530,7 +531,31 @@ WebempadminVO empVO = (WebempadminVO)request.getAttribute("empVO");
 			}
 		});
 	</script>
-
+	
+	<!-- 姓名重複驗證 -->
+	<script>
+		$(document).ready(function() {
+			$('#empName').on('focusout', function() {
+				var empName = $(this).val();
+				$.ajax({
+					url : "EmpNameServlet",
+					type : "POST",
+					data : {
+						"empName" : empName
+					},
+					dataType : "json",
+					success: function (repeatName) {
+	                    if (repeatName === "true") {
+	                        alert("重複姓名，請確認！");
+	                    }
+	                },
+					error : function(xhr, ajaxOptions, thrownError) {
+						
+					}
+				});
+			});
+		});
+	</script>
 
 </body>
 
