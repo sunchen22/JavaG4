@@ -153,7 +153,7 @@
 
 
 				<div class="tab-pane fade" id="v-pills-pwd">
-					<form method="post" action="user.do">
+					<form method="post" action="${pageContext.request.contextPath}/user.do">
 						<div class="row mb-3">
 							<label for="oldPwd" class="col-form-label col-md-4">舊密碼：</label>
 							<div class="col-md-8">
