@@ -16,6 +16,9 @@ public interface UserNewsDAO {
 	
 	List<UserNews> getAll();
 	
+	// add by tz
+	List<UserNews> getAllbyStatus();
+	
 //	List<UserInfo> getByCompositeQuery(Map<String, String> map);
 
 	long getTotal();
