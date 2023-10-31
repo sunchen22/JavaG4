@@ -17,13 +17,11 @@
     List<ProductType> PTlist = PTSvc.getAll();
     pageContext.setAttribute("list",PTlist);
 %>
-
 <%
 	VaryTypeService VTSvc = new VaryTypeService();
 	List<VaryType> VTList = VTSvc.getAll();
 	pageContext.setAttribute("VTlist", VTList);
 %>
-
 <%
     ProductService PSvc = new ProductService();
     List <ProductVO> PList= PSvc.getAll();
@@ -34,7 +32,6 @@
 	List<ProductVary> PVlist = PVSvc.getAll();
 	pageContext.setAttribute("PVlist", PVlist);
 %>
-
 
 <!DOCTYPE html>
 <html lang="zh-Hant">
@@ -59,10 +56,8 @@
   <link rel="stylesheet" href="shelve.css">
 
   
-  
-
-  <!-- PAGE PLUGINS -->
-<!-- jQuery -->
+  <!-- REQUIRED SCRIPTS -->
+ <!-- jQuery -->
 			<script src="<%=request.getContextPath()%>/dinerbackground/plugins/jquery/jquery.min.js"></script>
 			<!-- Bootstrap -->
 			<script src="<%=request.getContextPath()%>/dinerbackground/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -94,6 +89,7 @@
   
 
 
+
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
     <section>
@@ -103,7 +99,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">客製選項編輯</h1>
+              <h1 class="m-0">商品上架-客製選項新增</h1>
             </div>
             <div class="col-sm-6">
               <!-- <ol class="breadcrumb float-sm-right">
@@ -146,28 +142,29 @@
         <!-- <div class="col-md-3"> -->
 
       <div class="shelve">
-
   
-		<FORM METHOD="post" ACTION="productVary.do" name="form1" >
+<FORM METHOD="post" ACTION="productVary.do" name="form1" >
 	
 			<div class="col-sm-10">
 				<label>商品名稱:</label>
 				<br>
 				<select name="productID" class="form-control" style="width:200px;display:inline">
 				<c:forEach var="productVO" items="${Plist}">
-					<option value="${productVO.productID}"  ${(param.productID==productVO.productID)? 'selected':'' } >${productVO.productName}
+					<option value="${productVO.productID}"${(param.productID==productVO.productID)? 'selected':'' } >${productVO.productName}
 				</c:forEach>
 				</select>
 			</div>
-
+			
+			
+	
 	
 	
 			<div class="col-sm-10">
 				<label>客製分類:</label>
 				<br>
-				<select name="varyTypeID" class="form-control" style="width:200px;display:inline">
+				<select name="varyTypeID" id="mySelect" class="form-control" style="width:200px;display:inline" onchange="getValue()">
 				<c:forEach var="varyTypeVO" items="${VTlist}">
-					<option value="${varyTypeVO.varyTypeID}"  ${(param.varyTypeID==varyTypeVO.varyTypeID)? 'selected':'' } >${varyTypeVO.varyType}
+					<option value="${varyTypeVO.varyTypeID}" >${varyTypeVO.varyType}
 				</c:forEach>
 				</select>
 			</div>
@@ -190,18 +187,71 @@
 			</div>
 
 
+           
 			<div>
-				<input type="hidden" name="productVaryID" value="${param.productVaryID}">			
-				<input type="hidden" name="action" value="update">
-				<input type="submit"  id="submit" value="修改客製">
+				<input type="hidden" name="action" value="insert2">
+				<input type="submit"  id="submit" value="新增客製選項">
 			</div>
 			
-			
-			
-			
+	
 		
 	</FORM>
 
+  <table id="example1" class="table table-bordered table-striped">
+                                        
+                                        
+                                        
+                                        
+        <thead>
+        <tr  align="center">
+       	<th>商品名稱</th>
+       	<th>客製類型</th>  
+        <th>客製名稱</th>
+        <th>客製價格</th>           
+   		<th>編輯</th>
+   	
+        
+        </tr>
+        </thead>
+        <tbody>
+
+
+	
+
+
+	<c:forEach var="productVaryVO" items="${PVlist}" >
+		
+		<tr align="center">
+		
+			<td>${productVaryVO.getProductVO().getProductName()}</td>
+			<td>${productVaryVO.getVaryTypeVO().getVaryType()}</td>
+			<td>${productVaryVO.productVaryDes}</td>
+			<td>${productVaryVO.productVaryPrice}</td>			
+		
+			
+
+
+			<td>
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/dinerbackground/pages/Team/shelve/productVary.do" style="margin-bottom: 0px;">
+			  	 
+			     <input type="submit" value="編輯">
+			     <input type="hidden" name="productVaryID"  value="${productVaryVO.productVaryID}">
+			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+			</td>
+
+
+<!-- 			<td> -->
+<%-- 				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/dinerbackground/pages/Team/shelve/productVary.do" --%>
+<!-- 					style="margin-bottom: 0px;"> -->
+<!-- 					<input type="submit" value="刪除">  -->
+<%-- 					<input type="hidden" name="productVaryID" value="${productVaryVO.productVaryID}"> --%>
+<!-- 					<input type="hidden" name="action" value="delete"> -->
+<!-- 				</FORM> -->
+<!-- 			</td> -->
+
+			
+		</tr>
+	</c:forEach>
 
        
     
