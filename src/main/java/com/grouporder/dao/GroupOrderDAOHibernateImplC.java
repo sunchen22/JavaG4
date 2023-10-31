@@ -114,29 +114,30 @@ public class GroupOrderDAOHibernateImplC implements GroupOrderDAOC{
 		try {
 
 //			session.beginTransaction();
-			String sql = "SELECT "
-					+ "    go.groupOrderID, "
-					+ "    GROUP_CONCAT(COALESCE(p.productName, 'NA')) AS productNames, "
-					+ "    GROUP_CONCAT(COALESCE(uo.productQuantity, 'NA')) AS productQuantities, "
-					+ "    GROUP_CONCAT(DISTINCT COALESCE(go.orderStatus, 'NA')) AS orderStatuses, "
-					+ "    GROUP_CONCAT(DISTINCT COALESCE(bf.buildingName, 'NA')) AS buildingNames, "
-					+ "    GROUP_CONCAT(COALESCE(uo.userItemPrice, 'NA')) AS userItemPrices, "
-					+ "    GROUP_CONCAT(DISTINCT COALESCE(go.groupOrderSubmitTime, 'NA')) AS groupOrderSubmitTimes, "
-					+ "    GROUP_CONCAT(COALESCE(pv1.productVaryDes, 'NA')) AS productVaryDes1, "
-					+ "    GROUP_CONCAT(COALESCE(pv2.productVaryDes, 'NA')) AS productVaryDes2, "
-					+ "    GROUP_CONCAT(COALESCE(pv3.productVaryDes, 'NA')) AS productVaryDes3, "
-					+ "    GROUP_CONCAT(COALESCE(pv4.productVaryDes, 'NA')) AS productVaryDes4 "
-					+ "FROM grouporder go "
-					+ "LEFT JOIN userorderdetail uo ON go.groupOrderID = uo.groupOrderID "
-					+ "LEFT JOIN product p ON uo.productID = p.productID "
-					+ "LEFT JOIN userorderdetailvary uod ON uo.userOrderItemID = uod.userOrderItemID "
-					+ "LEFT JOIN buildinginfo as bf ON go.buildingID = bf.buildingID "
-					+ "LEFT JOIN productvary pv1 ON pv1.productVaryID = uod.productVaryID1 "
-					+ "LEFT JOIN productvary pv2 ON pv2.productVaryID = uod.productVaryID2 "
-					+ "LEFT JOIN productvary pv3 ON pv3.productVaryID = uod.productVaryID3 "
-					+ "LEFT JOIN productvary pv4 ON pv4.productVaryID = uod.productVaryID4 "
-					+ "WHERE go.dinerid = ?0 "
-					+ "GROUP BY go.groupOrderID; ";	
+			String sql = "SELECT go.groupOrderID, " +
+	                "GROUP_CONCAT(COALESCE(p.productName, 'NA')) AS productNames, " +
+	                "GROUP_CONCAT(COALESCE(uo.productQuantity, 'NA')) AS productQuantities, " +
+	                "GROUP_CONCAT(DISTINCT COALESCE(go.orderStatus, 'NA')) AS orderStatuses, " +
+	                "GROUP_CONCAT(DISTINCT COALESCE(bf.buildingName, 'NA')) AS buildingNames, " +
+	                "GROUP_CONCAT(COALESCE(uo.userItemPrice, 'NA')) AS userItemPrices, " +
+	                "GROUP_CONCAT(DISTINCT COALESCE(go.groupOrderSubmitTime, 'NA')) AS groupOrderSubmitTimes, " +
+	                "GROUP_CONCAT(COALESCE(pv1.productVaryDes, 'NA')) AS productVaryDes1, " +
+	                "GROUP_CONCAT(COALESCE(pv2.productVaryDes, 'NA')) AS productVaryDes2, " +
+	                "GROUP_CONCAT(COALESCE(pv3.productVaryDes, 'NA')) AS productVaryDes3, " +
+	                "GROUP_CONCAT(COALESCE(pv4.productVaryDes, 'NA')) AS productVaryDes4, " +
+	                "GROUP_CONCAT(COALESCE(ue.username, 'NA')) AS username " +
+	                "FROM grouporder go " +
+	                "LEFT JOIN userorderdetail uo ON go.groupOrderID = uo.groupOrderID " +
+	                "LEFT JOIN product p ON uo.productID = p.productID " +
+	                "LEFT JOIN userorderdetailvary uod ON uo.userOrderItemID = uod.userOrderItemID " +
+	                "LEFT JOIN buildinginfo as bf ON go.buildingID = bf.buildingID " +
+	                "LEFT JOIN productvary pv1 ON pv1.productVaryID = uod.productVaryID1 " +
+	                "LEFT JOIN productvary pv2 ON pv2.productVaryID = uod.productVaryID2 " +
+	                "LEFT JOIN productvary pv3 ON pv3.productVaryID = uod.productVaryID3 " +
+	                "LEFT JOIN productvary pv4 ON pv4.productVaryID = uod.productVaryID4 " +
+	                "LEFT JOIN userinfo ue ON ue.userID = uo.userID " +
+	                "WHERE go.dinerid = ?0 " +
+	                "GROUP BY go.groupOrderID;";
 				
 			        @SuppressWarnings("unchecked")
 					List<Object[]> list = session.createNativeQuery(sql).setParameter(0, dinerID).list();

@@ -174,6 +174,7 @@
                                 <tr>
                                     <th class="w-1">訂單編號</th>
                                     <th>訂單明細</th>
+                                    
                                                                      
                                     <th>訂單狀態</th>                                    
                                     <th>送達大樓</th>
@@ -197,6 +198,9 @@
                 ${fn:replace(fn:split(row[8], ',')[status1.index], 'NA', '')}
                 ${fn:replace(fn:split(row[9], ',')[status1.index], 'NA', '')}
                 ${fn:replace(fn:split(row[10], ',')[status1.index], 'NA', '')}
+                 ,&ensp; 訂購者 :
+                ${fn:replace(fn:split(row[11], ',')[status1.index], 'NA', '')}
+                
                 <br><br>
             </c:forEach>
         </td>
