@@ -142,7 +142,7 @@
 
       <div class="shelve">
   
-		<FORM METHOD="post" ACTION="productVary.do" name="form1" >
+<FORM METHOD="post" ACTION="productVary.do" name="form1" >
 	
 			<div class="col-sm-10">
 				<label>商品名稱:</label>
@@ -188,23 +188,22 @@
 
            
 			<div>
-				<input type="hidden" name="action" value="insert">
+				<input type="hidden" name="action" value="insert2">
 				<input type="submit"  id="submit" value="新增客製選項">
 			</div>
 			
 	
 		
 	</FORM>
-	
 
-
-  			 </div>
-	 	  </div>
-    
-				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/dinerbackground/pages/Team/p_list/p_list.jsp" name="form1">
+ 
+  
+    </div>
+     </div>
+			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/dinerbackground/pages/Team/p_list/p_list.jsp" name="form1">
 					<div class="col-sm-4" >
-						<div class="form-group">
-						<input type="submit" value="返回商品列表" >
+						<div class="form-group">							
+							<input type="submit" value="返回商品列表" >						
 						</div>
 					</div>
 				</FORM>

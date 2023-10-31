@@ -195,7 +195,28 @@ public class ProductVaryServlet extends HttpServlet {
 			successView.forward(req, res);
 		}
 		
-		if ("getbyid".equals(action)) { // 來自listAllEmp.jsp
+		if ("getbyid".equals(action)) { 
+
+			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+	
+				/***************************1.接收請求參數***************************************/
+				Integer productID = Integer.valueOf(req.getParameter("productID"));
+				
+System.out.println(productID);
+
+
+				/***************************2.開始查詢資料***************************************/
+				ProductVaryService pvSvc = new ProductVaryService();
+				pvSvc.getByPID(productID);
+				
+				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
+				String url = "/dinerbackground/pages/Team/shelve/type_setting.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+				successView.forward(req, res);
+		}
+		
+		if ("getbyType".equals(action)) { // 來自listAllEmp.jsp
 
 			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -210,13 +231,13 @@ System.out.println(priductID);
 				ProductVaryService pvSvc = new ProductVaryService();
 				pvSvc.getByPID(priductID);
 				
-				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-				String url = "/dinerbackground/pages/Team/shelve/type_setting.jsp";
+				/***************************3.準備轉交(Send the Success view)***********/		
+				req.setAttribute("priductID", priductID);
+				String url = "/dinerbackground/pages/Team/shelve/shelvePV2.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 		}
 		
-
 	}
 
 }

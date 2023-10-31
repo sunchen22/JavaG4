@@ -6,45 +6,48 @@
 <%@ page import="com.grouporder.dao.*"%>
 <%@ page import="com.dinerinfo.service.*"%>
 <%@ page import="com.dinerinfo.entity.*"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <% 
 
 	DinerInfo account3 = (DinerInfo) session.getAttribute("account");
     GroupOrderDAOHibernateImplC godhi3 = new GroupOrderDAOHibernateImplC();
-	List<Object[]> list3 = godhi3.getOrderDetail2(account3.getDinerID(),3);                          	
+    int dinerID = account3.getDinerID();
+	List<Object[]> list3 = godhi3.getOrderDetail2(dinerID,"3");                          	
     pageContext.setAttribute("list3", list3);	
+
+%>
+
+<%
+
+ 	DinerInfo account5 = (DinerInfo) session.getAttribute("account");
+     GroupOrderDAOHibernateImplC godhi5 = new GroupOrderDAOHibernateImplC();
+ 	List<Object[]> list5 = godhi5.getOrderDetail2(account5.getDinerID(),"5");                          	
+     pageContext.setAttribute("list5", list5);	
     
 %>
-<% 
+<%
 
-	DinerInfo account5 = (DinerInfo) session.getAttribute("account");
-    GroupOrderDAOHibernateImplC godhi5 = new GroupOrderDAOHibernateImplC();
-	List<Object[]> list5 = godhi5.getOrderDetail2(account5.getDinerID(),5);                          	
-    pageContext.setAttribute("list5", list5);	
+ 	DinerInfo account6 = (DinerInfo) session.getAttribute("account");
+     GroupOrderDAOHibernateImplC godhi6 = new GroupOrderDAOHibernateImplC();
+ 	List<Object[]> list6 = godhi6.getOrderDetail2(account6.getDinerID(),"6");                          	
+     pageContext.setAttribute("list6", list6);	
     
 %>
-<% 
+<%
 
-	DinerInfo account6 = (DinerInfo) session.getAttribute("account");
-    GroupOrderDAOHibernateImplC godhi6 = new GroupOrderDAOHibernateImplC();
-	List<Object[]> list6 = godhi6.getOrderDetail2(account6.getDinerID(),6);                          	
-    pageContext.setAttribute("list6", list6);	
+ 	DinerInfo account7 = (DinerInfo) session.getAttribute("account");
+     GroupOrderDAOHibernateImplC godhi7 = new GroupOrderDAOHibernateImplC();
+ 	List<Object[]> list7 = godhi7.getOrderDetail2(account7.getDinerID(),"7");                          	
+     pageContext.setAttribute("list7", list7);	
     
 %>
-<% 
+<%
 
-	DinerInfo account7 = (DinerInfo) session.getAttribute("account");
-    GroupOrderDAOHibernateImplC godhi7 = new GroupOrderDAOHibernateImplC();
-	List<Object[]> list7 = godhi7.getOrderDetail2(account7.getDinerID(),7);                          	
-    pageContext.setAttribute("list7", list7);	
-    
-%>
-<% 
-
-	DinerInfo account4 = (DinerInfo) session.getAttribute("account");
-    GroupOrderDAOHibernateImplC godhi4 = new GroupOrderDAOHibernateImplC();
-	List<Object[]> list4 = godhi4.getOrderDetail2(account4.getDinerID(),4);                          	
-    pageContext.setAttribute("list4", list4);	
-    
+ 	DinerInfo account4 = (DinerInfo) session.getAttribute("account");
+     GroupOrderDAOHibernateImplC godhi4 = new GroupOrderDAOHibernateImplC();
+ 	List<Object[]> list4 = godhi4.getOrderDetail2(account4.getDinerID(),"4");                          	
+     pageContext.setAttribute("list4", list4);	
 %>
 
 
@@ -249,78 +252,74 @@ GroupOrderVO grouporder = (GroupOrderVO) request.getAttribute("grouporder");
                   <div class="card-body table-responsive p-0" style="height: auto;">
                     <table class="table table-head-fixed text-nowrap">
                           <!-- 表格標題 -->
-							<div class="col-12">
-                              <div class="card">
-                              <div class="card-header" >
-                              <h3 class="card-title" >待確認訂單</h3>
-                              </div>
-                              
-                              
-                              <table class="table table-bordered table-hover" >
-                              <thead >
-                              <tr>
-                              <th>訂單編號</th>
-                              <th>訂單狀態</th>
-                              <th>訂單地址</th>
-                              <th>金額</th>
-                              <th>成立時間</th>
-                              </tr>
-                              </thead>
-                              <tbody>
-
+ 							<div class="col-12">
+                            <div class="card">
+                            <div class="card-header" >
+                            <h3 class="card-title" >待確認訂單</h3>
+                            </div>
+                            
+                            
+                            <table class="table table-bordered table-hover" >
+                            <thead >
+                            <tr>
+                            <th>訂單編號</th>
+                            <th>訂單狀態</th>
+                            <th>訂單地址</th>
+                            <th>金額</th>
+                            <th>成立時間</th>
+                            </tr>
+                            </thead>
+                            <tbody>
                           <c:forEach var="row" items="${list3}"> 
-                                <tr data-widget="expandable-table" aria-expanded="false">
+                              <tr data-widget="expandable-table" aria-expanded="false">
                                   <td>${row[0]}</td>
                                   <td>
-                                    ${row[3] eq '1' ? '揪團已建立' : 
-									  row[3] eq '2' ? '成團條件達成':
-									  row[3] eq '3' ? '待商家確認':
-									  row[3] eq '4' ? '揪團失敗':
-									  row[3] eq '5' ? '餐點準備中':
-									  row[3] eq '6' ? '商家拒單':
-									  row[3] eq '7' ? '餐點送達' : ''}                                  
+                                    ${row[5] eq '1' ? '揪團已建立' : 
+									  row[5] eq '2' ? '成團條件達成':
+									  row[5] eq '3' ? '待商家確認':
+									  row[5] eq '4' ? '揪團失敗':
+									  row[5] eq '5' ? '餐點準備中':
+									  row[5] eq '6' ? '商家拒單':
+									  row[5] eq '7' ? '餐點送達' : ''}                                  
                                   </td>
-                                  <td>${row[4]}</td>
-                                  <td>${row[5]}</td>
+                                  <td>${row[6]}</td>
                                   <td>${row[7]}</td>
-                                  </tr>
-                                  <tr class="expandable-body">
-                                  <td colspan="6">
-                                  <p>
-                                    訂單內容<br>
-									
-									
-									商品名稱:${row[1]}   ${row[8]} ${row[9]} ${row[10]} ${row[11]}數量:${row[2]} 
-        
-                                   <br>    
-                                  </p>
-                  				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/dinerbackground/pages/Team/ord_query/orderquery.do"
+                                  <td>${row[8]}</td>
+                                </tr>
+                                <tr class="expandable-body">
+                                <td colspan="6">
+                                <p>
+                                <br>訂單內容<br> 
+            <c:forEach var="value1" items="${fn:split(row[1], ',')}" varStatus="status1">
+                ${value1}*
+                <c:set var="value2" value="${fn:split(row[2], ',')[status1.index]}" />
+                ${value2}
+                ${fn:replace(fn:split(row[7], ',')[status1.index], 'NA', '')}
+                ${fn:replace(fn:split(row[8], ',')[status1.index], 'NA', '')}
+                ${fn:replace(fn:split(row[9], ',')[status1.index], 'NA', '')}
+                ${fn:replace(fn:split(row[10], ',')[status1.index], 'NA', '')}
+                 ,&ensp; 訂購者 :
+                ${fn:replace(fn:split(row[11], ',')[status1.index], 'NA', '')}
+                
+                <br><br>
+            </c:forEach>
+                                       
+                                </p>
+                                <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/dinerbackground/pages/Team/ord_query/orderquery.do"
 									style="margin-bottom: 0px;">
-									<input type="submit"  value="確認訂單"> 
+									<input type="submit"  value="訂單已送達"> 
 									<input type="hidden"name="groupOrderID" value="${row[0]}">
-									<input type="hidden"name="orderStatus" value="5">
+									<input type="hidden"name="orderStatus" value="7">
 									<input type="hidden" name="action" value="status">
 								</FORM>
-								
-				 				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/dinerbackground/pages/Team/ord_query/orderquery.do"
-									style="margin-bottom: 0px;">
-									<input type="submit"  value="拒絕訂單"> 
-									<input type="hidden"name="groupOrderID" value="${row[0]}">
-									<input type="hidden"name="orderStatus" value="6">
-									<input type="hidden" name="action" value="status">
-								</FORM>    
-                                	
-                            </c:forEach>             
-                 			   </tbody>
-                                  </td>
-                                  </tr>                    
-                                </div>
+                                                         
+                  				</c:forEach>  
+                                </td>
+                                </tr>                    
                               </div>
-                             </div>                      
-                           </div>                          
-                          
-                          
-               
+                            </div>
+                           </div>                      
+                         </div>     
                           
                           <!-- 結束 -->
                         </table>
@@ -368,8 +367,21 @@ GroupOrderVO grouporder = (GroupOrderVO) request.getAttribute("grouporder");
                                 <tr class="expandable-body">
                                 <td colspan="6">
                                 <p>
-                                  訂單內容<br>
-										商品名稱:${row[1]}   ${row[8]} ${row[9]} ${row[10]} ${row[11]} 數量:${row[2]}                                 <br>訂單內容      
+                                  
+            <c:forEach var="value1" items="${fn:split(row[1], ',')}" varStatus="status1">
+                ${value1}*
+                <c:set var="value2" value="${fn:split(row[2], ',')[status1.index]}" />
+                ${value2}
+                ${fn:replace(fn:split(row[7], ',')[status1.index], 'NA', '')}
+                ${fn:replace(fn:split(row[8], ',')[status1.index], 'NA', '')}
+                ${fn:replace(fn:split(row[9], ',')[status1.index], 'NA', '')}
+                ${fn:replace(fn:split(row[10], ',')[status1.index], 'NA', '')}
+                 ,&ensp; 訂購者 :
+                ${fn:replace(fn:split(row[11], ',')[status1.index], 'NA', '')}
+                
+                <br><br>
+            </c:forEach>
+                                   <br>訂單內容      
                                 </p>
                                 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/dinerbackground/pages/Team/ord_query/orderquery.do"
 									style="margin-bottom: 0px;">
@@ -416,38 +428,55 @@ GroupOrderVO grouporder = (GroupOrderVO) request.getAttribute("grouporder");
                             </thead>
                             <tbody>
                           <c:forEach var="row" items="${list7}"> 
-                             <tr data-widget="expandable-table" aria-expanded="false">
+                              <tr data-widget="expandable-table" aria-expanded="false">
                                   <td>${row[0]}</td>
                                   <td>
-                                    ${row[3] eq '1' ? '揪團已建立' : 
-									  row[3] eq '2' ? '成團條件達成':
-									  row[3] eq '3' ? '待商家確認':
-									  row[3] eq '4' ? '揪團失敗':
-									  row[3] eq '5' ? '餐點準備中':
-									  row[3] eq '6' ? '商家拒單':
-									  row[3] eq '7' ? '餐點送達' : ''}                                  
-                                  </td>                                 
-                                  <td>${row[4]}</td>
-                                  <td>${row[5]}</td>
+                                    ${row[5] eq '1' ? '揪團已建立' : 
+									  row[5] eq '2' ? '成團條件達成':
+									  row[5] eq '3' ? '待商家確認':
+									  row[5] eq '4' ? '揪團失敗':
+									  row[5] eq '5' ? '餐點準備中':
+									  row[5] eq '6' ? '商家拒單':
+									  row[5] eq '7' ? '餐點送達' : ''}                                  
+                                  </td>
+                                  <td>${row[6]}</td>
                                   <td>${row[7]}</td>
-                               </tr>
-                               <tr class="expandable-body">
-                               <td colspan="6">
-                               <p>
-                                 訂單內容<br>
-                                 商品名稱:${row[1]}   ${row[8]} ${row[9]} ${row[10]} ${row[11]}數量:${row[2]} 
-                             <br> 
-                             </p>                
-                               </td>
-                               </tr>
-                               </c:forEach>  
-                           </tbody>                          
-                         </div>                          
-                       </div>                          
-                     </div>
-                   </div>                          
-                          
-                          
+                                  <td>${row[8]}</td>
+                                </tr>
+                                <tr class="expandable-body">
+                                <td colspan="6">
+                                <p>
+                                <br>訂單內容<br> 
+            <c:forEach var="value1" items="${fn:split(row[1], ',')}" varStatus="status1">
+                ${value1}*
+                <c:set var="value2" value="${fn:split(row[2], ',')[status1.index]}" />
+                ${value2}
+                ${fn:replace(fn:split(row[7], ',')[status1.index], 'NA', '')}
+                ${fn:replace(fn:split(row[8], ',')[status1.index], 'NA', '')}
+                ${fn:replace(fn:split(row[9], ',')[status1.index], 'NA', '')}
+                ${fn:replace(fn:split(row[10], ',')[status1.index], 'NA', '')}
+                 ,&ensp; 訂購者 :
+                ${fn:replace(fn:split(row[11], ',')[status1.index], 'NA', '')}
+                
+                <br><br>
+            </c:forEach>
+                                       
+                                </p>
+                                <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/dinerbackground/pages/Team/ord_query/orderquery.do"
+									style="margin-bottom: 0px;">
+									<input type="submit"  value="訂單已送達"> 
+									<input type="hidden"name="groupOrderID" value="${row[0]}">
+									<input type="hidden"name="orderStatus" value="7">
+									<input type="hidden" name="action" value="status">
+								</FORM>
+                                                         
+                  				</c:forEach>  
+                                </td>
+                                </tr>                    
+                              </div>
+                            </div>
+                           </div>                      
+                         </div>     
                  
                         
                           <!-- 結束 -->
@@ -467,7 +496,7 @@ GroupOrderVO grouporder = (GroupOrderVO) request.getAttribute("grouporder");
                             </div>
                              
                             
-                            <table class="table table-bordered table-hover" >
+                             <table class="table table-bordered table-hover" >
                             <thead >
                             <tr>
                             <th>訂單編號</th>
@@ -478,68 +507,56 @@ GroupOrderVO grouporder = (GroupOrderVO) request.getAttribute("grouporder");
                             </tr>
                             </thead>
                             <tbody>
-                          <c:forEach var="row" items="${list6}"> 
-                             <tr data-widget="expandable-table" aria-expanded="false">
+                          <c:forEach var="row" items="${list5}"> 
+                              <tr data-widget="expandable-table" aria-expanded="false">
                                   <td>${row[0]}</td>
                                   <td>
-                                    ${row[3] eq '1' ? '揪團已建立' : 
-									  row[3] eq '2' ? '成團條件達成':
-									  row[3] eq '3' ? '待商家確認':
-									  row[3] eq '4' ? '揪團失敗':
-									  row[3] eq '5' ? '餐點準備中':
-									  row[3] eq '6' ? '商家拒單':
-									  row[3] eq '7' ? '餐點送達' : ''}                                  
-                                  </td>                                 
-                                  <td>${row[4]}</td>
-                                  <td>${row[5]}</td>
+                                    ${row[5] eq '1' ? '揪團已建立' : 
+									  row[5] eq '2' ? '成團條件達成':
+									  row[5] eq '3' ? '待商家確認':
+									  row[5] eq '4' ? '揪團失敗':
+									  row[5] eq '5' ? '餐點準備中':
+									  row[5] eq '6' ? '商家拒單':
+									  row[5] eq '7' ? '餐點送達' : ''}                                  
+                                  </td>
+                                  <td>${row[6]}</td>
                                   <td>${row[7]}</td>
-                               </tr>
-                               <tr class="expandable-body">
-                               <td colspan="6">
-                               <p>
-                                 訂單內容<br>
-                                 商品名稱:${row[1]}   ${row[8]} ${row[9]} ${row[10]} ${row[11]}數量:${row[2]} 
-                               <br>
-                               </p>                  
-                               </td>
-                             </tr>    
-                             </c:forEach> 
-                                                       <c:forEach var="row" items="${list4}"> 
-                             <tr data-widget="expandable-table" aria-expanded="false">
-                                  <td>${row[0]}</td>
-                                  <td>
-                                    ${row[3] eq '1' ? '揪團已建立' : 
-									  row[3] eq '2' ? '成團條件達成':
-									  row[3] eq '3' ? '待商家確認':
-									  row[3] eq '4' ? '揪團失敗':
-									  row[3] eq '5' ? '餐點準備中':
-									  row[3] eq '6' ? '商家拒單':
-									  row[3] eq '7' ? '餐點送達' : ''}                                  
-                                  </td>                                 
-                                  <td>${row[4]}</td>
-                                  <td>${row[5]}</td>
-                                  <td>${row[7]}</td>
-                               </tr>
-                               <tr class="expandable-body">
-                               <td colspan="6">
-                               <p>
-                                 訂單內容<br>
-                                 商品名稱:${row[1]}   ${row[8]} ${row[9]} ${row[10]} ${row[11]}  數量:${row[2]} 
-                                 <br>
-                               </p>                  
-                               </td>
-                             </tr>    
-                             </c:forEach>     
-                             
-        
-                           </tbody>
-                         </div>            
-                       </div>                        
-                     </div>
-                   </div>  
-                   
-                   
-                   
+                                  <td>${row[8]}</td>
+                                </tr>
+                                <tr class="expandable-body">
+                                <td colspan="6">
+                                <p>
+                                <br>訂單內容<br> 
+            <c:forEach var="value1" items="${fn:split(row[1], ',')}" varStatus="status1">
+                ${value1}*
+                <c:set var="value2" value="${fn:split(row[2], ',')[status1.index]}" />
+                ${value2}
+                ${fn:replace(fn:split(row[7], ',')[status1.index], 'NA', '')}
+                ${fn:replace(fn:split(row[8], ',')[status1.index], 'NA', '')}
+                ${fn:replace(fn:split(row[9], ',')[status1.index], 'NA', '')}
+                ${fn:replace(fn:split(row[10], ',')[status1.index], 'NA', '')}
+                 ,&ensp; 訂購者 :
+                ${fn:replace(fn:split(row[11], ',')[status1.index], 'NA', '')}
+                
+                <br><br>
+            </c:forEach>
+                                       
+                                </p>
+                                <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/dinerbackground/pages/Team/ord_query/orderquery.do"
+									style="margin-bottom: 0px;">
+									<input type="submit"  value="訂單已送達"> 
+									<input type="hidden"name="groupOrderID" value="${row[0]}">
+									<input type="hidden"name="orderStatus" value="7">
+									<input type="hidden" name="action" value="status">
+								</FORM>
+                                                         
+                  				</c:forEach>  
+                                </td>
+                                </tr>                    
+                              </div>
+                            </div>
+                           </div>                      
+                         </div>     
                    
                    
                           <!-- 結束 -->

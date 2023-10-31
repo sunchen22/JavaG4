@@ -155,15 +155,12 @@
 				<br>
 				<select name="productID" class="form-control" style="width:200px;display:inline">
 				<c:forEach var="productVO" items="${Plist}">
-					<option value="${productVO.productID}" >${productVO.productName}
+					<option value="${productVO.productID}"${(param.productID==productVO.productID)? 'selected':'' } >${productVO.productName}
 				</c:forEach>
 				</select>
 			</div>
 			
-			
-	
-	
-	
+
 			<div class="col-sm-10">
 				<label>客製分類:</label>
 				<br>
