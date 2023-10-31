@@ -469,7 +469,7 @@ List<Map<String,Object>> cartData = (List<Map<String,Object>>) request.getAttrib
 					      </div>
 					      <div class="col-4">
 					        <div class="input-group">
-					          <input type="number" class="form-control form-control-sm" min="1" value="${item.quantity}" disabled>
+					          <input type="number" class="form-control form-control-sm disabled" min="1" value="${item.quantity}" disabled>
 					          
 					    	    </div>
 					      </div>

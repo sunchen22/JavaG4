@@ -17,7 +17,7 @@ public class WebempadminDAO implements WebempadminDAO_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:3306/jo?serverTimezone=Asia/Taipei";
 	String userid = "root";
-	String passwd = "0909";
+	String passwd = "12345678";
 
 	private static final String INSERT_STMT = 
 		"INSERT INTO webempadmin (empName,empPassword,empArriveDate,empAdminAuthorization,empBlob) VALUES ( ?, ?, ?, ?, ?)";
@@ -33,6 +33,8 @@ public class WebempadminDAO implements WebempadminDAO_interface {
 		"UPDATE webempadmin set empName=?, empPassword=?, empArriveDate=?, empAdminAuthorization=? ,empBlob=? where empID = ?";
 	private static final String GET_EMP_STMT = 
 		"SELECT empName,empPassword FROM webempadmin where empName = ?";
+	private static final String GET_EMPID_STMT = 
+		"SELECT empID FROM webempadmin where empName = ?";
 	private static final String GET_EMPSTATUS_STMT = 
 		"SELECT empName,empStatus FROM webempadmin where empName = ?";
 
@@ -334,6 +336,62 @@ public class WebempadminDAO implements WebempadminDAO_interface {
 		return emp;
 	}
 	
+	
+	@Override
+	public int findEmpID(String empName) {
+		WebempadminVO empVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Integer empID = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_EMPID_STMT);
+			pstmt.setString(1, empName);
+			rs = pstmt.executeQuery();
+			
+			  while (rs.next()) {
+			        empVO = new WebempadminVO();
+			        empID = rs.getInt("empID"); 
+			        empVO.setEmpID(empID);
+			    }
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return empID;
+	}
 	@Override
 	public Map<String,Integer> findEmpStatus(String empName) {
 		WebempadminVO empVO = null;
