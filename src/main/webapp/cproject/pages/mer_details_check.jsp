@@ -1,3 +1,4 @@
+<%@page import="org.hibernate.internal.build.AllowSysOut"%>
 <%@page import="org.json.JSONArray"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="utf-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -87,7 +88,7 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-10">
-              <!-- interactive chart -->
+             
               <div class="card card-warning card-outline">
                 <div class="card-header">
                   <h3 class="card-title">
@@ -106,12 +107,12 @@
 					DinerInfo dif = (DinerInfo)request.getAttribute("dif");
 				
 					String dinerType = dif.getDinerType();
-	              	if(dif.getDinerType().equals("M")){
+	              	if(dif.getDinerType().equals("M")){ 
 	              		dinerType = "單純餐點";
-	              	}else if(dif.getDinerType().equals("D")){
+	              	}else if(dif.getDinerType().equals("D")){  //抓現在的資料是什麼做文字轉換
 	              		dinerType = "單純飲料";
-	              	}else{
-	              		dinerType = "複合";
+	              	}else if(dif.getDinerType().equals("X")){
+	              		dinerType = "餐點飲料複合";
 	              	}
  					
 					
@@ -129,17 +130,24 @@
 					String dinerAccountName = j.optString("dinerAccountName", " ");
 					String dinerTypeJ = j.optString("dinerType", " ");
 					
-
+					//如果抓不到json的name 顯示 "" 代表沒變更
 					
 					
-	              	if(dinerTypeJ.equals("M")){
+	              	if(dinerTypeJ.equals("M")){  //dinerType有變更 做文字轉換的顯示
 	              		dinerTypeJ = "單純餐點";
 	              	}else if(dinerTypeJ.equals("D")){
 	              		dinerTypeJ = "單純飲料";
-	              	}else{
-	              		dinerTypeJ = "複合";
+	              	}else if(dinerTypeJ.equals("X")){
+	              		dinerTypeJ = "餐點飲料複合";
 	              	}
-					
+	              	
+	              	
+// 	              	if(dinerTypeJ.equals(" ")){
+	              		
+// 	              		dinerTypeJ = dif.getDinerType();
+// 	              	}
+	              	
+// 					out.write(dinerTypeJ);
 					
 					
 				%>
@@ -380,7 +388,7 @@ var dinerAccount = "<%= dinerAccount %>";
 var dinerAccountName = "<%= dinerAccountName %>";
 var dinerTypeJ = "<%= dinerTypeJ %>";
 
-
+// console.log(dinerTypeJ);
 
 var modifiedData = {};
 	
@@ -427,7 +435,7 @@ else if(dinerPhone !== '<%= dif.getDinerPhone() %>') {
 
 
 if(dinerEmail === " "){
-	modifiedData.dinerPhone = '<%= dif.getDinerEmail() %>';
+	modifiedData.dinerEmail = '<%= dif.getDinerEmail() %>';
 	
 }
 else if(dinerEmail !== '<%= dif.getDinerEmail() %>') {
@@ -468,21 +476,26 @@ else if(dinerAccountName !== '<%= dif.getDinerAccountName() %>') {
 }
 
 if(dinerTypeJ === " "){
-	if('<%= dif.getDinerType() %>' === "單純餐點"){
+	
+	if('<%= dinerType %>' == "單純餐點"){
 		modifiedData.dinerTypeJ = 'M';
-	}else if('<%= dif.getDinerType() %>' === "單純飲料"){
+		
+	}else if('<%= dinerType %>' === "單純飲料"){
 			modifiedData.dinerTypeJ = 'D';
-	}else{
+			console.log("CCCCCCC");
+	}else if('<%= dinerType %>' === "餐點飲料複合"){
 		modifiedData.dinerTypeJ = 'X';
+		console.log("ddddddddd");
 	}
 	
+	
 }
-else if(dinerTypeJ !== '<%= dif.getDinerType() %>') {
+else if(dinerTypeJ !== '<%= dinerType %>') {
 	if(dinerTypeJ === "單純餐點"){
 			modifiedData.dinerTypeJ = 'M';
 		}else if(dinerTypeJ === "單純飲料"){
 				modifiedData.dinerTypeJ = 'D';
-		}else{
+		}else if(dinerTypeJ === "餐點飲料複合"){
 			modifiedData.dinerTypeJ = 'X';
 		}
 }

@@ -25,7 +25,13 @@
     
     <link rel="stylesheet" href="<%=request.getContextPath()%>/cproject/dist/css/adminlte.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
 
+.limited-image {
+    max-width: 200px; 
+    max-height: 200px; 
+    
+}</style>
 
 
 </head>
@@ -236,7 +242,7 @@
                                     
                                     <td>
                                     
-		                         	<img src = "<%=request.getContextPath()%>/cproject/pages/gosimg.do?groupOrderID=${row[0]}">
+		                         	<img class="limited-image" src = "<%=request.getContextPath()%>/cproject/pages/gosimg.do?groupOrderID=${row[0]}">
                                     </td>
                                     
 
