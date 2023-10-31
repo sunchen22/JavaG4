@@ -160,6 +160,15 @@
 		<url-pattern>/advertisement</url-pattern>
 
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>BusinessHoursServlet</servlet-name>
+		<servlet-class>com.businesshours.controller.BusinessHoursServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BusinessHoursServlet</servlet-name>
+		<url-pattern>/businessHours.do</url-pattern>
+	</servlet-mapping>
 
 	<!-- ================1==================== -->
 	<servlet>

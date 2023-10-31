@@ -169,10 +169,10 @@ DinerInfo dinerInfo = (DinerInfo) request.getAttribute("dinerInfo");
 					<div class="row">
 						<div class="col-8">
 							<div class="icheck-primary">
-								<input type="checkbox" id="agreeTerms" name="terms"
-									value="agree"> <label for="agreeTerms"> 我同意<a
-									href="#">使用者條款</a>及<a href="#">隱私權條款</a>
-								</label>
+<!-- 								<input type="checkbox" id="agreeTerms" name="terms" -->
+<!-- 									value="agree"> <label for="agreeTerms"> 我同意<a -->
+<!-- 									href="#">使用者條款</a>及<a href="#">隱私權條款</a> -->
+<!-- 								</label> -->
 							</div>
 						</div>
 						<!-- /.col -->
