@@ -126,7 +126,7 @@ pageContext.setAttribute("list", PTlist);
 					<br>
 								<label>新增商品分類</label>	
 						<tr>
-							${errorMsgs.productTypeDes}
+							<span style="color:red;">${errorMsgs.productTypeDes}</span>
 							<td><input type="TEXT" name="productTypeDes" value="${param.productTypeDes}" /></td>
 							<td><input type="hidden" name="action" value="insert">
 								<input type="hidden" name="productTypeID" value="${productTypeVO.productTypeID}"> 

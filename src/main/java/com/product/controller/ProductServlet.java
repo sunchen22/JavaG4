@@ -174,7 +174,7 @@ public class ProductServlet extends HttpServlet {
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 
 			Integer productID = Integer.valueOf(req.getParameter("productID").trim());
-//			Integer productID = 58;
+			
 			Integer dinerID = Integer.valueOf(req.getParameter("dinerID").trim());
 
 			String productName = req.getParameter("productName");

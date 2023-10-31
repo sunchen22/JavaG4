@@ -30,12 +30,7 @@
     pageContext.setAttribute("Plist",PList);
 %>
 
-<%
-	ProductVO product = (ProductVO) request.getAttribute("product");
-	ProductVaryService PVSvc = new ProductVaryService();
-	List<ProductVary> PVlist = PVSvc.getByPID(product.getProductID());
-	pageContext.setAttribute("PVlist", PVlist);
-%>
+
 <!DOCTYPE html>
 <html lang="zh-Hant">
 
@@ -190,11 +185,10 @@
 			</div>
 
 
- 
 			<div>
 				<input type="hidden" name="productVaryID" value="${param.productVaryID}">			
 				<input type="hidden" name="action" value="update">
-				<input type="submit"  id="submit" value="確認修改">
+				<input type="submit"  id="submit" value="新增客製">
 			</div>
 			
 			

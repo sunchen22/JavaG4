@@ -87,8 +87,8 @@
         <th>修改時間</th>
         <th>商品圖片</th>
         <th>編輯商品</th>
-        <th>刪除商品</th>
         <th>商品狀態</th>
+        <th>商品上架</th>
         
         
         </tr>
@@ -126,14 +126,15 @@
 
 
 			<td>
-				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/dinerbackground/pages/Team/shelve/product.do"	style="margin-bottom: 0px;">
-					<input type="submit" value="刪除商品"> 
-					<input type="hidden"name="productID" value="${productVO.productID}">
-					<input type="hidden" name="action" value="delete">
-				</FORM>
+			${productVO.productStatus}
+<%-- 				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/dinerbackground/pages/Team/shelve/product.do"	style="margin-bottom: 0px;"> --%>
+<!-- 					<input type="submit" value="刪除商品">  -->
+<%-- 					<input type="hidden"name="productID" value="${productVO.productID}"> --%>
+<!-- 					<input type="hidden" name="action" value="delete"> -->
+<!-- 				</FORM> -->
 			</td>
+
 			<td>
-				${productVO.productStatus}
 				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/dinerbackground/pages/Team/shelve/product.do"
 					style="margin-bottom: 0px;">
 					<input type="submit"  value="下架商品"> 

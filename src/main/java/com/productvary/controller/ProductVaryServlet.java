@@ -36,8 +36,26 @@ public class ProductVaryServlet extends HttpServlet {
 			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 			Integer productID = Integer.valueOf(req.getParameter("productID").trim());
 			String productVaryDes = req.getParameter("productVaryDes");
-			Integer productVaryPrice = Integer.valueOf(req.getParameter("productVaryPrice").trim());
+			if (productVaryDes == null || (productVaryDes.trim()).length() == 0) {
+				errorMsgs.put("productVaryDes", "*請輸入客製內容");
+			}
+			// Send the use back to the form, if there were errors
+
+			Integer productVaryPrice = null;
+			try {
+				productVaryPrice = Integer.valueOf(req.getParameter("productVaryPrice").trim());
+			} catch (IllegalArgumentException e) {
+				errorMsgs.put("productVaryPrice", "*請輸入客製價格");
+			}
+			
 			Integer varyTypeID = Integer.valueOf(req.getParameter("varyTypeID").trim());
+			
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/dinerbackground/pages/Team/shelve/shelve_PV.jsp");
+				failureView.forward(req, res);
+				return;// 程式中斷
+			}
 
 			/*************************** 2.開始新增資料 ***************************************/
 			ProductVaryService PVSvc = new ProductVaryService();

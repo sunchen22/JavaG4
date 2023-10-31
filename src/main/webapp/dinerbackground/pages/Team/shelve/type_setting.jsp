@@ -12,11 +12,7 @@
     List <VaryType> VTList= VTSvc.getAll();
     pageContext.setAttribute("VTlist",VTList);
 %>
-<%
-	ProductVaryService PVSvc = new ProductVaryService();
-	List<ProductVary> PVlist = PVSvc.getAll();
-	pageContext.setAttribute("PVlist", PVlist);
-%>
+
 <!DOCTYPE html>
 <html lang="zh-Hant">
 
@@ -80,7 +76,7 @@
                           <div class="row mt-4">                            
                             <nav class="w-100">
                               
-
+						
                              <FORM METHOD="post" ACTION="varytype.do" name="form1">
 								<table>
 										
@@ -105,7 +101,7 @@
                               
                               
                               
-                              
+                          <br>    
                               
                               
 
@@ -174,10 +170,15 @@
 
 
 	
-
+<%
+	ProductVary ProductVary = (ProductVary) request.getAttribute("ProductVary");
+	ProductVaryService PVSvc = new ProductVaryService();
+	List<ProductVary> PVlist = PVSvc.getByType(1);
+	pageContext.setAttribute("PVlist", PVlist);
+%>
 
 	<c:forEach var="productVaryVO" items="${PVlist}" >
-		
+
 		<tr align="center">
 		
 			<td>${productVaryVO.getProductVO().getProductName()}</td>
