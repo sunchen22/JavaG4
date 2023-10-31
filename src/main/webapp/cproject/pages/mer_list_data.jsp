@@ -188,7 +188,7 @@
 
   <div align="right" style="margin-right: 10px; margin-bottom: 15px; display: flex; justify-content: flex-end;">
  	<form method="post" action ="<%=request.getContextPath()%>/cproject/pages/difs.do" style="margin-left: 5px;">
-  <button id = "click" type="submit" class="btn btn-warning" style="font-weight: bold; margin-left: 5px;">
+  <button id = "click" type="submit" class="btn btn-danger" style="font-weight: bold; margin-left: 5px;">
     停權</button>
   	<input type="hidden" name="action" value="go_for_deactivated">
     <input type="hidden" name="dinerID" value="<%= dif.getDinerID()%>">

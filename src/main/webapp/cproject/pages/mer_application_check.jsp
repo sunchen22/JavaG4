@@ -195,7 +195,7 @@
 				  </form>
 				  
 				  <form method="post" action="<%=request.getContextPath()%>/cproject/pages/difs.do" style="margin-left: 5px;">
-                  <button id = "click2" type="submit"  class="btn btn-warning" style="font-weight :bold">
+                  <button id = "click2" type="submit"  class="btn btn-danger" style="font-weight :bold">
                   拒絕
                   </button>
                   <input type="hidden" name="action" value="go_for_deactivated">

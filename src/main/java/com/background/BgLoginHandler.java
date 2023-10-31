@@ -76,6 +76,7 @@ public class BgLoginHandler extends HttpServlet {
 			HttpSession session = req.getSession();
 			session.removeAttribute(account);
 			res.sendRedirect(req.getContextPath() + "/background/signout.jsp");
+			
 		}
 
 	}

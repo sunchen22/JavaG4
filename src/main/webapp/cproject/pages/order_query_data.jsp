@@ -6,6 +6,8 @@
 <%@ page import="com.dinerinfo.entity.*"%>
 <%@ page import="java.util.*"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <html>
 
 <head>
@@ -184,19 +186,23 @@
                             
                             
                             <c:forEach var="row" items="${list}">
-                                <tr>
-                                	<td>${row[0]}</td>
-                                	<td>
-                                	${row[1]} * 
-                                	${row[2]}<br>
-                                	${row[7]}<br>
-                                	${row[8]}<br>
-                                	${row[9]}<br>                              	
-                                	
-                                	
-                                	</td>
-                                    
-                                  
+    <tr>
+        <td>${row[0]}</td>
+        <td>
+            <c:forEach var="value1" items="${fn:split(row[1], ',')}" varStatus="status1">
+                ${value1}*
+                <c:set var="value2" value="${fn:split(row[2], ',')[status1.index]}" />
+                ${value2}
+                ${fn:replace(fn:split(row[7], ',')[status1.index], 'NA', '')}
+                ${fn:replace(fn:split(row[8], ',')[status1.index], 'NA', '')}
+                ${fn:replace(fn:split(row[9], ',')[status1.index], 'NA', '')}
+                ${fn:replace(fn:split(row[10], ',')[status1.index], 'NA', '')}
+                <br><br>
+            </c:forEach>
+        </td>
+    
+
+	      
                                     <td>
                                     ${row[3] eq '1' ? '揪團已建立' : 
 									  row[3] eq '2' ? '成團條件達成':
@@ -208,9 +214,20 @@
                                   
                                     </td>
                                     <td>${row[4]}</td>
-                                    <td>${row[5]}</td>
                                     <td>
-                                    <fmt:formatDate value="${row[6]}" pattern="yyyy-MM-dd HH:mm:ss" />
+                                    
+                                    <c:forEach var="value" items="${fn:split(row[5], ',')}">
+								    ${value}<br><br>
+								        
+								    </c:forEach>
+                                    
+
+                                    
+                                    
+                                    </td>
+                                    <td>
+                                    ${row[6]}
+                                    
                                     </td>
                                     
                                     <td>
@@ -270,7 +287,7 @@
       <script>
       $(document).ready(function() {
   		$('#table').DataTable({
-  			"lengthMenu": [3],
+  			"lengthMenu": [2],
   			"searching": true,  //搜尋功能, 預設是開啟
   		    "paging": true,     //分頁功能, 預設是開啟
   		    "ordering": true,   //排序功能, 預設是開啟
