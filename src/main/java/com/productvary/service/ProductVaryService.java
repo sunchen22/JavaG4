@@ -62,5 +62,8 @@ public class ProductVaryService {
 		return dao.getByPID(productID);
 	}
 
+	public List<ProductVary> getByType(Integer varyTypeID) {
+		return dao.getByType(varyTypeID);
+	}
 
 }

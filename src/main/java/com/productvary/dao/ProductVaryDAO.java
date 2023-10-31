@@ -31,10 +31,12 @@ public class ProductVaryDAO implements ProductVaryDAO_interface {
 		"INSERT INTO productvary (productID,productVaryDes,productVaryPrice,varyTypeID) VALUES (?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
 		"SELECT productVaryID,productID,productVaryDes,productVaryPrice,varyTypeID FROM productvary order by productVaryID";
+	private static final String GET_BY_TYPE = 
+			"SELECT productVaryID,productID,productVaryDes,productVaryPrice,varyTypeID FROM productvary where varyTypeID= ?";
 	private static final String GET_ONE_STMT = 
 		"SELECT productVaryID,productID,productVaryDes,productVaryPrice,varyTypeID FROM productvary where productVaryID = ?";
 	private static final String GET_BY_PID = 
-		"SELECT productVaryID,productID,productVaryDes,productVaryPrice,varyTypeID FROM productvary where productID = ?";
+		"SELECT productVaryID,productID,productVaryDes,productVaryPrice,varyTypeID FROM productvary where productID = ? order by varyTypeID";
 	private static final String DELETE = 
 		"DELETE FROM productvary where productVaryID = ?";
 	private static final String UPDATE = 
@@ -283,8 +285,8 @@ public class ProductVaryDAO implements ProductVaryDAO_interface {
 	@Override
 	public List<ProductVary> getByPID(Integer productID) {
 		List<ProductVary> list = new ArrayList<ProductVary>();
+		
 		ProductVary productVary = null;
-
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -293,9 +295,9 @@ public class ProductVaryDAO implements ProductVaryDAO_interface {
 
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_BY_PID);
-			rs = pstmt.executeQuery();
 			pstmt.setInt(1, productID);
-
+			rs = pstmt.executeQuery();
+			
 			while (rs.next()) {
 				// empVO 也稱為 Domain objects
 				productVary = new ProductVary();
@@ -304,6 +306,66 @@ public class ProductVaryDAO implements ProductVaryDAO_interface {
 				productVary.setProductVaryDes(rs.getString("productVaryDes"));
 				productVary.setProductVaryPrice(rs.getInt("productVaryPrice"));
 				productVary.setVaryTypeID(rs.getInt("varyTypeID"));
+				
+				list.add(productVary); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	@Override
+	public List<ProductVary> getByType(Integer varyTypeID) {
+		List<ProductVary> list = new ArrayList<ProductVary>();
+		
+		ProductVary productVary = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_BY_TYPE);
+			pstmt.setInt(1, varyTypeID);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				// empVO 也稱為 Domain objects
+				productVary = new ProductVary();
+				productVary.setProductVaryID(rs.getInt("productVaryID"));
+				productVary.setProductID(rs.getInt("productID"));
+				productVary.setProductVaryDes(rs.getString("productVaryDes"));
+				productVary.setProductVaryPrice(rs.getInt("productVaryPrice"));
+				productVary.setVaryTypeID(rs.getInt("varyTypeID"));
+				
 				list.add(productVary); // Store the row in the list
 			}
 

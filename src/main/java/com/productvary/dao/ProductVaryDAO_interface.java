@@ -18,4 +18,6 @@ public interface ProductVaryDAO_interface {
 	public List<ProductVary> getAll();
 
 	List<ProductVary> getByPID(Integer productID);
+
+	List<ProductVary> getByType(Integer varyTypeID);
 }
