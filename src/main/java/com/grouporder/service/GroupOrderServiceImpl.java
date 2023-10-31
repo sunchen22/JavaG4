@@ -1,12 +1,14 @@
 package com.grouporder.service;
 
 import java.util.List;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import java.util.HashMap;
 import java.util.Arrays;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import util.HibernateUtil;
 import util.JedisUtil;
@@ -58,7 +60,8 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 			groupOrderData.put("orderStatus", groupOrder.getOrderStatus());
 			groupOrderData.put("groupOrderCreateTime", groupOrder.getGroupOrderCreateTime());
 			groupOrderData.put("groupOrderSubmitTime", groupOrder.getGroupOrderSubmitTime());
-//			groupTotalPrice
+			groupOrderData.put("holderID", groupOrder.getUserInfo().getUserID());
+			groupOrderData.put("groupTotalPrice", groupOrder.getGroupTotalPrice());
 
 			groupOrderData.put("dinerID", (int) result[1]);
 			groupOrderData.put("dinerName", (String) result[2]);
@@ -115,7 +118,7 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 		groupOrderData.put("orderStatus", groupOrder.getOrderStatus());
 		groupOrderData.put("groupOrderCreateTime", groupOrder.getGroupOrderCreateTime());
 		groupOrderData.put("groupOrderSubmitTime", groupOrder.getGroupOrderSubmitTime());
-		// groupTotalPrice
+		groupOrderData.put("groupTotalPrice", groupOrder.getGroupTotalPrice());
 
 		groupOrderData.put("dinerID", (int) result[1]);
 		groupOrderData.put("dinerName", (String) result[2]);
@@ -332,7 +335,33 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 
 		}
 	}
-
+	
+	@Override
+	public Integer createGroupOrder(Integer dinerID, Integer buildingID, String groupOrderSubmitTime, Object userInfo) {
+		try {
+			Timestamp groupOrderSubmitTimeToTimestamp = null;
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			groupOrderSubmitTimeToTimestamp = new Timestamp(dateFormat.parse(groupOrderSubmitTime).getTime());
+			GroupOrder groupOrder = new GroupOrder();
+			groupOrder.setDinerInfo(dao.findByPKDiner(dinerID));
+			groupOrder.setBuildingInfo(dao.findByPKBuilding(buildingID));
+			groupOrder.setOrderStatus("1");
+			groupOrder.setGroupOrderCreateTime(new Timestamp(System.currentTimeMillis()));
+			groupOrder.setGroupOrderSubmitTime(groupOrderSubmitTimeToTimestamp);
+			groupOrder.setUserInfo((UserInfo) userInfo);
+			groupOrder.setGroupTotalPrice(0);
+			
+			Integer groupOrderID = dao.add(groupOrder);
+			
+			return groupOrderID;
+			
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
 	@Override
 	public Boolean userIsGroupMember(Object userInfo, Integer groupOrderID) {
 		// SET: groupOrder:1 | value: 3
@@ -533,7 +562,6 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 	    	}
 			
 	    	int subtotal = calculateSubtotal(productID, quantity, productVaryList);
-			System.out.println("~~~~~checkoutCart subtotal " + subtotal);
 			
 			// Add a row to userOrderDetail
 			UserOrderDetail userOrderDetail = new UserOrderDetail();
@@ -595,7 +623,7 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 	}
 	
 	@Override
-	public  List<Map<String,Object>> getUserOrderDetailOnThisGroupOrder(Integer groupOrderID, Object userInfo) {
+	public List<Map<String,Object>> getUserOrderDetailOnThisGroupOrder(Integer groupOrderID, Object userInfo) {
 		// [
 		//  {productName=陽春麵, productQuantity=1, userItemPrice=70, productVaryList=[大份, null, null, null]}, 
 		//  {productName=雞腿飯, productQuantity=2, userItemPrice=230, productVaryList=[加荷包蛋, null, null, null]}, 
@@ -626,4 +654,102 @@ public class GroupOrderServiceImpl implements GroupOrderService {
 		
 		return resultList;
 	}
+	
+	@Override
+	public List<Map<String, Object>> searchGroupOrder(String nameKeyword, String addressKeyword) {
+		List<Object[]> results = dao.getGroupOrderByKeywords(nameKeyword, addressKeyword);
+		
+		if (results != null) {
+//			List<Map<String, Object>> resultList = new ArrayList<>();
+//			for (Object[] result : results) {
+//				Map<String, Object> groupOrderData = new LinkedHashMap<>();
+//				GroupOrder groupOrder = (GroupOrder) result[0]; // Access the entity object
+//				groupOrderData.put("groupOrderID", groupOrder.getGroupOrderID());
+//				groupOrderData.put("orderStatus", groupOrder.getOrderStatus());
+//				groupOrderData.put("groupOrderCreateTime", groupOrder.getGroupOrderCreateTime());
+//				groupOrderData.put("groupOrderSubmitTime", groupOrder.getGroupOrderSubmitTime());
+//				groupOrderData.put("holderID", groupOrder.getUserInfo().getUserID());
+//				groupOrderData.put("groupTotalPrice", groupOrder.getGroupTotalPrice());
+//	
+//				groupOrderData.put("dinerID", (int) result[1]);
+//				groupOrderData.put("dinerName", (String) result[2]);
+//				groupOrderData.put("dinerAddress", (String) result[3]);
+//				groupOrderData.put("dinerType", (String) result[4]);
+//				groupOrderData.put("dinerOrderThreshold", (Integer) result[5]);
+//				groupOrderData.put("dinerStatus", (String) result[6]);
+//				groupOrderData.put("buildingName", (String) result[7]);
+//				groupOrderData.put("buildingAddress", (String) result[8]);
+//				groupOrderData.put("userNickName", (String) result[9]);
+//				groupOrderData.put("dinerRating", (double) result[10]);
+//				
+//				resultList.add(groupOrderData);
+//			}
+			
+			List<Map<String, Object>> resultList = new ArrayList<>();
+
+
+	        for (Object[] row : results) {
+	            Map<String, Object> groupOrderData = new LinkedHashMap<>();
+	            groupOrderData.put("groupOrderID", row[0]);
+	            groupOrderData.put("dinerID", row[1]);
+	            groupOrderData.put("buildingID", row[2]);
+	            groupOrderData.put("orderStatus", row[3]);
+	            groupOrderData.put("groupOrderCreateTime", row[4]);
+	            groupOrderData.put("groupOrderSubmitTime", row[5]);
+	            groupOrderData.put("holderID", row[6]);
+	            groupOrderData.put("groupTotalPrice", row[7]);
+	            groupOrderData.put("dinerName", row[8]);
+	            groupOrderData.put("dinerAddress", row[9]);
+	            groupOrderData.put("dinerType", row[10]);
+	            groupOrderData.put("dinerOrderThreshold", row[11]);
+	            groupOrderData.put("dinerStatus", row[12]);
+	            groupOrderData.put("buildingName", row[13]);
+	            groupOrderData.put("buildingAddress", row[14]);
+	            groupOrderData.put("userNickName", row[15]);
+	            groupOrderData.put("dinerRating", row[16]);
+
+	            resultList.add(groupOrderData);
+	        }
+			
+			return resultList;
+			
+		}
+		return null;
+	}
+	
+	@Override
+	public void changeAllGroupOrderStatus() {
+		
+		// 1. Change all group orders' status from 1 to 4, and from 2 to 3
+		List<GroupOrder> results = dao.getAllStatusOneTwo();
+		for (GroupOrder groupOrder : results) {
+			if (groupOrder.getOrderStatus().equals("1")) {
+				groupOrder.setOrderStatus("4");
+			} else {
+				groupOrder.setOrderStatus("3");
+			}
+		}
+		
+		// 2. Remove Redis data(cart, joined groups, group members)
+		try (Jedis jedis = pool.getResource()) {
+		    jedis.select(6);
+		    jedis.flushDB();
+		}
+	}
+	
+	@Override
+	public void clearCart(Object userInfo, Integer groupOrderID, Integer dinerID) {
+		Integer userID = ((UserInfo) userInfo).getUserID();
+			
+		// Remove Redis cart data
+		try (Jedis jedis = pool.getResource()) {
+		    jedis.select(6);
+		    
+		    String cartKey = "user:" + userID + ":groupOrder:" + groupOrderID + ":diner:" + dinerID + ":cart";
+		    jedis.del(cartKey);
+		}
+		
+	}
+	
+	
 }

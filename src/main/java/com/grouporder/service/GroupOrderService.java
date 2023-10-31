@@ -2,6 +2,7 @@ package com.grouporder.service;
 
 import java.util.Map;
 
+import com.grouporder.entity.GroupOrder;
 import com.userorderdetail.entity.UserOrderDetail;
 
 import java.util.List;
@@ -22,4 +23,8 @@ public interface GroupOrderService {
 	List<Map<String, Object>> getUserOrderDetailOnThisGroupOrder(Integer groupOrderID, Object userInfo);
 	byte[] getGroupOrderDinerImage(Integer groupOrderID);
 	byte[] getGroupOrderProductImage(Integer productID, Integer no);
+	Integer createGroupOrder(Integer dinerID, Integer buildingID, String groupOrderSubmitTime, Object userInfo);
+	List<Map<String, Object>> searchGroupOrder(String nameKeyword, String addressKeyword);
+	void changeAllGroupOrderStatus();
+	void clearCart(Object userInfo, Integer groupOrderID, Integer dinerID);
 }

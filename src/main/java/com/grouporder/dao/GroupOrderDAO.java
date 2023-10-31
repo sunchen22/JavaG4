@@ -2,6 +2,7 @@ package com.grouporder.dao;
 
 import java.util.List;
 
+import com.buildinginfo.entity.BuildingInfo;
 import com.dinerinfo.entity.DinerInfo;
 import com.grouporder.entity.GroupOrder;
 import com.product.entity.Product;
@@ -20,4 +21,8 @@ public interface GroupOrderDAO {
 	List<Object[]> getOneJoin(Integer groupOrderID);
 	List<Object[]> getOneJoinMenu(Integer dinerID);
 	List<Object[]> getProductJoinProductVary(Integer productID);
+	DinerInfo findByPKDiner(Integer dinerID);
+	BuildingInfo findByPKBuilding(Integer buildingID);
+	List<Object[]> getGroupOrderByKeywords(String nameKeyword, String addressKeyword);
+	List<GroupOrder> getAllStatusOneTwo();
 }

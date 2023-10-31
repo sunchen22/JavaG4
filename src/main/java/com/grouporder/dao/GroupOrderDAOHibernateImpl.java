@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.NativeQuery;
+import org.hibernate.query.Query;
 
 import com.dinerinfo.entity.DinerInfo;
 import com.grouporder.entity.GroupOrder;
@@ -139,10 +140,55 @@ public class GroupOrderDAOHibernateImpl implements GroupOrderDAO {
 	}	
 
 	@Override
+	public DinerInfo findByPKDiner(Integer dinerID) {
+		try {
+//			getSession().beginTransaction();
+			DinerInfo dinerInfo = getSession().get(DinerInfo.class, dinerID);
+//			getSession().getTransaction().commit();
+			return dinerInfo;
+		} catch (Exception e) {
+			e.printStackTrace();
+//			getSession().getTransaction().rollback();
+		}
+		
+		return null;
+	}
+	
+	@Override
+	public BuildingInfo findByPKBuilding(Integer buildingID) {
+		try {
+//			getSession().beginTransaction();
+			BuildingInfo buildingInfo = getSession().get(BuildingInfo.class, buildingID);
+//			getSession().getTransaction().commit();
+			return buildingInfo;
+		} catch (Exception e) {
+			e.printStackTrace();
+//			getSession().getTransaction().rollback();
+		}
+		
+		return null;
+	}	
+	
+	@Override
 	public List<GroupOrder> getAll() {
 		try {
 //			getSession().beginTransaction();
 			List<GroupOrder> list = getSession().createQuery("from GroupOrder", GroupOrder.class).list();
+//			getSession().getTransaction().commit();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+//			getSession().getTransaction().rollback();
+		}
+
+		return null;
+	}
+	
+	@Override
+	public List<GroupOrder> getAllStatusOneTwo() {
+		try {
+//			getSession().beginTransaction();
+			List<GroupOrder> list = getSession().createQuery("from GroupOrder where orderStatus = '1' OR orderStatus = '2'", GroupOrder.class).list();
 //			getSession().getTransaction().commit();
 			return list;
 		} catch (Exception e) {
@@ -257,4 +303,50 @@ public class GroupOrderDAOHibernateImpl implements GroupOrderDAO {
 		return null;		
 	}
 	
+	@Override
+	public List<Object[]> getGroupOrderByKeywords(String nameKeyword, String addressKeyword) {
+		try {
+//			getSession().beginTransaction();
+			StringBuilder sql = new StringBuilder("SELECT go.groupOrderID, go.dinerID, go.buildingID, go.orderStatus, go.groupOrderCreateTime, go.groupOrderSubmitTime, go.holderID, go.groupTotalPrice, d.dinerName, d.dinerAddress, d.dinerType, d.dinerOrderThreshold, d.dinerStatus, "
+					+ "b.buildingName, b.buildingAddress, u.userNickName, "
+					+ "(SELECT ROUND(AVG(drc.dinerRating), 1) FROM DinerRatingComment drc WHERE drc.dinerID = go.dinerID) AS dinerRating "
+					+ "FROM GroupOrder go "
+	                + "LEFT JOIN DinerInfo AS d ON go.dinerID = d.dinerID "
+	                + "LEFT JOIN BuildingInfo AS b on go.buildingID = b.buildingID "
+	                + "LEFT JOIN UserInfo AS u ON go.holderID = u.userID "
+	                + "WHERE (go.orderStatus = 1 OR go.orderStatus = 2) ");
+
+			nameKeyword = (nameKeyword != null) ? nameKeyword.trim() : null;
+	        addressKeyword = (addressKeyword != null) ? addressKeyword.trim() : null;
+			
+	        // Use parameters for LIKE conditions
+	        if (nameKeyword != null && !nameKeyword.isEmpty()) {
+	            sql.append(" AND d.dinerName LIKE :name");
+	        }
+	        if (addressKeyword != null && !addressKeyword.isEmpty()) {
+	            sql.append(" AND b.buildingAddress LIKE :address");
+	        }
+
+	        NativeQuery<Object[]> query = getSession().createNativeQuery(sql.toString());
+
+	        // Set parameters for LIKE conditions
+	        if (nameKeyword != null && !nameKeyword.isEmpty()) {
+	            query.setParameter("name", "%" + nameKeyword + "%");
+	        }
+	        if (addressKeyword != null && !addressKeyword.isEmpty()) {
+	            query.setParameter("address", "%" + addressKeyword + "%");
+	        }
+
+	        List<Object[]> results = query.getResultList();
+					
+					
+//			getSession().getTransaction().commit();
+			return results;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+//			getSession().getTransaction().rollback();
+		}
+		return null;	
+	}
 }
