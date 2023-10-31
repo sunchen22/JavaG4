@@ -60,7 +60,7 @@ public class EmpPhoto extends HttpServlet {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jo?serverTimezone=Asia/Taipei",
-					"root", "0909"); // 執行一次
+					"root", "Hh@1234567890"); // 執行一次
 		} catch (ClassNotFoundException e) {
 			throw new UnavailableException("Couldn't load JdbcOdbcDriver");
 		} catch (SQLException e) {

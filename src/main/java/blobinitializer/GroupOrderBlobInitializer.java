@@ -27,11 +27,11 @@ public class GroupOrderBlobInitializer {
 			Session session = factory.getCurrentSession();
 			session.beginTransaction();
 
-			for (int i = 0; i < 1; i++) {
+			for (int i = 0; i < 3; i++) {
 				FileInputStream fis = new FileInputStream(new File(dir, fileNames[i]));
 				byte[] picture = fis.readAllBytes();
 
-				GroupOrder g = session.get(GroupOrder.class, 5);
+				GroupOrder g = session.get(GroupOrder.class, 3);
 				g.setDeliveredBlob(picture);
 				
 				fis.close();

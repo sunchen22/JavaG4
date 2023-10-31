@@ -14,7 +14,7 @@ DinerInfo account = (DinerInfo) session.getAttribute("account");
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>樓頂揪樓咖 商家Q&A</title>
+<title>樓頂揪樓咖 商家資料管理</title>
 
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet"

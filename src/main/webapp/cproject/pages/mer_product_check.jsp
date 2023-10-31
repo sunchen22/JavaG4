@@ -23,7 +23,13 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/cproject/dist/css/adminlte.min.css">
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
 
+.limited-image {
+    max-width: 100px; 
+    max-height: 100px; 
+    
+}</style>
 
 </head>
 
@@ -190,16 +196,16 @@
                                        ${product.productPrice}
                                     </td>
                                     <td>
-                                       <img src = "<%=request.getContextPath()%>/cproject/pages/psimg.do?productID=${product.productID}">
+                                       <img class="limited-image" src = "<%=request.getContextPath()%>/cproject/pages/psimg.do?productID=${product.productID}">
                                     </td>
                                     	
                                     <td>
-                                       <img src = "<%=request.getContextPath()%>/cproject/pages/psimg2.do?productID=${product.productID}">
+                                       <img class="limited-image" src = "<%=request.getContextPath()%>/cproject/pages/psimg2.do?productID=${product.productID}">
                                     </td>
                                     
                                     <td>
                                     
-                                    <img src = "<%=request.getContextPath()%>/cproject/pages/psimg3.do?productID=${product.productID}">
+                                    <img class="limited-image" src = "<%=request.getContextPath()%>/cproject/pages/psimg3.do?productID=${product.productID}">
                                     </td>
                                     	
                                     <td>${product.productRemark}</td>	
@@ -285,7 +291,7 @@
 
       $(document).ready(function() {
   		$('#table').DataTable({
-  			"lengthMenu": [2],
+  			"lengthMenu": [4],
   			"searching": true,  //搜尋功能, 預設是開啟
   		    "paging": true,     //分頁功能, 預設是開啟
   		    "ordering": true,   //排序功能, 預設是開啟
