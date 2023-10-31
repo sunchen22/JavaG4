@@ -51,7 +51,7 @@
 
 	<!-- 設定跳轉秒數 -->
 	<script>
-		var count = 5;
+		var count = 3;
 		function countDown() {
 			var str = '<span>秒後跳轉至登入頁面</span>';
 			document.getElementById("timeBox").innerHTML = count+str;
