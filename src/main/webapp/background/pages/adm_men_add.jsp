@@ -232,13 +232,16 @@ WebempadminVO empVO = (WebempadminVO)request.getAttribute("empVO");
 
 								</div>
 								<!-- /.card-body -->
-								<div class="card-footer" style="text-align: center; padding-top: 5px; background: transparent">
-									
+								
+									<div style="text-align: center;  background: transparent ">
 										<input type="hidden" name="action" value="insert">
 										<input type="submit" id="submitbtn" name="action" value="確定" class="btn btn-warning">
-									
+										</div>
+								</form>
+								<form METHOD="post" ACTION="emp.do" NAME="form_admadd" ENCTYPE="multipart/form-data">	
+								<div style="text-align: center;  background: transparent ">
 									<button type="submit" class="btn btn-warning">取消</button>
-									
+									<input type="hidden" name="action" value="cancel">
 								</div>
 							</form>
 						</div>
