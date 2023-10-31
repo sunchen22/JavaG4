@@ -134,27 +134,29 @@
                             
                          <c:forEach var="varyTypeVO" items="${VTlist}">  
                             <div class="tab-pane fade" id="product-${varyTypeVO.varyTypeID}" role="tabpanel" aria-labelledby="product-volume-tab">
-                              <div class="card-body table-responsive p-0" style="height: 300px;">
+                              <div class="card-body table-responsive p-0" style="height: 50px;">
                                     <td>
 									  <FORM METHOD="post" ACTION="varytype.do" style="margin-bottom: 0px;">
 									     <input type="submit" value="刪除${varyTypeVO.varyType}分類">
 									     <input type="hidden" name="varyTypeID" value="${varyTypeVO.varyTypeID}">
 									     <input type="hidden" name="action" value="delete"></FORM>
 									</td>
+ 
+                              </div>
+                            </div>                          
+       					</c:forEach>
+                         
+        
 
-	        
-                                <table class="table table-head-fixed text-nowrap">
-                               
+                              </div>  
+                             </div>  
+                          </div>                  
+                          <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
 
-                                    <article class="task_container">
-                                      
-                                     
-                                      <h1 class="title1">${varyTypeVO.varyType}</h1>
-                                        <table id="example1" class="table table-bordered table-striped">
-                                        
-                                        
-                                        
-                                        
+                <table id="example1" class="table table-bordered table-striped">
+   
         <thead>
         <tr  align="center">
        	<th>商品名稱</th>
@@ -213,25 +215,7 @@
         </tbody>
        
         </table>
-
-
-                                    </article>                                   
-                                </table>                               
-                              </div>
-                            </div>                          
-       					</c:forEach>
-                         
                           
-        
-
-                              </div>  
-                             </div>  
-                          </div>                  
-                          <!-- /.card-body -->
-                        </div>
-                        <!-- /.card -->
-
-               
                
                
      

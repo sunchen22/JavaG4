@@ -68,6 +68,46 @@ public class ProductVaryServlet extends HttpServlet {
 			successView.forward(req, res);
 
 		}
+		if ("insert2".equals(action)) { // 來自type_setting.jsp的請求
+
+			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
+			Integer productID = Integer.valueOf(req.getParameter("productID").trim());
+			String productVaryDes = req.getParameter("productVaryDes");
+			if (productVaryDes == null || (productVaryDes.trim()).length() == 0) {
+				errorMsgs.put("productVaryDes", "*請輸入客製內容");
+			}
+			// Send the use back to the form, if there were errors
+
+			Integer productVaryPrice = null;
+			try {
+				productVaryPrice = Integer.valueOf(req.getParameter("productVaryPrice").trim());
+			} catch (IllegalArgumentException e) {
+				errorMsgs.put("productVaryPrice", "*請輸入客製價格");
+			}
+			
+			Integer varyTypeID = Integer.valueOf(req.getParameter("varyTypeID").trim());
+			
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/dinerbackground/pages/Team/shelve/update_shelve_PV.jsp");
+				failureView.forward(req, res);
+				return;// 程式中斷
+			}
+
+			/*************************** 2.開始新增資料 ***************************************/
+			ProductVaryService PVSvc = new ProductVaryService();
+
+			PVSvc.addProductVary(productID, productVaryDes, productVaryPrice, varyTypeID);
+
+			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
+			String url = "/dinerbackground/pages/Team/shelve/update_shelve_PV.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+			successView.forward(req, res);
+
+		}
 		
 		if ("getOne_For_Update".equals(action)) { // 來自p_list.jsp的請求
 
@@ -93,7 +133,7 @@ public class ProductVaryServlet extends HttpServlet {
 			System.out.println(productVaryID);
 
 				
-			String url = "/dinerbackground/pages/Team/shelve/update_shelve_PV.jsp" + param;
+			String url = "/dinerbackground/pages/Team/shelve/update_shelve_PV2.jsp" + param;
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_product.jsp
 			successView.forward(req, res);
 		}
@@ -117,7 +157,7 @@ public class ProductVaryServlet extends HttpServlet {
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/dinerbackground/pages/Team/shelve/update_shelve_PV.jsp");
+						.getRequestDispatcher("/dinerbackground/pages/Team/shelve/update_shelve_PV2.jsp");
 				failureView.forward(req, res);
 				return; // 程式中斷
 			}
@@ -128,11 +168,14 @@ public class ProductVaryServlet extends HttpServlet {
 					productVaryPrice, varyTypeID);
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
+			
 			req.setAttribute("productVary", productVary); // 資料庫update成功後,正確的的empVO物件,存入req
-			String url = "/dinerbackground/pages/Team/shelve/type_setting.jsp";
+			String url = "/dinerbackground/pages/Team/shelve/update_shelve_PV.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 			successView.forward(req, res);
 		}
+		
+		
 
 		if ("delete".equals(action)) { // 來自listAllEmp.jsp
 

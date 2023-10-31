@@ -225,6 +225,7 @@
            
            
 			<div>
+			
 				<input type="hidden" name="productID"value="${param.productID}"/>		
 				<input type="hidden" name="dinerID"	value="${account.dinerID}"/>
 				<input type="hidden" name="action" value="update">
@@ -241,6 +242,8 @@
   
     </div>
      </div>
+     
+     
     <script>
 
       window.addEventListener("load", function(e){
