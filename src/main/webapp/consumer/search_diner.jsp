@@ -29,19 +29,13 @@
 					<div class="col-3">
 
 						<input type="text" class="form-control input_keyword"
-							name="keyword" placeholder="輸入關鍵字">
+							name="keyword" placeholder="輸入店名關鍵字">
 
 					</div>
 					<div class="col-8">
 						<div class="input-group">
 							<input type="text" class="form-control input_address"
-								name="address" placeholder="輸入地址"> <a
-								class="btn btn-outline-secondary" title="清除"><i
-								class="fa-solid fa-xmark"></i></a> <a
-								class="btn btn-outline-secondary" title="使用我的定位"><i
-								class="fa-solid fa-location-dot"></i></a> <a
-								class="btn btn-outline-secondary" title="使用我的常用大樓"><i
-								class="fa-solid fa-building"></i></a>
+								name="address" placeholder="輸入地址"> 
 						</div>
 					</div>
 					<button class="col-1 btn btn-dark" type="submit" id="btn_search">搜尋</button>

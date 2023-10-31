@@ -230,7 +230,7 @@
 				<form method = "post" action = "<%=request.getContextPath()%>/cproject/pages/ads.do">
 				<input type="hidden" name="action" value = "go_for_rejected">
 				<input type="hidden" name="check" value = "${advertisement.dinerid.dinerID}">
-				<button id = "click2 " type = "submit" class="btn btn-warning" style="font-weight :bold">拒絕</button>
+				<button id = "click2 " type = "submit" class="btn btn-danger" style="font-weight :bold">拒絕</button>
 				</form>
 				</td>
     

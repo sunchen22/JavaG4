@@ -136,8 +136,8 @@
 									<ul class="list-unstyled card-text">
 										<li><span>大樓地址：</span><span>${groupOrder.buildingInfo.buildingAddress}</span></li>
 										<li>${dinerInfo.dinerName}</li>
-										<li>團主：${groupOrder.userInfo.userNickName}</li>
-										<li class="list-inline-item">成團條件：${dinerInfo.dinerOrderThreshold}</li>
+										<li>主揪：${groupOrder.userInfo.userNickName}</li>
+										<li class="list-inline-item">成團條件：${dinerInfo.dinerOrderThreshold}元</li>
 <c:set var="statusText" value="未知狀態"/>
 <c:set var="status" value="-1"/>
 <!-- 檢查 groupOrder.orderStatus 是否為 null，並轉換為整數 -->
@@ -178,7 +178,7 @@
 										<li class="list-inline-item">狀態：${statusText}</li>
 										<li>付款截止時間：${groupOrder.groupOrderSubmitTime}</li>
 										<div class="d-flex justify-content-end">
-											<a class="btn btn-dark">加入此大樓揪團</a>
+											<a class="btn btn-dark" href="${pageContext.request.contextPath}/GroupOrder.do?action=getOne&groupOrderID=${groupOrder.groupOrderID}">查看大樓揪團詳情</a>
 										</div>
 									</ul>
 								</div>

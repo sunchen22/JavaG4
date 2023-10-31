@@ -66,10 +66,10 @@ DinerInfo dinerInfo = (DinerInfo) request.getAttribute("dinerInfo");
 					</div>
 					<div class="row">
 						<div class="col-8">
-							<div class="icheck-primary">
-								<input type="checkbox" id="remember"> <label
-									for="remember"> 記住我 </label>
-							</div>
+<!-- 							<div class="icheck-primary"> -->
+<!-- 								<input type="checkbox" id="remember"> <label -->
+<!-- 									for="remember"> 記住我 </label> -->
+<!-- 							</div> -->
 						</div>
 						<!-- /.col -->
 						<div class="col-4">

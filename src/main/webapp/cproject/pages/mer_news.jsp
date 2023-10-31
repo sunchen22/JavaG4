@@ -75,6 +75,7 @@
     	WebempadminDAOImplC wic = new WebempadminDAOImplC();
     	List<Webempadmin> list = wic.getAllEmp();
     	pageContext.setAttribute("list", list);
+    	String s = (String)session.getAttribute("account");
     	
     	DinerNewsDAOHibernateImpl dndi = new DinerNewsDAOHibernateImpl();
     	List<DinerNews> list1 = dndi.getAll();
@@ -108,7 +109,7 @@
                 
 
                 
-                <form method = "post" action="<%=request.getContextPath()%>/cproject/pages/dns.do" onsubmit="return validateForm()" style="padding:10px;">
+                <form method = "post" action="<%=request.getContextPath()%>/cproject/pages/dns.do" style="padding:10px;">
                   <span>
                     <label>標題 :</label>
                     <input type="text" name = "news1" class="border border-warning" style = "width: 85%">
@@ -143,24 +144,14 @@
 				  &ensp;
 				  
 				
-				
-				  <select name="emp" id = "emp">
-				  	<option>選擇員工</option>
-				  	<c:forEach var="emp" items="${list}">				  						
-					<option value="${emp.empID}">${emp.empName}</option>					
-
-					</c:forEach>
-				  </select>
-				  
-				  
-				
+		
 				  
 				  
                   <div align = "right">
                   <span>
                   	
                     <button type="submit" style="font-weight:bold" class="btn btn-warning">送出</button>
-                    
+                    <input type = "hidden" name= "empName" value = "<%=s%>">
                   </span>
                   </div>
                   
@@ -321,17 +312,7 @@
      	});
        
        
-       
-       
-       function validateForm() {
-     	    var selectedEmployee = document.getElementById("emp").value;
-     	    if (selectedEmployee === "選擇員工") {
-     	        alert("請選擇員工");
-    	        return false; // 阻止表單提交
-     	    }
-     	    return true; // 允許表單提交
-     	}
-			
+  	
        
        
        window.onload = function() {

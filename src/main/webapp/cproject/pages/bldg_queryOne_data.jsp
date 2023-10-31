@@ -170,7 +170,7 @@
 										<form METHOD="post" ACTION="<%=request.getContextPath()%>/cproject/pages/bis.do">                
 					                  <input type="hidden" name="buildingID"  value="<%=bif.getBuildingID() %>">    
 								      <input type="hidden" name="action" value="delete">
-								      <button type="submit" value ="送出" class ="btn btn-warning" style = "font-weight :bold " data-bs-toggle="modal" data-bs-target="#exampleModal">刪除</button>
+								      <button type="submit" value ="送出" class ="btn btn-danger" style = "font-weight :bold ">刪除</button>
 					                  </form>																												
 								</td>
 

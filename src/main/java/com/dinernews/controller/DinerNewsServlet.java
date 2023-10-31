@@ -35,48 +35,20 @@ public class DinerNewsServlet extends HttpServlet {
 		String news3 = req.getParameter("news3");
 		String startDate = req.getParameter("startDate");
 		String endDate = req.getParameter("endDate");
-		
-		String emp = req.getParameter("emp");
-		Integer empid = Integer.parseInt(emp);
+//		String emp = req.getParameter("emp");
+//		Integer empid = Integer.parseInt(emp);
+		String empName = req.getParameter("empName");
 		
 		DinerNewsDAOHibernateImpl dndi = new DinerNewsDAOHibernateImpl();
-		DinerNews dn = dndi.update();
-		if(dn!=null) {
-		
-		Webempadmin w = new Webempadmin();
-		w.setEmpID(empid);//new一個Webempadmin,透過映射關係set 49行
 	
+		dndi.update(news1,news2,news3,startDate,endDate,/*empid*/empName);
 		
-		dn.setDinerNewsContent1(news1);
-		dn.setDinerNewsContent2(news2);
-		dn.setDinerNewsContent3(news3);
-		dn.setWebempadmin(w);
-		dn.setDinerNewsStatus(1);
 		
-		try {
-			
-			dn.setDinerNewsReleaseTime(new SimpleDateFormat("yyyy-MM-dd").parse(startDate));
-			
-		
-		} catch (ParseException e) {
-			
-			e.printStackTrace();
-		}
-		try {
-			dn.setDinerNewsReviseTime(new SimpleDateFormat("yyyy-MM-dd").parse(endDate));
-			
-		} catch (ParseException e) {
-			
-			e.printStackTrace();
-		}
-	
-		
-		}
 		
 		
 
 		String url = "/cproject/pages/mer_news.jsp";
-		RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+		RequestDispatcher successView = req.getRequestDispatcher(url);
 		successView.forward(req, res);
 
 	

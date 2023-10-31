@@ -218,7 +218,7 @@
 										<input type = "hidden" name = "dinerID" value = "${product.dinerinfo.dinerID}">
 										<input type = "hidden" name="action" value = "go_for_down">
 										
-										<button id = "click" type = "submit" class ="btn btn-warning" style = "font-weight :bold">下架</button>
+										<button id = "click" type = "submit" class ="btn btn-danger" style = "font-weight :bold">下架</button>
 
 									  </form>
 									

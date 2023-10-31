@@ -21,7 +21,7 @@ BusinessHoursServiceImpl bh = new BusinessHoursServiceImpl();
 List<BusinessHours> businessHours = bh.getBusinessHoursByDinerID(dinerID);
 
 session.setAttribute("businessHours", businessHours);
-
+// pageContext.setAttribute("businessHours", businessHours);
 
 System.out.println("businessHours"+businessHours);
 
@@ -94,7 +94,7 @@ System.out.println("businessHours"+businessHours);
 								 <%
  									// 檢查 businessHours 是否為空，並根據情況顯示適當的訊息
  									if (businessHours == null || businessHours.isEmpty()) {
- 									out.print("營業時間 : 您目前還沒有設定");
+ 									out.print("您已成功設定營業時間");
 									 } else {
  									out.print("營業時間 :");
 									 }
@@ -125,12 +125,12 @@ System.out.println("businessHours"+businessHours);
 									for (BusinessHours hours : businessHours) {
 										if (hours != null && hours.getDayOfWeek() != null && hours.getDayOfWeek().equalsIgnoreCase(dayInEnglish)) { // 確認該 BusinessHours 物件的營業日是否與當前迭代的 day 相匹配
 								%>
-								<input type="checkbox" name="dayOfWeek[<%=dayInEnglish%>]"
-									id="open<%=dayInEnglish%>" 
-									data-bootstrap-switch
-									data-rendered="true"
-									<%="Open".equals(hours.getOpenStatus()) ? "checked" : ""%>
-									onchange="confirmStatusChange('<%=dayInEnglish%>', '<%=dayInChinese%>', this, this.form);">
+<%-- 								<input type="checkbox" name="dayOfWeek[<%=dayInEnglish%>]" --%>
+<%-- 									id="open<%=dayInEnglish%>"  --%>
+<!-- 									data-bootstrap-switch -->
+<!-- 									data-rendered="true" -->
+<%-- 									<%="Open".equals(hours.getOpenStatus()) ? "checked" : ""%> --%>
+<%-- 									onchange="confirmStatusChange('<%=dayInEnglish%>', '<%=dayInChinese%>', this, this.form);"> --%>
 								<label for="open<%=dayInEnglish%>" class="inline"><h5><%=dayInChinese%></h5></label>&ensp;&ensp;&ensp;
 
 								<!-- 隱藏的 input 用於儲存狀態 -->
@@ -146,7 +146,7 @@ System.out.println("businessHours"+businessHours);
 									value="<%=hours.getOpenStatus()%>">
 									
 									<input type="hidden" name="dinerID" value="${account.dinerID}">
-									
+								
 								<span>開店時間 :<%=hours.getOpenTime()%></span>&ensp;&ensp;&ensp;
 								<span>關店時間 : <%=hours.getCloseTime()%></span> <br>
 								<%
@@ -168,109 +168,112 @@ System.out.println("businessHours"+businessHours);
 
 
 
+<!-- 							這裡是營業時間更改的部分 -->
+<!-- 							<div class="card-tools"> -->
+<!-- 								Collapse Button -->
+<!-- 								<button type="button" class="btn btn-tool" -->
+<!-- 									data-card-widget="collapse"> -->
+<!-- 									<i class="fas fa-plus"></i> -->
+<!-- 								</button> -->
+<!-- 							</div> -->
+<!-- 							/.card-tools -->
+<!-- 						</div> -->
+<!-- 						/.card-header -->
+<!-- 						<div class="card-body"> -->
+<!-- 							<label for="openTimeSetting" class="inline"> -->
+<!-- 								<h5>營業時間設定</h5> -->
+<!-- 							</label> <br> -->
 
-							<div class="card-tools">
-								<!-- Collapse Button -->
-								<button type="button" class="btn btn-tool"
-									data-card-widget="collapse">
-									<i class="fas fa-plus"></i>
-								</button>
-							</div>
-							<!-- /.card-tools -->
-						</div>
-						<!-- /.card-header -->
-						<div class="card-body">
-							<label for="openTimeSetting" class="inline">
-								<h5>營業時間設定</h5>
-							</label> <br>
+<%-- 							<form action="<%=request.getContextPath()%>/businessHours.do" --%>
+<!-- 								method="post"> -->
 
-							<form action="<%=request.getContextPath()%>/businessHours.do"
-								method="post">
+<!-- 								<div class="form-group row form-inline"> -->
+<!-- 									<div class="col"> -->
+<!-- 										<span>營業日 :</span>  -->
+<!-- 										<select name="dayOfWeek" id="dayOfWeek" -->
+<!-- 											class="form-control"> -->
+<!-- 											<option value="Monday">星期一</option> -->
+<!-- 											<option value="Tuesday">星期二</option> -->
+<!-- 											<option value="Wednesday">星期三</option> -->
+<!-- 											<option value="Thursday">星期四</option> -->
+<!-- 											<option value="Friday">星期五</option> -->
+											
+<!-- 										</select> -->
+<!-- 									</div> -->
+<!-- 									<div class="col"> -->
+<!-- 										開店時間： -->
+<!-- 										<span>開店時間 :</span> <select id="openTime" -->
+<!-- 											name="openTime" class="form-control"> -->
+<!-- 											<option selected="selected">9:00</option> -->
+<!-- 											<option value="0930">9:30</option> -->
+<!-- 											<option value="1000">10:00</option> -->
+<!-- 											<option  value="1030">10:30</option> -->
+<!-- 											<option  value="1100">11:00</option> -->
+<!-- 											<option  value="1130">11:30</option> -->
+<!-- 											<option value="1200">12:00</option> -->
+<!-- 											<option  value="1230">12:30</option> -->
+<!-- 											<option  value="1300">13:00</option> -->
+<!-- 											<option  value="1330">13:30</option> -->
+<!-- 											<option  value="1400">14:00</option> -->
+<!-- 											<option  value="1430">14:30</option> -->
+<!-- 											<option  value="1500">15:00</option> -->
+<!-- 											<option  value="1530">15:30</option> -->
+<!-- 											<option  value="1600">16:00</option> -->
+<!-- 											<option value="1630">16:30</option> -->
+<!-- 											<option  value="1700">17:00</option> -->
+<!-- 											<option  value="1730">17:30</option> -->
+<!-- 											<option  value="1800">18:00</option> -->
+<!-- 											<option  value="1830">18:30</option> -->
+<!-- 											<option  value="1900">19:00</option> -->
+<!-- 											<option  value="1930">19:30</option> -->
+<!-- 											<option  value="2000">20:00</option> -->
+<!-- 											<option  value="2030">20:30</option> -->
+<!-- 										</select> -->
+<!-- 									</div> -->
 
-								<div class="form-group row form-inline">
-									<div class="col">
-										<span>營業日 :</span> <select name="dayOfWeek" id="dayOfWeek"
-											class="form-control">
-											<option>星期一</option>
-											<option>星期二</option>
-											<option>星期三</option>
-											<option>星期四</option>
-											<option>星期五</option>
-											<option>星期六</option>
-											<option>星期日</option>
-										</select>
-									</div>
-									<div class="col">
-										<!-- 開店時間： -->
-										<span>開店時間 :</span> <select id="openTime"
-											name="openTime[dayOfWeek]" class="form-control">
-											<option selected="selected">9:00</option>
-											<option>9:30</option>
-											<option>10:00</option>
-											<option>10:30</option>
-											<option>11:00</option>
-											<option>10:30</option>
-											<option>12:00</option>
-											<option>10:30</option>
-											<option>13:00</option>
-											<option>13:30</option>
-											<option>14:00</option>
-											<option>14:30</option>
-											<option>15:00</option>
-											<option>15:30</option>
-											<option>16:00</option>
-											<option>16:30</option>
-											<option>17:00</option>
-											<option>17:30</option>
-											<option>18:00</option>
-											<option>18:30</option>
-											<option>19:00</option>
-											<option>19:30</option>
-											<option>20:00</option>
-											<option>20:30</option>
-										</select>
-									</div>
-
-									<div class="col">
-										<!-- 關店時間： -->
-										<span>關店時間 :</span> <select id="closeTime"
-											name="closeTime[dayOfWeek]" class="form-control">
-											<option selected="selected">9:30</option>
-											<option>10:00</option>
-											<option>10:30</option>
-											<option>11:00</option>
-											<option>10:30</option>
-											<option>12:00</option>
-											<option>10:30</option>
-											<option>13:00</option>
-											<option>13:30</option>
-											<option>14:00</option>
-											<option>14:30</option>
-											<option>15:00</option>
-											<option>15:30</option>
-											<option>16:00</option>
-											<option>16:30</option>
-											<option>17:00</option>
-											<option>17:30</option>
-											<option>18:00</option>
-											<option>18:30</option>
-											<option>19:00</option>
-											<option>19:30</option>
-											<option>20:00</option>
-											<option>20:30</option>
-											<option>21:00</option>
-										</select>
-									</div>
-									<div class="col">
-										<input type="hidden" name="action" value="businessChange">
-										<button class="btn btn-primary w-80">變更</button>
-									</div>
-								</div>
-						</div>
-						<!-- /.card-body -->
-					</div>
-					<!-- /.card -->
-					</form>
+<!-- 									<div class="col"> -->
+<!-- 										關店時間： -->
+<!-- 										<span>關店時間 :</span> <select id="closeTime" -->
+<!-- 											name="closeTime[dayOfWeek]" class="form-control"> -->
+<!-- 											<option selected="selected">9:30</option> -->
+<!-- 											<option>10:00</option> -->
+<!-- 											<option>10:30</option> -->
+<!-- 											<option>11:00</option> -->
+<!-- 											<option>10:30</option> -->
+<!-- 											<option>12:00</option> -->
+<!-- 											<option>10:30</option> -->
+<!-- 											<option>13:00</option> -->
+<!-- 											<option>13:30</option> -->
+<!-- 											<option>14:00</option> -->
+<!-- 											<option>14:30</option> -->
+<!-- 											<option>15:00</option> -->
+<!-- 											<option>15:30</option> -->
+<!-- 											<option>16:00</option> -->
+<!-- 											<option>16:30</option> -->
+<!-- 											<option>17:00</option> -->
+<!-- 											<option>17:30</option> -->
+<!-- 											<option>18:00</option> -->
+<!-- 											<option>18:30</option> -->
+<!-- 											<option>19:00</option> -->
+<!-- 											<option>19:30</option> -->
+<!-- 											<option>20:00</option> -->
+<!-- 											<option>20:30</option> -->
+<!-- 											<option>21:00</option> -->
+<!-- 										</select> -->
+<!-- 									</div> -->
+<!-- 									<div class="col"> -->
+<!-- 										<input type="hidden" name="action" value="businessChange"> -->
+<!-- 										<button class="btn btn-primary w-80">變更</button> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 						</div> -->
+<!-- 						/.card-body -->
+<!-- 					</div> -->
+<!-- 					/.card -->
+<!-- 					</form> -->
+					
+					<br>
+					<br>
 
 					<form
 						action="<%=request.getContextPath()%>/dinerbackground/pages/Team/dashboard/dinerInfo.do"
