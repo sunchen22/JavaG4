@@ -9,12 +9,13 @@
 <%@ page import="com.userorderdetail.entity.UserOrderDetail"%>
 <%@ page import="com.userorderdetailvary.entity.UserOrderDetailVary"%>
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@ include file="components/head.jsp"%>
 <%-- Import CSS for this page below (if any) --%>
 
 <%-- Remember to edit the page title --%>
-<title>樓頂揪樓咖-搜尋大樓揪團</title>
+<title>樓頂揪樓咖-大樓揪團列表</title>
 </head>
 
 <body>
@@ -25,31 +26,31 @@
 	<%-- Page content start --%>
 	<section class="container mt-5">
 		<!-- 1. Search bar start -->
-		<div class="search_bar">
-			<form action="*" method="get">
-				<div class="row col-11 mx-auto mb-3">
-					<div class="col-3">
+<!-- 		<div class="search_bar"> -->
+<%-- 			<form action="${pageContext.request.contextPath}/GroupOrder.do?action=searchGroupOrder" method="post"> --%>
+<!-- 				<div class="row col-11 mx-auto mb-3"> -->
+<!-- 					<div class="col-3"> -->
 
-						<input type="text" class="form-control input_keyword"
-							name="keyword" placeholder="輸入關鍵字">
+<!-- 						<input type="text" class="form-control input_keyword" -->
+<!-- 							name="keyword" placeholder="輸入商家名稱關鍵字"> -->
 
-					</div>
-					<div class="col-8">
-						<div class="input-group">
-							<input type="text" class="form-control input_address"
-								name="address" placeholder="輸入地址"> <a
-								class="btn btn-outline-secondary" title="清除"><i
-								class="fa-solid fa-xmark"></i></a> <a
-								class="btn btn-outline-secondary" title="使用我的定位"><i
-								class="fa-solid fa-location-dot"></i></a> <a
-								class="btn btn-outline-secondary" title="使用我的常用大樓"><i
-								class="fa-solid fa-building"></i></a>
-						</div>
-					</div>
-					<button class="col-1 btn btn-dark" type="button" id="btn_search">搜尋</button>
-				</div>
-			</form>
-		</div>
+<!-- 					</div> -->
+<!-- 					<div class="col-8"> -->
+<!-- 						<div class="input-group"> -->
+<!-- 							<input type="text" class="form-control input_address" -->
+<!-- 								name="address" placeholder="輸入大樓地址關鍵字">  -->
+<!-- 								<a class="btn btn-outline-secondary" title="清除"><i -->
+<!-- 								class="fa-solid fa-xmark"></i></a> <a -->
+<!-- 								class="btn btn-outline-secondary" title="使用我的定位"><i -->
+<!-- 								class="fa-solid fa-location-dot"></i></a> <a -->
+<!-- 								class="btn btn-outline-secondary" title="使用我的常用大樓"><i -->
+<!-- 								class="fa-solid fa-building"></i></a> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 					<button class="col-1 btn btn-dark" type="submit" id="btn_search">搜尋</button> -->
+<!-- 				</div> -->
+<!-- 			</form> -->
+<!-- 		</div> -->
 		<!-- 1. Search bar end -->
 
 		<!-- 2. Tabs and contents start -->
@@ -74,7 +75,7 @@
 			<!-- 2.2 Contents start -->
 <!-- 			<div class="tab-content" id="nav_tab_content"> -->
 				<!-- 2.2.1.1 Search result area start -->
-				搜尋大樓揪團
+				大樓揪團列表
 				<div class="row">
 					<!-- 2.2.1.1.1 Left content start -->
 <!-- 					<div class="col-3"> -->
@@ -124,7 +125,7 @@
 					<!-- 2.2.1.1.1 Left content end -->
 
 					<!-- 2.2.1.1.2 Right content start-->
-					<div class="col-9">
+					<div class="col-8">
 
 						<!-- Count and sort start -->
 						<div class="d-flex align-items-center justify-content-between">
@@ -157,33 +158,31 @@
 						<div class="mt-3" id="group_order_results">
 							<!-- Card start -->
 
-							<c:forEach var="groupOrderVO" items="${list}">
+							<c:forEach var="groupOrder" items="${groupOrderList}">
 								<div class="card">
 									<div class="row g-0 align-items-center">
 										<div class="col-4 ">
-											<img
-												src="https://images.pexels.com/photos/2725744/pexels-photo-2725744.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1260&amp;h=750&amp;dpr=1"
-												class="card-img" alt="...">
+											<img src="${pageContext.request.contextPath}/GroupOrderDinerImage?entity=GroupOrder&id=${groupOrder.groupOrderID}" class="card-img" alt="...">
 										</div>
 										<div class="col-8">
 											<div class="card-body">
-												<h5 class="card-title">buildingID:
-													${groupOrderVO.buildingID}</h5>
+												<h5 class="card-title">${groupOrder.buildingName}</h5>
 												<ul class="list-unstyled card-text">
-													<li>大樓地址：台北市中山區南京東路三段219號</li>
-													<li>dinerID: ${groupOrderVO.dinerID}</li>
-													<li class="list-inline-item"><span
-														class="badge fs-6 rounded-pill bg-secondary"><i
-															class="fa-solid fa-utensils"></i></span></li>
-													<li class="list-inline-item"><span
-														class="badge fs-6 rounded-pill bg-secondary"><i
-															class="fa-solid fa-star"></i>4.5</span></li>
-													<li>holderID: ${groupOrderVO.holderID}</li>
-													<li class="list-inline-item">成團條件：1500元</li>
-													<li class="list-inline-item">成團狀態：尚未達成</li>
-													<li>付款截止時間：今日11:30</li>
-													<div class="d-flex justify-content-end">
-														<a class="btn btn-dark">加入此大樓揪團</a>
+													<li>大樓地址：${groupOrder.buildingAddress}</li>
+													<li>商家：${groupOrder.dinerName}</li>
+													<li class="list-inline-item"><span class="badge fs-6 rounded-pill bg-secondary">
+				
+													${groupOrder.dinerType == 'M' ? '<i class="fa-solid fa-utensils"></i>' : (groupOrder.dinerType=='D' ? '<i class="fa-solid fa-mug-saucer"></i>' : '<i class="fa-solid fa-utensils"></i><i class="fa-solid fa-mug-saucer"></i>')}
+													</span>
+													</li>
+													<li class="list-inline-item"><span class="badge fs-6 rounded-pill bg-secondary"><i class="fa-solid fa-star"></i>${groupOrder.dinerRating}</span>
+													</li><li>主揪：${groupOrder.userNickName}</li>
+													<li class="list-inline-item">目前總金額：${groupOrder.groupTotalPrice}元 </li>
+													<li class="list-inline-item">成團條件：${groupOrder.dinerOrderThreshold}元 </li>
+													<li class="list-inline-item">成團狀態：${groupOrder.orderStatus=='1'? '未達成團條件' : '已達成團條件'}</li>
+													<fmt:formatDate value="${groupOrder.groupOrderSubmitTime}" pattern="yyyy-MM-dd HH:mm:ss" var="groupOrderSubmitTimeFormatted" />
+													<li>付款截止時間：${groupOrderSubmitTimeFormatted}</li>
+													<div class="d-flex justify-content-end"><a class="btn btn-dark" href="${pageContext.request.contextPath}/GroupOrder.do?action=getOne&groupOrderID=${groupOrder.groupOrderID}">查看大樓揪團詳情</a>
 													</div>
 												</ul>
 											</div>
@@ -234,7 +233,6 @@
 
 	<%@ include file="./components/tail.jsp"%>
 	<%-- Import JS for this page below (if any) --%>
-	<script src="${pageContext.request.contextPath}/consumer/js/searchGroupOrder.js"></script>
 
 </body>
 </html>

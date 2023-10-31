@@ -3,8 +3,9 @@
 <%@ page import="com.webempadmin.model.*"%>
 <%@ page import="java.util.*"%>
 
-<% //見com.emp.controller.EmpServlet.java第163行存入req的empVO物件 (此為從資料庫取出的empVO, 也可以是輸入格式有錯誤時的empVO物件)
-   WebempadminVO empVO = (WebempadminVO)request.getAttribute("empVO");
+<%
+//見com.emp.controller.EmpServlet.java第163行存入req的empVO物件 (此為從資料庫取出的empVO, 也可以是輸入格式有錯誤時的empVO物件)
+WebempadminVO empVO = (WebempadminVO) request.getAttribute("empVO");
 %>
 
 <!DOCTYPE html>
@@ -25,7 +26,8 @@
 <link rel="stylesheet"
 	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 <!-- Theme style -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/background/dist/css/adminlte.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/background/dist/css/adminlte.min.css">
 <!-- daterange picker -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/background/plugins/daterangepicker/daterangepicker.css">
@@ -91,7 +93,8 @@
 			<!-- Right navbar links -->
 			<ul class="navbar-nav ml-auto">
 
-				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/background/pages/index3.jsp" 
+				<li class="nav-item"><a class="nav-link"
+					href="${pageContext.request.contextPath}/background/pages/index3.jsp"
 					role="button"> <i class="fas fa-home"></i>
 				</a></li>
 
@@ -106,110 +109,115 @@
 
 		<!-- Main Sidebar Container -->
 
- <!-- 引入側邊欄 -->
-<%@ include  file="pageaside.file" %>
+		<!-- 引入側邊欄 -->
+		<%@ include file="pageaside.file"%>
 
-				</nav>
-				<!-- /.sidebar-menu -->
-			</div>
-			<!-- /.sidebar -->
-		</aside>
+		</nav>
+		<!-- /.sidebar-menu -->
+	</div>
+	<!-- /.sidebar -->
+	</aside>
 
-		<!-- Content Wrapper. Contains page content -->
-		<div class="content-wrapper">
-			<!-- Content Header (Page header) -->
-			<section class="content-header">
-				<div class="container-fluid">
-					<div class="row mb-2">
-						<div class="col-sm-6">
-							<h1></h1>
-						</div>
-
+	<!-- Content Wrapper. Contains page content -->
+	<div class="content-wrapper">
+		<!-- Content Header (Page header) -->
+		<section class="content-header">
+			<div class="container-fluid">
+				<div class="row mb-2">
+					<div class="col-sm-6">
+						<h1></h1>
 					</div>
+
 				</div>
-				<!-- /.container-fluid -->
-			</section>
+			</div>
+			<!-- /.container-fluid -->
+		</section>
 
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
+		<%-- 錯誤表列 --%>
+		<c:if test="${not empty errorMsgs}">
+			<font style="color: red">請修正以下錯誤:</font>
+			<ul>
+				<c:forEach var="message" items="${errorMsgs}">
+					<li style="color: red">${message}</li>
+				</c:forEach>
+			</ul>
+		</c:if>
 
-			<!-- Main content -->
-			<!-- general form elements -->
-			<section class="content">
-				<div class="col-md-6">
-					<div class="card card-warning">
-						<div class="card-header">
-							<h3 class="card-title">
-								<i class="fa fa-id-card"></i>&nbsp;修改管理者資料
-							</h3>
-						</div>
-						<!-- /.card-header -->
-						<FORM METHOD="post" ACTION="emp.do" name="form1" enctype="multipart/form-data">
-							<div class="card-body" style="padding-bottom: 5px;">
-								<div class="form-group">
-									<label>員工編號(員工帳號)：</label>
-									 <label class="form-control " readonly="readonly"><%=empVO.getEmpID()%></label>
-								</div>
+		<!-- Main content -->
+		<!-- general form elements -->
+		<section class="content">
+			<div class="col-md-6">
+				<div class="card card-warning">
+					<div class="card-header">
+						<h3 class="card-title">
+							<i class="fa fa-id-card"></i>&nbsp;修改管理者資料
+						</h3>
+					</div>
+					<!-- /.card-header -->
+					<FORM METHOD="post" ACTION="emp.do" name="form1"
+						enctype="multipart/form-data">
+						<div class="card-body" style="padding-bottom: 5px;">
+							<div class="form-group">
+								<label>員工編號(員工帳號)：</label> <label class="form-control "
+									readonly="readonly"><%=empVO.getEmpID()%></label>
+							</div>
 
-								<div class="form-group">
-									<label>員工姓名</label> 
-									<input type="text" class="form-control" id="exampleInputBorder" name="empName" value="<%=empVO.getEmpName()%>">
-								</div>
-						
-								<div class="form-group">
-									<label>密碼 </label> <input type="password" class="form-control" name="empPassword" id="exampleInputRounded0" 
-										value="<%= empVO.getEmpPassword()%>">
-								</div>
-								
-								<div class="form-group">
-										<label>員工大頭照</label> <br> 
-										<input type="file" name="empBlob" id="p_file">
-										<div id="preview">
-											<img src="<%= request.getContextPath()%>/pages/emp.photo?empID=${empVO.empID}">
-										</div>
-								</div>
+							<div class="form-group">
+								<label>員工姓名</label> <input type="text" class="form-control"
+									id="empName" name="empName" value="<%=empVO.getEmpName()%>">
+							</div>
 
-								<div class="form-group">
-									<label>到職時間</label>
-									<div class="input-group date">
-										<input class="form-control" name="empArriveDate"  readonly="readonly" value="<%=empVO.getEmpArriveDate()%>">
-									</div>
-								</div>
+							<div class="form-group">
+								<label>密碼 </label> <input type="password" class="form-control"
+									name="empPassword" id="exampleInputRounded0"
+									value="<%=empVO.getEmpPassword()%>">
+							</div>
 
-								<div class="form-group">
-									<label for="exampleSelectBorder">權限等級</label>
-									<select name="empAdminAuthorization">
+							<div class="form-group">
+								<label>員工大頭照</label> <br> <input type="file" name="empBlob"
+									id="p_file">
+								<div id="preview">
+									<img
+										src="<%= request.getContextPath()%>/pages/emp.photo?empID=${empVO.empID}">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label>到職時間</label>
+								<div class="input-group date">
+									<input class="form-control" name="empArriveDate"
+										readonly="readonly" value="<%=empVO.getEmpArriveDate()%>">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="exampleSelectBorder">權限等級</label> <select
+									name="empAdminAuthorization">
 									<option value="staff"
 										${(empVO.empAdminAuthorization == 'staff') ? 'selected' : ''}>職員</option>
 									<option value="manager"
 										${(empVO.empAdminAuthorization == 'manager') ? 'selected' : ''}>經理</option>
-									</select>
-
-								</div>
+								</select>
 
 							</div>
-							<!-- /.card-body -->
-							<div class="card-footer" style="text-align: center; padding-top: 5px; display : inline-block ; justify-content:center">
-								<input type="hidden" name="action" value="update"> 
-								<input type="hidden" name="empID" value="<%=empVO.getEmpID()%>">
-								<input type="submit" value="送出修改" class="btn btn-warning">
-							</div>
-							<div style="display : inline-block; justify-content:center">
-								<button type="submit" class="btn btn-warning">取消</button>
-							</div>
-						</FORM>
-					
-					
+
+						</div>
+						<!-- /.card-body -->
+						<div class="card-footer"
+							style="text-align: center; padding-top: 5px; display: inline-block; justify-content: center">
+							<input type="hidden" name="action" value="update"> <input
+								type="hidden" name="empID" value="<%=empVO.getEmpID()%>">
+							<input type="submit" value="送出修改" class="btn btn-warning">
+						</div>
+						<div style="display: inline-block; justify-content: center">
+							<button type="submit" class="btn btn-warning">取消</button>
+						</div>
+					</FORM>
+
+
 				</div>
 				<!-- /.card -->
-		</div>
+			</div>
 		</section>
 
 
@@ -237,19 +245,25 @@
 
 	<!-- REQUIRED SCRIPTS -->
 	<!-- jQuery -->
-	<script src="${pageContext.request.contextPath}/background/plugins/jquery/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/background/plugins/jquery/jquery.min.js"></script>
 	<!-- Bootstrap 4 -->
-	<script src="${pageContext.request.contextPath}/background/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/background/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<!-- Select2 -->
-	<script src="${pageContext.request.contextPath}/background/plugins/select2/js/select2.full.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/background/plugins/select2/js/select2.full.min.js"></script>
 	<!-- Bootstrap4 Duallistbox -->
 	<script
 		src="${pageContext.request.contextPath}/background/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
 	<!-- InputMask -->
-	<script src="${pageContext.request.contextPath}/background/plugins/moment/moment.min.js"></script>
-	<script src="${pageContext.request.contextPath}/background/plugins/inputmask/jquery.inputmask.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/background/plugins/moment/moment.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/background/plugins/inputmask/jquery.inputmask.min.js"></script>
 	<!-- date-range-picker -->
-	<script src="${pageContext.request.contextPath}/background/plugins/daterangepicker/daterangepicker.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/background/plugins/daterangepicker/daterangepicker.js"></script>
 	<!-- bootstrap color picker -->
 	<script
 		src="${pageContext.request.contextPath}/background/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
@@ -257,12 +271,14 @@
 	<script
 		src="${pageContext.request.contextPath}/background/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 	<!-- Bootstrap Switch -->
-	<script src="${pageContext.request.contextPath}/background/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/background/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 	<!-- AdminLTE App -->
-	<script src="${pageContext.request.contextPath}/background/dist/js/adminlte.min.js"></script>
-	
- <!-- 引入selfjs -->
-<%@ include  file="pagejs.file" %>
+	<script
+		src="${pageContext.request.contextPath}/background/dist/js/adminlte.min.js"></script>
+
+	<!-- 引入selfjs -->
+	<%@ include file="pagejs.file"%>
 
 
 
@@ -435,18 +451,21 @@
 
 
 
-<!-- 員工圖片預覽圖 -->
+	<!-- 員工圖片預覽圖 -->
 	<script>
-	var preview_el = document.getElementById("preview");
-	var p_file_el = document.getElementById("p_file");
+		var preview_el = document.getElementById("preview");
+		var p_file_el = document.getElementById("p_file");
 
 		var preview_img = function(file) {
 			var reader = new FileReader(); // 用來讀取檔案
 			reader.readAsDataURL(file); // 讀取檔案
-			reader.addEventListener("load",function() {
-			let img_str = '<img src="' + reader.result + '" class="preview_img">';
-			preview_el.innerHTML = img_str;
-			});
+			reader
+					.addEventListener(
+							"load",
+							function() {
+								let img_str = '<img src="' + reader.result + '" class="preview_img">';
+								preview_el.innerHTML = img_str;
+							});
 		};
 
 		p_file_el.addEventListener("change", function(e) {
@@ -458,7 +477,30 @@
 		});
 	</script>
 
-
+	<!-- 姓名重複驗證 -->
+	<script>
+		$(document).ready(function() {
+			$('#empName').on('focusout', function() {
+				var empName = $(this).val();
+				$.ajax({
+					url : "EmpNameServlet",
+					type : "POST",
+					data : {
+						"empName" : empName
+					},
+					dataType : "json",
+					success: function (repeatName) {
+	                    if (repeatName === "true") {
+	                        alert("重複姓名，請確認！");
+	                    }
+	                },
+					error : function(xhr, ajaxOptions, thrownError) {
+						
+					}
+				});
+			});
+		});
+	</script>
 
 
 </body>

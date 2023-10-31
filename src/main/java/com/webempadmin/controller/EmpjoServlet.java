@@ -289,6 +289,14 @@ req.setAttribute("empVO", empVO);
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 		}
+		
+		//取消
+		if ("cancel".equals(action)) {
+			String url = "/background/pages/adm_men.jsp"; // 指定的頁面路徑
+            RequestDispatcher dispatcher = req.getRequestDispatcher(url);
+            dispatcher.forward(req, res);
+		}
+		
 	}
 	
 	
