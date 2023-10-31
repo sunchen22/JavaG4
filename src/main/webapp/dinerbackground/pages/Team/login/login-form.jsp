@@ -96,7 +96,7 @@ DinerInfo dinerInfo = (DinerInfo) request.getAttribute("dinerInfo");
 				<!-- /.social-auth-links -->
 
 				<p class="mb-1">
-					<a href="${pageContext.request.contextPath}/dinerbackground/pages/Team/login/forgot-password.jsp">忘記密碼</a>
+					<a href="${pageContext.request.contextPath}/dinerbackground/pages/Team/login/forget-password.jsp">忘記密碼</a>
 				</p>
 				<p class="mb-0">
 					<a href="${pageContext.request.contextPath}/dinerbackground/pages/Team/register/register-form.jsp" class="text-center">還沒有帳戶?立即註冊~</a>
