@@ -205,7 +205,7 @@
   
   <form  method="post" action ="<%=request.getContextPath()%>/cproject/pages/difs.do">
   <button type="submit" id="payment" class="btn btn-warning" style="font-weight: bold; margin-left: 5px;">
-    金流報表</button>
+    金流圖表</button>
   	<input type="hidden" name="action" value="go_for_payment">
     <input type="hidden" name="dinerID" value="<%= dif.getDinerID()%>">
   </form>
