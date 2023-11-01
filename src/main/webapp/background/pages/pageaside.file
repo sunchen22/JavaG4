@@ -94,7 +94,7 @@
 								</a></li>
 								<li class="nav-item"><a href="<%=request.getContextPath()%>/cproject/pages/mer_payment.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
-										<p>金流報表</p>
+										<p>金流圖表</p>
 								</a></li>
 								<li class="nav-item"><a href="<%=request.getContextPath()%>/cproject/pages/mer_ad.jsp"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
