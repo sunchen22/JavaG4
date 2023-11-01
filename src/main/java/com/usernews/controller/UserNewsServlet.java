@@ -180,7 +180,7 @@ public class UserNewsServlet extends HttpServlet {
 
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("usernews", usernews);
-					RequestDispatcher failureView = req.getRequestDispatcher("/background/pages/adm_men_add.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/background/pages/mem_news_add.jsp");
 					failureView.forward(req, res);
 					return;
 				}
