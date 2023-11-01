@@ -21,7 +21,7 @@
         <p>進入後開始點餐吧！</p>
         <form action="${pageContext.request.contextPath}/user.do" method="post">
           <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="請輸入帳號Email" name="userAccount">
+            <input type="email" class="form-control" placeholder="請輸入帳號Email" name="userAccount">
             <div class="input-group-append">
               <div class="input-group-text h-100">
                 <span class="fas fa-envelope"></span>

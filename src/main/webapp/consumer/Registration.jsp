@@ -53,7 +53,7 @@ pageContext.setAttribute("buildingList", buildingList);
 				<div class="row mb-3">
 					<label for="userAccount_input" class="col-form-label col-md-3">帳號Mail：</label>
 					<div class="col-md-9">
-						<input type="text" class="form-control" id="userAccount_input"
+						<input type="email" class="form-control" id="userAccount_input"
 							placeholder="請輸入email" maxlength="50" name="userAccount">
 					</div>
 				</div>

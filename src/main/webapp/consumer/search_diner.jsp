@@ -179,7 +179,7 @@
 													<li class="list-inline-item"><span
 														class="badge fs-6 rounded-pill bg-secondary"><i
 															class="fa-solid fa-star"></i><%= formattedRating %></span></li>
-													<li>外送大樓：宏春、揚昇金融</li>
+													<li>外送大樓：南方之星、遠雄、巨蛋、緯育、松山</li>
 													<li>成團條件：<%= diner.getDinerOrderThreshold() %>元</li>
 													<li>營業時間內接單後1小時內送達</li>
 													<li>地址：<%= diner.getDinerAddress() %></li>
